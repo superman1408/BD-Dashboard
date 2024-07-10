@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Server to connect to the client",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superman1408/BD-Dashboard.git"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "IT-Department",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/superman1408/BD-Dashboard/issues"
+  },
+  "homepage": "https://github.com/superman1408/BD-Dashboard#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
