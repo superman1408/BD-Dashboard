@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
+import Authentication from "./components/Authentication/Auth";
+import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
+import Navbar from "./components/Navbar/Navbar";
+import { Container } from "@mui/material";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <BrowserRouter>
+      <header>
+        <div
+          style={{
+            display: {
+              xs: "0",
+              sm: "600",
+            },
+            justifyContent: "space-evenly",
+            padding: "10px",
+          }}
         >
-          Learn React
-        </a>
+          <img src={LOGO} alt="logo" style={{ width: "185px" }} />
+        </div>
+        {/* )} */}
       </header>
-    </div>
+
+      {/* <div>
+        <Routes>
+          <Route path="/" exact element={<Authentication />} />
+        </Routes>
+      </div> */}
+
+      <div className="wave"></div>
+      <div className="wave"></div>
+      <div className="wave"></div>
+      <div>
+        <footer
+          style={{
+            backgroundColor: "#17325C",
+            fontFamily: "Roboto",
+            color: "white",
+            width: "100%",
+            marginTop: "5px",
+            textAlign: "center",
+          }}
+        >
+          ©️ 2023 ASHKAM ENERGY PRIVATE LIMITED. All rights reserved.
+        </footer>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
