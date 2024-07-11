@@ -25,11 +25,12 @@ const App = () => {
         {/* )} */}
       </header>
 
-      {/* <div>
+      {/* <Navbar /> */}
+      <div>
         <Routes>
           <Route path="/" exact element={<Authentication />} />
         </Routes>
-      </div> */}
+      </div>
 
       <div className="wave"></div>
       <div className="wave"></div>
