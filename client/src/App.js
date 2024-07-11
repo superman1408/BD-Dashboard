@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Authentication from "./components/Authentication/Auth";
+import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
 import { Container } from "@mui/material";
@@ -26,11 +27,15 @@ const App = () => {
       </header>
 
       {/* <Navbar /> */}
-      <div>
-        <Routes>
-          <Route path="/" exact element={<Authentication />} />
-        </Routes>
-      </div>
+
+      <Container maxWidth={false}>
+        <div>
+          <Routes>
+            <Route path="/" exact element={<Authentication />} />
+            <Route path="/auth/reset" exact element={<PasswordResetForm />} />
+          </Routes>
+        </div>
+      </Container>
 
       <div className="wave"></div>
       <div className="wave"></div>
