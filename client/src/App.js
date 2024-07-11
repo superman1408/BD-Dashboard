@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Authentication from "./components/Authentication/Auth";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 const App = () => {
   return (
@@ -25,11 +25,13 @@ const App = () => {
         {/* )} */}
       </header>
 
-      {/* <div>
+      <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography>
+
+      <div>
         <Routes>
           <Route path="/" exact element={<Authentication />} />
         </Routes>
-      </div> */}
+      </div>
 
       <div className="wave"></div>
       <div className="wave"></div>
