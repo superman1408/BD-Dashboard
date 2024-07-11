@@ -27,6 +27,7 @@ const App = () => {
 
       <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography>
 
+      {/* <Navbar /> */}
       <div>
         <Routes>
           <Route path="/" exact element={<Authentication />} />
