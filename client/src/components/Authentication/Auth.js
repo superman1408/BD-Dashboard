@@ -105,7 +105,7 @@ const Auth = () => {
           <h3 style={{ fontFamily: "Roboto ", color: "#16355d" }}>
             {isSignUp ? "Sign Up" : "Sign In"}
           </h3>
-          {/* <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography> */}
+          {/* <Typography color="#0B7882"> Welcome to Ashkam 👋 </Typography> */}
 
           <form autoComplete="on" onSubmit={handleSubmit}>
             {isSignUp && (
