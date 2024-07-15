@@ -45,11 +45,14 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignUp) {
-      dispatch(signup(formData, code, navigate));
-      // console.log(code);
+      dispatch(signup(formData, navigate));
     } else {
       dispatch(signin(formData, navigate));
     }
+
+    console.log(formData);
+
+    navigate("/dashboard", { replace: true });
   };
 
   const switchMode = () => {

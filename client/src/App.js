@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { Container, Typography } from "@mui/material";
 import Authentication from "./components/Authentication/Auth";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import { Container, Typography } from "@mui/material";
+import Dashboard from "./components/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -31,6 +32,9 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/" exact element={<Authentication />} />
+        </Routes>
+        <Routes>
+          <Route path="/dashboard" exact element={<Dashboard />} />
         </Routes>
       </div>
 
