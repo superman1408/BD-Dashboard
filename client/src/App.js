@@ -33,8 +33,7 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/" exact element={<Authentication />} />
-        </Routes>
-        <Routes>
+          <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           <Route path="/dashboard" exact element={<Dashboard />} />
         </Routes>
       </div>

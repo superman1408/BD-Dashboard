@@ -18,7 +18,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
 
     // toast coding for error message
     toast.error("Invalid Credentials, Please try Again Later...!!", {
-      // position: toast.POSITION.TOP_CENTER,  
+      // position: toast.POSITION.TOP_CENTER,
     });
   }
 };
@@ -36,3 +36,18 @@ export const signup = (formData, code, navigate) => async (dispatch) => {
     });
   }
 };
+
+export const resetPassword =
+  (passwordForm, code, navigate) => async (dispatch) => {
+    console.log("I will try to reset your password..!!");
+
+    try {
+      const { data } = await API.passwordReset(passwordForm, code).then(() => {
+        dispatch({ type: AUTH, data }).then(() => {
+          navigate("/auth", { replace: true });
+        });
+      });
+    } catch (error) {
+      console.log("Error occure in action section in frontend : ", error);
+    }
+  };
