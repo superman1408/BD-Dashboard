@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { Container, Typography } from "@mui/material";
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import { Container } from "@mui/material";
+import Dashboard from "./components/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -26,16 +27,17 @@ const App = () => {
         {/* )} */}
       </header>
 
-      {/* <Navbar /> */}
+      <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography>
 
-      <Container maxWidth={false}>
-        <div>
-          <Routes>
-            <Route path="/" exact element={<Authentication />} />
-            <Route path="/auth/reset" exact element={<PasswordResetForm />} />
-          </Routes>
-        </div>
-      </Container>
+      {/* <Navbar /> */}
+      <div>
+        <Routes>
+          <Route path="/" exact element={<Authentication />} />
+        </Routes>
+        <Routes>
+          <Route path="/dashboard" exact element={<Dashboard />} />
+        </Routes>
+      </div>
 
       <div className="wave"></div>
       <div className="wave"></div>
