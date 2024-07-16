@@ -18,7 +18,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
 
     // toast coding for error message
     toast.error("Invalid Credentials, Please try Again Later...!!", {
-      // position: toast.POSITION.TOP_CENTER,
+      position: "top-center",
     });
   }
 };
@@ -33,6 +33,7 @@ export const signup = (formData, code, navigate) => async (dispatch) => {
     console.log(error);
     toast.error("Invalid Credentials, Please try Again Later...!!", {
       // position: toast.POSITION.TOP_CENTER,
+      position: "top-center",
     });
   }
 };
