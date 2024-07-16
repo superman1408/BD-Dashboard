@@ -18,21 +18,22 @@ export const signin = (formData, navigate) => async (dispatch) => {
 
     // toast coding for error message
     toast.error("Invalid Credentials, Please try Again Later...!!", {
-      // position: toast.POSITION.TOP_CENTER,
+      position: "top-center",
     });
   }
 };
 
-export const signup = (formData, code, navigate) => async (dispatch) => {
+export const signup = (formData, navigate) => async (dispatch) => {
   try {
     // signUp block
-    const { data } = await API.signUp(formData, code);
+    const { data } = await API.signUp(formData);
     dispatch({ type: AUTH, data });
     navigate("/dashboard", { replace: true });
   } catch (error) {
     console.log(error);
     toast.error("Invalid Credentials, Please try Again Later...!!", {
       // position: toast.POSITION.TOP_CENTER,
+      position: "top-center",
     });
   }
 };

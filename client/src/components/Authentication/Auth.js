@@ -49,10 +49,6 @@ const Auth = () => {
     } else {
       dispatch(signin(formData, navigate));
     }
-
-    console.log(formData);
-
-    navigate("/dashboard", { replace: true });
   };
 
   const switchMode = () => {
