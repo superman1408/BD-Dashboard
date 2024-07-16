@@ -56,7 +56,7 @@ export default function MenuAppBar() {
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup> */}
-      <AppBar position="static" color="primary">
+      <AppBar position="static" sx={{ bgcolor: "#17325c" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -71,7 +71,7 @@ export default function MenuAppBar() {
             Navbar
           </Typography>
           {auth && (
-            <div>
+            <div>                                               
               <IconButton
                 size="large"
                 aria-label="account of current user"
