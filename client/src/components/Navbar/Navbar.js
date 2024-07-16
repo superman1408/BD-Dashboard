@@ -1,4 +1,10 @@
 import * as React from "react";
+
+import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import { LOGOUT } from "../../constants/actionTypes";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,6 +19,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
 export default function MenuAppBar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -26,6 +34,12 @@ export default function MenuAppBar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const switchMode = () => {
+    // setUser(null);
+    dispatch({ type: LOGOUT });
+    navigate("/");
   };
 
   return (
@@ -84,7 +98,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={switchMode}>Logout</MenuItem>
               </Menu>
             </div>
           )}
