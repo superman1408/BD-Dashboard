@@ -23,10 +23,10 @@ export const signin = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const signup = (formData, code, navigate) => async (dispatch) => {
+export const signup = (formData, navigate) => async (dispatch) => {
   try {
     // signUp block
-    const { data } = await API.signUp(formData, code);
+    const { data } = await API.signUp(formData);
     dispatch({ type: AUTH, data });
     navigate("/dashboard", { replace: true });
   } catch (error) {
