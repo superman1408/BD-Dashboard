@@ -81,7 +81,19 @@ export default function MenuAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="primary">
+      {/* <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={auth}
+              onChange={handleChange}
+              aria-label="login switch"
+            />
+          }
+          label={auth ? 'Logout' : 'Login'}
+        />
+      </FormGroup> */}
+      <AppBar position="static" sx={{ bgcolor: "#17325c" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -99,8 +111,15 @@ export default function MenuAppBar() {
             Navbar
           </Typography>
           {auth && (
-            <div>
-              <IconButton size="large" onClick={handleMenu} color="inherit">
+            <div>                                               
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
                 <AccountCircle />
               </IconButton>
               <Menu
