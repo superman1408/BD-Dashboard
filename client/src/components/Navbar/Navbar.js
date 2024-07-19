@@ -111,7 +111,7 @@ export default function MenuAppBar() {
             Navbar
           </Typography>
           {auth && (
-            <div>                                               
+            <div>
               <IconButton
                 size="large"
                 aria-label="account of current user"
