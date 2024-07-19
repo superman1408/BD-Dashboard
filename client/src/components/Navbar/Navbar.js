@@ -1,7 +1,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LOGOUT } from "../../constants/actionTypes";
 
@@ -23,9 +23,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
+
 import MenuItem from "@mui/material/MenuItem";
 // import Menu from "@mui/material/Menu";
 
@@ -35,16 +33,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Badge from "@mui/material/Badge";
+// import NotificationsIcon from "@mui/icons-material/Notifications";
+// import Badge from "@mui/material/Badge";
 import { useTheme } from "@emotion/react";
-
-const menuItems = [
-  { text: "Dashboard", icon: <DashboardIcon /> },
-  { text: "Inbox", icon: <MailIcon /> },
-  { text: "Profile", icon: <PeopleAltIcon /> },
-  { text: "Logout", icon: <LogoutIcon /> },
-];
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -81,6 +72,13 @@ export default function MenuAppBar() {
     navigate("/");
   };
 
+  const menuItems = [
+    { text: "Dashboard", icon: <DashboardIcon /> },
+    { text: "Inbox", icon: <MailIcon /> },
+    { text: "Profile", icon: <PeopleAltIcon /> },
+    { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
+  ];
+
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
@@ -92,9 +90,9 @@ export default function MenuAppBar() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={item.onClick}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
@@ -134,7 +132,6 @@ export default function MenuAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Navbar
           </Typography>
-          <search></search>
           {auth && (
             <div>
               {/* <IconButton
