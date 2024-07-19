@@ -19,7 +19,7 @@ const App = () => {
               sm: "600",
             },
             justifyContent: "space-evenly",
-            padding: "10px",
+            padding: "10px 0px 0px 10px",
           }}
         >
           <img src={LOGO} alt="logo" style={{ width: "185px" }} />
@@ -27,7 +27,7 @@ const App = () => {
         {/* )} */}
       </header>
 
-      <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography>
+      {/* <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography> */}
 
       {/* <Navbar /> */}
       <div>
