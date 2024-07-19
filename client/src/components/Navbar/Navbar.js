@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -29,10 +29,34 @@ import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 // import Menu from "@mui/material/Menu";
 
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MailIcon from "@mui/icons-material/Mail";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Badge from "@mui/material/Badge";
+import { useTheme } from "@emotion/react";
+
+const menuItems = [
+  { text: "Dashboard", icon: <DashboardIcon /> },
+  { text: "Inbox", icon: <MailIcon /> },
+  { text: "Profile", icon: <PeopleAltIcon /> },
+  { text: "Logout", icon: <LogoutIcon /> },
+];
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 export default function MenuAppBar() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [auth, setAuth] = React.useState(true);
@@ -61,16 +85,18 @@ export default function MenuAppBar() {
     setOpen(newOpen);
   };
 
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {menuItems.map((item, index) => (
+          <ListItem key={item.text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -81,19 +107,7 @@ export default function MenuAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup> */}
-      <AppBar position="static" sx={{ bgcolor: "#17325c" }}>
+      <AppBar position="sticky" sx={{ bgcolor: "#17325C" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -104,14 +118,43 @@ export default function MenuAppBar() {
           >
             <MenuIcon onClick={toggleDrawer(true)} />
             <Drawer open={open} onClose={toggleDrawer(false)}>
+              <DrawerHeader>
+                <IconButton onClick={handleDrawerClose}>
+                  {theme.direction === "ltr" ? (
+                    <ChevronLeftIcon />
+                  ) : (
+                    <ChevronRightIcon />
+                  )}
+                </IconButton>
+              </DrawerHeader>
+              <Divider />
               {DrawerList}
             </Drawer>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Navbar
           </Typography>
+          <search></search>
           {auth && (
             <div>
+              {/* <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton> */}
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -138,6 +181,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My Account</MenuItem>
                 <MenuItem onClick={switchMode}>Logout</MenuItem>
               </Menu>
             </div>
