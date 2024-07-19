@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LOGOUT } from "../../constants/actionTypes";
 
