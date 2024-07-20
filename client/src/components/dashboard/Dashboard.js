@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import { Container, Typography } from "@mui/material";
 
+import "./style.css";
+
 const Dashboard = () => {
   return (
     <div>
