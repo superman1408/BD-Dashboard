@@ -7,7 +7,7 @@ import "./style.css";
 const Dashboard = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Container
         sx={{ display: "flex", justifyContent: "center", height: "400px" }}
       >

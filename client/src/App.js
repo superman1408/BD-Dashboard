@@ -8,6 +8,7 @@ import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Dashboard from "./components/dashboard/Dashboard";
 import Auth from "./components/Authentication/Auth";
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -29,7 +30,7 @@ const App = () => {
         </div>
         {/* )} */}
       </header>
-      {user ? (
+      {/* {user ? (
         <>
           <Typography>Apple</Typography>
         </>
@@ -54,11 +55,11 @@ const App = () => {
         >
           Please Login to your account
         </marquee>
-      )}
+      )} */}
 
       {/* <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography> */}
 
-      {/* <Navbar /> */}
+      <Navbar />
       <div>
         <Routes>
           {/* <Route path="/" exact element={<Front />} /> */}
@@ -93,3 +94,4 @@ const App = () => {
 };
 
 export default App;
+                 
