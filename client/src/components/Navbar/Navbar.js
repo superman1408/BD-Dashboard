@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -53,6 +53,8 @@ export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {});
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
