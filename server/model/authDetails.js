@@ -15,6 +15,7 @@ const authSchema = mongoose.Schema({
   confirmPassword: {
     type: String,
   },
+  
 });
 
 const AuthDetails = mongoose.model("AuthDetails", authSchema);
