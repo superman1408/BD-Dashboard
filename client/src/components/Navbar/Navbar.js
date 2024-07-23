@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-distracting-elements */
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
@@ -47,6 +48,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function MenuAppBar() {
+  const user = JSON.parse(localStorage.getItem("profile"));
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -104,87 +106,108 @@ export default function MenuAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="sticky" sx={{ bgcolor: "#17325C" }}>
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon onClick={toggleDrawer(true)} />
-            <Drawer open={open} onClose={toggleDrawer(false)}>
-              <DrawerHeader>
-                <IconButton onClick={handleDrawerClose}>
-                  {theme.direction === "ltr" ? (
-                    <ChevronLeftIcon />
-                  ) : (
-                    <ChevronRightIcon />
-                  )}
+    <>
+      {user ? (
+        <>
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="sticky" sx={{ bgcolor: "#17325C" }}>
+              <Toolbar>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                >
+                  <MenuIcon onClick={toggleDrawer(true)} />
+                  <Drawer open={open} onClose={toggleDrawer(false)}>
+                    <DrawerHeader>
+                      <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === "ltr" ? (
+                          <ChevronLeftIcon />
+                        ) : (
+                          <ChevronRightIcon />
+                        )}
+                      </IconButton>
+                    </DrawerHeader>
+                    <Divider />
+                    {DrawerList}
+                  </Drawer>
                 </IconButton>
-              </DrawerHeader>
-              <Divider />
-              {DrawerList}
-            </Drawer>
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Navbar
-          </Typography>
-          {auth && (
-            <div>
-              {/* <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge badgeContent={4} color="error">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton> */}
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My Account</MenuItem>
-                <MenuItem onClick={switchMode}>Logout</MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Navbar
+                </Typography>
+                {auth && (
+                  <div>
+                    {/* <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
+              <Badge badgeContent={4} color="error">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton> */}
+                    <IconButton
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={handleMenu}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={handleClose}>My Account</MenuItem>
+                      <MenuItem onClick={switchMode}>Logout</MenuItem>
+                    </Menu>
+                  </div>
+                )}
+              </Toolbar>
+            </AppBar>
+          </Box>
+        </>
+      ) : (
+        <div>
+          <marquee
+            style={{
+              color: "#ffffff",
+              fontFamily: "Roboto",
+              fontWeight: "bold",
+              backgroundColor: "#15345c",
+              padding: "5px",
+              minWidth: "390px",
+            }}
+          >
+            Please Login to your account
+          </marquee>
+        </div>
+      )}
+    </>
   );
 }
