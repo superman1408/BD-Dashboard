@@ -2,28 +2,28 @@ import mongoose from "mongoose";
 
 const projectSchema = mongoose.Schema({
   serialNo: {
-    type: String,
+    type: [String],
   },
   bidNo: {
-    type: String,
+    type: [String],
   },
   clientName: {
-    type: String,
+    type: [String],
   },
   opportunityDetail: {
-    type: String,
+    type: [String],
   },
   probability: {
-    type: String,
+    type: [String],
   },
   amount: {
-    type: String,
+    type: [String],
   },
   weightageAmount: {
-    type: String,
+    type: [String],
   },
   status: {
-    type: String,
+    type: [String],
   },
 });
 
