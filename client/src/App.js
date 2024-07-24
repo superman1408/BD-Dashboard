@@ -9,6 +9,7 @@ import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Dashboard from "./components/dashboard/Dashboard";
 import Auth from "./components/Authentication/Auth";
 import Navbar from "./components/Navbar/Navbar";
+import DataSheet from "./components/DataSheet/DataSheet";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -66,6 +67,7 @@ const App = () => {
           <Route path="/" exact element={<Authentication />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           <Route path="/dashboard" exact element={<Dashboard />} />
+          <Route path="/datasheet" exact element={<DataSheet />} />
         </Routes>
       </div>
 
@@ -94,4 +96,3 @@ const App = () => {
 };
 
 export default App;
-                 
