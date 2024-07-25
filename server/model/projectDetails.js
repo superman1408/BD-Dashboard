@@ -26,6 +26,6 @@ const projectSchema = mongoose.Schema({
     type: [String],
   },
 });
-
+ 
 const ProjectDetails = mongoose.model("ProjectDetails", projectSchema);
 export default ProjectDetails;
