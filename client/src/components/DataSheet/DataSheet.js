@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, CardHeader, Grid, Typography } from "@mui/material";
+import { Card, Grid } from "@mui/material";
+
+import { useDispatch } from "react-redux";
 import "./Style1.css";
 
 const DataSheet = () => {
-  const handleSubmit = () => {
-    console.log("submitted");
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+    serialNo: "",
+    bidNo: "",
+    clientName: "",
+    opportunityDetail: "",
+    probability: "",
+    amount: "",
+    weightageAmount: "",
+    status: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    // dispatch("/datasheet", formData);
   };
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -198,6 +216,7 @@ const DataSheet = () => {
                   type="text"
                   id="date"
                   required
+                  value={(formData.probability * formData.amount) / 100}
                 />
               </Grid>
               {/* </div> */}

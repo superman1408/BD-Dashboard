@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-import { Container, Typography } from "@mui/material";
+import { Card, Container, Typography } from "@mui/material";
 
 import "./style.css";
 
@@ -12,6 +12,10 @@ const Dashboard = () => {
         sx={{ display: "flex", justifyContent: "center", height: "400px" }}
       >
         <Typography variant="h5">Welcome to ASHKAM</Typography>
+        <Card sx={{ display: "flex", bgcolor: "white", alignItems: "end" }}>
+          <button>Entry</button>
+          <button>Details</button>
+        </Card>
       </Container>
     </div>
   );
