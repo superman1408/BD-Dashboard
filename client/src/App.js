@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar/Navbar";
 import DataSheet from "./components/DataSheet/DataSheet";
 import CardManager from "./components/dashboard/CardManager";
 import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
+import EntryDetails from "./components/EntryDetails/EntryDetails";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           <Route path="/cardmanager" exact element={<CardManager />} />
           <Route path="/datasheet" exact element={<DataSheet />} />
+          <Route path="/entrydetails" exact element={<EntryDetails />} />
           <Route
             path="/detailedprogress"
             exact
