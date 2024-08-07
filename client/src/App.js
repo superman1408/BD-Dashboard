@@ -60,8 +60,6 @@ const App = () => {
         </marquee>
       )} */}
 
-      {/* <Typography color="#0B7882">Welcome to Ashkam 👋 </Typography> */}
-
       <Navbar />
       <div>
         <Routes>
