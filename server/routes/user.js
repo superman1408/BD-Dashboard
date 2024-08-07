@@ -10,3 +10,17 @@ router.post("/signup", signup);
 
 export default router;
   
+
+// import java.util.*;
+// class demo7 {
+//     public static void main(String[] args)
+//     {
+//         Vector v = new Vector(30);
+//         v.addElement("Geeksforgeeks");
+//         v.addElement("Java");
+//         v.addElement("C++");
+//         v.addElement("C");
+//         v.addElement("Geeksforgeeks");
+//         System.out.println(v.indexOf("Geeksforgeeks", 2));
+//     }
+// }
