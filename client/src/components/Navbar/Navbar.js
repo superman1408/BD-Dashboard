@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { LOGOUT } from "../../constants/actionTypes";
 
@@ -76,8 +76,8 @@ export default function MenuAppBar() {
   };
 
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon /> },
-    { text: "Inbox", icon: <MailIcon /> },
+    { text: "Dashboard", icon: <DashboardIcon />, link: "/dashboard" },
+    { text: "DataSheet", icon: <MailIcon />, link: "/datasheet" },
     { text: "Profile", icon: <PeopleAltIcon /> },
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
@@ -95,10 +95,17 @@ export default function MenuAppBar() {
       <List>
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton onClick={item.onClick}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
+            {item.link ? (
+              <ListItemButton component={Link} to={item.link}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            ) : (
+              <ListItemButton onClick={item.onClick}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            )}
           </ListItem>
         ))}
       </List>
