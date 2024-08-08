@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Grid } from "@mui/material";
+import { Button, Card, Container, Grid, Input, TextField } from "@mui/material";
 
 const EntryDetails = () => {
   return (
@@ -31,26 +31,121 @@ const EntryDetails = () => {
         >
           Entry Detail Form
         </h3>
-        <label>project Name</label>
-        <input type="text" placeholder="Enter Project Name" />
-        <label>Date</label>
-        <input type="date" placeholder="Enter Project Name" />
-        <label>Month</label>0 <label>Activities</label>
-        <input type="activities" placeholder="Enter Project Name" />
-        <div>
-          <label>Civil & Structure</label>
-          <textarea />
-          <label>Planned Work For Tommorrow</label>
-          <textarea />
-          <label>Material requirement</label>
-          <textarea />
-          <label>Procurement status</label>
-          <textarea />
-        </div>
-        <label>Male labour</label>
-        <textarea />
-        <label>Female labour</label>
-        <textarea />
+        <Grid sx={{ display: "flex", flexDirection: "column" }}>
+          <Grid>
+            <TextField
+              label="Project Name"
+              variant="outlined"
+              fullWidth
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              // marginTop: "10px",
+              "@media (max-width: 600px)": {
+                flexDirection: "column",
+              },
+            }}
+          >
+            <Grid>
+              <TextField
+                fullWidth
+                type="date"
+                // label="Date"
+                variant="outlined"
+                margin="dense"
+                size="small"
+              />
+            </Grid>
+            <Grid>
+              <TextField
+                fullWidth
+                type="month"
+                // label="Month"
+                variant="outlined"
+                margin="dense"
+                size="small"
+              />
+            </Grid>
+          </Grid>
+          <Grid>
+            <TextField
+              label="Activities"
+              variant="outlined"
+              fullWidth
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              label="Civil & Sructure"
+              variant="outlined"
+              fullWidth
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              label="Planned Work For Tommorrow"
+              variant="outlined"
+              fullWidth
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              label="Material requirement"
+              variant="outlined"
+              fullWidth
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              label="Procurement status"
+              variant="outlined"
+              fullWidth
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Grid>
+              <TextField
+                label="Male labour"
+                variant="outlined"
+                fullWidth
+                size="small"
+                margin="dense"
+              />
+            </Grid>
+            <Grid>
+              <TextField
+                label="Female labour"
+                variant="outlined"
+                fullWidth
+                size="small"
+                margin="dense"
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <button style={{ float: "right" }}>Submit</button>
       </Card>
     </Grid>
   );
