@@ -6,13 +6,13 @@ import { Container, Typography } from "@mui/material";
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
-import Dashboard from "./components/dashboard/Dashboard";
 import Auth from "./components/Authentication/Auth";
 import Navbar from "./components/Navbar/Navbar";
 import DataSheet from "./components/DataSheet/DataSheet";
-import CardManager from "./components/dashboard/CardManager";
+import Dashboard from "./components/dashboard/Dashboard";
 import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
+import Maindashboard from "./components/dashboard/Maindashboard";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -67,7 +67,8 @@ const App = () => {
           {/* <Route path="/" exact element={<Front />} /> */}
           <Route path="/" exact element={<Authentication />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
-          <Route path="/cardmanager" exact element={<CardManager />} />
+          <Route path="/dashboard" exact element={<Dashboard />} />
+          <Route path="/maindashboard" exact element={<Maindashboard />} />
           <Route path="/datasheet" exact element={<DataSheet />} />
           <Route path="/entrydetails" exact element={<EntryDetails />} />
           <Route

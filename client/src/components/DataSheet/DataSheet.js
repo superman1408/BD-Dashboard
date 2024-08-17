@@ -206,7 +206,6 @@ const DataSheet = () => {
                 <input
                   style={{
                     width: "100%",
-                    // height: "30px",
                     padding: "8px",
                     fontSize: "16px",
                     border: "1px solid #ccc",

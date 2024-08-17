@@ -1,10 +1,8 @@
-import multer from "multer"; // Import multer
+// import multer from "multer"; // Import multer
 
+// // Multer configuration
+// const upload = multer({
+//     dest: 'uploads/' // Specify the upload directory
+//   });
 
-
-// Multer configuration
-const upload = multer({
-    dest: 'uploads/' // Specify the upload directory
-  });
-
-export default upload;
+// export default upload;
