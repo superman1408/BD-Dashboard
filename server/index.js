@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user.js";
+import postRoutes from "./routes/posts.js";
 
 const app = express();
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use("/user", userRoutes);
+app.use("/posts", postRoutes);
 
 app.get("/", (req, res) => {
   res.send(`Server is running at PORT:  ${PORT}`);
