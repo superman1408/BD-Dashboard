@@ -13,6 +13,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import Maindashboard from "./components/dashboard/Maindashboard";
+import ViewDetails from "./components/ViewDetails/ViewDetails";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -71,6 +72,7 @@ const App = () => {
           <Route path="/maindashboard" exact element={<Maindashboard />} />
           <Route path="/datasheet" exact element={<DataSheet />} />
           <Route path="/entrydetails" exact element={<EntryDetails />} />
+          <Route path="/viewdetails" exact element={<ViewDetails />} />
           <Route
             path="/detailedprogress"
             exact
