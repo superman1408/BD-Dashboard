@@ -12,6 +12,7 @@ import DataSheet from "./components/DataSheet/DataSheet";
 import Dashboard from "./components/Dashboard/Dashboard";
 import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css"; // Ensure this is present
 
 const App = () => {

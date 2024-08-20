@@ -50,7 +50,7 @@ const Dashboard = () => {
   };
 
   const handleEntry = () => {
-    navigate("/datasheet");
+    navigate("/entrydetails");
     console.log("Navigated");
   };
 

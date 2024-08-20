@@ -1,0 +1,12 @@
+.custom-card {
+  background-color: #f2f2f2;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 130px;
+}
+
+.text-primary {
+  color: #15355c !important;
+}
+
+
