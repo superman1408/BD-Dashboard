@@ -1,9 +1,12 @@
-import { Card } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import { Card, Button } from "react-bootstrap";
+
+import FileBase from "react-file-base64";
 import { createPost, getPosts } from "../../action/posts";
-import "./style.css";
+// import "./style.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -13,6 +16,7 @@ const Dashboard = () => {
   const [formData, setFormData] = useState({
     projectName: "",
     docNo: "",
+    projectFile: "",
   });
 
   const posts = useSelector((state) => state.posts);
@@ -39,7 +43,7 @@ const Dashboard = () => {
     e.preventDefault();
     console.log("form Submitted");
     setCards([...cards, formData]);
-    setFormData({ projectName: "", docNo: "" });
+    setFormData({ projectName: "", docNo: "", projectFile: "" });
     setFormVisible(false);
 
     dispatch(createPost(formData));
@@ -83,6 +87,17 @@ const Dashboard = () => {
                   required
                 />
               </div>
+              <div>
+                <label>Project Picture</label>
+                <FileBase
+                  type="file"
+                  multiple={false}
+                  fileName="Profile.png"
+                  onDone={({ base64 }) =>
+                    setFormData({ ...formData, selectedFile: base64 })
+                  }
+                />
+              </div>
 
               <button type="submit">Submit</button>
             </form>
@@ -91,14 +106,29 @@ const Dashboard = () => {
       </Card>
       <div style={{ display: "flex" }}>
         {posts.map((post) => (
-          <Card key={post.id} sx={{ padding: "12px", margin: "10px" }}>
-            <h3 style={{ textAlign: "center" }}>{post.projectName}</h3>
-            <h5>{post.docNo}</h5>
-
-            <div style={{ display: "flex" }}>
-              <button onClick={handleEntry}>Entry</button>
-              <button onClick={handleDetails}>Details</button>
-            </div>
+          <Card
+            style={{
+              width: "18rem",
+              padding: "12px",
+              margin: "10px",
+              backgroundColor: "white",
+            }}
+          >
+            <Card.Img variant="top" src="image-url" />
+            <Card.Body>
+              <Card.Text>
+                <h3 style={{ textAlign: "center" }}>{post.projectName}</h3>
+                <h5>{post.docNo}</h5>
+              </Card.Text>
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <Button variant="primary" onClick={handleEntry}>
+                  Entry
+                </Button>
+                <Button variant="primary" onClick={handleDetails}>
+                  Details
+                </Button>
+              </div>
+            </Card.Body>
           </Card>
         ))}
       </div>

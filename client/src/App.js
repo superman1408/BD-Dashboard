@@ -9,10 +9,10 @@ import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Auth from "./components/Authentication/Auth";
 import Navbar from "./components/Navbar/Navbar";
 import DataSheet from "./components/DataSheet/DataSheet";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
-import Maindashboard from "./components/dashboard/Maindashboard";
+import "./index.css"; // Ensure this is present
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -68,7 +68,6 @@ const App = () => {
           <Route path="/" exact element={<Authentication />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           <Route path="/dashboard" exact element={<Dashboard />} />
-          <Route path="/maindashboard" exact element={<Maindashboard />} />
           <Route path="/datasheet" exact element={<DataSheet />} />
           <Route path="/entrydetails" exact element={<EntryDetails />} />
           <Route

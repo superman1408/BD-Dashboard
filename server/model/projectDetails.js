@@ -7,6 +7,10 @@ const projectSchema = mongoose.Schema({
   docNo: {
     type: String,
   },
+
+  projectFile: {
+    type: String,
+  },
 });
 
 const ProjectDetails = mongoose.model("ProjectDetails", projectSchema);
