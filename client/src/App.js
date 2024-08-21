@@ -9,10 +9,10 @@ import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Auth from "./components/Authentication/Auth";
 import Navbar from "./components/Navbar/Navbar";
 import DataSheet from "./components/DataSheet/DataSheet";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
-// import Maindashboard from "./components/dashboard/Maindashboard";
+import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
 
 const App = () => {
