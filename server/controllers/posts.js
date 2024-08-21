@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import ProjectOverview from "../model/projectDetails.js";
+import EntryOverview from "../model/entryDetails.js";
 
 export const createPost = async (req, res) => {
   const Post = req.body;
@@ -20,5 +21,17 @@ export const getPosts = async (req, res) => {
     res.status(200).json(postMessage);
   } catch (error) {
     res.return(404).json({ message: error.message });
+  }
+};
+
+export const entryDetails = async (req, res) => {
+  const Post = req.body;
+
+  const newPost = new EntryOverview(Post);
+  try {
+    await newPost.save();
+    res.status(201).json(newPost);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
   }
 };

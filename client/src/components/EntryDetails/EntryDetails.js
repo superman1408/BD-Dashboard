@@ -1,19 +1,43 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider } from "@mui/material";
+import { entryDetails } from "../../action/posts";
 
 const EntryDetails = () => {
   const [fileError, setFileError] = useState(null);
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
+  const dispatch = useDispatch();
 
-    if (files.length > 2) {
-      setFileError("Please select only 2 photos");
-      e.target.value = null;
-    } else {
-      setFileError(null);
+  const [formData, setFormData] = useState({
+    date: "",
+    activity1: "",
+    activity2: "",
+    activity3: "",
+    activity4: "",
+    maleLabour: "",
+    femaleLabour: "",
+    mason: "",
+    uploadPictures: "",
+    submittedBy: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(entryDetails(formData));
+
+    console.log(formData);
+  };
+
+  const handleKeyDown = (e, fieldName) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [fieldName]: prevFormData[fieldName] + "\n•",
+      }));
     }
   };
 
@@ -33,7 +57,14 @@ const EntryDetails = () => {
             <Col md={6} className="mb-3">
               <Form.Group controlId="formDate">
                 <Form.Label>Date</Form.Label>
-                <Form.Control type="date" />
+                <Form.Control
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={(e) =>
+                    setFormData({ ...formData, date: e.target.value })
+                  }
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -56,7 +87,13 @@ const EntryDetails = () => {
             <Form.Control
               as="textarea"
               placeholder="Enter civil & structure details"
+              name="activity1"
               style={{ height: "80px" }}
+              value={formData.activity1}
+              onChange={(e) =>
+                setFormData({ ...formData, activity1: e.target.value })
+              }
+              onKeyDown={(e) => handleKeyDown(e, "activity1")}
             />
           </Form.Group>
 
@@ -65,7 +102,13 @@ const EntryDetails = () => {
             <Form.Control
               as="textarea"
               placeholder="Enter planned work for tomorrow"
+              name="activity2"
               style={{ height: "80px" }}
+              value={formData.activity2}
+              onChange={(e) => {
+                setFormData({ ...formData, activity2: e.target.value });
+              }}
+              onKeyDown={(e) => handleKeyDown(e, "activity2")}
             />
           </Form.Group>
 
@@ -74,7 +117,13 @@ const EntryDetails = () => {
             <Form.Control
               as="textarea"
               placeholder="Enter material requirement"
+              name="activity3"
               style={{ height: "80px" }}
+              value={formData.activity3}
+              onChange={(e) => {
+                setFormData({ ...formData, activity3: e.target.value });
+              }}
+              onKeyDown={(e) => handleKeyDown(e, "activity3")}
             />
           </Form.Group>
 
@@ -83,7 +132,13 @@ const EntryDetails = () => {
             <Form.Control
               as="textarea"
               placeholder="Enter procurement status"
+              name="activity4"
               style={{ height: "80px" }}
+              value={formData.activity4}
+              onChange={(e) => {
+                setFormData({ ...formData, activity4: e.target.value });
+              }}
+              onKeyDown={(e) => handleKeyDown(e, "activity4")}
             />
           </Form.Group>
           <Divider
@@ -102,6 +157,11 @@ const EntryDetails = () => {
                 <Form.Control
                   type="number"
                   placeholder="Enter male labour count"
+                  name="maleLabour"
+                  value={formData.maleLabour}
+                  onChange={(e) => {
+                    setFormData({ ...formData, maleLabour: e.target.value });
+                  }}
                 />
               </Form.Group>
             </Col>
@@ -111,13 +171,26 @@ const EntryDetails = () => {
                 <Form.Control
                   type="number"
                   placeholder="Enter female labour count"
+                  name="femaleLabour"
+                  value={formData.femaleLabour}
+                  onChange={(e) => {
+                    setFormData({ ...formData, femaleLabour: e.target.value });
+                  }}
                 />
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
               <Form.Group controlId="formMason">
                 <Form.Label>Mason</Form.Label>
-                <Form.Control type="number" placeholder="Enter mason" />
+                <Form.Control
+                  type="number"
+                  placeholder="Enter mason"
+                  name="mason"
+                  value={formData.mason}
+                  onChange={(e) => {
+                    setFormData({ ...formData, mason: e.target.value });
+                  }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -128,14 +201,35 @@ const EntryDetails = () => {
               type="file"
               accept="/*"
               multiple
-              onChange={handleFileChange}
+              name="uploadPictures"
+              // onChange={handleFileChange}
+              value={formData.uploadPictures}
+              onChange={(e) => {
+                setFormData({ ...formData, uploadPictures: e.target.value });
+                const files = e.target.files;
+
+                if (files.length > 2) {
+                  setFileError("Please select only 2 photos");
+                  e.target.value = null;
+                } else {
+                  setFileError(null);
+                }
+              }}
             />
             {fileError && <p>{fileError}</p>}
           </Form.Group>
 
           <Form.Group controlId="formSubmittedBy" className="mb-3">
             <Form.Label>Submitted By</Form.Label>
-            <Form.Control type="text" placeholder="Enter" />
+            <Form.Control
+              type="text"
+              placeholder="Enter"
+              name="submittedBy"
+              value={formData.submittedBy}
+              onChange={(e) => {
+                setFormData({ ...formData, submittedBy: e.target.value });
+              }}
+            />
           </Form.Group>
           <Divider
             className="mt-3 mb-3"
@@ -150,6 +244,7 @@ const EntryDetails = () => {
             variant="primary"
             type="submit"
             className="float-end mt-3 mr-3 mb-3 ml-3"
+            onClick={handleSubmit}
           >
             Submit
           </Button>
