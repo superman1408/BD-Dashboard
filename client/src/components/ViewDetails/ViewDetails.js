@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -12,6 +13,8 @@ import {
 } from "@mui/material";
 
 const ViewDetails = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
   return (
     <Grid
       padding="10px"
@@ -43,27 +46,42 @@ const ViewDetails = () => {
         </h3>
         <Grid sx={{ display: "flex", flexDirection: "row" }}>
           <Grid>
-            <table>
+            <table
+              className="time-sheet-table"
+              style={{
+                padding: "10px",
+                borderCollapse: "collapse",
+                // border: "1px solid black",
+                marginLeft: "auto",
+                marginRight: "auto",
+
+                width: windowWidth <= 600 ? "30%" : "100%",
+              }}
+            >
               <thead>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell align="right">Overview</TableCell>
-                  <TableCell align="right">Submitted By</TableCell>
-                </TableRow>
+                <tr>
+                  <td>Date</td>
+                  <td align="right">Overview</td>
+                  <td align="right">Submitted By</td>
+                  <td align="right"></td>
+                </tr>
               </thead>
               <tbody>
-                <TableRow>
-                  <TableCell component="th" scope="row"></TableCell>
-                  <TableCell align="right"></TableCell>
-                  <TableCell align="right"></TableCell>
-                </TableRow>
+                <tr>
+                  <td component="th" scope="row"></td>
+                  <td align="right"></td>
+                  <td align="right"></td>
+                  <td align="right">
+                    <button>View</button>
+                    <button onClick={() => navigate("/entrydetails")}>
+                      Edit
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </Grid>
-          <Grid sx>
-            <button>View</button>
-            <button>Details</button>
-          </Grid>
+          <Grid></Grid>
         </Grid>
       </Card>
     </Grid>
