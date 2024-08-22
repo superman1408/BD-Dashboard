@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Card, Form, button } from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider } from "@mui/material";
 import { entryDetails } from "../../action/posts";
@@ -9,6 +10,8 @@ const EntryDetails = () => {
   const [fileError, setFileError] = useState(null);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     date: "",
@@ -29,6 +32,7 @@ const EntryDetails = () => {
     dispatch(entryDetails(formData));
 
     console.log(formData);
+    navigate("/viewdetails");
   };
 
   const handleKeyDown = (e, fieldName) => {
@@ -240,14 +244,14 @@ const EntryDetails = () => {
             }}
           />
 
-          <Button
+          <button
             variant="primary"
             type="submit"
-            className="float-end mt-3 mr-3 mb-3 ml-3"
+            className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
             onClick={handleSubmit}
           >
             Submit
-          </Button>
+          </button>
         </Form>
       </Card>
     </Container>

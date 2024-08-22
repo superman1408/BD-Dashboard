@@ -1,6 +1,11 @@
 import express from "express";
 
-import { createPost, getPosts, entryDetails } from "../controllers/posts.js";
+import {
+  createPost,
+  getPosts,
+  entryDetails,
+  getEntryDetails,
+} from "../controllers/posts.js";
 
 import auth from "../middleware/auth.js";
 
@@ -13,5 +18,7 @@ router.post("/", auth, createPost);
 router.post("/", auth, createPost);
 
 router.post("/entryDetails", entryDetails);
+
+router.get("/entryDetails/view", getEntryDetails);
 
 export default router;

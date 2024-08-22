@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Grid,
-  Card,
-  Table,
-  TableContainer,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableRow,
-  Button,
-} from "@mui/material";
+import { Grid, Card } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getEntryDetails } from "../../action/posts";
 
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getEntryDetails());
+  }, []);
+
+  const posts = useSelector((state) => state.posts);
+  console.log(posts);
+
   return (
     <Grid
       padding="10px"
@@ -67,17 +69,19 @@ const ViewDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td component="th" scope="row"></td>
-                  <td align="right"></td>
-                  <td align="right"></td>
-                  <td align="right">
-                    <button>View</button>
-                    <button onClick={() => navigate("/entrydetails")}>
-                      Edit
-                    </button>
-                  </td>
-                </tr>
+                {posts.map((post, index) => (
+                  <tr key={index}>
+                    <td>{post.date}</td>
+                    <td align="right">{post.overview}</td>
+                    <td align="right">{post.submittedBy}</td>
+                    <td align="right">
+                      <button>View</button>
+                      <button onClick={() => navigate("/entrydetails")}>
+                        Edit
+                      </button>
+                    </td>{" "}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Grid>
