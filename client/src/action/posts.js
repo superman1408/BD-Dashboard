@@ -53,3 +53,22 @@ export const entryDetails = (formdata) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getEntryDetails = () => async (dispatch) => {
+  try {
+    const { data } = await API.fetchEntryDetails();
+    dispatch({ type: FETCH_POST, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const getSalarySlipData = () => async (dispatch) => {
+//   try {
+//     const { data } = await API.fetchSalarySlipData();
+
+//     dispatch({ type: SALARY_ALL, payload: data });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

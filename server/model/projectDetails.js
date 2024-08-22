@@ -7,8 +7,7 @@ const projectSchema = mongoose.Schema({
   docNo: {
     type: String,
   },
-
-  projectFile: {
+  selectedFile: {
     type: String,
   },
 });

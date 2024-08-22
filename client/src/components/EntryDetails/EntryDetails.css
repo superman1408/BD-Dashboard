@@ -9,4 +9,15 @@
   color: #15355c !important;
 }
 
+.btn-custom {
+  background-color: #0d6efd; /* Replace with your desired color */
+  color: white; /* Text color */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
+.btn-custom:hover {
+  background-color: #132136; /* Slightly darker shade for hover effect */
+}
