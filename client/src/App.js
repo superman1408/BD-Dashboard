@@ -14,6 +14,7 @@ import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgres
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
+import PrintLayout from "./components/PrintLayout/PrintLayout";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -73,6 +74,7 @@ const App = () => {
           <Route path="/datasheet" exact element={<DataSheet />} />
           <Route path="/entrydetails" exact element={<EntryDetails />} />
           <Route path="/viewdetails" exact element={<ViewDetails />} />
+          <Route path="/printlayout" exact element={<PrintLayout />} />
           <Route
             path="/detailedprogress"
             exact
