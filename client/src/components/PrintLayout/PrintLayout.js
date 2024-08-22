@@ -152,7 +152,6 @@ const PrintLayout = () => {
               </tr>
             </tbody>
           </table>
-          <br />
           <table
             style={{
               // marginLeft: "100px",
@@ -168,15 +167,9 @@ const PrintLayout = () => {
           >
             <tbody>
               <tr>
-                <td style={{ border: "1px solid black", width: "33.33%" }}>
-                  S. No.
-                </td>
-                <td style={{ border: "1px solid black", width: "33.33%" }}>
-                  Male Labour
-                </td>
-                <td style={{ border: "1px solid black", width: "33.33%" }}>
-                  Female Labour
-                </td>
+                <td style={{ border: "1px solid black" }}>S. No.</td>
+                <td style={{ border: "1px solid black" }}>Male Labour</td>
+                <td style={{ border: "1px solid black" }}>Female Labour</td>
                 <td style={{ border: "1px solid black", width: "33.33%" }}>
                   Mason
                 </td>
@@ -186,34 +179,34 @@ const PrintLayout = () => {
                   style={{
                     border: "1px solid black",
                     width: "33.33%",
-                    height: "60%",
+                    padding: "20px",
                   }}
                 ></td>
                 <td
                   style={{
                     border: "1px solid black",
                     width: "33.33%",
-                    height: "60%",
+                    padding: "20px",
                   }}
                 ></td>
                 <td
                   style={{
                     border: "1px solid black",
                     width: "33.33%",
-                    height: "60%",
+                    padding: "20px",
                   }}
                 ></td>
                 <td
                   style={{
                     border: "1px solid black",
                     width: "33.33%",
-                    height: "60%",
+                    padding: "20px",
                   }}
                 ></td>
               </tr>
             </tbody>
           </table>
-          <br />
+
           <table
             style={{
               // marginLeft: "100px",
@@ -259,7 +252,7 @@ const PrintLayout = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  HUMAN RESOURCE
+                  PREPARED BY
                 </td>
                 <td
                   style={{
@@ -268,7 +261,7 @@ const PrintLayout = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  ACCOUNT MANAGER
+                  SITE SUPERVISOR
                 </td>
                 <td
                   style={{
@@ -277,7 +270,7 @@ const PrintLayout = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  DIR-F&A
+                  LABOUR CONTRACTOR
                 </td>
               </tr>
 
@@ -288,30 +281,27 @@ const PrintLayout = () => {
                     textAlign: "center",
                     fontSize: "12px",
                     backgroundColor: "#027580",
+                    padding: "2px",
                   }}
-                >
-                  Prepared by
-                </td>
+                ></td>
                 <td
                   style={{
                     border: "1px solid black",
                     textAlign: "center",
                     fontSize: "12px",
                     backgroundColor: "#027580",
+                    padding: "2px",
                   }}
-                >
-                  Checked by
-                </td>
+                ></td>
                 <td
                   style={{
                     border: "1px solid black",
                     textAlign: "center",
                     fontSize: "12px",
                     backgroundColor: "#027580",
+                    padding: "2px",
                   }}
-                >
-                  Approved by
-                </td>
+                ></td>
               </tr>
             </tbody>
           </table>
