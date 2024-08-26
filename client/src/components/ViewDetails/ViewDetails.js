@@ -75,7 +75,9 @@ const ViewDetails = () => {
                     <td align="right">{post.overview}</td>
                     <td align="right">{post.submittedBy}</td>
                     <td align="right">
-                      <button>View</button>
+                      <button onClick={() => navigate("/printlayout")}>
+                        View
+                      </button>
                       <button onClick={() => navigate("/entrydetails")}>
                         Edit
                       </button>
