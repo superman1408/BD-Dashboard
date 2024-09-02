@@ -65,7 +65,7 @@ const App = () => {
       <div>
         <Routes>
           {/* <Route path="/" exact element={<Front />} /> */}
-          <Route path="/" exact element={<Authentication />} />
+          <Route path="/" exact element={!user ? <Authentication /> : <Dashboard/>} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           <Route path="/dashboard" exact element={<Dashboard />} />
           <Route path="/maindashboard" exact element={<Maindashboard />} />
