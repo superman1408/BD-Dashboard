@@ -134,7 +134,6 @@ const Auth = () => {
 
             <h3
               style={{
-                fontFamily: "Roboto ",
                 color: "#16355d",
                 textAlign: "center",
               }}
@@ -287,7 +286,7 @@ const Auth = () => {
                   color={isSignUp ? "primary" : "secondary"}
                   fullWidth
                   type="submit"
-                  sx={{ marginTop: "10px", fontFamily: "Roboto" }}
+                  sx={{ marginTop: "10px" }}
                 >
                   {isSignUp ? "Sign Up" : "Sign In"}
                 </Button>
@@ -302,10 +301,7 @@ const Auth = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Button
-                    sx={{ fontFamily: "Roboto ", color: "#16355d" }}
-                    onClick={resetPassword}
-                  >
+                  <Button sx={{ color: "#16355d" }} onClick={resetPassword}>
                     Reset The Password
                   </Button>
                 </div>
@@ -314,14 +310,11 @@ const Auth = () => {
                     display: "flex",
                     alignContent: "center",
                     justifyContent: "center",
-                    fontFamily: "Roboto ",
+
                     color: "#16355d",
                   }}
                 >
-                  <Button
-                    sx={{ fontFamily: "Roboto ", color: "#16355d" }}
-                    onClick={switchMode}
-                  >
+                  <Button sx={{ color: "#16355d" }} onClick={switchMode}>
                     {isSignUp
                       ? "  Already have an account? Login here!  "
                       : "Don't have an account ? Register here!"}

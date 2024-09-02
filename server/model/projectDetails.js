@@ -7,6 +7,9 @@ const projectSchema = mongoose.Schema({
   docNo: {
     type: String,
   },
+  selectedFile: {
+    type: String,
+  },
 });
 
 const ProjectDetails = mongoose.model("ProjectDetails", projectSchema);
