@@ -32,7 +32,7 @@ const EntryDetails = () => {
     dispatch(entryDetails(formData));
 
     console.log(formData);
-    navigate("/viewdetails");
+    navigate("/${id}/viewdetails");
   };
 
   const handleKeyDown = (e, fieldName) => {
