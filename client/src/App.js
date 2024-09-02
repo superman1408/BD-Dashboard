@@ -33,38 +33,20 @@ const App = () => {
         </div>
         {/* )} */}
       </header>
-      {/* {user ? (
-        <>
-          <Typography>Apple</Typography>
-        </>
-      ) : (
-        <marquee
-          style={{
-            color: "#ffffff",
-            fontFamily: "Roboto",
-            fontWeight: "bold",
-            backgroundColor: "#15345c",
-            padding: "5px",
-
-            // minWidth: "390px",
-            maxWidth: "1380px",
-            // "@media (max-width: 600px)": {
-            //   maxWidth: "1380px",
-            // },
-            "@media (min-width: 600px)": {
-              minWidth: "1380px",
-            },
-          }}
-        >
-          Please Login to your account
-        </marquee>
-      )} */}
+   
 
       <Navbar />
       <div>
         <Routes>
           {/* <Route path="/" exact element={<Front />} /> */}
-          <Route path="/" exact element={!user ? <Authentication /> : <Dashboard/>} />
+
+          {/* <Route path="/" exact element={<Authentication />} /> */}
+          <Route
+            path="/"
+            exact
+            element={user ? <Dashboard /> : <Authentication />}
+          />
+          <Route path="/auth" exact element={!user && <Authentication />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           <Route path="/dashboard" exact element={<Dashboard />} />
           {/* <Route path="/maindashboard" exact element={<Maindashboard />} /> */}
