@@ -62,6 +62,7 @@ const Dashboard = () => {
     console.log(id); // This will log only the id of the post
     navigate(`/${id}/entrydetails/`);
   };
+  
   const handleDetails = (id) => {
     navigate(`/${id}/viewdetails`);
     console.log("Navigated");
