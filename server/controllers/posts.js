@@ -6,8 +6,10 @@ export const createPost = async (req, res) => {
   const Post = req.body;
 
   const newPost = new ProjectOverview(Post);
+  const createDetail = new EntryOverview(Post);
   try {
     await newPost.save();
+    await createDetail.save();
     res.status(201).json(newPost);
   } catch (error) {
     res.status(409).json({ message: error.message });

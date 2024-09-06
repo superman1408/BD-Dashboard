@@ -31,6 +31,12 @@ const entrySchema = mongoose.Schema({
   submittedBy: {
     type: [String],
   },
+  projectName: {
+    type: String,
+  },
+  docNo: {
+    type: String,
+  },
 });
 
 const EntryDetails = mongoose.model("EntryDetails", entrySchema);

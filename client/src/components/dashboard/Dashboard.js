@@ -27,23 +27,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getPosts()).finally(() => setLoading(false));
-  }, [dispatch]);
+  }, [dispatch, loading]);
 
-  useEffect(() => {
-    if (setLoading === true) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-    }
-  }, [loading]);
 
   const handleFormChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });//For setting the value of different input inside the FormData
   };
+
 
   const handleSubmit = async (e) => {
     setLoading(true); // Set loading to true when starting submission
-
     // Add the form data to local state (cards) and hide the form
     setCards([...cards, formData]);
     setFormData({ projectName: "", docNo: "", selectedFile: "" });
@@ -58,17 +51,19 @@ const Dashboard = () => {
     }
   };
 
+
+
+
+// ---------Navigation to the different pages in the Application----------------
   const handleEntry = (id) => {
-    console.log(id); // This will log only the id of the post
     navigate(`/${id}/entrydetails/`);
   };
   
   const handleDetails = (id) => {
     navigate(`/${id}/viewdetails`);
-    console.log("Navigated");
   };
 
-  console.log(formData.selectedFile);
+
 
   return (
     <div style={{ display: "flex", height: "auto" }}>
@@ -165,58 +160,60 @@ const Dashboard = () => {
           </Modal.Body>
         </Modal>
       </Card>
-      {loading && (
+      {loading ? (
         <LinearProgress style={{ width: "100%", marginTop: "20px" }} />
-      )}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
-        {posts.map((post, index) => (
-          <Card
-            key={index}
-            style={{
-              width: "300px",
-              padding: "12px",
-              margin: "10px",
-              backgroundColor: "white",
-            }}
-          >
-            <Card.Img
-              variant="top"
-              src={post?.selectedFile} // Ensure post.selectedFile is defined
-              alt="Profile_Picture"
-              style={{ height: "150px" }}
-            />
+      ) : (
+          <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {posts.map((post, index) => (
+            <Card
+              key={index}
+              style={{
+                width: "300px",
+                padding: "12px",
+                margin: "10px",
+                backgroundColor: "white",
+              }}
+            >
+              <Card.Img
+                variant="top"
+                src={post?.selectedFile} // Ensure post.selectedFile is defined
+                alt="Profile_Picture"
+                style={{ height: "150px" }}
+              />
 
-            <Card.Body>
-              <Card.Text>
-                <h6 style={{ textAlign: "center" }}>Project Name</h6>
-                <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
-                  {post?.projectName}
-                </h4>
-                <h6 style={{ textAlign: "center" }}>
-                  Project Number : {post?.docNo}
-                </h6>
-              </Card.Text>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                <Button variant="primary" onClick={() => handleEntry(post._id)}>
-                  Entry
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => handleDetails(post._id)}
-                >
-                  Details
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        ))}
-      </div>
+              <Card.Body>
+                <Card.Text>
+                  <h6 style={{ textAlign: "center" }}>Project Name</h6>
+                  <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
+                    {post?.projectName}
+                  </h4>
+                  <h6 style={{ textAlign: "center" }}>
+                    Project Number : {post?.docNo}
+                  </h6>
+                </Card.Text>
+                <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                  <Button variant="primary" onClick={() => handleEntry(post._id)}>
+                    Entry
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleDetails(post._id)}
+                  >
+                    Details
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+      )}
+      
     </div>
   );
 };
