@@ -28,14 +28,18 @@ export const getPosts = async (req, res) => {
 
 export const entryDetails = async (req, res) => {
   const Post = req.body;
+  console.log("Hello Entry Details");
+  console.log(Post);
+  
+  
 
-  const newPost = new EntryOverview(Post);
-  try {
-    await newPost.save();
-    res.status(201).json(newPost);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
+  // const newPost = new EntryOverview(Post);
+  // try {
+  //   await newPost.save();
+  //   res.status(201).json(newPost);
+  // } catch (error) {
+  //   res.status(409).json({ message: error.message });
+  // }
 };
 
 export const getEntryDetails = async (req, res) => {

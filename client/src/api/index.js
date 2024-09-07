@@ -27,6 +27,6 @@ export const passwordReset = (passwordForm, code) =>
 export const create = (newPost) => API.post("/posts", newPost);
 
 export const entryDetails = (formData) =>
-  API.post("/posts/entryDetails", formData);
+  API.patch("/posts/entryDetails", formData);
 
 export const fetchEntryDetails = () => API.get(`/posts/entryDetails/view`);

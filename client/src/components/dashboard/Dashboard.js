@@ -55,12 +55,12 @@ const Dashboard = () => {
 
 
 // ---------Navigation to the different pages in the Application----------------
-  const handleEntry = (id) => {
-    navigate(`/${id}/entrydetails/`);
+  const handleEntry = (docNo) => {
+    navigate(`/${docNo}/entrydetails/`);
   };
   
-  const handleDetails = (id) => {
-    navigate(`/${id}/viewdetails`);
+  const handleDetails = (docNo) => {
+    navigate(`/${docNo}/viewdetails`);
   };
 
 
@@ -198,12 +198,12 @@ const Dashboard = () => {
                   </h6>
                 </Card.Text>
                 <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                  <Button variant="primary" onClick={() => handleEntry(post._id)}>
+                  <Button variant="primary" onClick={() => handleEntry(post.docNo)}>
                     Entry
                   </Button>
                   <Button
                     variant="primary"
-                    onClick={() => handleDetails(post._id)}
+                    onClick={() => handleDetails(post.docNo)}
                   >
                     Details
                   </Button>
