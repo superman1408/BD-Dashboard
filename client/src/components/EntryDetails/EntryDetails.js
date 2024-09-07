@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Row, Col, Card, Form, button } from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider } from "@mui/material";
@@ -8,12 +8,17 @@ import { entryDetails } from "../../action/posts";
 
 const EntryDetails = () => {
   const [fileError, setFileError] = useState(null);
+  const projectNo = useParams();
+
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+  // console.log(projectNo.id);
+  
 
   const [formData, setFormData] = useState({
+    docNo: projectNo.id,
     date: "",
     activity1: "",
     activity2: "",
@@ -54,7 +59,7 @@ const EntryDetails = () => {
         <h3 className="text-center text-primary">Entry Detail Form</h3>
         <Form>
           <Form.Group controlId="formProjectName" className="mb-3">
-            <Form.Label>Project Name</Form.Label>
+            <Form.Label style={{color: "red"}}>Project Number : {projectNo.id}</Form.Label>
           </Form.Group>
 
           <Row>

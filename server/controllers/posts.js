@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import ProjectOverview from "../model/projectDetails.js";
 import EntryOverview from "../model/entryDetails.js";
 
+
+
+
 export const createPost = async (req, res) => {
   const Post = req.body;
 
@@ -16,6 +19,9 @@ export const createPost = async (req, res) => {
   }
 };
 
+
+
+
 export const getPosts = async (req, res) => {
   try {
     const postMessage = await ProjectOverview.find({});
@@ -26,21 +32,23 @@ export const getPosts = async (req, res) => {
   }
 };
 
+
+
+
+// -------------------This function will be used for updating the entryDetails Model in API-------------------
 export const entryDetails = async (req, res) => {
   const Post = req.body;
-  console.log("Hello Entry Details");
-  console.log(Post);
+  const projectNumber = Post.docNo;
+  if (!projectNumber) {
+    return res.status(400).json({ message: "Project number is required" });
+  }
   
-  
+  const updatePost = await EntryOverview.findOne({docNo:projectNumber});
 
-  // const newPost = new EntryOverview(Post);
-  // try {
-  //   await newPost.save();
-  //   res.status(201).json(newPost);
-  // } catch (error) {
-  //   res.status(409).json({ message: error.message });
-  // }
+  console.log(updatePost);
 };
+
+
 
 export const getEntryDetails = async (req, res) => {
   try {
