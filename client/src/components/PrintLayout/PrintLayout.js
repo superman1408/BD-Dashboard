@@ -341,6 +341,70 @@ const PrintLayout = () => {
                       <td
                         style={{
                           border: "1px solid black",
+                          width: "33.33%",
+                          textAlign: "center",
+                        }}
+                      >
+                        Images
+                      </td>
+                    </tr>
+                    <tr style={{ width: "33.33%" }}>
+                      <td
+                        style={{
+                          border: "1px solid black",
+                          width: "33.33%",
+                          textAlign: "center",
+                          padding: "40px",
+                        }}
+                      ></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+                <table
+                  style={{
+                    // marginLeft: "100px",
+                    padding: "10px",
+                    // marginLeft: "100px",
+                    borderCollapse: "collapse",
+                    border: "1px solid black",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "100%",
+                    height: "3%",
+                    maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
+                  }}
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          border: "1px solid black",
+                          backgroundColor: "#027580",
+                          textAlign: "center",
+                        }}
+                      ></th>
+                    </tr>
+                  </thead>
+                </table>
+                <table
+                  style={{
+                    // marginLeft: "100px",
+                    padding: "10px",
+                    // marginLeft: "100px",
+                    borderCollapse: "collapse",
+                    border: "1px solid black",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "100%",
+                    maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
+                  }}
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        style={{
+                          border: "1px solid black",
                           textAlign: "center",
                         }}
                       >
