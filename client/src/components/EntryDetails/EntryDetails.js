@@ -10,12 +10,10 @@ const EntryDetails = () => {
   const [fileError, setFileError] = useState(null);
   const projectNo = useParams();
 
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   // console.log(projectNo.id);
-  
 
   const [formData, setFormData] = useState({
     docNo: projectNo.id,
@@ -37,7 +35,7 @@ const EntryDetails = () => {
     dispatch(entryDetails(formData));
 
     console.log(formData);
-    navigate("/${id}/viewdetails");
+    navigate(`/${projectNo.id}/viewdetails`);
   };
 
   const handleKeyDown = (e, fieldName) => {
@@ -59,7 +57,9 @@ const EntryDetails = () => {
         <h3 className="text-center text-primary">Entry Detail Form</h3>
         <Form>
           <Form.Group controlId="formProjectName" className="mb-3">
-            <Form.Label style={{color: "red"}}>Project Number : {projectNo.id}</Form.Label>
+            <Form.Label style={{ color: "red" }}>
+              Project Number : {projectNo.id}
+            </Form.Label>
           </Form.Group>
 
           <Row>

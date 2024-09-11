@@ -17,7 +17,7 @@ router.post("/", auth, createPost);
 
 router.post("/", auth, createPost);
 
-router.patch("/entryDetails",auth, entryDetails);
+router.patch("/entryDetails", auth, entryDetails);
 
 router.get("/entryDetails/view", getEntryDetails);
 
