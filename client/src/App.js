@@ -12,6 +12,7 @@ import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
 import PrintLayout from "./components/PrintLayout/PrintLayout";
+import ContractRegister from "./components/ContractRegister/ContractRegister";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -33,7 +34,6 @@ const App = () => {
         </div>
         {/* )} */}
       </header>
-   
 
       <Navbar />
       <div>
@@ -51,6 +51,11 @@ const App = () => {
           <Route path="/:id/entrydetails" exact element={<EntryDetails />} />
           <Route path="/:id/viewdetails" exact element={<ViewDetails />} />
           <Route path="/printlayout" exact element={<PrintLayout />} />
+          <Route
+            path="/contractregister"
+            exact
+            element={<ContractRegister />}
+          />
           <Route
             path="/detailedprogress"
             exact
