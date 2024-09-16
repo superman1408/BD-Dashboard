@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Grid, Card } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
@@ -7,6 +7,7 @@ import { getEntryDetails } from "../../action/posts";
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+  const projectNo = useParams();
 
   const dispatch = useDispatch();
 
@@ -71,11 +72,17 @@ const ViewDetails = () => {
               <tbody>
                 {posts.map((post, index) => (
                   <tr key={index}>
-                    <td>{post.date}</td>
+                    <td>
+                      {post.date?.map((item, itemIndex) => (
+                        <div key={itemIndex}>{item}</div>
+                      ))}
+                    </td>
                     <td align="right">{post.overview}</td>
                     <td align="right">{post.submittedBy}</td>
                     <td align="right">
-                      <button onClick={() => navigate("/printlayout")}>
+                      <button
+                        onClick={() => navigate(`/${projectNo.id}/printlayout`)}
+                      >
                         View
                       </button>
                       <button onClick={() => navigate("/entrydetails")}>
