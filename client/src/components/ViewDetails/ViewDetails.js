@@ -8,7 +8,7 @@ const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch posts from Redux store
   const posts = useSelector((state) => state.posts);
@@ -42,11 +42,13 @@ const ViewDetails = () => {
 
   // Fetch data when component mounts
   useEffect(() => {
-    dispatch(getEntryDetails()).finally(() => {
-      updateArray();
-      setLoading(false);
-    });
-  }, [dispatch]);
+    if (loading) {
+      dispatch(getEntryDetails()).finally(() => {
+        updateArray();
+        setLoading(false);
+      });
+    }
+  }, [dispatch, loading]);
 
   // Optional: Update windowWidth on resize
   useEffect(() => {
@@ -123,7 +125,9 @@ const ViewDetails = () => {
                       <td>{post.activity1 || "N/A"}</td>
                       <td>{post.submittedBy || "N/A"}</td>
                       <td>
-                        <button onClick={() => navigate("/printlayout")}>
+                        <button
+                          onClick={() => navigate(`/${post.date}/printlayout`)}
+                        >
                           View
                         </button>
                         <button onClick={() => navigate("/entrydetails")}>
