@@ -122,8 +122,11 @@ const ViewDetails = () => {
                       <td>{post.date || "N/A"}</td>
                       <td>{post.activity1 || "N/A"}</td>
                       <td>{post.submittedBy || "N/A"}</td>
-                      <td>
-                        <button onClick={() => navigate("/printlayout")}>
+                      <td style={{ justifyContent: "space-between" }}>
+                        <button
+                          style={{ marginRight: "10px" }}
+                          onClick={() => navigate("/:id/detailedprojectpage")}
+                        >
                           View
                         </button>
                         <button onClick={() => navigate("/entrydetails")}>

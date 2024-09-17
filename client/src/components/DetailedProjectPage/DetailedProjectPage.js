@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getPost } from "../../action/posts";
 
-const PrintLayout = () => {
+const DetailedProjectPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectNo = useParams();
@@ -667,4 +667,4 @@ const PrintLayout = () => {
   );
 };
 
-export default PrintLayout;
+export default DetailedProjectPage;
