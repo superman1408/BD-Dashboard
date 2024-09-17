@@ -26,6 +26,22 @@ export const getPosts = async (req, res) => {
   }
 };
 
+
+export const getPost = async (req, res) => {
+  console.log("Hello Getting POST.....!!!");
+  const { id } = req.params;
+  console.log(id);
+
+  if (!id) {
+    return res.status(400).json({ message: "No id Available...!!!" });
+  }
+  const post = await EntryOverview.findOne({ docNo: id });
+  console.log(post);
+  res.status(200).json(post);  
+};
+
+
+
 // -------------------This function will be used for updating the entryDetails Model in API-------------------
 
 export const entryDetails = async (req, res) => {

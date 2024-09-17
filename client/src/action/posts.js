@@ -28,7 +28,7 @@ export const createPost = (post) => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
   try {
-    const { data } = API.fetchPost(id);
+    const { data } = await API.fetchPost(id);
 
     dispatch({ type: FETCH_POST, payload: data });
   } catch (error) {
@@ -36,14 +36,7 @@ export const getPost = (id) => async (dispatch) => {
   }
 };
 
-// export const entryDetails = (post) => async (dispatch) => {
-//   try {
-//     const { data } = API.create(post);
-//     dispatch({ type: CREATE, payload: data });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+
 
 export const entryDetails = (formdata) => async (dispatch) => {
   console.log("Hello I am working..!!");

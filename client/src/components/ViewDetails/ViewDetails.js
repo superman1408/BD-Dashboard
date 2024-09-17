@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Grid, Card } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
@@ -124,9 +124,12 @@ const ViewDetails = () => {
                       <td>{post.date || "N/A"}</td>
                       <td>{post.activity1 || "N/A"}</td>
                       <td>{post.submittedBy || "N/A"}</td>
-                      <td>
+                      <td style={{ justifyContent: "space-between" }}>
                         <button
-                          onClick={() => navigate(`/${post.date}/printlayout`)}
+                          style={{ marginRight: "10px" }}
+                          onClick={() =>
+                            navigate(`/${post.date}/detailedprojectpage`)
+                          }
                         >
                           View
                         </button>

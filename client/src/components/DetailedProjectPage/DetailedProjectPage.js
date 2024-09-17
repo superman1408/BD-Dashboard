@@ -1,14 +1,80 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import { Grid, Card, Container, Button } from "@mui/material";
+import {
+  Grid,
+  Card,
+  Container,
+  Button,
+  CardMedia,
+  IconButton,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
-const PrintLayout = () => {
+import { getPost } from "../../action/posts";
+import { getEntryDetails } from "../../action/posts";
+
+const DetailedProjectPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const projectNo = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isPrinting, setIsPrinting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const componentRef = useRef();
+
+  const posts = useSelector((state) => state.posts);
+
+  console.log(posts);
+
+  console.log(projectNo);
+
+  let array = [];
+
+  const updateArray = async (post) => {
+    const array = [];
+    posts[0]?.map((post) => {
+      for (let index = 0; index < post?.date.length; index++) {
+        array.push({
+          // submittedBy: post?.submittedBy[index],
+          date: post?.date[index],
+          // activity1: post?.activity1[index],
+          // status: post.status[index],
+        });
+      }
+    });
+    setLoading(false);
+  };
+
+  // Fetch data when component mounts
+  useEffect(() => {
+    if (loading) {
+      dispatch(getEntryDetails()).finally(() => {
+        updateArray();
+        setLoading(false);
+      });
+    }
+  }, [dispatch, loading]);
+
+  // Optional: Update windowWidth on resize
+
+  posts[0]?.map((post) => {
+    for (let index = 0; index < post?.date.length; index++) {
+      array.push({
+        // submittedBy: post?.submittedBy[index],
+        date: post?.date[index],
+        // activity1: post?.activity1[index],
+        // status: post.status[index],
+      });
+    }
+  });
+
+  // useEffect(() => {
+  //   dispatch(getPost(projectNo.id));
+  // }, []);
+
+  // console.log(post[0]?.date[0]);
 
   const handlePpd = useReactToPrint({
     content: () => componentRef.current,
@@ -22,11 +88,11 @@ const PrintLayout = () => {
       <Container
         elevation={10}
         padding="10px"
-        container
+        container="true"
         spacing={0}
         direction="column"
-        alignItems="center"
-        justifyContent="center"
+        alignitems="center"
+        justifycontent="center"
         // fluid="true"
         sx={{
           padding: "20px",
@@ -65,7 +131,6 @@ const PrintLayout = () => {
             <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <Grid>
                 <table
-                  table
                   style={{
                     padding: "10px",
                     // marginLeft: "100px",
@@ -114,15 +179,17 @@ const PrintLayout = () => {
                       >
                         PROJECT NAME
                       </th>
-                      <td
-                        style={{
-                          border: "1px solid black",
-                          width: "60%",
-                          padding: "10px",
-                        }}
-                      >
-                        {" "}
-                      </td>
+                      {array.map((post) => {
+                        <td
+                          style={{
+                            border: "1px solid black",
+                            width: "60%",
+                            padding: "10px",
+                          }}
+                        >
+                          {post?.projectName}
+                        </td>;
+                      })}
                     </tr>
                   </thead>
                 </table>
@@ -156,20 +223,33 @@ const PrintLayout = () => {
                       >
                         {" "}
                       </td>
+
                       <th
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
                         Date
                       </th>
-                      <td
-                        style={{
-                          border: "1px solid black",
-                          width: "33.33%",
-                          padding: "10px",
-                        }}
-                      >
-                        {" "}
-                      </td>
+                      {array.length > 0 ? (
+                        array.map((post, index) => (
+                          <tr key={index}>
+                            <td
+                              style={{
+                                border: "1px solid black",
+                                width: "33.33%",
+                                padding: "10px",
+                              }}
+                            >
+                              {post.date}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4" align="center">
+                            No data available
+                          </td>
+                        </tr>
+                      )}
                     </tr>
                     <tr>
                       <td
@@ -183,7 +263,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.docNo} */}
+                      </td>
                       <td
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
@@ -254,7 +336,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.activity1} */}
+                      </td>
                       <th
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
@@ -266,7 +350,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.activity2} */}
+                      </td>
                     </tr>
                     <tr>
                       <th
@@ -280,7 +366,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.activity3} */}
+                      </td>
                       <th
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
@@ -292,7 +380,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.activity4} */}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -356,7 +446,13 @@ const PrintLayout = () => {
                           textAlign: "center",
                           padding: "40px",
                         }}
-                      ></td>
+                      >
+                        <img
+                          // src={post?.uploadPictures}
+                          alt={`Image `}
+                          style={{ width: "200px", height: "auto" }}
+                        />
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -444,28 +540,36 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.maleLabour} */}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.femaleLabour} */}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.mason} */}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -505,7 +609,6 @@ const PrintLayout = () => {
                     marginLeft: "auto",
                     marginRight: "auto",
                     width: "100%",
-
                     maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
                   }}
                 >
@@ -514,10 +617,12 @@ const PrintLayout = () => {
                       <td
                         style={{
                           border: "1px solid black",
-                          padding: "40px",
+                          padding: "40px 0px 0px 20px",
                           width: "33.33%",
                         }}
-                      ></td>
+                      >
+                        {/* {post?.submittedBy} */}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
@@ -621,4 +726,4 @@ const PrintLayout = () => {
   );
 };
 
-export default PrintLayout;
+export default DetailedProjectPage;
