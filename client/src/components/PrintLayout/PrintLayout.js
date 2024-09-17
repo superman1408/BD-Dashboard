@@ -19,20 +19,8 @@ const PrintLayout = () => {
   const projectNo = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isPrinting, setIsPrinting] = useState(false);
-  const [fetchData, setFetchData] = useState({
-    docNo: projectNo.id,
-    projectName: "",
-    date: [],
-    activity1: [],
-    activity2: [],
-    activity3: [],
-    activity4: [],
-    maleLabour: [],
-    femaleLabour: [],
-    mason: [],
-    uploadPictures: [],
-    submittedBy: [],
-  });
+
+  
 
   const componentRef = useRef();
 
