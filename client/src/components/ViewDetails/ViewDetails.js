@@ -28,7 +28,6 @@ const ViewDetails = () => {
   const updateArray = async (post) => {
     const array = [];
     posts[0]?.map((post) => {
-      console.log(post.submittedBy.length);
       for (let index = 0; index < post?.submittedBy.length; index++) {
         array.push({
           submittedBy: post?.submittedBy[index],
@@ -36,12 +35,10 @@ const ViewDetails = () => {
           activity1: post?.activity1[index],
           // status: post.status[index],
         });
-      };
+      }
     });
     setLoading(false);
   };
-
-
 
   // Fetch data when component mounts
   useEffect(() => {
@@ -58,11 +55,7 @@ const ViewDetails = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // console.log(posts);
-
   posts[0]?.map((post) => {
-    console.log(post.submittedBy.length);
-    
     for (let index = 0; index < post?.submittedBy.length; index++) {
       array.push({
         submittedBy: post?.submittedBy[index],
@@ -70,15 +63,8 @@ const ViewDetails = () => {
         activity1: post?.activity1[index],
         // status: post.status[index],
       });
-    };
+    }
   });
-
-
-  console.log(posts);
-  
-
-
-  
 
   return (
     <Grid
