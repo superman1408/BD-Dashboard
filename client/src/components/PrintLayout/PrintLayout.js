@@ -1,14 +1,36 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import { Grid, Card, Container, Button } from "@mui/material";
+import {
+  Grid,
+  Card,
+  Container,
+  Button,
+  CardMedia,
+  IconButton,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getPost } from "../../action/posts";
 
 const PrintLayout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const projectNo = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isPrinting, setIsPrinting] = useState(false);
 
+  
+
   const componentRef = useRef();
+
+  const post = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    dispatch(getPost(projectNo.id));
+  }, []);
+
+  // console.log(post[0]?.date[0]);
 
   const handlePpd = useReactToPrint({
     content: () => componentRef.current,
@@ -22,11 +44,11 @@ const PrintLayout = () => {
       <Container
         elevation={10}
         padding="10px"
-        container
+        container="true"
         spacing={0}
         direction="column"
-        alignItems="center"
-        justifyContent="center"
+        alignitems="center"
+        justifycontent="center"
         // fluid="true"
         sx={{
           padding: "20px",
@@ -65,7 +87,6 @@ const PrintLayout = () => {
             <Grid sx={{ display: "flex", flexDirection: "column" }}>
               <Grid>
                 <table
-                  table
                   style={{
                     padding: "10px",
                     // marginLeft: "100px",
@@ -121,7 +142,7 @@ const PrintLayout = () => {
                           padding: "10px",
                         }}
                       >
-                        {" "}
+                        {post[0]?.projectName}
                       </td>
                     </tr>
                   </thead>
@@ -168,7 +189,7 @@ const PrintLayout = () => {
                           padding: "10px",
                         }}
                       >
-                        {" "}
+                        {post[0]?.date[0]}
                       </td>
                     </tr>
                     <tr>
@@ -183,7 +204,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.docNo}
+                      </td>
                       <td
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
@@ -254,7 +277,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.activity1[0]}
+                      </td>
                       <th
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
@@ -266,7 +291,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.activity2[0]}
+                      </td>
                     </tr>
                     <tr>
                       <th
@@ -280,7 +307,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.activity3[0]}
+                      </td>
                       <th
                         style={{ border: "1px solid black", padding: "10px" }}
                       >
@@ -292,7 +321,9 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "10px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.activity4[0]}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -356,7 +387,13 @@ const PrintLayout = () => {
                           textAlign: "center",
                           padding: "40px",
                         }}
-                      ></td>
+                      >
+                        <img
+                          src={post[0]?.uploadPictures[0]}
+                          alt={`Image `}
+                          style={{ width: "200px", height: "auto" }}
+                        />
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -444,28 +481,36 @@ const PrintLayout = () => {
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.maleLabour[0]}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.femaleLabour[0]}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
                           width: "33.33%",
                           padding: "20px",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.mason[0]}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -505,7 +550,6 @@ const PrintLayout = () => {
                     marginLeft: "auto",
                     marginRight: "auto",
                     width: "100%",
-
                     maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
                   }}
                 >
@@ -514,10 +558,12 @@ const PrintLayout = () => {
                       <td
                         style={{
                           border: "1px solid black",
-                          padding: "40px",
+                          padding: "40px 0px 0px 20px",
                           width: "33.33%",
                         }}
-                      ></td>
+                      >
+                        {post[0]?.submittedBy[0]}
+                      </td>
                       <td
                         style={{
                           border: "1px solid black",
