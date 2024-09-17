@@ -2,7 +2,7 @@ import {
   CREATE,
   FETCH_ALL,
   FETCH_POST,
-  UPDATE,
+  UPDATE,GET_ENTRY
 } from "../constants/actionTypes";
 import * as API from "../api/index";
 
@@ -62,7 +62,7 @@ export const entryDetails = (formdata) => async (dispatch) => {
 export const getEntryDetails = () => async (dispatch) => {
   try {
     const { data } = await API.fetchEntryDetails();
-    dispatch({ type: FETCH_POST, payload: data });
+    dispatch({ type: GET_ENTRY, payload: data });
   } catch (error) {
     console.log(error);
   }

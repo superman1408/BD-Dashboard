@@ -7,15 +7,78 @@ import { getEntryDetails } from "../../action/posts";
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
+  // Fetch posts from Redux store
+  const posts = useSelector((state) => state.posts);
+  // useEffect(() => {
+  //   if (isLoading === true) {
+  //     dispatch(getPost(currentId));
+  //     updateArray();
+  //     setLoading(false);
+  //   } else {
+  //     console.log("there is  no change in the data");
+  //     // updateArray();
+  //   }
+  // }, [currentId, dispatch, isLoading]);
+
+  let array = [];
+
+  const updateArray = async (post) => {
+    const array = [];
+    posts[0]?.map((post) => {
+      console.log(post.submittedBy.length);
+      for (let index = 0; index < post?.submittedBy.length; index++) {
+        array.push({
+          submittedBy: post?.submittedBy[index],
+          date: post?.date[index],
+          activity1: post?.activity1[index],
+          // status: post.status[index],
+        });
+      };
+    });
+    setLoading(false);
+  };
+
+
+
+  // Fetch data when component mounts
   useEffect(() => {
-    dispatch(getEntryDetails());
+    dispatch(getEntryDetails()).finally(() => {
+      updateArray();
+      setLoading(false);
+    });
+  }, [dispatch]);
+
+  // Optional: Update windowWidth on resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const posts = useSelector((state) => state.posts);
+  // console.log(posts);
+
+  posts[0]?.map((post) => {
+    console.log(post.submittedBy.length);
+    
+    for (let index = 0; index < post?.submittedBy.length; index++) {
+      array.push({
+        submittedBy: post?.submittedBy[index],
+        date: post?.date[index],
+        activity1: post?.activity1[index],
+        // status: post.status[index],
+      });
+    };
+  });
+
+
   console.log(posts);
+  
+
+
+  
 
   return (
     <Grid
@@ -34,13 +97,12 @@ const ViewDetails = () => {
           backgroundColor: "#f2f2f2",
           borderCollapse: "collapse",
           marginBottom: "130px",
-          // border: "1px solid black",
         }}
       >
         <h3
           style={{
             textAlign: "center",
-            fontFamily: "Roboto ",
+            fontFamily: "Roboto",
             color: "#0d325c",
           }}
         >
@@ -53,41 +115,47 @@ const ViewDetails = () => {
               style={{
                 padding: "10px",
                 borderCollapse: "collapse",
-                // border: "1px solid black",
                 marginLeft: "auto",
                 marginRight: "auto",
-
                 width: windowWidth <= 600 ? "30%" : "100%",
+                border: "1px solid black", // Optional: Add border for clarity
               }}
             >
               <thead>
                 <tr>
-                  <td>Date</td>
-                  <td align="right">Overview</td>
-                  <td align="right">Submitted By</td>
-                  <td align="right"></td>
+                  <th>Date</th>
+                  <th>Overview</th>
+                  <th>Submitted By</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {posts.map((post, index) => (
-                  <tr key={index}>
-                    <td>{post.date}</td>
-                    <td align="right">{post.overview}</td>
-                    <td align="right">{post.submittedBy}</td>
-                    <td align="right">
-                      <button onClick={() => navigate("/printlayout")}>
-                        View
-                      </button>
-                      <button onClick={() => navigate("/entrydetails")}>
-                        Edit
-                      </button>
-                    </td>{" "}
+                {array.length > 0 ? (
+                  array.map((post, index) => (
+                    <tr key={index}>
+                      <td>{post.date || "N/A"}</td>
+                      <td>{post.activity1 || "N/A"}</td>
+                      <td>{post.submittedBy || "N/A"}</td>
+                      <td>
+                        <button onClick={() => navigate("/printlayout")}>
+                          View
+                        </button>
+                        <button onClick={() => navigate("/entrydetails")}>
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" align="center">
+                      No data available
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </Grid>
-          <Grid></Grid>
         </Grid>
       </Card>
     </Grid>

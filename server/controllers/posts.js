@@ -66,6 +66,7 @@ export const getEntryDetails = async (req, res) => {
   try {
     const postMessage = await EntryOverview.find({});
     res.status(200).json(postMessage);
+    console.log(postMessage);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
