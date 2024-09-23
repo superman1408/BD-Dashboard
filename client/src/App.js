@@ -48,13 +48,19 @@ const App = () => {
           <Route path="/dashboard" exact element={<Dashboard />} />
           {/* <Route path="/maindashboard" exact element={<Maindashboard />} /> */}
           <Route path="/datasheet" exact element={<DataSheet />} />
-          <Route path="/:id/entrydetails" exact element={<EntryDetails />} />
+          {/* <Route path="/:id/entrydetails" exact element={<EntryDetails />} /> */}
           <Route path="/:id/viewdetails" exact element={<ViewDetails />} />
-          <Route
+          {/* <Route
             path="/:id/detailedprojectpage"
             exact
             element={<DetailedProjectPage />}
+          /> */}
+
+          <Route
+            path="/:date/detailedprojectpage"
+            element={<DetailedProjectPage />}
           />
+          <Route path="/entrydetails/:id" element={<EntryDetails />} />
           <Route
             path="/contractregister"
             exact

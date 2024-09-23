@@ -29,11 +29,9 @@ const Dashboard = () => {
     dispatch(getPosts()).finally(() => setLoading(false));
   }, [dispatch, loading]);
 
-
   const handleFormChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });//For setting the value of different input inside the FormData
+    setFormData({ ...formData, [e.target.name]: e.target.value }); //For setting the value of different input inside the FormData
   };
-
 
   const handleSubmit = async (e) => {
     setLoading(true); // Set loading to true when starting submission
@@ -51,19 +49,14 @@ const Dashboard = () => {
     }
   };
 
-
-
-
-// ---------Navigation to the different pages in the Application----------------
+  // ---------Navigation to the different pages in the Application----------------
   const handleEntry = (docNo) => {
-    navigate(`/${docNo}/entrydetails/`);
+    navigate(`/entrydetails/${docNo}`);
   };
-  
+
   const handleDetails = (docNo) => {
     navigate(`/${docNo}/viewdetails`);
   };
-
-
 
   return (
     <div style={{ display: "flex", height: "auto" }}>
@@ -163,7 +156,7 @@ const Dashboard = () => {
       {loading ? (
         <LinearProgress style={{ width: "100%", marginTop: "20px" }} />
       ) : (
-          <div
+        <div
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -197,8 +190,13 @@ const Dashboard = () => {
                     Project Number : {post?.docNo}
                   </h6>
                 </Card.Text>
-                <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                  <Button variant="primary" onClick={() => handleEntry(post.docNo)}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <Button
+                    variant="primary"
+                    onClick={() => handleEntry(post.docNo)}
+                  >
                     Entry
                   </Button>
                   <Button
@@ -213,7 +211,6 @@ const Dashboard = () => {
           ))}
         </div>
       )}
-      
     </div>
   );
 };

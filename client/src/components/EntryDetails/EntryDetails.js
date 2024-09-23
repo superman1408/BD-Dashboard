@@ -61,7 +61,6 @@ const EntryDetails = () => {
               Project Number : {projectNo.id}
             </Form.Label>
           </Form.Group>
-
           <Row>
             <Col md={6} className="mb-3">
               <Form.Group controlId="formDate">
@@ -77,7 +76,6 @@ const EntryDetails = () => {
               </Form.Group>
             </Col>
           </Row>
-
           <Divider
             className="mt-3 mb-3"
             style={{
@@ -86,11 +84,9 @@ const EntryDetails = () => {
               fontWeight: "bold",
             }}
           />
-
           <Form.Group controlId="formActivities" className="mb-3 ">
             <Form.Label style={{ fontSize: "18px" }}>Activities</Form.Label>
           </Form.Group>
-
           <Form.Group controlId="formCivilStructure" className="mb-3">
             <Form.Label>Civil & Structure</Form.Label>
             <Form.Control
@@ -105,7 +101,6 @@ const EntryDetails = () => {
               onKeyDown={(e) => handleKeyDown(e, "activity1")}
             />
           </Form.Group>
-
           <Form.Group controlId="formPlannedWork" className="mb-3">
             <Form.Label>Planned Work For Tomorrow</Form.Label>
             <Form.Control
@@ -120,7 +115,6 @@ const EntryDetails = () => {
               onKeyDown={(e) => handleKeyDown(e, "activity2")}
             />
           </Form.Group>
-
           <Form.Group controlId="formMaterialRequirement" className="mb-3">
             <Form.Label>Material Requirement</Form.Label>
             <Form.Control
@@ -135,7 +129,6 @@ const EntryDetails = () => {
               onKeyDown={(e) => handleKeyDown(e, "activity3")}
             />
           </Form.Group>
-
           <Form.Group controlId="formProcurementStatus" className="mb-3">
             <Form.Label>Procurement Status</Form.Label>
             <Form.Control
@@ -158,7 +151,7 @@ const EntryDetails = () => {
               fontWeight: "bold",
             }}
           />
-
+          ``````````````````````````````````````````````````````````````````````````````````````````````````````
           <Row>
             <Col md={6} className="mb-3">
               <Form.Group controlId="formMaleLabour">
@@ -203,7 +196,6 @@ const EntryDetails = () => {
               </Form.Group>
             </Col>
           </Row>
-
           <Form.Group controlId="formUploadPictures" className="mb-3">
             <Form.Label>Upload Pictures</Form.Label>
             <Form.Control
@@ -227,7 +219,6 @@ const EntryDetails = () => {
             />
             {fileError && <p>{fileError}</p>}
           </Form.Group>
-
           <Form.Group controlId="formSubmittedBy" className="mb-3">
             <Form.Label>Submitted By</Form.Label>
             <Form.Control
@@ -248,7 +239,6 @@ const EntryDetails = () => {
               fontWeight: "bold",
             }}
           />
-
           <button
             variant="primary"
             type="submit"

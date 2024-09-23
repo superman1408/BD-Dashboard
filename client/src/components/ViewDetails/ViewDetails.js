@@ -12,16 +12,6 @@ const ViewDetails = () => {
 
   // Fetch posts from Redux store
   const posts = useSelector((state) => state.posts);
-  // useEffect(() => {
-  //   if (isLoading === true) {
-  //     dispatch(getPost(currentId));
-  //     updateArray();
-  //     setLoading(false);
-  //   } else {
-  //     console.log("there is  no change in the data");
-  //     // updateArray();
-  //   }
-  // }, [currentId, dispatch, isLoading]);
 
   let array = [];
 
@@ -133,7 +123,9 @@ const ViewDetails = () => {
                         >
                           View
                         </button>
-                        <button onClick={() => navigate("/entrydetails")}>
+                        <button
+                          onClick={() => navigate(`/${post.date}/entrydetails`)} // Pass date to edit page
+                        >
                           Edit
                         </button>
                       </td>
