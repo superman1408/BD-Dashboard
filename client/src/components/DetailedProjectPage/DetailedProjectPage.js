@@ -174,7 +174,9 @@ const DetailedProjectPage = () => {
                             width: "60%",
                             padding: "10px",
                           }}
-                        ></td>
+                        >
+                          {}
+                        </td>
                       </tr>
                     </thead>
                   </table>
@@ -445,7 +447,7 @@ const DetailedProjectPage = () => {
                                 textAlign: "center",
                               }}
                             >
-                              S. No.
+                              Total Labour
                             </td>
                             <td
                               style={{
@@ -480,6 +482,9 @@ const DetailedProjectPage = () => {
                               }}
                             >
                               {/* {entry?.mason} */}
+                              {entry?.maleLabour +
+                                entry?.femaleLabour +
+                                entry?.mason}
                             </td>
                             <td
                               style={{

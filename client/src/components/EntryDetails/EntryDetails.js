@@ -151,7 +151,6 @@ const EntryDetails = () => {
               fontWeight: "bold",
             }}
           />
-          ``````````````````````````````````````````````````````````````````````````````````````````````````````
           <Row>
             <Col md={6} className="mb-3">
               <Form.Group controlId="formMaleLabour">
