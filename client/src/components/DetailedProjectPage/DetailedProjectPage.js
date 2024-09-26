@@ -196,18 +196,108 @@ const DetailedProjectPage = () => {
                                 PROJECT NAME
                               </th>
 
-                      <td
-                        style={{
-                          border: "1px solid black",
-                          width: "60%",
-                          padding: "10px",
-                        }}
-                      ></td>
-                    </tr>
-                  </thead>
-                </table>
-                {filteredData.length > 0 ? (
-                  filteredData.map((entry, index) => (
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  width: "60%",
+                                  padding: "10px",
+                                }}
+                              >
+                                {entry?.projectName}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <p>No data available for this date.</p>
+                        )}
+                      </thead>
+                    </table>
+                    {filteredData.length > 0 ? (
+                      filteredData.map((entry, index) => (
+                        <table
+                          style={{
+                            padding: "10px",
+                            borderCollapse: "collapse",
+                            border: "1px solid black",
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            width: "100%",
+                            maxWidth: "800px",
+                          }}
+                        >
+                          <tbody>
+                            <tr key={index}>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Client
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                <td>{entry.clientName}</td>
+                              </td>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Date
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                <td>{entry.date}</td>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Doc No.
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                <td>{entry.docNo}</td>
+                              </td>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Month
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              ></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      ))
+                    ) : (
+                      <p>No data available for this date.</p>
+                    )}
                     <table
                       style={{
                         padding: "10px",
@@ -219,421 +309,360 @@ const DetailedProjectPage = () => {
                         maxWidth: "800px",
                       }}
                     >
-                      <tbody>
-                        <tr key={index}>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Client
-                          </th>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            <td>{entry.submittedBy}</td>
-                          </td>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Date
-                          </th>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            <td>{entry.date}</td>
-                          </td>
-                        </tr>
+                      <thead>
                         <tr>
-                          <td
+                          <th
                             style={{
                               border: "1px solid black",
-                              padding: "10px",
+                              backgroundColor: "#027580",
+                              textAlign: "center",
                             }}
                           >
-                            Doc No.
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            <td>{entry.activity1}</td>
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Month
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          ></td>
+                            Activities
+                          </th>
                         </tr>
-                      </tbody>
+                      </thead>
                     </table>
-                  ))
-                ) : (
-                  <p>No data available for this date.</p>
-                )}
-                <table
-                  style={{
-                    padding: "10px",
-                    borderCollapse: "collapse",
-                    border: "1px solid black",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "100%",
-                    maxWidth: "800px",
-                  }}
-                >
-                  <thead>
-                    <tr>
-                      <th
-                        style={{
-                          border: "1px solid black",
-                          backgroundColor: "#027580",
-                          textAlign: "center",
-                        }}
-                      >
-                        Activities
-                      </th>
-                    </tr>
-                  </thead>
-                </table>
-                <table
-                  style={{
-                    padding: "10px",
-                    borderCollapse: "collapse",
-                    border: "1px solid black",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "100%",
-                    maxWidth: "800px",
-                  }}
-                >
-                  {filteredData.length > 0 ? (
-                    filteredData.map((entry, index) => (
-                      <tbody>
-                        <tr key={index}>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Civil & Structure
-                          </th>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            {entry?.activity1}
-                          </td>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Planned work for Tomorrow
-                          </th>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            {entry?.activity2}
-                          </td>
-                        </tr>
-                        <tr>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Material Requirements
-                          </th>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            {entry?.activity3}
-                          </td>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            Procurement Status
-                          </th>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "10px",
-                            }}
-                          >
-                            {entry?.activity4}
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))
-                  ) : (
-                    <p>No data available for this date.</p>
-                  )}
-                </table>
-                <br />
-                <table
-                  style={{
-                    padding: "10px",
-                    borderCollapse: "collapse",
-                    border: "1px solid black",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "100%",
-                    maxWidth: "800px",
-                  }}
-                >
-                  {filteredData.length > 0 ? (
-                    filteredData.map((entry, index) => (
-                      <tbody>
-                        <tr key={index}>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                            }}
-                          >
-                            Images
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                              padding: "40px",
-                            }}
-                          >
-                            <img
-                              src={entry?.uploadPictures}
-                              alt="Image"
-                              style={{ width: "200px", height: "auto" }}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))
-                  ) : (
-                    <p>No data available for this date.</p>
-                  )}
-                </table>
-                <br />
-                <table
-                  style={{
-                    padding: "10px",
-                    borderCollapse: "collapse",
-                    border: "1px solid black",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "100%",
-                    maxWidth: "800px",
-                  }}
-                >
-                  {filteredData.length > 0 ? (
-                    filteredData.map((entry, index) => (
-                      <tbody>
-                        <tr key={index}>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                            }}
-                          >
-                            S. No.
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                            }}
-                          >
-                            Male Labour
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                            }}
-                          >
-                            Female Labour
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                            }}
-                          >
-                            Mason
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "20px",
-                            }}
-                          >
-                            {/* {entry?.mason} */}
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "20px",
-                            }}
-                          >
-                            {entry?.maleLabour}
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "20px",
-                            }}
-                          >
-                            {entry?.femaleLabour}
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "20px",
-                            }}
-                          >
-                            {entry?.mason}
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))
-                  ) : (
-                    <p>No data</p>
-                  )}
-                </table>
-                <table
-                  style={{
-                    padding: "10px",
-                    borderCollapse: "collapse",
-                    border: "1px solid black",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "100%",
-                    maxWidth: "800px",
-                  }}
-                >
-                  {filteredData.length > 0 ? (
-                    filteredData.map((entry, index) => (
-                      <tbody>
-                        <tr key={index}>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "40px",
-                            }}
-                          >
-                            {entry?.submittedBy}
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "40px",
-                            }}
-                          ></td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              padding: "40px",
-                            }}
-                          ></td>
-                        </tr>
-                        <tr>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            PREPARED BY
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            SITE SUPERVISOR
-                          </td>
-                          <td
-                            style={{
-                              border: "1px solid black",
-                              textAlign: "center",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            LABOUR CONTRACTOR
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))
-                  ) : (
-                    <p>No data available</p>
-                  )}
-                </table>
-              </Grid>
-            </Grid>
+                    <table
+                      style={{
+                        padding: "10px",
+                        borderCollapse: "collapse",
+                        border: "1px solid black",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "100%",
+                        maxWidth: "800px",
+                      }}
+                    >
+                      {filteredData.length > 0 ? (
+                        filteredData.map((entry, index) => (
+                          <tbody>
+                            <tr key={index}>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Civil & Structure
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                {entry?.activity1}
+                              </td>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Planned work for Tomorrow
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                {entry?.activity2}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Material Requirements
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                {entry?.activity3}
+                              </td>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                Procurement Status
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                }}
+                              >
+                                {entry?.activity4}
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      ) : (
+                        <p>No data available for this date.</p>
+                      )}
+                    </table>
+                    <br />
+                    <table
+                      style={{
+                        padding: "10px",
+                        borderCollapse: "collapse",
+                        border: "1px solid black",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "100%",
+                        maxWidth: "800px",
+                      }}
+                    >
+                      {filteredData.length > 0 ? (
+                        filteredData.map((entry, index) => (
+                          <tbody>
+                            <tr key={index}>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Related Image
+                              </th>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                  padding: "40px",
+                                }}
+                              >
+                                <img
+                                  src={entry.uploadPictures1}
+                                  alt="Image"
+                                  style={{ width: "150px", height: "100px" }}
+                                />
+                                <img
+                                  src={entry.uploadPictures2}
+                                  alt="Image"
+                                  style={{ width: "150px", height: "100px" }}
+                                />
+                                <img
+                                  src={entry.uploadPictures3}
+                                  alt="Image"
+                                  style={{ width: "150px", height: "100px" }}
+                                />
+                                <img
+                                  src={entry.uploadPictures4}
+                                  alt="Image"
+                                  style={{ width: "150px", height: "100px" }}
+                                />
+                                <img
+                                  src={entry.uploadPictures5}
+                                  alt="Image"
+                                  style={{ width: "150px", height: "100px" }}
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      ) : (
+                        <p>No data available for this date.</p>
+                      )}
+                    </table>
+                    <br />
+                    <table
+                      style={{
+                        padding: "10px",
+                        borderCollapse: "collapse",
+                        border: "1px solid black",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "100%",
+                        maxWidth: "800px",
+                      }}
+                    >
+                      {filteredData.length > 0 ? (
+                        filteredData.map((entry, index) => (
+                          <tbody>
+                            <tr key={index}>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                }}
+                              >
+                                S. No.
+                              </th>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Male Labour
+                              </th>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Female Labour
+                              </th>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Mason
+                              </th>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "20px",
+                                }}
+                              >
+                                {/* {entry?.mason} */}
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "20px",
+                                }}
+                              >
+                                {entry?.maleLabour}
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "20px",
+                                }}
+                              >
+                                {entry?.femaleLabour}
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "20px",
+                                }}
+                              >
+                                {entry?.mason}
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      ) : (
+                        <p>No data</p>
+                      )}
+                    </table>
+                    <table
+                      style={{
+                        padding: "10px",
+                        borderCollapse: "collapse",
+                        border: "1px solid black",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "100%",
+                        maxWidth: "800px",
+                      }}
+                    >
+                      {filteredData.length > 0 ? (
+                        filteredData.map((entry, index) => (
+                          <tbody>
+                            <tr key={index}>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "40px",
+                                }}
+                              >
+                                {entry?.submittedBy}
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "40px",
+                                }}
+                              ></td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "40px",
+                                }}
+                              ></td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                PREPARED BY
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                SITE SUPERVISOR
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  textAlign: "center",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                LABOUR CONTRACTOR
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      ) : (
+                        <p>No data available</p>
+                      )}
+                    </table>
+                  </Grid>
+                </Grid>
+              </Grid>{" "}
+            </div>
+          </Card>
+
+          <Grid>
+            {!isPrinting && (
+              <Button
+                required
+                variant="outlined"
+                sx={{
+                  bgcolor: "skyblue",
+                  color: "black",
+                  float: "right",
+                  marginRight: "0px",
+                  marginTop: "10px",
+                }}
+                onClick={handlePpd}
+              >
+                Print
+              </Button>
+            )}
           </Grid>
-        </Card>
-        <Grid>
-          {!isPrinting && (
-            <Button
-              required
-              variant="outlined"
-              sx={{
-                bgcolor: "skyblue",
-                color: "black",
-                float: "right",
-                marginRight: "0px",
-                marginTop: "10px",
-              }}
-              onClick={handlePpd}
-            >
-              Print
-            </Button>
-          )}
-        </Grid>
-      </Container>
+        </Container>
+      )}
     </div>
   );
 };
