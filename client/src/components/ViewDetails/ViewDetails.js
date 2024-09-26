@@ -124,7 +124,7 @@ const ViewDetails = () => {
                           View
                         </button>
                         <button
-                          onClick={() => navigate(`/${post.date}/entrydetails`)} // Pass date to edit page
+                          onClick={() => navigate(`/entrydetails/${post.date}`)} // Pass date to edit page
                         >
                           Edit
                         </button>

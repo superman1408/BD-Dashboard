@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [cards, setCards] = useState([]);
   const [formData, setFormData] = useState({
     projectName: "",
+    clientName: "",
     docNo: "",
     selectedFile: "",
   });
@@ -37,7 +38,12 @@ const Dashboard = () => {
     setLoading(true); // Set loading to true when starting submission
     // Add the form data to local state (cards) and hide the form
     setCards([...cards, formData]);
-    setFormData({ projectName: "", docNo: "", selectedFile: "" });
+    setFormData({
+      projectName: "",
+      clientName: "",
+      docNo: "",
+      selectedFile: "",
+    });
     setFormVisible(false);
 
     try {
@@ -63,7 +69,7 @@ const Dashboard = () => {
       <Card
         style={{
           width: "200px",
-          height: "400px",
+          height: "600px",
           flexShrink: 0, // Prevent the card from shrinking
           margin: "10px",
           border: "2px solid white",
@@ -101,11 +107,14 @@ const Dashboard = () => {
         </IconButton>
 
         {/* Modal for Form */}
-        <Modal show={formVisible} onHide={() => setFormVisible(false)} centered>
-          <Modal.Header closeButton style={{ marginTop: "20px" }}>
-            <h5 style={{ fontWeight: "bold", marginTop: "20px" }}>
-              Add New Project
-            </h5>
+        <Modal
+          style={{ marginTop: "80px" }}
+          show={formVisible}
+          onHide={() => setFormVisible(false)}
+          centered
+        >
+          <Modal.Header closeButton>
+            <h5 style={{ fontWeight: "bold" }}>Add New Project</h5>
           </Modal.Header>
           <Modal.Body>
             <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
@@ -121,6 +130,17 @@ const Dashboard = () => {
                 />
               </div>
               <div style={{ padding: "10px" }}>
+                <label>Client Name : </label>
+                <input
+                  type="text"
+                  name="clientName"
+                  value={formData.clientName}
+                  onChange={handleFormChange}
+                  required
+                  style={{ marginLeft: "20px" }}
+                />
+              </div>
+              <div style={{ padding: "10px" }}>
                 <label>Project No. : </label>
                 <input
                   type="text"
@@ -129,7 +149,7 @@ const Dashboard = () => {
                   onChange={handleFormChange}
                   required
                   style={{ marginLeft: "28px" }}
-                />
+                />{" "}
               </div>
               <div style={{ padding: "10px" }}>
                 <label>Project Picture : </label>

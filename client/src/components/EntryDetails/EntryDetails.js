@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Row, Col, Card, Form, button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  button,
+  FormControl,
+} from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider } from "@mui/material";
+import FileBase from "react-file-base64";
 import { entryDetails } from "../../action/posts";
 
 const EntryDetails = () => {
@@ -25,7 +34,11 @@ const EntryDetails = () => {
     maleLabour: "",
     femaleLabour: "",
     mason: "",
-    uploadPictures: "",
+    uploadPictures1: "",
+    uploadPictures2: "",
+    uploadPictures3: "",
+    uploadPictures4: "",
+    uploadPictures5: "",
     submittedBy: "",
   });
 
@@ -101,6 +114,29 @@ const EntryDetails = () => {
               onKeyDown={(e) => handleKeyDown(e, "activity1")}
             />
           </Form.Group>
+
+          <Form.Group controlId="formUploadPictures" className="mb-3">
+            <Form.Label style={{ marginRight: "10px" }}>
+              Upload Pictures
+            </Form.Label>
+            {/* <FormControl> */}
+            <FileBase
+              type="file"
+              fileName="Profile.png"
+              onDone={({ base64 }) =>
+                setFormData({ ...formData, uploadPictures1: base64 })
+              }
+            />
+            <FileBase
+              type="file"
+              fileName="Profile.png"
+              onDone={({ base64 }) =>
+                setFormData({ ...formData, uploadPictures2: base64 })
+              }
+            />
+            {/* </FormControl> */}
+            {fileError && <p>{fileError}</p>}
+          </Form.Group>
           <Form.Group controlId="formPlannedWork" className="mb-3">
             <Form.Label>Planned Work For Tomorrow</Form.Label>
             <Form.Control
@@ -143,6 +179,38 @@ const EntryDetails = () => {
               onKeyDown={(e) => handleKeyDown(e, "activity4")}
             />
           </Form.Group>
+          <Form.Group controlId="formUploadPictures" className="mb-3">
+            <Form.Label style={{ marginRight: "10px" }}>
+              Upload Pictures
+            </Form.Label>
+            {/* <FormControl> */}
+            <div style={{ display: "flex" }}>
+              <Form.Label style={{ marginRight: "10px" }}>Sand</Form.Label>
+              <FileBase
+                type="file"
+                fileName="Profile.png"
+                onDone={({ base64 }) =>
+                  setFormData({ ...formData, uploadPictures3: base64 })
+                }
+              />
+              <Form.Label style={{ marginRight: "10px" }}>Rod</Form.Label>
+              <FileBase
+                type="file"
+                fileName="Profile.png"
+                onDone={({ base64 }) =>
+                  setFormData({ ...formData, uploadPictures4: base64 })
+                }
+              />
+              <Form.Label style={{ marginRight: "10px" }}>Others</Form.Label>
+              <FileBase
+                type="file"
+                fileName="Profile.png"
+                onDone={({ base64 }) =>
+                  setFormData({ ...formData, uploadPictures5: base64 })
+                }
+              />
+            </div>
+          </Form.Group>
           <Divider
             className="mt-3 mb-3"
             style={{
@@ -151,7 +219,7 @@ const EntryDetails = () => {
               fontWeight: "bold",
             }}
           />
-          ``````````````````````````````````````````````````````````````````````````````````````````````````````
+
           <Row>
             <Col md={6} className="mb-3">
               <Form.Group controlId="formMaleLabour">
@@ -196,29 +264,7 @@ const EntryDetails = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Form.Group controlId="formUploadPictures" className="mb-3">
-            <Form.Label>Upload Pictures</Form.Label>
-            <Form.Control
-              type="file"
-              accept="/*"
-              multiple
-              name="uploadPictures"
-              // onChange={handleFileChange}
-              value={formData.uploadPictures}
-              onChange={(e) => {
-                setFormData({ ...formData, uploadPictures: e.target.value });
-                const files = e.target.files;
 
-                if (files.length > 2) {
-                  setFileError("Please select only 2 photos");
-                  e.target.value = null;
-                } else {
-                  setFileError(null);
-                }
-              }}
-            />
-            {fileError && <p>{fileError}</p>}
-          </Form.Group>
           <Form.Group controlId="formSubmittedBy" className="mb-3">
             <Form.Label>Submitted By</Form.Label>
             <Form.Control

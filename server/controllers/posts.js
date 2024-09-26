@@ -62,7 +62,11 @@ export const entryDetails = async (req, res) => {
   updatePost.maleLabour.push(value.maleLabour);
   updatePost.femaleLabour.push(value.femaleLabour);
   updatePost.mason.push(value.mason);
-  updatePost.uploadPictures.push(value.uploadPictures);
+  updatePost.uploadPictures1.push(value.uploadPictures1);
+  updatePost.uploadPictures2.push(value.uploadPictures2);
+  updatePost.uploadPictures3.push(value.uploadPictures3);
+  updatePost.uploadPictures4.push(value.uploadPictures4);
+  updatePost.uploadPictures5.push(value.uploadPictures5);
   updatePost.submittedBy.push(value.submittedBy);
 
   const updated = await EntryOverview.findByIdAndUpdate(id, updatePost, {

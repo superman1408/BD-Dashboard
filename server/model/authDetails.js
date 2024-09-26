@@ -15,7 +15,11 @@ const authSchema = mongoose.Schema({
   confirmPassword: {
     type: String,
   },
-});
+},
+{
+  timestamps: true,
+}
+);
 
 const AuthDetails = mongoose.model("AuthDetails", authSchema);
 export default AuthDetails;
