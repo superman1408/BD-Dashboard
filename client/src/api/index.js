@@ -30,3 +30,6 @@ export const entryDetails = (formData) =>
   API.patch("/posts/entryDetails", formData);
 
 export const fetchEntryDetails = () => API.get(`/posts/entryDetails/view`);
+
+export const editTable = (id, indexed, toEdit) =>
+  API.patch(`/posts/${id}/${indexed}/edit`, toEdit);

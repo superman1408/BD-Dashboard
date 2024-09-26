@@ -4,6 +4,7 @@ import {
   FETCH_POST,
   UPDATE,
   GET_ENTRY,
+  UPDATE_ENTRY,
 } from "../constants/actionTypes";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -22,6 +23,8 @@ export default (posts = [], action) => {
       return [...posts, action.payload];
 
     case GET_ENTRY:
+      return [...posts, action.payload];
+    case UPDATE_ENTRY:
       return [...posts, action.payload];
 
     default:
