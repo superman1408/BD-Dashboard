@@ -33,6 +33,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 // import NotificationsIcon from "@mui/icons-material/Notifications";
 // import Badge from "@mui/material/Badge";
 import { useTheme } from "@emotion/react";
@@ -79,6 +80,11 @@ export default function MenuAppBar() {
     { text: "Dashboard", icon: <DashboardIcon />, link: "/dashboard" },
     { text: "DataSheet", icon: <MailIcon />, link: "/datasheet" },
     { text: "Profile", icon: <PeopleAltIcon /> },
+    {
+      text: "Contract Register",
+      icon: <AppRegistrationIcon />,
+      link: "/contractregister",
+    },
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
 
