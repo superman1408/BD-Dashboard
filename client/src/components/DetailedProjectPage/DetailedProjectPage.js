@@ -401,7 +401,7 @@ const DetailedProjectPage = () => {
                                 textAlign: "center",
                               }}
                             >
-                              Images
+                              Related Pictures
                             </td>
                           </tr>
                           <tr>
@@ -447,7 +447,7 @@ const DetailedProjectPage = () => {
                                 textAlign: "center",
                               }}
                             >
-                              Total Labour
+                              Casual Cum Security Workers
                             </td>
                             <td
                               style={{
@@ -482,9 +482,6 @@ const DetailedProjectPage = () => {
                               }}
                             >
                               {/* {entry?.mason} */}
-                              {entry?.maleLabour +
-                                entry?.femaleLabour +
-                                entry?.mason}
                             </td>
                             <td
                               style={{
