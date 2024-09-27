@@ -54,9 +54,7 @@ const ContractRegister = () => {
               <Row>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formDate">
-                    <Form.Label>
-                      <u>Contactor Name</u>
-                    </Form.Label>
+                    <Form.Label>Contactor Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Enter Contactor Name"
