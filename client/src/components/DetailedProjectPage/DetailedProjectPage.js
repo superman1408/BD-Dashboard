@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { Grid, Card, Container, Button, LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const DetailedProjectPage = () => {
   const dispatch = useDispatch();
 
   const [isPrinting, setIsPrinting] = useState(false);
+  
   const [loading, setLoading] = useState(true);
 
   const componentRef = useRef();
