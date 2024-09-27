@@ -300,3 +300,32 @@ const EntryDetails = () => {
 };
 
 export default EntryDetails;
+
+// import React from 'react';
+// import { useSelector } from 'react-redux';
+
+// const MyComponent = () => {
+//   // Fetch the date from the Redux store
+//   const dateFromStore = useSelector((state) => state.date); // Adjust the selector based on your state structure
+
+//   // Function to get the month from the date
+//   const getMonthFromDate = (dateString) => {
+//     const date = new Date(dateString); // Convert the string to a Date object
+//     const month = date.getMonth(); // Get the month (0-11)
+//     return month + 1; // Return the month in the 1-12 range
+//   };
+
+//   const month = dateFromStore ? getMonthFromDate(dateFromStore) : null;
+
+//   return (
+//     <div>
+//       {month ? (
+//         <p>The month is: {month}</p>
+//       ) : (
+//         <p>No date available.</p>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default MyComponent;
