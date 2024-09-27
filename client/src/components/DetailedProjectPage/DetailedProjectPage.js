@@ -19,8 +19,6 @@ const DetailedProjectPage = () => {
 
   const [filteredData, setFilteredData] = useState([]);
 
-  const [month, setMonth] = useState(null);
-
   const allEntries = [];
 
   useEffect(() => {
@@ -49,13 +47,6 @@ const DetailedProjectPage = () => {
             uploadPictures5: post?.uploadPictures5[index],
             submittedBy: post?.submittedBy[index],
           });
-          const storedDate = post?.date[index]; // Example stored date (ISO format)
-          const actualDate = new Date(storedDate);
-          // const monthValue = actualDate.getMonth() + 1;
-          const monthValue = actualDate.toLocaleString("default", {
-            month: "long",
-          });
-          setMonth(monthValue);
         }
         console.log(post.uploadPictures1);
       }
@@ -96,10 +87,6 @@ const DetailedProjectPage = () => {
       }
     }
   });
-
-  // const storedDate = posts?.date; // Example stored date (ISO format)
-  // const actualDate = new Date(storedDate);
-  // const month = actualDate.getMonth() + 1; // Adding 1 since getMonth() returns 0-11
 
   return (
     <div>
@@ -142,14 +129,12 @@ const DetailedProjectPage = () => {
             }}
           >
             {" "}
-            <div ref={componentRef} style={{ padding: "30px" }}>
+            <div ref={componentRef} style={{ padding: "50px" }}>
               <h3
                 style={{
                   textAlign: "center",
                   fontFamily: "Roboto ",
                   color: "#0d325c",
-                  padding: "10px",
-                  fontWeight: "bold",
                 }}
               >
                 Daily Progress Report
@@ -177,11 +162,10 @@ const DetailedProjectPage = () => {
                             style={{
                               border: "1px solid black",
                               textAlign: "center",
-                              backgroundColor: "#0d325c",
-                              color: "white",
+                              backgroundColor: "#027580",
                             }}
                           >
-                            REPORT GENERATED
+                            DAILY PROGRESS REPORT
                           </th>
                         </tr>
                       </thead>
@@ -215,9 +199,8 @@ const DetailedProjectPage = () => {
                               <td
                                 style={{
                                   border: "1px solid black",
-                                  width: "70%",
+                                  width: "60%",
                                   padding: "10px",
-                                  textAlign: "center",
                                 }}
                               >
                                 {entry?.projectName}
@@ -256,8 +239,6 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "10px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               >
                                 <td>{entry.clientName}</td>
@@ -274,8 +255,6 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "10px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               >
                                 <td>{entry.date}</td>
@@ -294,8 +273,6 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "10px",
-                                  textAlign: "center",
-                                  width: "30%",
                                 }}
                               >
                                 <td>{entry.docNo}</td>
@@ -312,17 +289,26 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "10px",
-                                  width: "30%",
                                 }}
-                              >
-                                {month}
-                              </td>
+                              ></td>
                             </tr>
                           </tbody>
                         </table>
                       ))
                     ) : (
-                      <p>No data available for this date.</p>
+                      <table
+                        style={{
+                          padding: "10px",
+                          borderCollapse: "collapse",
+                          border: "1px solid black",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          width: "100%",
+                          maxWidth: "800px",
+                        }}
+                      >
+                        <p>No data available for this date.</p>
+                      </table>
                     )}
                     <table
                       style={{
@@ -340,7 +326,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              // backgroundColor: "#027580",
+                              backgroundColor: "#027580",
                               textAlign: "center",
                             }}
                           >
@@ -378,21 +364,7 @@ const DetailedProjectPage = () => {
                                   padding: "10px",
                                 }}
                               >
-                                {/* <pre>{entry?.activity1}</pre> */}
-                                {entry?.activity1
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
+                                {entry?.activity1}
                               </td>
                               <th
                                 style={{
@@ -408,20 +380,7 @@ const DetailedProjectPage = () => {
                                   padding: "10px",
                                 }}
                               >
-                                {entry?.activity2
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
+                                {entry?.activity2}
                               </td>
                             </tr>
                             <tr>
@@ -439,20 +398,7 @@ const DetailedProjectPage = () => {
                                   padding: "10px",
                                 }}
                               >
-                                {entry?.activity3
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
+                                {entry?.activity3}
                               </td>
                               <th
                                 style={{
@@ -468,20 +414,7 @@ const DetailedProjectPage = () => {
                                   padding: "10px",
                                 }}
                               >
-                                {entry?.activity4
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
+                                {entry?.activity4}
                               </td>
                             </tr>
                           </tbody>
@@ -520,52 +453,33 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   textAlign: "center",
+                                  padding: "40px",
                                 }}
                               >
                                 <img
                                   src={entry.uploadPictures1}
                                   alt="Image"
-                                  style={{
-                                    width: "150px",
-                                    height: "100px",
-                                    margin: "10px",
-                                  }}
+                                  style={{ width: "150px", height: "100px" }}
                                 />
                                 <img
                                   src={entry.uploadPictures2}
                                   alt="Image"
-                                  style={{
-                                    width: "150px",
-                                    height: "100px",
-                                    margin: "10px",
-                                  }}
+                                  style={{ width: "150px", height: "100px" }}
                                 />
                                 <img
                                   src={entry.uploadPictures3}
                                   alt="Image"
-                                  style={{
-                                    width: "150px",
-                                    height: "100px",
-                                    margin: "10px",
-                                  }}
+                                  style={{ width: "150px", height: "100px" }}
                                 />
                                 <img
                                   src={entry.uploadPictures4}
                                   alt="Image"
-                                  style={{
-                                    width: "150px",
-                                    height: "100px",
-                                    margin: "10px",
-                                  }}
+                                  style={{ width: "150px", height: "100px" }}
                                 />
                                 <img
                                   src={entry.uploadPictures5}
                                   alt="Image"
-                                  style={{
-                                    width: "150px",
-                                    height: "100px",
-                                    margin: "10px",
-                                  }}
+                                  style={{ width: "150px", height: "100px" }}
                                 />
                               </td>
                             </tr>
@@ -591,14 +505,14 @@ const DetailedProjectPage = () => {
                         filteredData.map((entry, index) => (
                           <tbody>
                             <tr key={index}>
-                              {/* <th
+                              <th
                                 style={{
                                   border: "1px solid black",
                                   textAlign: "center",
                                 }}
                               >
-                                Total Casual/
-                              </th> */}
+                                S. No.
+                              </th>
                               <th
                                 style={{
                                   border: "1px solid black",
@@ -625,18 +539,18 @@ const DetailedProjectPage = () => {
                               </th>
                             </tr>
                             <tr>
-                              {/* <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "20px",
-                                }}
-                              ></td> */}
                               <td
                                 style={{
                                   border: "1px solid black",
                                   padding: "20px",
-                                  width: "30%",
-                                  textAlign: "center",
+                                }}
+                              >
+                                {/* {entry?.mason} */}
+                              </td>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "20px",
                                 }}
                               >
                                 {entry?.maleLabour}
@@ -645,8 +559,6 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "20px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               >
                                 {entry?.femaleLabour}
@@ -655,8 +567,6 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "20px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               >
                                 {entry?.mason}
@@ -687,8 +597,6 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "40px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               >
                                 {entry?.submittedBy}
@@ -697,16 +605,12 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "40px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               ></td>
                               <td
                                 style={{
                                   border: "1px solid black",
                                   padding: "40px",
-                                  width: "30%",
-                                  textAlign: "center",
                                 }}
                               ></td>
                             </tr>
