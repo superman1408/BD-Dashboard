@@ -66,7 +66,7 @@ const DetailedProjectPage = () => {
 
   const handlePpd = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Visitor Pass",
+    documentTitle: "Progress Report",
     onAfterPrint: () => console.log("Printed PDF successfully!"),
     fontSize: "15px",
   });
@@ -119,7 +119,6 @@ const DetailedProjectPage = () => {
           justifycontent="center"
           // fluid="true"
           sx={{
-            padding: "20px",
             display: "flex",
             justifyContent: "center",
             marginTop: "20px",
@@ -129,8 +128,7 @@ const DetailedProjectPage = () => {
           <Card
             elevation={20}
             sx={{
-              padding: "40px",
-              borderRadius: "20px",
+              borderRadius: "10px",
               display: {
                 xs: "0",
                 sm: "600",
@@ -324,6 +322,7 @@ const DetailedProjectPage = () => {
                     ) : (
                       <p>No data available for this date.</p>
                     )}
+                    <br />
                     <table
                       style={{
                         padding: "10px",
@@ -364,125 +363,141 @@ const DetailedProjectPage = () => {
                         filteredData.map((entry, index) => (
                           <tbody>
                             <tr key={index}>
-                              <th
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                Civil & Structure
-                              </th>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                {/* <pre>{entry?.activity1}</pre> */}
-                                {entry?.activity1
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
-                              </td>
-                              <th
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                Planned work for Tomorrow
-                              </th>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                {entry?.activity2
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
-                              </td>
+                              <div style={{ display: "flex" }}>
+                                <th
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "40%",
+                                  }}
+                                >
+                                  Civil & Structure
+                                </th>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "70%",
+                                  }}
+                                >
+                                  {entry?.activity1
+                                    .split("\n")
+                                    .map((line, index) => (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          fontSize: "14px", // Example font size, you can customize this
+                                          marginBottom: "5px", // Add spacing between lines
+                                          display: "block", // Ensure lines are displayed on new lines
+                                        }}
+                                      >
+                                        {line}
+                                      </span>
+                                    ))}
+                                </td>
+                              </div>
+                              <div style={{ display: "flex" }}>
+                                <th
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "40%",
+                                  }}
+                                >
+                                  Planned work for Tomorrow
+                                </th>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "70%",
+                                  }}
+                                >
+                                  {entry?.activity2
+                                    .split("\n")
+                                    .map((line, index) => (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          fontSize: "14px", // Example font size, you can customize this
+                                          marginBottom: "5px", // Add spacing between lines
+                                          display: "block", // Ensure lines are displayed on new lines
+                                        }}
+                                      >
+                                        {line}
+                                      </span>
+                                    ))}
+                                </td>
+                              </div>
                             </tr>
+
                             <tr>
-                              <th
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                Material Requirements
-                              </th>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                {entry?.activity3
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
-                              </td>
-                              <th
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                Procurement Status
-                              </th>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "10px",
-                                }}
-                              >
-                                {entry?.activity4
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px", // Example font size, you can customize this
-                                        marginBottom: "5px", // Add spacing between lines
-                                        display: "block", // Ensure lines are displayed on new lines
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
-                              </td>
+                              <div style={{ display: "flex" }}>
+                                <th
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "40%",
+                                  }}
+                                >
+                                  Material Requirements
+                                </th>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "70%",
+                                  }}
+                                >
+                                  {entry?.activity3
+                                    .split("\n")
+                                    .map((line, index) => (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          fontSize: "14px", // Example font size, you can customize this
+                                          marginBottom: "5px", // Add spacing between lines
+                                          display: "block", // Ensure lines are displayed on new lines
+                                        }}
+                                      >
+                                        {line}
+                                      </span>
+                                    ))}
+                                </td>
+                              </div>
+                              <div style={{ display: "flex" }}>
+                                <th
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "40%",
+                                  }}
+                                >
+                                  Procurement Status
+                                </th>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    width: "70%",
+                                  }}
+                                >
+                                  {entry?.activity4
+                                    .split("\n")
+                                    .map((line, index) => (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          fontSize: "14px", // Example font size, you can customize this
+                                          marginBottom: "5px", // Add spacing between lines
+                                          display: "block", // Ensure lines are displayed on new lines
+                                        }}
+                                      >
+                                        {line}
+                                      </span>
+                                    ))}
+                                </td>
+                              </div>
                             </tr>
                           </tbody>
                         ))
@@ -635,7 +650,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "20px",
-                                  width: "30%",
+                                  width: "0%",
                                   textAlign: "center",
                                 }}
                               >
@@ -645,7 +660,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "20px",
-                                  width: "30%",
+                                  width: "0%",
                                   textAlign: "center",
                                 }}
                               >
@@ -655,7 +670,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "20px",
-                                  width: "30%",
+                                  width: "0%",
                                   textAlign: "center",
                                 }}
                               >
@@ -668,6 +683,7 @@ const DetailedProjectPage = () => {
                         <p>No data</p>
                       )}
                     </table>
+                    <br />
                     <table
                       style={{
                         padding: "10px",
@@ -687,7 +703,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "40px",
-                                  width: "30%",
+                                  width: "0%",
                                   textAlign: "center",
                                 }}
                               >
@@ -697,7 +713,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "40px",
-                                  width: "30%",
+                                  width: "0%",
                                   textAlign: "center",
                                 }}
                               ></td>
@@ -705,7 +721,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   padding: "40px",
-                                  width: "30%",
+                                  width: "0%",
                                   textAlign: "center",
                                 }}
                               ></td>
