@@ -69,7 +69,7 @@ const Dashboard = () => {
       <Card
         style={{
           width: "200px",
-          height: "auto",
+          height: "426px",
           flexShrink: 0, // Prevent the card from shrinking
           margin: "10px",
           border: "2px solid white",

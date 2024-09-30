@@ -77,9 +77,9 @@ export default function MenuAppBar() {
   };
 
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon />, link: "/dashboard" },
-    { text: "DataSheet", icon: <MailIcon />, link: "/datasheet" },
-    { text: "Profile", icon: <PeopleAltIcon /> },
+    { text: "Project Window", icon: <DashboardIcon />, link: "/dashboard" },
+    // { text: "DataSheet", icon: <MailIcon />, link: "/datasheet" },
+    // { text: "Profile", icon: <PeopleAltIcon /> },
     {
       text: "Contract Register",
       icon: <AppRegistrationIcon />,
@@ -149,7 +149,7 @@ export default function MenuAppBar() {
                   </Drawer>
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  Navbar
+                  Project Management Tool
                 </Typography>
                 {auth && (
                   <div>
@@ -181,7 +181,7 @@ export default function MenuAppBar() {
                     >
                       <AccountCircle />
                     </IconButton>
-                    <Menu
+                    {/* <Menu
                       id="menu-appbar"
                       anchorEl={anchorEl}
                       anchorOrigin={{
@@ -199,7 +199,7 @@ export default function MenuAppBar() {
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
                       <MenuItem onClick={handleClose}>My Account</MenuItem>
                       <MenuItem onClick={switchMode}>Logout</MenuItem>
-                    </Menu>
+                    </Menu> */}
                   </div>
                 )}
               </Toolbar>
