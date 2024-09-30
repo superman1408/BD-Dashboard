@@ -528,7 +528,7 @@ const DetailedProjectPage = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                Related Images
+                                Related  Images
                               </th>
                             </tr>
                             <tr>
