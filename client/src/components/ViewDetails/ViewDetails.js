@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Grid, Card, LinearProgress } from "@mui/material";
+import { Grid, Card, LinearProgress, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
 
@@ -10,7 +11,6 @@ const ViewDetails = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  console.log(id);
 
   // Fetch posts from Redux store
   const posts = useSelector((state) => state.posts);
@@ -72,35 +72,26 @@ const ViewDetails = () => {
           loading...
         </div>
       ) : (
-        <Grid
-          margin="20px"
-          padding="10px"
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
+        <Container
+          sx={{
+            display: "flex",
+            justifyContent: "center", // Center horizontally
+            alignItems: "center", // Center vertically
+            padding: "12px",
+            marginBottom: "50vh",
+            width: "auto",
+          }}
         >
           <Card
             elevation={10}
             sx={{
-              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column", // Optional, based on your design
+              alignItems: "center", // Center contents horizontally
+              justifyContent: "center", // Center contents vertically
               padding: "20px",
-              backgroundColor: "#f2f2f2",
-              borderCollapse: "collapse",
-              marginBottom: "130px",
             }}
           >
-            <h3
-              style={{
-                textAlign: "center",
-                fontFamily: "Roboto",
-                color: "#0d325c",
-                fontWeight: "bold",
-              }}
-            >
-              View Details Form
-            </h3>
             <Grid sx={{ display: "flex", flexDirection: "row" }}>
               <Grid>
                 <table
@@ -126,11 +117,18 @@ const ViewDetails = () => {
                     {array.length > 0 ? (
                       array.map((post, index) => (
                         <tr key={index}>
-                          <td>{post.date || "N/A"}</td>
+                          <td
+                            style={{
+                              paddingLeft: "10px",
+                              paddingRight: "10px",
+                            }}
+                          >
+                            {post.date || "N/A"}
+                          </td>
                           <td style={{ width: "150px", height: "100px" }}>
                             <img
                               style={{
-                                width: "150px",
+                                width: "120px",
                                 height: "80px",
                                 margin: "10px",
                               }}
@@ -149,13 +147,13 @@ const ViewDetails = () => {
                             >
                               View
                             </button>
-                            <button
+                            {/* <button
                               onClick={() =>
                                 navigate(`/entrydetails/${post.date}`)
                               } // Pass date to edit page
                             >
                               Edit
-                            </button>
+                            </button> */}
                           </td>
                         </tr>
                       ))
@@ -171,7 +169,7 @@ const ViewDetails = () => {
               </Grid>
             </Grid>
           </Card>
-        </Grid>
+        </Container>
       )}
     </>
   );

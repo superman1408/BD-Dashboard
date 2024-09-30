@@ -14,6 +14,16 @@ import "./EntryDetails.css";
 import { Divider } from "@mui/material";
 import FileBase from "react-file-base64";
 import { entryDetails } from "../../action/posts";
+import styled from "styled-components";
+
+const UploadWrapper = styled.div`
+  display: flex;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    margin: 0;
+  }
+`;
 
 const EntryDetails = () => {
   const [fileError, setFileError] = useState(null);
@@ -51,15 +61,15 @@ const EntryDetails = () => {
     navigate(`/${projectNo.id}/viewdetails`);
   };
 
-  const handleKeyDown = (e, fieldName) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [fieldName]: prevFormData[fieldName] + "\n•",
-      }));
-    }
-  };
+  // const handleKeyDown = (e, fieldName) => {
+  //   if (e.key === "Enter") {
+  //     e.preventDefault();
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       [fieldName]: prevFormData[fieldName] + "\n•",
+  //     }));
+  //   }
+  // };
 
   return (
     <Container
@@ -67,10 +77,20 @@ const EntryDetails = () => {
       style={{ minHeight: "100vh", paddingTop: "10px" }}
     >
       <Card className="p-4 custom-card">
-        <h3 className="text-center text-primary">Entry Detail Form</h3>
+        <h3
+          style={{
+            textAlign: "center",
+            fontFamily: "Roboto ",
+            color: "#0d325c",
+            padding: "10px",
+            fontWeight: "bold",
+          }}
+        >
+          Detail Input Form
+        </h3>
         <Form>
           <Form.Group controlId="formProjectName" className="mb-3">
-            <Form.Label style={{ color: "red" }}>
+            <Form.Label style={{ color: "black", fontWeight: "bold" }}>
               Project Number : {projectNo.id}
             </Form.Label>
           </Form.Group>
@@ -111,7 +131,7 @@ const EntryDetails = () => {
               onChange={(e) =>
                 setFormData({ ...formData, activity1: e.target.value })
               }
-              onKeyDown={(e) => handleKeyDown(e, "activity1")}
+              // onKeyDown={(e) => handleKeyDown(e, "activity1")}
             />
           </Form.Group>
 
@@ -120,6 +140,7 @@ const EntryDetails = () => {
               Upload Pictures
             </Form.Label>
             {/* <FormControl> */}
+
             <FileBase
               type="file"
               fileName="Profile.png"
@@ -127,6 +148,7 @@ const EntryDetails = () => {
                 setFormData({ ...formData, uploadPictures1: base64 })
               }
             />
+
             <FileBase
               type="file"
               fileName="Profile.png"
@@ -134,6 +156,7 @@ const EntryDetails = () => {
                 setFormData({ ...formData, uploadPictures2: base64 })
               }
             />
+
             {/* </FormControl> */}
             {fileError && <p>{fileError}</p>}
           </Form.Group>
@@ -148,7 +171,7 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, activity2: e.target.value });
               }}
-              onKeyDown={(e) => handleKeyDown(e, "activity2")}
+              // onKeyDown={(e) => handleKeyDown(e, "activity2")}
             />
           </Form.Group>
           <Form.Group controlId="formMaterialRequirement" className="mb-3">
@@ -162,7 +185,7 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, activity3: e.target.value });
               }}
-              onKeyDown={(e) => handleKeyDown(e, "activity3")}
+              // onKeyDown={(e) => handleKeyDown(e, "activity3")}
             />
           </Form.Group>
           <Form.Group controlId="formProcurementStatus" className="mb-3">
@@ -176,7 +199,7 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, activity4: e.target.value });
               }}
-              onKeyDown={(e) => handleKeyDown(e, "activity4")}
+              // onKeyDown={(e) => handleKeyDown(e, "activity4")}
             />
           </Form.Group>
           <Form.Group controlId="formUploadPictures" className="mb-3">
@@ -184,8 +207,9 @@ const EntryDetails = () => {
               Upload Pictures
             </Form.Label>
             {/* <FormControl> */}
-            <div style={{ display: "flex" }}>
-              <Form.Label style={{ marginRight: "10px" }}>Sand</Form.Label>
+            {/* <UploadWrapper> */}
+            <div>
+              <Form.Label style={{ margin: "10px" }}>Sand</Form.Label>
               <FileBase
                 type="file"
                 fileName="Profile.png"
@@ -193,7 +217,8 @@ const EntryDetails = () => {
                   setFormData({ ...formData, uploadPictures3: base64 })
                 }
               />
-              <Form.Label style={{ marginRight: "10px" }}>Rod</Form.Label>
+
+              <Form.Label style={{ margin: "10px" }}>Rod</Form.Label>
               <FileBase
                 type="file"
                 fileName="Profile.png"
@@ -201,7 +226,8 @@ const EntryDetails = () => {
                   setFormData({ ...formData, uploadPictures4: base64 })
                 }
               />
-              <Form.Label style={{ marginRight: "10px" }}>Others</Form.Label>
+
+              <Form.Label style={{ margin: "10px" }}>Others</Form.Label>
               <FileBase
                 type="file"
                 fileName="Profile.png"
@@ -210,6 +236,7 @@ const EntryDetails = () => {
                 }
               />
             </div>
+            {/* </UploadWrapper> */}
           </Form.Group>
           <Divider
             className="mt-3 mb-3"
@@ -274,6 +301,7 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, submittedBy: e.target.value });
               }}
+              style={{ width: "50%" }}
             />
           </Form.Group>
           <Divider
