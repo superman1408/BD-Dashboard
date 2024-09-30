@@ -161,14 +161,13 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>GST</Form.Label>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter GST"
+                      type="file"
+                      accept="application/pdf"
                       name="GST"
-                      // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
-                      //     maleLabour: e.target.value,
+                      //     incorporationCertificate: e.target.files[0], // Store the selected file in form data
                       //   });
                       // }}
                     />
@@ -178,14 +177,13 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>PAN</Form.Label>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter PAN No"
-                      name="contactPersonEmail"
-                      // value={formData.maleLabour}
+                      type="file"
+                      accept="application/pdf"
+                      name="PAN"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
-                      //     maleLabour: e.target.value,
+                      //     incorporationCertificate: e.target.files[0], // Store the selected file in form data
                       //   });
                       // }}
                     />
@@ -195,14 +193,13 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Incorporation Certificate</Form.Label>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter Incorporation Certificate"
-                      name="contactPersonEmail"
-                      // value={formData.maleLabour}
+                      type="file"
+                      accept="application/pdf"
+                      name="Incorporatincertificate"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
-                      //     maleLabour: e.target.value,
+                      //     incorporationCertificate: e.target.files[0], // Store the selected file in form data
                       //   });
                       // }}
                     />
@@ -245,18 +242,20 @@ const ContractRegister = () => {
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Bank guarantee Submitted?</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Incorporation Certificate"
-                      name="contactPersonEmail"
-                      // value={formData.maleLabour}
+                    <Form.Select
+                      name="bankGuaranteeSubmitted"
+                      // value={formData.bankGuaranteeSubmitted}
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
-                      //     maleLabour: e.target.value,
+                      //     bankGuaranteeSubmitted: e.target.value,
                       //   });
                       // }}
-                    />
+                    >
+                      <option value="">Select an option</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </Form.Select>
                   </Form.Group>
                 </Col>
               </Row>
@@ -305,13 +304,13 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Bank Guarantee</Form.Label>
                     <Form.Control
-                      type="date"
-                      name="GST"
-                      // value={formData.maleLabour}
+                      type="file"
+                      accept="application/pdf"
+                      name="Bankguarantee"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
-                      //     maleLabour: e.target.value,
+                      //     incorporationCertificate: e.target.files[0], // Store the selected file in form data
                       //   });
                       // }}
                     />
@@ -324,7 +323,8 @@ const ContractRegister = () => {
                     <Form.Label>Contract Value</Form.Label>
                     <Form.Control
                       type="number"
-                      name="GST"
+                      placeholder="Enter amount in ₹"
+                      name="Contractvalue"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -339,8 +339,9 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Contract currency</Form.Label>
                     <Form.Control
-                      type="rupees"
-                      name="GST"
+                      type="number"
+                      placeholder="Enter amount in ₹"
+                      name="Contractcurrency"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -355,13 +356,13 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Signed Contract Copy</Form.Label>
                     <Form.Control
-                      type="document"
-                      name="GST"
-                      // value={formData.maleLabour}
+                      type="file"
+                      accept="application/pdf"
+                      name="Signedcontractcopy"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
-                      //     maleLabour: e.target.value,
+                      //     incorporationCertificate: e.target.files[0], // Store the selected file in form data
                       //   });
                       // }}
                     />
