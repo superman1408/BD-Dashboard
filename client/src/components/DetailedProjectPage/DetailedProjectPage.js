@@ -180,7 +180,7 @@ const DetailedProjectPage = () => {
                               color: "white",
                             }}
                           >
-                            REPORT GENERATED
+                            GENERATED REPORT
                           </th>
                         </tr>
                       </thead>
@@ -735,7 +735,7 @@ const DetailedProjectPage = () => {
                                   fontWeight: "bold",
                                 }}
                               >
-                                PREPARED BY
+                                Prepared By
                               </td>
                               <td
                                 style={{
@@ -744,7 +744,7 @@ const DetailedProjectPage = () => {
                                   fontWeight: "bold",
                                 }}
                               >
-                                SITE SUPERVISOR
+                                Site Supervisor
                               </td>
                               <td
                                 style={{
@@ -753,7 +753,7 @@ const DetailedProjectPage = () => {
                                   fontWeight: "bold",
                                 }}
                               >
-                                LABOUR CONTRACTOR
+                                Labour Contractor
                               </td>
                             </tr>
                           </tbody>
