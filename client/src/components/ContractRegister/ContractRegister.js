@@ -54,11 +54,11 @@ const ContractRegister = () => {
               <Row>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formDate">
-                    <Form.Label>Contactor Name</Form.Label>
+                    <Form.Label>Contractor Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Enter Contactor Name"
-                      name="contractorName"
+                      name="ContractorName"
                       // value={}
                       // onChange={(e) =>
                       //   setFormData({ ...formData, date: e.target.value })
@@ -72,7 +72,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="text"
                       placeholder="Enter Contact Person"
-                      name="contactPerson"
+                      name="ContactPerson"
                       // value={}
                       // onChange={(e) =>
                       //   setFormData({ ...formData, date: e.target.value })
@@ -86,7 +86,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="text"
                       placeholder="Enter Contact Person No"
-                      name="contactPersonMob.No"
+                      name="ContactPersonMob.No"
                       // value={}
                       // onChange={(e) =>
                       //   setFormData({ ...formData, date: e.target.value })
@@ -102,7 +102,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="text"
                       placeholder="Enter Contact Person E-mail"
-                      name="contactPersonEmail"
+                      name="ContactPersonEmail"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -119,7 +119,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="text"
                       placeholder="Enter Contractor Address"
-                      name="contractorAddress"
+                      name="ContractorAddress"
                       // value={formData.femaleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -136,7 +136,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="number"
                       placeholder="Enter Contractor Billing Address"
-                      name="femaleLabour"
+                      name="ContractorBillingAddress"
                       // value={formData.femaleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -195,7 +195,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="file"
                       accept="application/pdf"
-                      name="Incorporatincertificate"
+                      name="IncorporatinCertificate"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
@@ -212,7 +212,7 @@ const ContractRegister = () => {
                     <Form.Label>Contract Start Date</Form.Label>
                     <Form.Control
                       type="date"
-                      name="GST"
+                      name="ContractStartDate"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -228,7 +228,7 @@ const ContractRegister = () => {
                     <Form.Label>Contract End Date</Form.Label>
                     <Form.Control
                       type="date"
-                      name="contactPersonEmail"
+                      name="ContactPersonEmail"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -243,7 +243,7 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Bank guarantee Submitted?</Form.Label>
                     <Form.Select
-                      name="bankGuaranteeSubmitted"
+                      name="BankGuaranteeSubmitted"
                       // value={formData.bankGuaranteeSubmitted}
                       // onChange={(e) => {
                       //   setFormData({
@@ -273,7 +273,7 @@ const ContractRegister = () => {
                     <Form.Label>Bank Guarantee Start Date?</Form.Label>
                     <Form.Control
                       type="date"
-                      name="GST"
+                      name="BankGuaranteeStartDate"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -289,7 +289,7 @@ const ContractRegister = () => {
                     <Form.Label>Bank Guarantee End Date?</Form.Label>
                     <Form.Control
                       type="date"
-                      name="GST"
+                      name="BankGuaranteeEndDate"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -306,7 +306,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="file"
                       accept="application/pdf"
-                      name="Bankguarantee"
+                      name="BankGuarantee"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
@@ -324,7 +324,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="number"
                       placeholder="Enter amount in ₹"
-                      name="Contractvalue"
+                      name="ContractValue"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -341,7 +341,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="number"
                       placeholder="Enter amount in ₹"
-                      name="Contractcurrency"
+                      name="ContractCurrency"
                       // value={formData.maleLabour}
                       // onChange={(e) => {
                       //   setFormData({
@@ -358,7 +358,7 @@ const ContractRegister = () => {
                     <Form.Control
                       type="file"
                       accept="application/pdf"
-                      name="Signedcontractcopy"
+                      name="SignedContractCopy"
                       // onChange={(e) => {
                       //   setFormData({
                       //     ...formData,
