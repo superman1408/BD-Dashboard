@@ -65,15 +65,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={{ display: "flex", height: "auto" }}>
+    <div style={{ display: "flex", height: "446px" }}>
       <Card
         style={{
           width: "200px",
-          height: "426px",
+          // height: "426px",
           flexShrink: 0, // Prevent the card from shrinking
           margin: "10px",
           border: "2px solid white",
-          marginBottom: "300px",
+          // marginBottom: "300px",
         }}
       >
         <IconButton
