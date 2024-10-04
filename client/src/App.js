@@ -1,6 +1,7 @@
-/* eslint-disable jsx-a11y/no-distracting-elements */
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
+
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
@@ -38,12 +39,21 @@ const App = () => {
       <Navbar />
       <div>
         <Routes>
+          {/* <Route
+            path="/"
+            // element={!user ? <Authentication /> : <Dashboard />}
+            component={() => <redirect to='/dashboard'/>}
+          /> */}
+
+          {/* Redirect to dashboard if user is logged in */}
           <Route
             path="/"
-            element={!user ? <Authentication /> : <Dashboard />}
+            element={user ? <Dashboard /> : <Navigate to="/auth" />}
           />
-          <Route path="/auth" exact element={!user && <Authentication />} />
+          {/* <Route path="/auth" exact element={!user && <Authentication />} /> */}
+          <Route path="/auth" exact element={!user ? <Authentication /> : <Navigate to="/" />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
+          {/* <Route path="/dashboard" exact element={user && <Dashboard />} /> */}
           <Route path="/dashboard" exact element={<Dashboard />} />
           {/* <Route path="/maindashboard" exact element={<Maindashboard />} /> */}
           <Route path="/datasheet" exact element={<DataSheet />} />

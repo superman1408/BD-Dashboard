@@ -70,7 +70,8 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
-  const switchMode = () => {
+  const switchMode = (e) => {
+    e.preventDefault();
     // setUser(null);
     dispatch({ type: LOGOUT });
     navigate("/auth");
