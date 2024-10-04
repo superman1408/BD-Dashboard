@@ -40,7 +40,6 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            exact
             element={!user ? <Authentication /> : <Dashboard />}
           />
           <Route path="/auth" exact element={!user && <Authentication />} />

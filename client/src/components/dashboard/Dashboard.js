@@ -27,8 +27,13 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(getPosts()).finally(() => setLoading(false));
-  }, [dispatch, loading]);
+    dispatch(getPosts()).then(() => {
+      setLoading(false);
+    }).catch((err) => {
+      setLoading(false);
+      console.log(err);
+    });
+  }, [dispatch]);
 
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value }); //For setting the value of different input inside the FormData
