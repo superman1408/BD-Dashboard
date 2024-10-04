@@ -5,6 +5,7 @@ import {
   UPDATE,
   GET_ENTRY,
   UPDATE_ENTRY,
+  CREATE_CONTRACT,
 } from "../constants/actionTypes";
 import * as API from "../api/index";
 
@@ -83,6 +84,31 @@ export const updateEntry = (id, indexed, toEdit) => async (dispatch) => {
 //     const { data } = await API.fetchSalarySlipData();
 
 //     dispatch({ type: SALARY_ALL, payload: data });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+export const createContractPost = (formData) => async (dispatch) => {
+  console.log("I am here working");
+
+  try {
+    const { data } = await API.createContract(formData);
+    dispatch({ type: CREATE_CONTRACT, payload: data });
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  } 
+};
+
+// export const dailyEvent = (formData) => async (dispatch) => {
+//   console.log("Hello I am working..!!");
+
+//   try {
+//     const { data } = await API.dailyEvent(formData);
+
+//     dispatch({ type: DAILY_EVENT, payload: data });
 //   } catch (error) {
 //     console.log(error);
 //   }

@@ -7,3 +7,4 @@ export const UPDATE = "UPDATE";
 export const DELETE = "DELETE";
 export const GET_ENTRY = "GET_ENTRY";
 export const UPDATE_ENTRY = "UPDATE_ENTRY";
+export const CREATE_CONTRACT = "CREATE_CONTRACT";
