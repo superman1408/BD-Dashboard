@@ -13,13 +13,16 @@ const ViewDetails = () => {
   const { id } = useParams();
 
   // Fetch posts from Redux store
-  const posts = useSelector((state) => state.posts);
+  const entry = useSelector((state) => state.entry);
+
+  console.log(entry.length);
+  
 
   let array = [];
 
   const updateArray = async (post) => {
     const array = [];
-    posts[0]?.map((post) => {
+    entry.map((post) => {
       for (let index = 0; index < post?.submittedBy.length; index++) {
         if (id === post.docNo) {
           array.push({
@@ -36,13 +39,19 @@ const ViewDetails = () => {
 
   // Fetch data when component mounts
   useEffect(() => {
-    if (loading) {
-      dispatch(getEntryDetails()).finally(() => {
-        updateArray();
-        setLoading(false);
-      });
-    }
+    if (entry.length === 0) {
+      if (loading) {
+        dispatch(getEntryDetails()).then(() => {
+          updateArray().then(() => { 
+            console.log("Uploaded teh array");
+            setLoading(false);
+          });
+        });
+      };
+    };
   }, [dispatch, loading]);
+
+
 
   // Optional: Update windowWidth on resize
   useEffect(() => {
@@ -51,7 +60,7 @@ const ViewDetails = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  posts[0]?.map((post) => {
+  entry.map((post) => {
     for (let index = 0; index < post?.submittedBy.length; index++) {
       if (id === post.docNo) {
         array.push({
@@ -63,6 +72,10 @@ const ViewDetails = () => {
       }
     }
   });
+
+
+  console.log(array);
+  
 
   return (
     <>

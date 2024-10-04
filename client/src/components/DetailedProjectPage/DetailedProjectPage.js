@@ -16,7 +16,7 @@ const DetailedProjectPage = () => {
 
   const componentRef = useRef();
 
-  const posts = useSelector((state) => state.posts);
+  const entry = useSelector((state) => state.entry);
 
   const [filteredData, setFilteredData] = useState([]);
 
@@ -28,7 +28,7 @@ const DetailedProjectPage = () => {
     dispatch(getEntryDetails()).finally(() => setLoading(false));
     // Filter the data based on the selected date
     const allEntries = [];
-    posts[0]?.forEach((post) => {
+    entry.forEach((post) => {
       for (let index = 0; index < post?.date.length; index++) {
         if (post?.date[index] === date) {
           allEntries.push({
@@ -63,7 +63,7 @@ const DetailedProjectPage = () => {
     });
 
     setFilteredData(allEntries); // Set the filtered data
-  }, [date, posts, dispatch, loading]);
+  }, [date, entry, dispatch, loading]);
 
   const handlePpd = useReactToPrint({
     content: () => componentRef.current,
@@ -72,7 +72,7 @@ const DetailedProjectPage = () => {
     fontSize: "15px",
   });
 
-  posts[0]?.forEach((post) => {
+  entry?.forEach((post) => {
     for (let index = 0; index < post?.date.length; index++) {
       if (post?.date[index] === date) {
         allEntries.push({
