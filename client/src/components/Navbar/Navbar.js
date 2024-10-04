@@ -73,7 +73,7 @@ export default function MenuAppBar() {
   const switchMode = () => {
     // setUser(null);
     dispatch({ type: LOGOUT });
-    navigate("/");
+    navigate("/auth");
   };
 
   const menuItems = [
