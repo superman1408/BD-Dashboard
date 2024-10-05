@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
@@ -51,7 +50,11 @@ const App = () => {
             element={user ? <Dashboard /> : <Navigate to="/auth" />}
           />
           {/* <Route path="/auth" exact element={!user && <Authentication />} /> */}
-          <Route path="/auth" exact element={!user ? <Authentication /> : <Navigate to="/" />} />
+          <Route
+            path="/auth"
+            exact
+            element={!user ? <Authentication /> : <Navigate to="/" />}
+          />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
           {/* <Route path="/dashboard" exact element={user && <Dashboard />} /> */}
           <Route path="/dashboard" exact element={<Dashboard />} />
@@ -89,15 +92,18 @@ const App = () => {
       <div className="wave"></div>
       <div className="wave"></div>
       <div className="wave"></div>
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <footer
           style={{
-            backgroundColor: "#17325C",
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            backgroundColor: "#11224a",
             fontFamily: "Roboto",
             color: "white",
-            width: "100%",
-            marginTop: "5px",
+            width: "100%", // Ensures footer stretches across the entire width
             textAlign: "center",
+            padding: "0", // Add some padding for better appearance
           }}
         >
           ©️ 2023 ASHKAM ENERGY PRIVATE LIMITED. All rights reserved.
