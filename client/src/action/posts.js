@@ -5,7 +5,6 @@ import {
   UPDATE,
   GET_ENTRY,
   UPDATE_ENTRY,
-  CREATE_CONTRACT,
 } from "../constants/actionTypes";
 import * as API from "../api/index";
 
