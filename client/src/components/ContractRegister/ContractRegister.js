@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Card, Grid, Divider } from "@mui/material";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createContractPost } from "../../action/posts";
+import { createContractPost } from "../../action/contract";
 
 const ContractRegister = () => {
   const dispatch = useDispatch();

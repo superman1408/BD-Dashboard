@@ -6,7 +6,7 @@ import {
   getPost,
   entryDetails,
   getEntryDetails,
-  createContractPost,
+  // createContractPost,
 } from "../controllers/posts.js";
 
 import auth from "../middleware/auth.js";
@@ -24,7 +24,5 @@ router.post("/", auth, createPost);
 router.patch("/entryDetails", auth, entryDetails);
 
 router.get("/entryDetails/view", getEntryDetails);
-
-router.post("/contract", createContractPost);
 
 export default router;
