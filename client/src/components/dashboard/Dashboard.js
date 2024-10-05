@@ -22,7 +22,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-<<<<<<< HEAD
     dispatch(getPosts())
       .then(() => {
         setLoading(false);
@@ -31,9 +30,6 @@ const Dashboard = () => {
         setLoading(false);
         console.log(err);
       });
-=======
-    dispatch(getPosts()).finally(() => setLoading(false));
->>>>>>> dashboardLayout
   }, [dispatch]);
 
   const handleFormChange = (e) => {
@@ -102,27 +98,6 @@ const Dashboard = () => {
                 justifyContent: "center",
               }}
             >
-<<<<<<< HEAD
-              <Card.Img
-                variant="top"
-                src={post?.selectedFile} // Ensure post.selectedFile is defined
-                alt="Profile_Picture"
-                style={{ height: "150px" }}
-              />
-
-              <Card.Body>
-                <div>
-                  <h6 style={{ textAlign: "center" }}>Project Name</h6>
-                  <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
-                    {post?.projectName}
-                  </h4>
-                  <h6 style={{ textAlign: "center" }}>
-                    Project Number : {post?.docNo}
-                  </h6>
-                </div>
-                <div
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-=======
               {posts.map((post, index) => (
                 <Card
                   key={index}
@@ -132,7 +107,6 @@ const Dashboard = () => {
                     margin: "10px",
                     backgroundColor: "white",
                   }}
->>>>>>> dashboardLayout
                 >
                   <Card.Img
                     variant="top"
