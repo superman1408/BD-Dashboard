@@ -2,13 +2,11 @@ body {
   margin: auto;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: auto;
-  background: linear-gradient(
-    315deg,
-    rgb(182, 71, 174) 3%,
-    rgb(140, 180, 223) 38%,
-    rgb(223, 240, 216) 68%,
-    rgb(206, 192, 115) 98%
-  );
+  background: linear-gradient(315deg,
+      rgb(182, 71, 174) 3%,
+      rgb(140, 180, 223) 38%,
+      rgb(223, 240, 216) 68%,
+      rgb(206, 192, 115) 98%);
   animation: gradient 15s ease infinite;
   background-size: 300% 300%;
   background-attachment: fixed;
@@ -18,9 +16,11 @@ body {
   0% {
     background-position: 0% 0%;
   }
+
   50% {
     background-position: 100% 100%;
   }
+
   100% {
     background-position: 0% 0%;
   }
@@ -71,5 +71,12 @@ body {
 
   100% {
     transform: translateX(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .responsive-grid {
+    display: flex;
+    flex-direction: column;
   }
 }
