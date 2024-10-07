@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", createContractPost);
 
-router.post("/pdffiles", upload.array("pdf"), createPDFfiles);
+router.patch("/pdffiles", upload.array("pdf"), createPDFfiles);
 
 // router.post(
 //   "/pdffiles",

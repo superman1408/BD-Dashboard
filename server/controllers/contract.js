@@ -32,6 +32,10 @@ export const createContractPost = async (req, res) => {
 };
 
 export const createPDFfiles = async (req, res) => {
+  const contactEmail = req.body.contactEmail;
+
+  console.log(contactEmail);
+
   try {
     // Check if any files were uploaded
     if (!req.files || req.files.length === 0) {
@@ -40,6 +44,7 @@ export const createPDFfiles = async (req, res) => {
 
     // Initialize an object to hold the PDF buffers
     const pdfBuffers = {
+      contactEmail,
       GST: null,
       PAN: null,
       incorporationCertificate: null,

@@ -14,6 +14,8 @@ const ContractRegister = () => {
   const [bankGurantee, setbankGurantee] = useState(null);
   const [signedContractCopy, setsignedContractCopy] = useState(null);
 
+  const [contactEmail, setContactEmail] = useState();
+
   const [formData, setFormData] = useState({
     contractorName: "",
     contactperson: "",
@@ -32,12 +34,24 @@ const ContractRegister = () => {
     contractCurrency: "",
   });
 
+  const handleChange = (e) => {
+    const { value } = e.target;
+
+    setContactEmail(value); // Update contactEmail state
+
+    setFormData((prevData) => ({
+      ...prevData,
+      contactEmail: value, // Also update formData
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await dispatch(createContractPost(formData));
-      await handleUpload();
+      await dispatch(createContractPost(formData)).then(() => {
+        handleUpload();
+      });
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error("Conflict error:", error.response.data.message);
@@ -56,6 +70,9 @@ const ContractRegister = () => {
     formData.append("pdf", incorporationCertificate);
     formData.append("pdf", bankGurantee);
     formData.append("pdf", signedContractCopy);
+    // formData.append("string", formData);
+
+    formData.append("contactEmail", contactEmail);
 
     try {
       await dispatch(
@@ -182,12 +199,7 @@ const ContractRegister = () => {
                       placeholder="Enter Contact Person E-mail"
                       name="contactEmail"
                       value={formData.contactEmail}
-                      onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contactEmail: e.target.value,
-                        });
-                      }}
+                      onChange={handleChange}
                     />
                   </Form.Group>
                 </Col>
