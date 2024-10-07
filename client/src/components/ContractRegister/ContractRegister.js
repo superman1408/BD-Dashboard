@@ -238,8 +238,24 @@ const ContractRegister = () => {
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>GST</Form.Label>
+                    <div style={{ display: "flex", marginBottom: "10px" }}>
+                      {/* <Form.Label>GST No.</Form.Label> */}
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter GST No."
+                        name="GSTNo"
+                        value={formData.contractAddress}
+                        // onChange={(e) => {
+                        //   setFormData({
+                        //     ...formData,
+                        //     contractAddress: e.target.value,
+                        //   });
+                        // }}
+                      />
+                    </div>
                     <Form.Control
                       type="file"
+                      marginTop="10px"
                       accept="application/pdf"
                       name="GST"
                       onChange={(e) => {
@@ -252,6 +268,21 @@ const ContractRegister = () => {
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>PAN</Form.Label>
+                    <div style={{ display: "flex", marginBottom: "10px" }}>
+                      {/* <Form.Label>GST No.</Form.Label> */}
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter PAN No."
+                        name="PANNo"
+                        value={formData.contractAddress}
+                        // onChange={(e) => {
+                        //   setFormData({
+                        //     ...formData,
+                        //     contractAddress: e.target.value,
+                        //   });
+                        // }}
+                      />
+                    </div>
                     <Form.Control
                       type="file"
                       accept="application/pdf"
@@ -266,6 +297,21 @@ const ContractRegister = () => {
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Incorporation Certificate</Form.Label>
+                    <div style={{ display: "flex", marginBottom: "10px" }}>
+                      {/* <Form.Label>GST No.</Form.Label> */}
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Certificate No."
+                        name="CertificateNo"
+                        value={formData.contractAddress}
+                        // onChange={(e) => {
+                        //   setFormData({
+                        //     ...formData,
+                        //     contractAddress: e.target.value,
+                        //   });
+                        // }}
+                      />
+                    </div>
                     <Form.Control
                       type="file"
                       accept="application/pdf"
@@ -342,6 +388,35 @@ const ContractRegister = () => {
               <Row>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
+                    <Form.Label>Bank Guarantee</Form.Label>
+                    <div style={{ display: "flex", marginBottom: "10px" }}>
+                      {/* <Form.Label>GST No.</Form.Label> */}
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Bank Guarantee No."
+                        name="BankGuaranteeNo"
+                        value={formData.contractAddress}
+                        // onChange={(e) => {
+                        //   setFormData({
+                        //     ...formData,
+                        //     contractAddress: e.target.value,
+                        //   });
+                        // }}
+                      />
+                    </div>
+                    <Form.Control
+                      type="file"
+                      accept="application/pdf"
+                      name="bankGurantee"
+                      // value={formData.bankGurantee}
+                      onChange={(e) => {
+                        setbankGurantee(e.target.files[0]); // Set selected file directly
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4} className="mb-3">
+                  <Form.Group controlId="formMaleLabour">
                     <Form.Label>Bank Guarantee Start Date?</Form.Label>
                     <Form.Control
                       type="date"
@@ -368,20 +443,6 @@ const ContractRegister = () => {
                           ...formData,
                           bankGuranteeEndDate: e.target.value,
                         });
-                      }}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={4} className="mb-3">
-                  <Form.Group controlId="formMaleLabour">
-                    <Form.Label>Bank Guarantee</Form.Label>
-                    <Form.Control
-                      type="file"
-                      accept="application/pdf"
-                      name="bankGurantee"
-                      // value={formData.bankGurantee}
-                      onChange={(e) => {
-                        setbankGurantee(e.target.files[0]); // Set selected file directly
                       }}
                     />
                   </Form.Group>
