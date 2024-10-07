@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const filesSchema = mongoose.Schema(
   {
-    //   id: {
-    //     type: String,
-    //   },
+    contactEmail: {
+      type: String,
+    },
     GST: {
       type: Buffer,
     },

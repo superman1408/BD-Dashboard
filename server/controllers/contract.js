@@ -31,38 +31,47 @@ export const createContractPost = async (req, res) => {
   }
 };
 
-
 export const createPDFfiles = async (req, res) => {
   try {
-    // Check if files were uploaded
-    if (!req.files || req.files.length < 5) {
-      return res.status(400).json({ message: "Not all PDF files uploaded" });
+    // Check if any files were uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No PDF files uploaded" });
     }
 
-    // Assuming the order of files is known (GST, PAN, etc.)
-    const [
-      GST,
-      PAN,
-      incorporationCertificate,
-      bankGurantee,
-      signedContractCopy,
-    ] = req.files;
+    // Initialize an object to hold the PDF buffers
+    const pdfBuffers = {
+      GST: null,
+      PAN: null,
+      incorporationCertificate: null,
+      bankGurantee: null,
+      signedContractCopy: null,
+    };
 
-    // Read the PDF files from disk
-    const pdfBuffer1 = fs.readFileSync(GST.path);
-    const pdfBuffer2 = fs.readFileSync(PAN.path);
-    const pdfBuffer3 = fs.readFileSync(incorporationCertificate.path);
-    const pdfBuffer4 = fs.readFileSync(bankGurantee.path);
-    const pdfBuffer5 = fs.readFileSync(signedContractCopy.path);
+    // Map the uploaded files to the corresponding keys
+    req.files.forEach((file, index) => {
+      switch (index) {
+        case 0:
+          pdfBuffers.GST = fs.readFileSync(file.path);
+          break;
+        case 1:
+          pdfBuffers.PAN = fs.readFileSync(file.path);
+          break;
+        case 2:
+          pdfBuffers.incorporationCertificate = fs.readFileSync(file.path);
+          break;
+        case 3:
+          pdfBuffers.bankGurantee = fs.readFileSync(file.path);
+          break;
+        case 4:
+          pdfBuffers.signedContractCopy = fs.readFileSync(file.path);
+          break;
+        default:
+          break; // Ignore any additional files beyond the expected ones
+      }
+    });
 
     // Create a new document with the uploaded PDF buffers
-    const newPaySlip = new ContractPDFOverview({
-      GST: pdfBuffer1,
-      PAN: pdfBuffer2,
-      incorporationCertificate: pdfBuffer3,
-      bankGurantee: pdfBuffer4,
-      signedContractCopy: pdfBuffer5,
-    });
+    const newPaySlip = new ContractPDFOverview(pdfBuffers);
 
     // Save the document to MongoDB
     await newPaySlip.save();
@@ -72,7 +81,7 @@ export const createPDFfiles = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "All files uploaded and processed successfully" });
+      .json({ message: "Files uploaded and processed successfully" });
   } catch (error) {
     // Handle file deletion in case of an error
     if (req.files) {
