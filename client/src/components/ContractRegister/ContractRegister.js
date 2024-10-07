@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import { Container, Card, Grid, Divider } from "@mui/material";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createContractPost } from "../../action/contract";
+import { createContractPost, createPDFfiles } from "../../action/contract";
 
 const ContractRegister = () => {
   const dispatch = useDispatch();
+
+  const [GST, setGST] = useState(null);
+  const [PAN, setPAN] = useState(null);
+  const [incorporationCertificate, setincorporationCertificate] =
+    useState(null);
+  const [bankGurantee, setbankGurantee] = useState(null);
+  const [signedContractCopy, setsignedContractCopy] = useState(null);
 
   const [formData, setFormData] = useState({
     contractorName: "",
@@ -14,47 +21,23 @@ const ContractRegister = () => {
     contactEmail: "",
     contractAddress: "",
     contractBillingAddress: "",
-    GST: null,
-    PAN: null,
-    incorporationCertificate: null,
+
     contractStartDate: "",
     contactEndDate: "",
     bankGuranteeSubmitted: "",
     bankGuranteeStartDate: "",
     bankGuranteeEndDate: "",
-    bankGurantee: null,
+
     contractValue: "",
     contractCurrency: "",
-    signedContractCopy: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setFormData({
-    //   contractorName: "",
-    //   contactperson: "",
-    //   contactNumber: "",
-    //   contactEmail: "",
-    //   contractAddress: "",
-    //   contractBillingAddress: "",
-    //   GST: "",
-    //   PAN: "",
-    //   incorporationCertificate: "",
-    //   contractStartDate: "",
-    //   contactEndDate: "",
-    //   bankGuranteeSubmitted: "",
-    //   bankGuranteeStartDate: "",
-    //   bankGuranteeEndDate: "",
-    //   bankGurantee: "",
-    //   contractValue: "",
-    //   contractCurrency: "",
-    //   signedContractCopy: null,
-    // });
-    // dispatch(createContractPost(formData));
-    // console.log(formData);
 
     try {
       await dispatch(createContractPost(formData));
+      await handleUpload();
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error("Conflict error:", error.response.data.message);
@@ -63,6 +46,29 @@ const ContractRegister = () => {
         console.error("Error:", error);
         alert("An error occurred: " + error.message);
       }
+    }
+  };
+
+  const handleUpload = async (e) => {
+    const formData = new FormData();
+    formData.append("pdf", GST);
+    formData.append("pdf", PAN);
+    formData.append("pdf", incorporationCertificate);
+    formData.append("pdf", bankGurantee);
+    formData.append("pdf", signedContractCopy);
+
+    try {
+      await dispatch(
+        createPDFfiles(formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+      );
+
+      // Refresh the page
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -237,12 +243,10 @@ const ContractRegister = () => {
                       accept="application/pdf"
                       name="GST"
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          GST: e.target.files[0], // Store the selected file in form data
-                        });
+                        setGST(e.target.files[0]); // Set selected file directly
                       }}
                     />
+                    {/* <button onClick={handleUpload}>upload</button> */}
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -254,10 +258,7 @@ const ContractRegister = () => {
                       name="PAN"
                       // value={formData.PAN}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          PAN: e.target.files[0], // Store the selected file in form data
-                        });
+                        setPAN(e.target.files[0]); // Set selected file directly
                       }}
                     />
                   </Form.Group>
@@ -271,10 +272,7 @@ const ContractRegister = () => {
                       name="incorporationCertificate"
                       // value={formData.incorporationCertificate}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          incorporationCertificate: e.target.files[0], // Store the selected file in form data
-                        });
+                        setincorporationCertificate(e.target.files[0]); // Set selected file directly
                       }}
                     />
                   </Form.Group>
@@ -383,10 +381,7 @@ const ContractRegister = () => {
                       name="bankGurantee"
                       // value={formData.bankGurantee}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          bankGurantee: e.target.files[0], // Store the selected file in form data
-                        });
+                        setbankGurantee(e.target.files[0]); // Set selected file directly
                       }}
                     />
                   </Form.Group>
@@ -436,10 +431,7 @@ const ContractRegister = () => {
                       name="signedContractCopy"
                       // value={formData.signedContractCopy}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          signedContractCopy: e.target.files[0], // Store the selected file in form data
-                        });
+                        setsignedContractCopy(e.target.files[0]); // Set selected file directly
                       }}
                     />
                   </Form.Group>
