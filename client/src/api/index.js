@@ -35,3 +35,10 @@ export const editTable = (id, indexed, toEdit) =>
   API.patch(`/posts/${id}/${indexed}/edit`, toEdit);
 
 export const createContract = (formData) => API.post(`/contract`, formData);
+
+export const pdfFiles = (formData) =>
+  API.post(`/contract/pdffiles`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });

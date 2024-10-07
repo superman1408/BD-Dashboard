@@ -20,15 +20,17 @@ const contractSchema = mongoose.Schema(
     contractBillingAddress: {
       type: String,
     },
-    GST: {
-      type: String,
-    },
-    PAN: {
-      type: String,
-    },
-    incorporationCertificate: {
-      type: String,
-    },
+    // GST: {
+    //   type: String,
+    // },
+    // GST: { type: Buffer },
+
+    // PAN: {
+    //   type: String,
+    // },
+    // incorporationCertificate: {
+    //   type: String,
+    // },
     contractStartDate: {
       type: String,
     },
@@ -44,18 +46,18 @@ const contractSchema = mongoose.Schema(
     bankGuranteeEndDate: {
       type: String,
     },
-    bankGurantee: {
-      type: String,
-    },
+    // bankGurantee: {
+    //   type: String,
+    // },
     contractValue: {
       type: String,
     },
     contractCurrency: {
       type: String,
     },
-    signedContractCopy: {
-      type: String,
-    },
+    // signedContractCopy: {
+    //   type: String,
+    // },
   },
   {
     timestamps: true,
