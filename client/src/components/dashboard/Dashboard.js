@@ -66,7 +66,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Grid container spacing={3}>
+      <Grid container spacing={2} marginBottom={10}>
         {/* Add Project Card */}
         <Grid item xs={12} sm={4} md={3} lg={2}>
           <Card
@@ -87,69 +87,61 @@ const Dashboard = () => {
         </Grid>
 
         {/* Projects Cards */}
-        <Grid item xs={12} sm={8}>
-          {loading ? (
+        {loading ? (
+          <Grid item xs={12}>
             <LinearProgress style={{ width: "100%", marginTop: "20px" }} />
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-              }}
-            >
-              {posts.map((post, index) => (
-                <Card
-                  key={index}
-                  style={{
-                    width: "300px",
-                    padding: "12px",
-                    margin: "10px",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <Card.Img
-                    variant="top"
-                    src={post?.selectedFile} // Ensure post.selectedFile is defined
-                    alt="Profile_Picture"
-                    style={{ height: "150px" }}
-                  />
+          </Grid>
+        ) : (
+          posts.map((post, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <Card
+                style={{
+                  padding: "12px",
+                  margin: "20px ",
+                  backgroundColor: "white",
+                }}
+              >
+                <Card.Img
+                  variant="top"
+                  src={post?.selectedFile} // Ensure post.selectedFile is defined
+                  alt="Profile_Picture"
+                  style={{ height: "150px" }}
+                />
 
-                  <Card.Body>
-                    <Card.Text>
-                      <h6 style={{ textAlign: "center" }}>Project Name</h6>
-                      <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
-                        {post?.projectName}
-                      </h4>
-                      <h6 style={{ textAlign: "center" }}>
-                        Project Number : {post?.docNo}
-                      </h6>
-                    </Card.Text>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                      }}
+                <Card.Body>
+                  <Card.Text>
+                    <h6 style={{ textAlign: "center" }}>Project Name</h6>
+                    <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
+                      {post?.projectName}
+                    </h4>
+                    <h6 style={{ textAlign: "center" }}>
+                      Project Number: {post?.docNo}
+                    </h6>
+                  </Card.Text>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                    }}
+                  >
+                    <Button
+                      variant="primary"
+                      onClick={() => handleEntry(post.docNo)}
                     >
-                      <Button
-                        variant="primary"
-                        onClick={() => handleEntry(post.docNo)}
-                      >
-                        Entry
-                      </Button>
-                      <Button
-                        variant="primary"
-                        onClick={() => handleDetails(post.docNo)}
-                      >
-                        Details
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              ))}
-            </div>
-          )}
-        </Grid>
+                      Entry
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => handleDetails(post.docNo)}
+                    >
+                      Details
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Grid>
+          ))
+        )}
       </Grid>
 
       {/* Modal for Adding Projects */}
@@ -178,7 +170,7 @@ const Dashboard = () => {
                 value={formData.clientName}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "20px" }}
               />
             </div>
             <div style={{ marginBottom: "15px" }}>
@@ -189,7 +181,7 @@ const Dashboard = () => {
                 value={formData.docNo}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "28px" }}
               />
             </div>
             <div style={{ marginBottom: "15px" }}>
