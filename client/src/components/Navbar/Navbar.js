@@ -149,7 +149,14 @@ export default function MenuAppBar() {
                     {DrawerList}
                   </Drawer>
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{
+                    flexGrow: 1,
+                    fontSize: { xs: "18px", sm: "20px", md: "21px" },
+                  }}
+                >
                   Project Management Tool
                 </Typography>
                 {auth && (
