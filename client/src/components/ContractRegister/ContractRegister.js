@@ -42,11 +42,12 @@ const ContractRegister = () => {
     console.log("Form submitted");
 
     const formData = new FormData();
-    formData.append("pdfGST", GST); // Using distinct keys for clarity
-    formData.append("pdfPAN", PAN);
-    formData.append("pdfIncorporation", incorporationCertificate);
-    formData.append("pdfBankGuarantee", bankGurantee);
-    formData.append("pdfSignedContract", signedContractCopy);
+    formData.append("pdf", GST);
+    formData.append("pdf", PAN);
+    formData.append("pdf", incorporationCertificate);
+    formData.append("pdf", bankGurantee);
+    formData.append("pdf", signedContractCopy);
+    // formData.append("string", formData);
 
     formData.append("contactEmail", contactEmail);
     formData.append("contractorName", contractorName);
@@ -83,15 +84,15 @@ const ContractRegister = () => {
             },
           })
         );
-        // Optionally refresh or redirect here
-        // window.location.reload(); // Refresh the page
+
+        // Refresh the page
       } catch (err) {
-        console.error("Submission error:", err);
-        // Consider providing user feedback
+        console.log(err);
       }
     }
   };
 
+  
   return (
     <div>
       <Container
