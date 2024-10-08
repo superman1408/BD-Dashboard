@@ -245,21 +245,6 @@ const ContractRegister = () => {
                         placeholder="Enter GST No."
                         name="GSTNo"
                         value={formData.contractAddress}
-                        onChange={(e) => {
-                          const gstNo = e.target.value;
-                          // Regex pattern for GST number validation
-                          const gstPattern =
-                            /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{3}$/;
-
-                          if (gstPattern.test(gstNo) || gstNo === "") {
-                            setFormData({ ...formData, GSTNo: gstNo });
-                          }
-                        }}
-                        isInvalid={
-                          !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{3}$/.test(
-                            formData.GSTNo
-                          ) && formData.GSTNo !== ""
-                        }
                       />
                       <Form.Control.Feedback type="invalid">
                         Please enter a valid GST number.
