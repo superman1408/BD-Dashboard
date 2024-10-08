@@ -1,91 +1,94 @@
 import React, { useState } from "react";
 import { Container, Card, Grid, Divider } from "@mui/material";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createContractPost, createPDFfiles } from "../../action/contract";
+import { createContractPost } from "../../action/contract";
 
 const ContractRegister = () => {
   const dispatch = useDispatch();
+
+  const [validated, setValidated] = useState(false);
 
   const [GST, setGST] = useState(null);
   const [PAN, setPAN] = useState(null);
   const [incorporationCertificate, setincorporationCertificate] =
     useState(null);
-  const [bankGurantee, setbankGurantee] = useState(null);
+  const [bankGurantee, setBankGurantee] = useState(null);
   const [signedContractCopy, setsignedContractCopy] = useState(null);
 
   const [contactEmail, setContactEmail] = useState();
+  const [contractorName, setContractorName] = useState();
+  const [contactPerson, setContactPerson] = useState();
+  const [contactNumber, setContactNumber] = useState();
+  const [contractAddress, setContractAddress] = useState();
+  const [contractBillingAddress, setContractBillingAddress] = useState();
 
-  const [formData, setFormData] = useState({
-    contractorName: "",
-    contactperson: "",
-    contactNumber: "",
-    contactEmail: "",
-    contractAddress: "",
-    contractBillingAddress: "",
+  const [contractStartDate, setContractStartDate] = useState();
+  const [contractEndDate, setContractEndDate] = useState();
+  const [bankGuranteeSubmitted, setBankGuranteeSubmitted] = useState();
+  const [bankGuranteeStartDate, setBankGuranteeStartDate] = useState();
+  const [bankGuranteeEndDate, setBankGuranteeEndDate] = useState();
+  const [contractValue, setContractValue] = useState();
+  const [contractCurrency, setContractCurrency] = useState();
 
-    contractStartDate: "",
-    contactEndDate: "",
-    bankGuranteeSubmitted: "",
-    bankGuranteeStartDate: "",
-    bankGuranteeEndDate: "",
-
-    contractValue: "",
-    contractCurrency: "",
-  });
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-
-    setContactEmail(value); // Update contactEmail state
-
-    setFormData((prevData) => ({
-      ...prevData,
-      contactEmail: value, // Also update formData
-    }));
-  };
+  const [GSTNo, setGSTNo] = useState();
+  const [PANNo, setPANNo] = useState();
+  const [incorporationCertificateNo, setIncorporationCertificateNo] =
+    useState();
+  const [bankGuaranteeNo, setBankGuaranteeNo] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted");
 
-    try {
-      await dispatch(createContractPost(formData)).then(() => {
-        handleUpload();
-      });
-    } catch (error) {
-      if (error.response && error.response.status === 409) {
-        console.error("Conflict error:", error.response.data.message);
-        alert("Conflict error: " + error.response.data.message);
-      } else {
-        console.error("Error:", error);
-        alert("An error occurred: " + error.message);
-      }
-    }
-  };
-
-  const handleUpload = async (e) => {
     const formData = new FormData();
-    formData.append("pdf", GST);
-    formData.append("pdf", PAN);
-    formData.append("pdf", incorporationCertificate);
-    formData.append("pdf", bankGurantee);
-    formData.append("pdf", signedContractCopy);
-    // formData.append("string", formData);
+    formData.append("pdfGST", GST); // Using distinct keys for clarity
+    formData.append("pdfPAN", PAN);
+    formData.append("pdfIncorporation", incorporationCertificate);
+    formData.append("pdfBankGuarantee", bankGurantee);
+    formData.append("pdfSignedContract", signedContractCopy);
 
     formData.append("contactEmail", contactEmail);
+    formData.append("contractorName", contractorName);
+    formData.append("contactNumber", contactNumber);
+    formData.append("contactPerson", contactPerson);
+    formData.append("contractAddress", contractAddress);
+    formData.append("contractBillingAddress", contractBillingAddress);
 
-    try {
-      await dispatch(
-        createPDFfiles(formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-      );
+    formData.append("contractStartDate", contractStartDate);
+    formData.append("contractEndDate", contractEndDate);
+    formData.append("bankGuranteeSubmitted", bankGuranteeSubmitted);
+    formData.append("bankGuranteeStartDate", bankGuranteeStartDate);
+    formData.append("bankGuranteeEndDate", bankGuranteeEndDate);
+    formData.append("contractValue", contractValue);
+    formData.append("contractCurrency", contractCurrency);
 
-      // Refresh the page
-    } catch (err) {
-      console.log(err);
+    formData.append("GSTNo", GSTNo);
+    formData.append("PANNo", PANNo);
+    formData.append("incorporationCertificateNo", incorporationCertificateNo);
+    formData.append("bankGuaranteeNo", bankGuaranteeNo);
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setValidated(true);
+    } else {
+      setValidated(true);
+      try {
+        await dispatch(
+          createContractPost(formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+        );
+        // Optionally refresh or redirect here
+        // window.location.reload(); // Refresh the page
+      } catch (err) {
+        console.error("Submission error:", err);
+        // Consider providing user feedback
+      }
     }
   };
 
@@ -93,13 +96,6 @@ const ContractRegister = () => {
     <div>
       <Container
         elevation={10}
-        // padding="10px"
-        // container="true"
-        // spacing={0}
-        // direction="column"
-        // alignitems="center"
-        // justifycontent="center"
-        // fluid="true"
         sx={{
           padding: "10px",
           display: "flex",
@@ -128,14 +124,19 @@ const ContractRegister = () => {
               textAlign: "center",
               fontFamily: "Roboto ",
               color: "#0d325c",
+              padding: "10px",
+              fontWeight: "bold",
             }}
           >
             Contract Detail Form
           </h3>
           <Grid sx={{ display: "flex", flexDirection: "column" }}>
-            <Form>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label style={{ color: "red" }}>{}</Form.Label>
+                <Form.Control.Feedback type="invalid">
+                  Please provide a valid input.
+                </Form.Control.Feedback>
               </Form.Group>
               <Row>
                 <Col md={4} className="mb-3">
@@ -143,16 +144,15 @@ const ContractRegister = () => {
                     <Form.Label>Contractor Name</Form.Label>
                     <Form.Control
                       type="text"
+                      required
                       placeholder="Enter Contactor Name"
                       name="contractorName"
-                      value={formData.contractorName}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          contractorName: e.target.value,
-                        })
-                      }
+                      value={contractorName}
+                      onChange={(e) => setContractorName(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -160,16 +160,15 @@ const ContractRegister = () => {
                     <Form.Label>Contact Person</Form.Label>
                     <Form.Control
                       type="text"
+                      required
                       placeholder="Enter Contact Person"
-                      name="contactperson"
-                      value={formData.contactperson}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          contactperson: e.target.value,
-                        })
-                      }
+                      name="contactPerson"
+                      value={contactPerson}
+                      onChange={(e) => setContactPerson(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -177,16 +176,15 @@ const ContractRegister = () => {
                     <Form.Label>Contact Person Mob. No</Form.Label>
                     <Form.Control
                       type="text"
+                      required
                       placeholder="Enter Contact Person No"
                       name="contactNumber"
-                      value={formData.contactNumber}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          contactNumber: e.target.value,
-                        })
-                      }
+                      value={contactNumber}
+                      onChange={(e) => setContactNumber(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
@@ -196,11 +194,17 @@ const ContractRegister = () => {
                     <Form.Label>Contact Person E-mail</Form.Label>
                     <Form.Control
                       type="text"
+                      required
                       placeholder="Enter Contact Person E-mail"
                       name="contactEmail"
-                      value={formData.contactEmail}
-                      onChange={handleChange}
+                      value={contactEmail}
+                      onChange={(e) => {
+                        setContactEmail(e.target.value);
+                      }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -208,16 +212,17 @@ const ContractRegister = () => {
                     <Form.Label>Contractor Address</Form.Label>
                     <Form.Control
                       type="text"
+                      required
                       placeholder="Enter Contractor Address"
                       name="contractAddress"
-                      value={formData.contractAddress}
+                      value={contractAddress}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contractAddress: e.target.value,
-                        });
+                        setContractAddress(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -225,16 +230,17 @@ const ContractRegister = () => {
                     <Form.Label>Contractor Billing Address</Form.Label>
                     <Form.Control
                       type="text"
+                      required
                       placeholder="Enter Contractor Billing Address"
                       name="contractBillingAddress"
-                      value={formData.contractBillingAddress}
+                      value={contractBillingAddress}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contractBillingAddress: e.target.value,
-                        });
+                        setContractBillingAddress(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
@@ -254,19 +260,18 @@ const ContractRegister = () => {
                       {/* <Form.Label>GST No.</Form.Label> */}
                       <Form.Control
                         type="text"
+                        required
                         placeholder="Enter GST No."
                         name="GSTNo"
-                        value={formData.contractAddress}
-                        // onChange={(e) => {
-                        //   setFormData({
-                        //     ...formData,
-                        //     contractAddress: e.target.value,
-                        //   });
-                        // }}
+                        value={GSTNo}
+                        onChange={(e) => {
+                          setGSTNo(e.target.value);
+                        }}
                       />
                     </div>
                     <Form.Control
                       type="file"
+                      required
                       marginTop="10px"
                       accept="application/pdf"
                       name="GST"
@@ -274,7 +279,9 @@ const ContractRegister = () => {
                         setGST(e.target.files[0]); // Set selected file directly
                       }}
                     />
-                    {/* <button onClick={handleUpload}>upload</button> */}
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -284,19 +291,18 @@ const ContractRegister = () => {
                       {/* <Form.Label>GST No.</Form.Label> */}
                       <Form.Control
                         type="text"
+                        required
                         placeholder="Enter PAN No."
                         name="PANNo"
-                        value={formData.contractAddress}
-                        // onChange={(e) => {
-                        //   setFormData({
-                        //     ...formData,
-                        //     contractAddress: e.target.value,
-                        //   });
-                        // }}
+                        value={PANNo}
+                        onChange={(e) => {
+                          setPANNo(e.target.value);
+                        }}
                       />
                     </div>
                     <Form.Control
                       type="file"
+                      required
                       accept="application/pdf"
                       name="PAN"
                       // value={formData.PAN}
@@ -304,28 +310,29 @@ const ContractRegister = () => {
                         setPAN(e.target.files[0]); // Set selected file directly
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>Incorporation Certificate</Form.Label>
                     <div style={{ display: "flex", marginBottom: "10px" }}>
-                      {/* <Form.Label>GST No.</Form.Label> */}
                       <Form.Control
                         type="text"
+                        required
                         placeholder="Enter Certificate No."
-                        name="CertificateNo"
-                        value={formData.contractAddress}
-                        // onChange={(e) => {
-                        //   setFormData({
-                        //     ...formData,
-                        //     contractAddress: e.target.value,
-                        //   });
-                        // }}
+                        name="incorporationCertificateNo"
+                        value={incorporationCertificateNo}
+                        onChange={(e) => {
+                          setIncorporationCertificateNo(e.target.value);
+                        }}
                       />
                     </div>
                     <Form.Control
                       type="file"
+                      required
                       accept="application/pdf"
                       name="incorporationCertificate"
                       // value={formData.incorporationCertificate}
@@ -333,6 +340,9 @@ const ContractRegister = () => {
                         setincorporationCertificate(e.target.files[0]); // Set selected file directly
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
@@ -343,14 +353,14 @@ const ContractRegister = () => {
                     <Form.Control
                       type="date"
                       name="contractStartDate"
-                      value={formData.contractStartDate}
+                      value={contractStartDate}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contractStartDate: e.target.value,
-                        });
+                        setContractStartDate(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -359,14 +369,14 @@ const ContractRegister = () => {
                     <Form.Control
                       type="date"
                       name="contactEndDate"
-                      value={formData.contactEndDate}
+                      value={contractEndDate}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contactEndDate: e.target.value,
-                        });
+                        setContractEndDate(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -374,18 +384,18 @@ const ContractRegister = () => {
                     <Form.Label>Bank guarantee Submitted?</Form.Label>
                     <Form.Select
                       name="bankGuranteeSubmitted"
-                      value={formData.bankGuranteeSubmitted}
+                      value={bankGuranteeSubmitted}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          bankGuranteeSubmitted: e.target.value,
-                        });
+                        setBankGuranteeSubmitted(e.target.value);
                       }}
                     >
                       <option value="">Select an option</option>
                       <option value="yes">Yes</option>
                       <option value="no">No</option>
                     </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
@@ -405,58 +415,60 @@ const ContractRegister = () => {
                       {/* <Form.Label>GST No.</Form.Label> */}
                       <Form.Control
                         type="text"
+                        required
                         placeholder="Enter Bank Guarantee No."
                         name="BankGuaranteeNo"
-                        value={formData.contractAddress}
-                        // onChange={(e) => {
-                        //   setFormData({
-                        //     ...formData,
-                        //     contractAddress: e.target.value,
-                        //   });
-                        // }}
+                        value={bankGuaranteeNo}
+                        onChange={(e) => {
+                          setBankGuaranteeNo(e.target.value);
+                        }}
                       />
                     </div>
                     <Form.Control
                       type="file"
+                      required
                       accept="application/pdf"
                       name="bankGurantee"
                       // value={formData.bankGurantee}
                       onChange={(e) => {
-                        setbankGurantee(e.target.files[0]); // Set selected file directly
+                        setBankGurantee(e.target.files[0]); // Set selected file directly
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
-                    <Form.Label>Bank Guarantee Start Date?</Form.Label>
+                    <Form.Label>Bank Guarantee Start Date</Form.Label>
                     <Form.Control
                       type="date"
                       name="bankGuranteeStartDate"
-                      value={formData.bankGuranteeStartDate}
+                      value={bankGuranteeStartDate}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          bankGuranteeStartDate: e.target.value,
-                        });
+                        setBankGuranteeStartDate(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
-                    <Form.Label>Bank Guarantee End Date?</Form.Label>
+                    <Form.Label>Bank Guarantee End Date</Form.Label>
                     <Form.Control
                       type="date"
                       name="bankGuranteeEndDate"
-                      value={formData.bankGuranteeEndDate}
+                      value={bankGuranteeEndDate}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          bankGuranteeEndDate: e.target.value,
-                        });
+                        setBankGuranteeEndDate(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
@@ -468,14 +480,14 @@ const ContractRegister = () => {
                       type="number"
                       placeholder="Enter amount in ₹"
                       name="contractValue"
-                      value={formData.contractValue}
+                      value={contractValue}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contractValue: e.target.value,
-                        });
+                        setContractValue(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -485,14 +497,14 @@ const ContractRegister = () => {
                       type="number"
                       placeholder="Enter amount in ₹"
                       name="contractCurrency"
-                      value={formData.contractCurrency}
+                      value={contractCurrency}
                       onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          contractCurrency: e.target.value,
-                        });
+                        setContractCurrency(e.target.value);
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mb-3">
@@ -507,27 +519,25 @@ const ContractRegister = () => {
                         setsignedContractCopy(e.target.files[0]); // Set selected file directly
                       }}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid input.
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
+              <Divider
+                className="mt-3 mb-3"
+                style={{
+                  height: "2px",
+                  backgroundColor: "#000",
+                  fontWeight: "bold",
+                }}
+              />
+              <Button type="submit" style={{ float: "right" }}>
+                Submit
+              </Button>
             </Form>
           </Grid>
-          <Divider
-            className="mt-3 mb-3"
-            style={{
-              height: "2px",
-              backgroundColor: "#000",
-              fontWeight: "bold",
-            }}
-          />
-          <button
-            variant="primary"
-            type="submit"
-            className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
         </Card>
       </Container>
     </div>

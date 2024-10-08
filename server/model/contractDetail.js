@@ -2,42 +2,47 @@ import mongoose from "mongoose";
 
 const contractSchema = mongoose.Schema(
   {
+    contactEmail: {
+      type: String,
+    },
     contractorName: {
       type: String,
     },
-    contactperson: {
+    contactPerson: {
       type: String,
     },
     contactNumber: {
       type: String,
     },
-    contactEmail: {
-      type: String,
-    },
+
     contractAddress: {
       type: String,
     },
     contractBillingAddress: {
       type: String,
     },
-    // GST: {
-    //   type: String,
-    // },
-    // GST: { type: Buffer },
 
-    // PAN: {
-    //   type: String,
-    // },
-    // incorporationCertificate: {
-    //   type: String,
-    // },
     contractStartDate: {
       type: String,
     },
-    contactEndDate: {
+    contractEndDate: {
       type: String,
     },
     bankGuranteeSubmitted: {
+      type: String,
+    },
+    GSTNo: {
+      type: String,
+    },
+    // GST: { type: Buffer },
+
+    PANNo: {
+      type: String,
+    },
+    incorporationCertificateNo: {
+      type: String,
+    },
+    bankGuaranteeNo: {
       type: String,
     },
     bankGuranteeStartDate: {
@@ -46,18 +51,28 @@ const contractSchema = mongoose.Schema(
     bankGuranteeEndDate: {
       type: String,
     },
-    // bankGurantee: {
-    //   type: String,
-    // },
+
     contractValue: {
       type: String,
     },
     contractCurrency: {
       type: String,
     },
-    // signedContractCopy: {
-    //   type: String,
-    // },
+    GST: {
+      type: Buffer,
+    },
+    PAN: {
+      type: Buffer,
+    },
+    incorporationCertificate: {
+      type: Buffer,
+    },
+    bankGurantee: {
+      type: Buffer,
+    },
+    signedContractCopy: {
+      type: Buffer,
+    },
   },
   {
     timestamps: true,

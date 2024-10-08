@@ -18,33 +18,63 @@ const upload = multer({ dest: "uploads/" }); // Specify the upload directory
 
 // const upload = multer({ storage: storage });
 
+// export const createContractPost = async (req, res) => {
+//   const Data = req.body;
+
+//   const NewContractData = new ContractOverview(Data);
+
+//   try {
+//     await NewContractData.save();
+//     res.status(201).json(NewContractData);
+//   } catch (error) {
+//     res.status(409).json({ message: error.message });
+//   }
+// };
+
 export const createContractPost = async (req, res) => {
-  const Data = req.body;
-
-  const NewContractData = new ContractOverview(Data);
-
-  try {
-    await NewContractData.save();
-    res.status(201).json(NewContractData);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-
-export const createPDFfiles = async (req, res) => {
   const contactEmail = req.body.contactEmail;
+  const contractorName = req.body.contractorName;
+  const contactPerson = req.body.contactPerson;
+  const contactNumber = req.body.contactNumber;
+  const contractAddress = req.body.contractAddress;
+  const contractBillingAddress = req.body.contractBillingAddress;
 
-  console.log(contactEmail);
+  const contractStartDate = req.body.contractStartDate;
+  const contractEndDate = req.body.contractEndDate;
+  const bankGuranteeStartDate = req.body.bankGuranteeStartDate;
+  const bankGuranteeEndDate = req.body.bankGuranteeEndDate;
+  const contractValue = req.body.contractValue;
+  const contractCurrency = req.body.contractCurrency;
+
+  const GSTNo = req.body.GSTNo;
+  const PANNo = req.body.PANNo;
+  const incorporationCertificateNo = req.body.incorporationCertificateNo;
+  const bankGuaranteeNo = req.body.bankGuaranteeNo;
 
   try {
-    // Check if any files were uploaded
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No PDF files uploaded" });
-    }
+    //   // Check if any files were uploaded
+    //   if (!req.files || req.files.length === 0) {
+    //     return res.status(400).json({ message: "No PDF files uploaded" });
+    //   }
 
     // Initialize an object to hold the PDF buffers
     const pdfBuffers = {
       contactEmail,
+      contractorName,
+      contactPerson,
+      contactNumber,
+      contractAddress,
+      contractBillingAddress,
+      contractStartDate,
+      contractEndDate,
+      bankGuranteeStartDate,
+      bankGuranteeEndDate,
+      contractValue,
+      contractCurrency,
+      GSTNo,
+      PANNo,
+      incorporationCertificateNo,
+      bankGuaranteeNo,
       GST: null,
       PAN: null,
       incorporationCertificate: null,
@@ -76,7 +106,7 @@ export const createPDFfiles = async (req, res) => {
     });
 
     // Create a new document with the uploaded PDF buffers
-    const newPaySlip = new ContractPDFOverview(pdfBuffers);
+    const newPaySlip = new ContractOverview(pdfBuffers);
 
     // Save the document to MongoDB
     await newPaySlip.save();
