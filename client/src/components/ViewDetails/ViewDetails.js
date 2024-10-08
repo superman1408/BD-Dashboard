@@ -16,7 +16,6 @@ const ViewDetails = () => {
   const entry = useSelector((state) => state.entry);
 
   console.log(entry.length);
-  
 
   let array = [];
 
@@ -42,16 +41,14 @@ const ViewDetails = () => {
     if (entry.length === 0) {
       if (loading) {
         dispatch(getEntryDetails()).then(() => {
-          updateArray().then(() => { 
+          updateArray().then(() => {
             console.log("Uploaded teh array");
             setLoading(false);
           });
         });
-      };
-    };
+      }
+    }
   }, [dispatch, loading]);
-
-
 
   // Optional: Update windowWidth on resize
   useEffect(() => {
@@ -73,118 +70,128 @@ const ViewDetails = () => {
     }
   });
 
-
   console.log(array);
-  
 
   return (
-    <>
-      {loading ? (
-        <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
-          <LinearProgress />
-          loading...
-        </div>
-      ) : (
-        <Container
-          sx={{
-            display: "flex",
-            justifyContent: "center", // Center horizontally
-            alignItems: "center", // Center vertically
-            padding: "12px",
-            marginBottom: "50vh",
-            width: "auto",
-          }}
-        >
-          <Card
-            elevation={10}
+    <div>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "100%",
+          "@media (max-width: 600px)": {
+            // backgroundColor: "lightgreen",
+            padding: "10px", // Adjust padding for smaller screens
+          },
+        }}
+      >
+        {loading ? (
+          <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
+            <LinearProgress />
+            loading...
+          </div>
+        ) : (
+          <Container
             sx={{
               display: "flex",
-              flexDirection: "column", // Optional, based on your design
-              alignItems: "center", // Center contents horizontally
-              justifyContent: "center", // Center contents vertically
-              padding: "20px",
+              justifyContent: "center", // Center horizontally
+              alignItems: "center", // Center vertically
+              padding: "12px",
+              marginBottom: "50vh",
+              width: "auto",
             }}
           >
-            <Grid sx={{ display: "flex", flexDirection: "row" }}>
-              <Grid>
-                <table
-                  className="time-sheet-table"
-                  style={{
-                    padding: "10px",
-                    borderCollapse: "collapse",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: windowWidth <= 600 ? "30%" : "100%",
-                    border: "1px solid black", // Optional: Add border for clarity
-                  }}
-                >
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Overview</th>
-                      <th>Submitted By</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {array.length > 0 ? (
-                      array.map((post, index) => (
-                        <tr key={index}>
-                          <td
-                            style={{
-                              paddingLeft: "10px",
-                              paddingRight: "10px",
-                            }}
-                          >
-                            {post.date || "N/A"}
-                          </td>
-                          <td style={{ width: "150px", height: "100px" }}>
-                            <img
+            <Card
+              elevation={10}
+              sx={{
+                display: "flex",
+                flexDirection: "column", // Optional, based on your design
+                alignItems: "center", // Center contents horizontally
+                justifyContent: "center", // Center contents vertically
+                padding: "20px",
+              }}
+            >
+              <Grid sx={{ display: "flex", flexDirection: "row" }}>
+                <Grid>
+                  <table
+                    className="time-sheet-table"
+                    style={{
+                      padding: "10px",
+                      borderCollapse: "collapse",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      width: windowWidth <= 600 ? "30%" : "100%",
+                      border: "1px solid black", // Optional: Add border for clarity
+                    }}
+                  >
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Overview</th>
+                        <th>Submitted By</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {array.length > 0 ? (
+                        array.map((post, index) => (
+                          <tr key={index}>
+                            <td
                               style={{
-                                width: "120px",
-                                height: "80px",
-                                margin: "10px",
+                                paddingLeft: "10px",
+                                paddingRight: "10px",
                               }}
-                              src={post.uploadPictures1 || "N/A"}
-                            />
-                          </td>
-                          <td style={{ textAlign: "center" }}>
-                            {post.submittedBy || "N/A"}
-                          </td>
-                          <td style={{ justifyContent: "space-between" }}>
-                            <button
-                              style={{ marginRight: "10px" }}
-                              onClick={() =>
-                                navigate(`/${post.date}/detailedprojectpage`)
-                              }
                             >
-                              View
-                            </button>
-                            {/* <button
+                              {post.date || "N/A"}
+                            </td>
+                            <td style={{ width: "150px", height: "100px" }}>
+                              <img
+                                style={{
+                                  width: "120px",
+                                  height: "80px",
+                                  margin: "10px",
+                                }}
+                                src={post.uploadPictures1 || "N/A"}
+                              />
+                            </td>
+                            <td style={{ textAlign: "center" }}>
+                              {post.submittedBy || "N/A"}
+                            </td>
+                            <td style={{ justifyContent: "space-between" }}>
+                              <button
+                                style={{ marginRight: "10px" }}
+                                onClick={() =>
+                                  navigate(`/${post.date}/detailedprojectpage`)
+                                }
+                              >
+                                View
+                              </button>
+                              {/* <button
                               onClick={() =>
                                 navigate(`/entrydetails/${post.date}`)
                               } // Pass date to edit page
                             >
                               Edit
                             </button> */}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4" align="center">
+                            No data available
                           </td>
                         </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="4" align="center">
-                          No data available
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+                      )}
+                    </tbody>
+                  </table>
+                </Grid>
               </Grid>
-            </Grid>
-          </Card>
-        </Container>
-      )}
-    </>
+            </Card>
+          </Container>
+        )}
+      </Container>
+    </div>
   );
 };
 

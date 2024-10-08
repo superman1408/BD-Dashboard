@@ -302,7 +302,6 @@ const ContractRegister = () => {
                   <Form.Group controlId="formMaleLabour">
                     <Form.Label>PAN</Form.Label>
                     <div style={{ display: "flex", marginBottom: "10px" }}>
-                      {/* <Form.Label>GST No.</Form.Label> */}
                       <Form.Control
                         type="text"
                         required
