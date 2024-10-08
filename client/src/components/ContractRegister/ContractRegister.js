@@ -9,6 +9,8 @@ const ContractRegister = () => {
 
   const [validated, setValidated] = useState(false);
 
+  const [visible, setVisible] = useState(false);
+
   const [GST, setGST] = useState(null);
   const [PAN, setPAN] = useState(null);
   const [incorporationCertificate, setincorporationCertificate] =
@@ -92,7 +94,17 @@ const ContractRegister = () => {
     }
   };
 
-  
+  const handleBankSubmitted = (e) => {
+    e.preventDefault();
+    const data = e.target.value;
+
+    if (data === "yes") {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  };
+
   return (
     <div>
       <Container
@@ -273,9 +285,10 @@ const ContractRegister = () => {
                     <Form.Control
                       type="file"
                       required
-                      marginTop="10px"
+                      margintop="10px"
                       accept="application/pdf"
                       name="GST"
+                      style={{}}
                       onChange={(e) => {
                         setGST(e.target.files[0]); // Set selected file directly
                       }}
@@ -386,9 +399,11 @@ const ContractRegister = () => {
                     <Form.Select
                       name="bankGuranteeSubmitted"
                       value={bankGuranteeSubmitted}
-                      onChange={(e) => {
-                        setBankGuranteeSubmitted(e.target.value);
-                      }}
+                      // onChange={(e) => {
+                      //   setBankGuranteeSubmitted(e.target.value);
+                      // }}
+
+                      onChange={handleBankSubmitted}
                     >
                       <option value="">Select an option</option>
                       <option value="yes">Yes</option>
@@ -408,71 +423,74 @@ const ContractRegister = () => {
                   fontWeight: "bold",
                 }}
               />
-              <Row>
-                <Col md={4} className="mb-3">
-                  <Form.Group controlId="formMaleLabour">
-                    <Form.Label>Bank Guarantee</Form.Label>
-                    <div style={{ display: "flex", marginBottom: "10px" }}>
-                      {/* <Form.Label>GST No.</Form.Label> */}
+
+              {visible && (
+                <Row>
+                  <Col md={4} className="mb-3">
+                    <Form.Group controlId="formMaleLabour">
+                      <Form.Label>Bank Guarantee</Form.Label>
+                      <div style={{ display: "flex", marginBottom: "10px" }}>
+                        {/* <Form.Label>GST No.</Form.Label> */}
+                        <Form.Control
+                          type="text"
+                          required
+                          placeholder="Enter Bank Guarantee No."
+                          name="BankGuaranteeNo"
+                          value={bankGuaranteeNo}
+                          onChange={(e) => {
+                            setBankGuaranteeNo(e.target.value);
+                          }}
+                        />
+                      </div>
                       <Form.Control
-                        type="text"
+                        type="file"
                         required
-                        placeholder="Enter Bank Guarantee No."
-                        name="BankGuaranteeNo"
-                        value={bankGuaranteeNo}
+                        accept="application/pdf"
+                        name="bankGurantee"
+                        // value={formData.bankGurantee}
                         onChange={(e) => {
-                          setBankGuaranteeNo(e.target.value);
+                          setBankGurantee(e.target.files[0]); // Set selected file directly
                         }}
                       />
-                    </div>
-                    <Form.Control
-                      type="file"
-                      required
-                      accept="application/pdf"
-                      name="bankGurantee"
-                      // value={formData.bankGurantee}
-                      onChange={(e) => {
-                        setBankGurantee(e.target.files[0]); // Set selected file directly
-                      }}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid input.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col md={4} className="mb-3">
-                  <Form.Group controlId="formMaleLabour">
-                    <Form.Label>Bank Guarantee Start Date</Form.Label>
-                    <Form.Control
-                      type="date"
-                      name="bankGuranteeStartDate"
-                      value={bankGuranteeStartDate}
-                      onChange={(e) => {
-                        setBankGuranteeStartDate(e.target.value);
-                      }}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid input.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col md={4} className="mb-3">
-                  <Form.Group controlId="formMaleLabour">
-                    <Form.Label>Bank Guarantee End Date</Form.Label>
-                    <Form.Control
-                      type="date"
-                      name="bankGuranteeEndDate"
-                      value={bankGuranteeEndDate}
-                      onChange={(e) => {
-                        setBankGuranteeEndDate(e.target.value);
-                      }}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid input.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Row>
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid input.
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4} className="mb-3">
+                    <Form.Group controlId="formMaleLabour">
+                      <Form.Label>Bank Guarantee Start Date</Form.Label>
+                      <Form.Control
+                        type="date"
+                        name="bankGuranteeStartDate"
+                        value={bankGuranteeStartDate}
+                        onChange={(e) => {
+                          setBankGuranteeStartDate(e.target.value);
+                        }}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid input.
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4} className="mb-3">
+                    <Form.Group controlId="formMaleLabour">
+                      <Form.Label>Bank Guarantee End Date</Form.Label>
+                      <Form.Control
+                        type="date"
+                        name="bankGuranteeEndDate"
+                        value={bankGuranteeEndDate}
+                        onChange={(e) => {
+                          setBankGuranteeEndDate(e.target.value);
+                        }}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid input.
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+              )}
               <Row>
                 <Col md={4} className="mb-3">
                   <Form.Group controlId="formMaleLabour">
