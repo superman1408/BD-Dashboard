@@ -8,8 +8,17 @@ const router = express.Router();
 
 // router.post("/", createContractPost);
 
-router.post("/", upload.array("pdf"), createContractPost);
-
+router.post(
+  "/",
+  upload.fields([
+    { name: "gstPdf", maxCount: 1 },
+    { name: "panPdf", maxCount: 1 },
+    { name: "incorporationPdf", maxCount: 1 },
+    { name: "bankGuaranteePdf", maxCount: 1 },
+    { name: "signedContractPdf", maxCount: 1 },
+  ]),
+  createContractPost
+);
 
 
 export default router;
