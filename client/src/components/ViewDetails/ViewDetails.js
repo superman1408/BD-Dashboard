@@ -15,8 +15,6 @@ const ViewDetails = () => {
   // Fetch posts from Redux store
   const entry = useSelector((state) => state.entry);
 
-  console.log(entry.length);
-
   let array = [];
 
   const updateArray = async (post) => {
@@ -42,7 +40,6 @@ const ViewDetails = () => {
       if (loading) {
         dispatch(getEntryDetails()).then(() => {
           updateArray().then(() => {
-            console.log("Uploaded teh array");
             setLoading(false);
           });
         });
@@ -69,8 +66,6 @@ const ViewDetails = () => {
       }
     }
   });
-
-  console.log(array);
 
   return (
     <div>

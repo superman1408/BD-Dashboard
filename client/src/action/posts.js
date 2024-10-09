@@ -12,8 +12,6 @@ export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await API.fetchPosts();
     dispatch({ type: FETCH_ALL, payload: data });
-
-    console.log("data", data);
   } catch (error) {
     console.log(error);
   }
@@ -39,10 +37,6 @@ export const getPost = (id) => async (dispatch) => {
 };
 
 export const entryDetails = (formdata) => async (dispatch) => {
-  console.log("Hello I am working..!!");
-  // console.log(id);
-  // console.log(state);
-
   try {
     const { data } = await API.entryDetails(formdata);
 
