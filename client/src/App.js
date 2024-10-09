@@ -5,9 +5,7 @@ import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import DataSheet from "./components/DataSheet/DataSheet";
 import Dashboard from "./components/Dashboard/Dashboard";
-import DetailedProgress from "./components/DetailedProgressSheet/DetailedProgress";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
@@ -38,13 +36,6 @@ const App = () => {
       <Navbar />
       <div>
         <Routes>
-          {/* <Route
-            path="/"
-            // element={!user ? <Authentication /> : <Dashboard />}
-            component={() => <redirect to='/dashboard'/>}
-          /> */}
-
-          {/* Redirect to dashboard if user is logged in */}
           <Route
             path="/"
             element={user ? <Dashboard /> : <Navigate to="/auth" />}
@@ -56,17 +47,10 @@ const App = () => {
             element={!user ? <Authentication /> : <Navigate to="/" />}
           />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
-          {/* <Route path="/dashboard" exact element={user && <Dashboard />} /> */}
+
           <Route path="/dashboard" exact element={<Dashboard />} />
-          {/* <Route path="/maindashboard" exact element={<Maindashboard />} /> */}
-          <Route path="/datasheet" exact element={<DataSheet />} />
-          {/* <Route path="/:id/entrydetails" exact element={<EntryDetails />} /> */}
+
           <Route path="/:id/viewdetails" exact element={<ViewDetails />} />
-          {/* <Route
-            path="/:id/detailedprojectpage"
-            exact
-            element={<DetailedProjectPage />}
-          /> */}
 
           <Route
             path="/:date/detailedprojectpage"
@@ -81,7 +65,7 @@ const App = () => {
           <Route
             path="/detailedprogress"
             exact
-            element={<DetailedProgress />}
+            // element={<DetailedProgress />}
           />
         </Routes>
       </div>

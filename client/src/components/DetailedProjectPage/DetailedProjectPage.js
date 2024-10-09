@@ -5,6 +5,9 @@ import { useReactToPrint } from "react-to-print";
 import { Grid, Card, Container, Button, LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
+
+import "./Style1.css";
+
 const DetailedProjectPage = () => {
   const { date } = useParams();
 
