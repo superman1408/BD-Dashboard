@@ -284,7 +284,7 @@ const ContractRegister = () => {
                             /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
 
                           if (gstPattern.test(value) || value === "") {
-                            setGSTNo(e.target.value); // Only update the state if the GST No is valid or empty
+                            setGSTNo(value); // Only update the state if the GST No is valid or empty
                           } else {
                             alert(
                               "Invalid GST number. Please follow the correct format."
@@ -326,7 +326,7 @@ const ContractRegister = () => {
 
                           if (value === "" || panPattern.test(value)) {
                             // If the input is empty or matches the pattern, update the state
-                            setPANNo(e.target.value);
+                            setPANNo(value);
                           } else {
                             console.log(
                               "Invalid PAN number. Please follow the correct format."
