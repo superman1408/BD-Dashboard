@@ -58,7 +58,6 @@ const DetailedProjectPage = () => {
           });
           setMonth(monthValue);
         }
-        console.log(post.uploadPictures1);
       }
     });
 
@@ -68,7 +67,6 @@ const DetailedProjectPage = () => {
   const handlePpd = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: "Progress Report",
-    onAfterPrint: () => console.log("Printed PDF successfully!"),
     fontSize: "15px",
   });
 
@@ -140,7 +138,6 @@ const DetailedProjectPage = () => {
               justifyContent: "center",
             }}
           >
-            {" "}
             <div ref={componentRef} style={{ padding: "30px" }}>
               <h3
                 style={{
@@ -159,20 +156,17 @@ const DetailedProjectPage = () => {
                     <table
                       style={{
                         padding: "10px",
-                        // marginLeft: "100px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
                         marginRight: "auto",
                         width: "100%",
-                        maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
+                        maxWidth: "800px",
                       }}
                     >
                       <thead>
                         <tr>
                           <th
-                            // alignItems="center"
-                            // justifyContent="center"
                             style={{
                               border: "1px solid black",
                               textAlign: "center",
@@ -185,6 +179,7 @@ const DetailedProjectPage = () => {
                         </tr>
                       </thead>
                     </table>
+
                     <table
                       style={{
                         // marginLeft: "100px",
@@ -201,7 +196,7 @@ const DetailedProjectPage = () => {
                       <thead>
                         {filteredData.length > 0 ? (
                           filteredData.map((entry, index) => (
-                            <tr>
+                            <tr key={index}>
                               <th
                                 style={{
                                   border: "1px solid black",
@@ -259,7 +254,7 @@ const DetailedProjectPage = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                <td>{entry.clientName}</td>
+                                {entry.clientName}
                               </td>
                               <th
                                 style={{
@@ -277,7 +272,7 @@ const DetailedProjectPage = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                <td>{entry.date}</td>
+                                {entry.date}
                               </td>
                             </tr>
                             <tr>
@@ -297,7 +292,7 @@ const DetailedProjectPage = () => {
                                   width: "30%",
                                 }}
                               >
-                                <td>{entry.docNo}</td>
+                                {entry.docNo}
                               </td>
                               <th
                                 style={{
@@ -362,23 +357,28 @@ const DetailedProjectPage = () => {
                     >
                       {filteredData.length > 0 ? (
                         filteredData.map((entry, index) => (
-                          <tbody>
-                            <tr key={index}>
-                              <div style={{ display: "flex" }}>
-                                <th
+                          <tbody key={index}>
+                            <tr>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "40%",
+                                }}
+                              >
+                                Civil & Structure
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "70%",
+                                }}
+                              >
+                                <div
                                   style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "40%",
-                                  }}
-                                >
-                                  Civil & Structure
-                                </th>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "70%",
+                                    display: "flex",
+                                    flexDirection: "column",
                                   }}
                                 >
                                   {entry?.activity1
@@ -387,31 +387,37 @@ const DetailedProjectPage = () => {
                                       <span
                                         key={index}
                                         style={{
-                                          fontSize: "14px", // Example font size, you can customize this
-                                          marginBottom: "5px", // Add spacing between lines
-                                          display: "block", // Ensure lines are displayed on new lines
+                                          fontSize: "14px",
+                                          marginBottom: "5px",
                                         }}
                                       >
                                         {line}
                                       </span>
                                     ))}
-                                </td>
-                              </div>
-                              <div style={{ display: "flex" }}>
-                                <th
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "40%",
+                                }}
+                              >
+                                Planned work for Tomorrow
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "70%",
+                                }}
+                              >
+                                <div
                                   style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "40%",
-                                  }}
-                                >
-                                  Planned work for Tomorrow
-                                </th>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "70%",
+                                    display: "flex",
+                                    flexDirection: "column",
                                   }}
                                 >
                                   {entry?.activity2
@@ -420,34 +426,37 @@ const DetailedProjectPage = () => {
                                       <span
                                         key={index}
                                         style={{
-                                          fontSize: "14px", // Example font size, you can customize this
-                                          marginBottom: "5px", // Add spacing between lines
-                                          display: "block", // Ensure lines are displayed on new lines
+                                          fontSize: "14px",
+                                          marginBottom: "5px",
                                         }}
                                       >
                                         {line}
                                       </span>
                                     ))}
-                                </td>
-                              </div>
+                                </div>
+                              </td>
                             </tr>
-
                             <tr>
-                              <div style={{ display: "flex" }}>
-                                <th
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "40%",
+                                }}
+                              >
+                                Material Requirements
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "70%",
+                                }}
+                              >
+                                <div
                                   style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "40%",
-                                  }}
-                                >
-                                  Material Requirements
-                                </th>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "70%",
+                                    display: "flex",
+                                    flexDirection: "column",
                                   }}
                                 >
                                   {entry?.activity3
@@ -456,31 +465,37 @@ const DetailedProjectPage = () => {
                                       <span
                                         key={index}
                                         style={{
-                                          fontSize: "14px", // Example font size, you can customize this
-                                          marginBottom: "5px", // Add spacing between lines
-                                          display: "block", // Ensure lines are displayed on new lines
+                                          fontSize: "14px",
+                                          marginBottom: "5px",
                                         }}
                                       >
                                         {line}
                                       </span>
                                     ))}
-                                </td>
-                              </div>
-                              <div style={{ display: "flex" }}>
-                                <th
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "40%",
+                                }}
+                              >
+                                Procurement Status
+                              </th>
+                              <td
+                                style={{
+                                  border: "1px solid black",
+                                  padding: "10px",
+                                  width: "70%",
+                                }}
+                              >
+                                <div
                                   style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "40%",
-                                  }}
-                                >
-                                  Procurement Status
-                                </th>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    width: "70%",
+                                    display: "flex",
+                                    flexDirection: "column",
                                   }}
                                 >
                                   {entry?.activity4
@@ -489,16 +504,15 @@ const DetailedProjectPage = () => {
                                       <span
                                         key={index}
                                         style={{
-                                          fontSize: "14px", // Example font size, you can customize this
-                                          marginBottom: "5px", // Add spacing between lines
-                                          display: "block", // Ensure lines are displayed on new lines
+                                          fontSize: "14px",
+                                          marginBottom: "5px",
                                         }}
                                       >
                                         {line}
                                       </span>
                                     ))}
-                                </td>
-                              </div>
+                                </div>
+                              </td>
                             </tr>
                           </tbody>
                         ))
@@ -520,8 +534,8 @@ const DetailedProjectPage = () => {
                     >
                       {filteredData.length > 0 ? (
                         filteredData.map((entry, index) => (
-                          <tbody>
-                            <tr key={index}>
+                          <tbody key={index}>
+                            <tr>
                               <th
                                 style={{
                                   border: "1px solid black",
@@ -605,8 +619,8 @@ const DetailedProjectPage = () => {
                     >
                       {filteredData.length > 0 ? (
                         filteredData.map((entry, index) => (
-                          <tbody>
-                            <tr key={index}>
+                          <tbody key={index}>
+                            <tr>
                               {/* <th
                                 style={{
                                   border: "1px solid black",
@@ -698,8 +712,8 @@ const DetailedProjectPage = () => {
                     >
                       {filteredData.length > 0 ? (
                         filteredData.map((entry, index) => (
-                          <tbody>
-                            <tr key={index}>
+                          <tbody key={index}>
+                            <tr>
                               <td
                                 style={{
                                   border: "1px solid black",

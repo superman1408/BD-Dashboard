@@ -15,9 +15,6 @@ const ViewDetails = () => {
   // Fetch posts from Redux store
   const entry = useSelector((state) => state.entry);
 
-  console.log(entry.length);
-  
-
   let array = [];
 
   const updateArray = async (post) => {
@@ -42,16 +39,13 @@ const ViewDetails = () => {
     if (entry.length === 0) {
       if (loading) {
         dispatch(getEntryDetails()).then(() => {
-          updateArray().then(() => { 
-            console.log("Uploaded teh array");
+          updateArray().then(() => {
             setLoading(false);
           });
         });
-      };
-    };
+      }
+    }
   }, [dispatch, loading]);
-
-
 
   // Optional: Update windowWidth on resize
   useEffect(() => {
@@ -72,10 +66,6 @@ const ViewDetails = () => {
       }
     }
   });
-
-
-  console.log(array);
-  
 
   return (
     <>

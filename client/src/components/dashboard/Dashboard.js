@@ -109,7 +109,7 @@ const Dashboard = () => {
                 />
 
                 <Card.Body>
-                  <Card.Text>
+                  <div>
                     <h6 style={{ textAlign: "center" }}>Project Name</h6>
                     <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
                       {post?.projectName}
@@ -117,7 +117,7 @@ const Dashboard = () => {
                     <h6 style={{ textAlign: "center" }}>
                       Project Number: {post?.docNo}
                     </h6>
-                  </Card.Text>
+                  </div>
                   <div
                     style={{
                       display: "flex",
