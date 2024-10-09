@@ -277,7 +277,18 @@ const ContractRegister = () => {
                         name="GSTNo"
                         value={GSTNo}
                         onChange={(e) => {
-                          setGSTNo(e.target.value);
+                          // setGSTNo(e.target.value);
+                          const value = e.target.value.toUpperCase(); // Convert to uppercase for standard GST format
+                          const gstPattern =
+                            /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
+
+                          if (gstPattern.test(value) || value === "") {
+                            setGSTNo(value); // Only update the state if the GST No is valid or empty
+                          } else {
+                            alert(
+                              "Invalid GST number. Please follow the correct format."
+                            );
+                          }
                         }}
                       />
                     </div>
@@ -308,7 +319,18 @@ const ContractRegister = () => {
                         name="PANNo"
                         value={PANNo}
                         onChange={(e) => {
-                          setPANNo(e.target.value);
+                          // setPANNo(e.target.value);
+                          const value = e.target.value.toUpperCase(); // Convert to uppercase for PAN format
+                          const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+
+                          if (value === "" || panPattern.test(value)) {
+                            // If the input is empty or matches the pattern, update the state
+                            setPANNo(value);
+                          } else {
+                            console.log(
+                              "Invalid PAN number. Please follow the correct format."
+                            );
+                          }
                         }}
                       />
                     </div>
