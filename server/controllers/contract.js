@@ -30,33 +30,27 @@ const upload = multer({ dest: "uploads/" }); // Specify the upload directory
 //     res.status(409).json({ message: error.message });
 //   }
 // };
-
 export const createContractPost = async (req, res) => {
-  const contactEmail = req.body.contactEmail;
-  const contractorName = req.body.contractorName;
-  const contactPerson = req.body.contactPerson;
-  const contactNumber = req.body.contactNumber;
-  const contractAddress = req.body.contractAddress;
-  const contractBillingAddress = req.body.contractBillingAddress;
-
-  const contractStartDate = req.body.contractStartDate;
-  const contractEndDate = req.body.contractEndDate;
-  const bankGuranteeStartDate = req.body.bankGuranteeStartDate;
-  const bankGuranteeEndDate = req.body.bankGuranteeEndDate;
-  const contractValue = req.body.contractValue;
-  const contractCurrency = req.body.contractCurrency;
-
-  const GSTNo = req.body.GSTNo;
-  const PANNo = req.body.PANNo;
-  const incorporationCertificateNo = req.body.incorporationCertificateNo;
-  const bankGuaranteeNo = req.body.bankGuaranteeNo;
+  const {
+    contactEmail,
+    contractorName,
+    contactPerson,
+    contactNumber,
+    contractAddress,
+    contractBillingAddress,
+    contractStartDate,
+    contractEndDate,
+    bankGuranteeStartDate,
+    bankGuranteeEndDate,
+    contractValue,
+    contractCurrency,
+    GSTNo,
+    PANNo,
+    incorporationCertificateNo,
+    bankGuaranteeNo,
+  } = req.body;
 
   try {
-    //   // Check if any files were uploaded
-    //   if (!req.files || req.files.length === 0) {
-    //     return res.status(400).json({ message: "No PDF files uploaded" });
-    //   }
-
     // Initialize an object to hold the PDF buffers
     const pdfBuffers = {
       contactEmail,
@@ -83,27 +77,29 @@ export const createContractPost = async (req, res) => {
     };
 
     // Map the uploaded files to the corresponding keys
-    req.files.forEach((file, index) => {
-      switch (index) {
-        case 0:
-          pdfBuffers.GST = fs.readFileSync(file.path);
-          break;
-        case 1:
-          pdfBuffers.PAN = fs.readFileSync(file.path);
-          break;
-        case 2:
-          pdfBuffers.incorporationCertificate = fs.readFileSync(file.path);
-          break;
-        case 3:
-          pdfBuffers.bankGurantee = fs.readFileSync(file.path);
-          break;
-        case 4:
-          pdfBuffers.signedContractCopy = fs.readFileSync(file.path);
-          break;
-        default:
-          break; // Ignore any additional files beyond the expected ones
-      }
-    });
+    for (const [fieldname, files] of Object.entries(req.files)) {
+      files.forEach((file) => {
+        switch (fieldname) {
+          case "gstPdf":
+            pdfBuffers.GST = fs.readFileSync(file.path);
+            break;
+          case "panPdf":
+            pdfBuffers.PAN = fs.readFileSync(file.path);
+            break;
+          case "incorporationPdf":
+            pdfBuffers.incorporationCertificate = fs.readFileSync(file.path);
+            break;
+          case "bankGuaranteePdf":
+            pdfBuffers.bankGurantee = fs.readFileSync(file.path);
+            break;
+          case "signedContractPdf":
+            pdfBuffers.signedContractCopy = fs.readFileSync(file.path);
+            break;
+          default:
+            break; // Ignore any additional files beyond the expected ones
+        }
+      });
+    }
 
     // Create a new document with the uploaded PDF buffers
     const newPaySlip = new ContractOverview(pdfBuffers);
@@ -112,7 +108,9 @@ export const createContractPost = async (req, res) => {
     await newPaySlip.save();
 
     // Delete the temporary files
-    req.files.forEach((file) => fs.unlinkSync(file.path));
+    for (const [fieldname, files] of Object.entries(req.files)) {
+      files.forEach((file) => fs.unlinkSync(file.path));
+    }
 
     res
       .status(200)
@@ -120,13 +118,15 @@ export const createContractPost = async (req, res) => {
   } catch (error) {
     // Handle file deletion in case of an error
     if (req.files) {
-      req.files.forEach((file) => {
-        try {
-          fs.unlinkSync(file.path);
-        } catch (unlinkError) {
-          console.error("Error deleting file:", unlinkError);
-        }
-      });
+      for (const [fieldname, files] of Object.entries(req.files)) {
+        files.forEach((file) => {
+          try {
+            fs.unlinkSync(file.path);
+          } catch (unlinkError) {
+            console.error("Error deleting file:", unlinkError);
+          }
+        });
+      }
     }
     res.status(500).json({ message: error.message });
   }

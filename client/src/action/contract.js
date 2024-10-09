@@ -19,8 +19,6 @@ import * as API from "../api/index";
 // };
 
 export const createContractPost = (formData) => async (dispatch) => {
-  console.log("Here  is the form data", formData);
-
   try {
     const { data } = await API.createContract(formData, {
       headers: {

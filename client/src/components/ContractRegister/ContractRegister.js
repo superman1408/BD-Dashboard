@@ -41,14 +41,13 @@ const ContractRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
 
     const formData = new FormData();
-    formData.append("pdf", GST);
-    formData.append("pdf", PAN);
-    formData.append("pdf", incorporationCertificate);
-    formData.append("pdf", bankGurantee);
-    formData.append("pdf", signedContractCopy);
+    formData.append("gstPdf", GST); // Renamed field for GST PDF
+    formData.append("panPdf", PAN); // Renamed field for PAN PDF
+    formData.append("incorporationPdf", incorporationCertificate); // Renamed field for incorporation certificate PDF
+    formData.append("bankGuaranteePdf", bankGurantee); // Renamed field for bank guarantee PDF
+    formData.append("signedContractPdf", signedContractCopy);
     // formData.append("string", formData);
 
     formData.append("contactEmail", contactEmail);
@@ -432,7 +431,6 @@ const ContractRegister = () => {
                         {/* <Form.Label>GST No.</Form.Label> */}
                         <Form.Control
                           type="text"
-                          required
                           placeholder="Enter Bank Guarantee No."
                           name="BankGuaranteeNo"
                           value={bankGuaranteeNo}
@@ -443,7 +441,6 @@ const ContractRegister = () => {
                       </div>
                       <Form.Control
                         type="file"
-                        required
                         accept="application/pdf"
                         name="bankGurantee"
                         // value={formData.bankGurantee}
