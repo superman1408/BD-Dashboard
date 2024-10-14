@@ -44,7 +44,7 @@ export const entryDetails = async (req, res) => {
   const projectNumber = value.docNo;
   if (!projectNumber) {
     return res.status(400).json({ message: "Project number is required" });
-  }
+  };
 
   const updatePost = await EntryOverview.findOne({ docNo: projectNumber });
 
@@ -52,29 +52,33 @@ export const entryDetails = async (req, res) => {
     return res
       .status(400)
       .json({ message: "No Such Posts Found in Database..!!!" });
-  }
+  };
 
-  const id = updatePost._id;
-  updatePost.date.push(value.date);
-  updatePost.activity1.push(value.activity1);
-  updatePost.activity2.push(value.activity2);
-  updatePost.activity3.push(value.activity3);
-  updatePost.activity4.push(value.activity4);
-  updatePost.maleLabour.push(value.maleLabour);
-  updatePost.femaleLabour.push(value.femaleLabour);
-  updatePost.mason.push(value.mason);
-  updatePost.uploadPictures1.push(value.uploadPictures1);
-  updatePost.uploadPictures2.push(value.uploadPictures2);
-  updatePost.uploadPictures3.push(value.uploadPictures3);
-  updatePost.uploadPictures4.push(value.uploadPictures4);
-  updatePost.uploadPictures5.push(value.uploadPictures5);
-  updatePost.submittedBy.push(value.submittedBy);
+  try {
+    const id = updatePost._id;
+    updatePost.date.push(value.date);
+    updatePost.activity1.push(value.activity1);
+    updatePost.activity2.push(value.activity2);
+    updatePost.activity3.push(value.activity3);
+    updatePost.activity4.push(value.activity4);
+    updatePost.maleLabour.push(value.maleLabour);
+    updatePost.femaleLabour.push(value.femaleLabour);
+    updatePost.mason.push(value.mason);
+    updatePost.uploadPictures1.push(value.uploadPictures1);
+    updatePost.uploadPictures2.push(value.uploadPictures2);
+    updatePost.uploadPictures3.push(value.uploadPictures3);
+    updatePost.uploadPictures4.push(value.uploadPictures4);
+    updatePost.uploadPictures5.push(value.uploadPictures5);
+    updatePost.submittedBy.push(value.submittedBy);
 
-  const updated = await EntryOverview.findByIdAndUpdate(id, updatePost, {
-    new: true,
-  });
-
-  res.json(updated);
+    const updated = await EntryOverview.findByIdAndUpdate(id, updatePost, {
+      new: true,
+    });
+    res.json(updated);
+  } catch (error) {
+      res.status(400);
+      throw new Error(error);
+  };
 };
 
 export const getEntryDetails = async (req, res) => {

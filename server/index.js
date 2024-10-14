@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 8080;
 
 const CONNECT = process.env.CONNECTION_URL;
 
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json({ limit: "35mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "35mb", extended: true }));
 app.use(cors());
 
 app.use("/user", userRoutes);
