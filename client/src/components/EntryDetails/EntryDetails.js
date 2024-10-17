@@ -15,6 +15,8 @@ import { Divider } from "@mui/material";
 import FileBase from "react-file-base64";
 import { entryDetails } from "../../action/posts";
 import styled from "styled-components";
+// import Snackbar from '@mui/material/Snackbar';
+
 
 const UploadWrapper = styled.div`
   display: flex;
@@ -28,6 +30,15 @@ const UploadWrapper = styled.div`
 const EntryDetails = () => {
   const [fileError, setFileError] = useState(null);
   const projectNo = useParams();
+
+  const [picLoading, setPicLoading] = useState(false);
+
+  const [uploadPic1, setUploadPic1] = useState();
+  const [uploadPic2, setUploadPic2] = useState();
+  const [uploadPic3, setUploadPic3] = useState();
+  const [uploadPic4, setUploadPic4] = useState();
+  const [uploadPic5, setUploadPic5] = useState();
+  const [uploadPic6, setUploadPic6] = useState();
 
   const dispatch = useDispatch();
 
@@ -52,24 +63,81 @@ const EntryDetails = () => {
     submittedBy: "",
   });
 
-  const handleSubmit = (e) => {
+// uploading 6 images here...........................................
+  const pickImages = (pics) => { 
+    setPicLoading(true);
+    
+    if (pics.length !== 6) {
+        alert("Please select exactly 6 images");
+        setPicLoading(false);
+        return;
+    }
+
+    // Function to handle each image upload
+    const uploadImage = (pic, index) => {
+        return new Promise((resolve, reject) => {
+            if (!pic || (pic.type !== 'image/jpeg' && pic.type !== 'image/png')) {
+                reject(new Error("Invalid file type. Please select JPEG/PNG images."));
+            }
+
+            const data = new FormData();
+            data.append("file", pic);
+            data.append("upload_preset", "chat-app");
+            data.append("cloud_name", "realtimeapp");
+
+            fetch("https://api.cloudinary.com/v1_1/realtimeapp/image/upload", {
+                method: "POST",
+                body: data,
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                resolve(data.secure_url);
+            })
+            .catch((err) => reject(err));
+        });
+    };
+
+    // Array to store the image upload promises
+    const uploadPromises = [];
+    for (let i = 0; i < pics.length; i++) {
+        uploadPromises.push(uploadImage(pics[i], i));
+    }
+
+    // Perform all image uploads
+    Promise.all(uploadPromises)
+        .then((urls) => {
+            setUploadPic1(urls[0]);
+            setUploadPic2(urls[1]);
+            setUploadPic3(urls[2]);
+            setUploadPic4(urls[3]);
+            setUploadPic5(urls[4]);
+            setUploadPic6(urls[5]);
+            setPicLoading(false);
+        })
+        .catch((err) => {
+            console.error(err);
+            setPicLoading(false);
+            alert("Error uploading images. Please try again.");
+        });
+};
+
+
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
-    dispatch(entryDetails(formData));
-
+    setFormData({ ...formData, uploadPictures1: uploadPic1 });
+    setFormData({ ...formData, uploadPictures2: uploadPic2 });
+    setFormData({ ...formData, uploadPictures3: uploadPic3 });
+    setFormData({ ...formData, uploadPictures4: uploadPic4 });
+    setFormData({ ...formData, uploadPictures5: uploadPic5 });
     console.log(formData);
-    navigate(`/${projectNo.id}/viewdetails`);
+    await dispatch(entryDetails(formData)).then(() => { 
+      navigate(`/${projectNo.id}/viewdetails`);
+    });
+    // console.log(formData);
   };
 
-  // const handleKeyDown = (e, fieldName) => {
-  //   if (e.key === "Enter") {
-  //     e.preventDefault();
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [fieldName]: prevFormData[fieldName] + "\n•",
-  //     }));
-  //   }
-  // };
+
 
   return (
     <Container
@@ -137,17 +205,17 @@ const EntryDetails = () => {
 
           <Form.Group controlId="formUploadPictures" className="mb-3">
             <Form.Label style={{ marginRight: "10px" }}>
-              Upload Pictures
+              Upload Pictures1
             </Form.Label>
             {/* <FormControl> */}
 
-            <FileBase
+            {/* <FileBase
               type="file"
               fileName="Profile.png"
-              onDone={({ base64 }) =>
-                setFormData({ ...formData, uploadPictures1: base64 })
-              }
-            />
+              onChange={(e) => pickImage(e.target.files[0])}
+            /> */}
+
+            <input type='file' multiple p={1.5} accept='image/*' onChange={(e) => pickImages(e.target.files)} />
 
             <FileBase
               type="file"
