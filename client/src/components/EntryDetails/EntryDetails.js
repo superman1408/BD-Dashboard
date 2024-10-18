@@ -249,9 +249,9 @@ const handleSubmit = async (e) => {
             <input type='file' multiple p={1.5} accept='image/*' onChange={(e) => pickImages(e.target.files)} />
             {/* Conditionally display the loading spinner when uploading */}
             {picLoading && (
-              <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
-                  <span class="visually-hidden">Loading...</span>
+              <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
             )}
@@ -382,8 +382,22 @@ const handleSubmit = async (e) => {
             type="submit"
             className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
             onClick={handleSave}
+            disabled={picLoading}
           >
-            Save
+            {!formData.uploadPictures1 ? (
+              <>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="sr-only">Loading...</span> {/* Accessible label */}
+              </>
+            ) : (
+              "Save"
+            )}
           </Button>
         </Form>
       </Card>
