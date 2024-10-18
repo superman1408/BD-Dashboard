@@ -310,6 +310,7 @@ const DetailedProjectPage = () => {
                                   border: "1px solid black",
                                   padding: "10px",
                                   width: "30%",
+                                  textAlign: "center",
                                 }}
                               >
                                 {month}
