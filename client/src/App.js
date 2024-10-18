@@ -5,12 +5,13 @@ import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
 import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjectPage";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
+import LetterTracker from "./components/LetterTracker/LetterTracker";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -67,6 +68,8 @@ const App = () => {
             exact
             // element={<DetailedProgress />}
           />
+
+          <Route path="lettertracker" exact element={<LetterTracker />} />
         </Routes>
       </div>
 

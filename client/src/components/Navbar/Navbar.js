@@ -79,12 +79,15 @@ export default function MenuAppBar() {
 
   const menuItems = [
     { text: "Project Window", icon: <DashboardIcon />, link: "/dashboard" },
-    // { text: "DataSheet", icon: <MailIcon />, link: "/datasheet" },
-    // { text: "Profile", icon: <PeopleAltIcon /> },
     {
       text: "Contract Register",
       icon: <AppRegistrationIcon />,
       link: "/contractregister",
+    },
+    {
+      text: "Letter Tracker",
+      icon: <MailIcon />,
+      link: "/lettertracker",
     },
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];

@@ -9,6 +9,7 @@ import {
   Form,
   button,
   FormControl,
+  Button,
 } from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider } from "@mui/material";
@@ -58,7 +59,7 @@ const EntryDetails = () => {
     dispatch(entryDetails(formData));
 
     console.log(formData);
-    navigate(`/${projectNo.id}/viewdetails`);
+    // navigate(`/${projectNo.id}/viewdetails`);
   };
 
   // const handleKeyDown = (e, fieldName) => {
@@ -77,7 +78,7 @@ const EntryDetails = () => {
       style={{ minHeight: "100vh", paddingTop: "10px" }}
     >
       <Card className="p-4 custom-card">
-        <h3 
+        <h3
           style={{
             textAlign: "center",
             fontFamily: "Roboto ",

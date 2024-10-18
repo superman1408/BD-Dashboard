@@ -272,7 +272,7 @@ const ContractRegister = () => {
                       {/* <Form.Label>GST No.</Form.Label> */}
                       <Form.Control
                         type="text"
-                        required
+                        // required
                         placeholder="Enter GST No."
                         name="GSTNo"
                         value={GSTNo}
@@ -314,7 +314,7 @@ const ContractRegister = () => {
                     <div style={{ display: "flex", marginBottom: "10px" }}>
                       <Form.Control
                         type="text"
-                        required
+                        // required
                         placeholder="Enter PAN No."
                         name="PANNo"
                         value={PANNo}

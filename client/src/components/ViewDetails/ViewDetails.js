@@ -26,10 +26,10 @@ const ViewDetails = () => {
             submittedBy: post?.submittedBy[index],
             date: post?.date[index],
             uploadPictures1: post?.uploadPictures1[index],
-            // status: post.status[index],
           });
         }
       }
+      console.log(array.uploadPictures1);
     });
     setLoading(false);
   };
@@ -61,9 +61,9 @@ const ViewDetails = () => {
           submittedBy: post?.submittedBy[index],
           date: post?.date[index],
           uploadPictures1: post?.uploadPictures1[index],
-          // status: post.status[index],
         });
       }
+      console.log(array.uploadPictures1);
     }
   });
 
