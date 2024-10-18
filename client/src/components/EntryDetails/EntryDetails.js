@@ -7,15 +7,14 @@ import {
   Col,
   Card,
   Form,
-  button,
-  FormControl,
+  Button,
+  Spinner
 } from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider } from "@mui/material";
 import FileBase from "react-file-base64";
 import { entryDetails } from "../../action/posts";
 import styled from "styled-components";
-// import Snackbar from '@mui/material/Snackbar';
 
 
 const UploadWrapper = styled.div`
@@ -28,7 +27,6 @@ const UploadWrapper = styled.div`
 `;
 
 const EntryDetails = () => {
-  const [fileError, setFileError] = useState(null);
   const projectNo = useParams();
 
   const [picLoading, setPicLoading] = useState(false);
@@ -38,7 +36,6 @@ const EntryDetails = () => {
   const [uploadPic3, setUploadPic3] = useState();
   const [uploadPic4, setUploadPic4] = useState();
   const [uploadPic5, setUploadPic5] = useState();
-  const [uploadPic6, setUploadPic6] = useState();
 
   const dispatch = useDispatch();
 
@@ -64,11 +61,11 @@ const EntryDetails = () => {
   });
 
 // uploading 6 images here...........................................
-  const pickImages = (pics) => { 
+  const pickImages = async (pics) => { 
     setPicLoading(true);
     
-    if (pics.length !== 6) {
-        alert("Please select exactly 6 images");
+    if (pics.length !== 5) {
+        alert("Please select exactly 5 images");
         setPicLoading(false);
         return;
     }
@@ -111,7 +108,6 @@ const EntryDetails = () => {
             setUploadPic3(urls[2]);
             setUploadPic4(urls[3]);
             setUploadPic5(urls[4]);
-            setUploadPic6(urls[5]);
             setPicLoading(false);
         })
         .catch((err) => {
@@ -119,22 +115,66 @@ const EntryDetails = () => {
             setPicLoading(false);
             alert("Error uploading images. Please try again.");
         });
-};
+    await updateFormDataWithImages().then(() => {
+      setTimeout(() => { 
+        console.log(formData);
+      }, 30000);
+    })
+  };
 
 
 
-  const handleSubmit = async(e) => {
+  
+  const updateFormDataWithImages = async () => {
+    // e.preventDefault();
+  // Batch update the formData with all uploaded pictures
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        uploadPictures1: uploadPic1,
+        uploadPictures2: uploadPic2,
+        uploadPictures3: uploadPic3,
+        uploadPictures4: uploadPic4,
+        uploadPictures5: uploadPic5,
+      }));
+  };
+  
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Update formData with uploaded pictures
+  await updateFormDataWithImages();
+
+  // Now dispatch the updated formData
+    setTimeout(() => {
+      console.log("Updated formData Submit:", formData);
+      dispatch(entryDetails(formData))
+        .then(() => {
+          console.log("Dispatched successfully");
+          setInterval(() => { 
+            navigate(`/${projectNo.id}/viewdetails`);
+          }, 5000);
+        })
+        .catch((error) => {
+          console.error("Error dispatching formData:", error);
+        });
+    }, 9000);
+    console.log("Updated formData:", formData); // This should now log the updated formData
+    
+  };
+
+
+  const handleSave = async (e) => {
     e.preventDefault();
-    setFormData({ ...formData, uploadPictures1: uploadPic1 });
-    setFormData({ ...formData, uploadPictures2: uploadPic2 });
-    setFormData({ ...formData, uploadPictures3: uploadPic3 });
-    setFormData({ ...formData, uploadPictures4: uploadPic4 });
-    setFormData({ ...formData, uploadPictures5: uploadPic5 });
-    console.log(formData);
-    await dispatch(entryDetails(formData)).then(() => { 
-      navigate(`/${projectNo.id}/viewdetails`);
+
+    // Update formData with uploaded pictures
+    await updateFormDataWithImages().then(() => { 
+      console.log("Updated formData:", formData); // This should now log the updated formData
+      setTimeout(() => {
+        console.log("Updated formData Save:", formData);
+      }, 6000);
     });
-    // console.log(formData);
+    // Now dispatch the updated formData
   };
 
 
@@ -199,34 +239,22 @@ const EntryDetails = () => {
               onChange={(e) =>
                 setFormData({ ...formData, activity1: e.target.value })
               }
-              // onKeyDown={(e) => handleKeyDown(e, "activity1")}
             />
           </Form.Group>
 
           <Form.Group controlId="formUploadPictures" className="mb-3">
             <Form.Label style={{ marginRight: "10px" }}>
-              Upload Pictures1
+              Upload All required Pictures here
             </Form.Label>
-            {/* <FormControl> */}
-
-            {/* <FileBase
-              type="file"
-              fileName="Profile.png"
-              onChange={(e) => pickImage(e.target.files[0])}
-            /> */}
-
             <input type='file' multiple p={1.5} accept='image/*' onChange={(e) => pickImages(e.target.files)} />
-
-            <FileBase
-              type="file"
-              fileName="Profile.png"
-              onDone={({ base64 }) =>
-                setFormData({ ...formData, uploadPictures2: base64 })
-              }
-            />
-
-            {/* </FormControl> */}
-            {fileError && <p>{fileError}</p>}
+            {/* Conditionally display the loading spinner when uploading */}
+            {picLoading && (
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            )}
           </Form.Group>
           <Form.Group controlId="formPlannedWork" className="mb-3">
             <Form.Label>Planned Work For Tomorrow</Form.Label>
@@ -239,7 +267,6 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, activity2: e.target.value });
               }}
-              // onKeyDown={(e) => handleKeyDown(e, "activity2")}
             />
           </Form.Group>
           <Form.Group controlId="formMaterialRequirement" className="mb-3">
@@ -253,7 +280,6 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, activity3: e.target.value });
               }}
-              // onKeyDown={(e) => handleKeyDown(e, "activity3")}
             />
           </Form.Group>
           <Form.Group controlId="formProcurementStatus" className="mb-3">
@@ -267,44 +293,7 @@ const EntryDetails = () => {
               onChange={(e) => {
                 setFormData({ ...formData, activity4: e.target.value });
               }}
-              // onKeyDown={(e) => handleKeyDown(e, "activity4")}
             />
-          </Form.Group>
-          <Form.Group controlId="formUploadPictures" className="mb-3">
-            <Form.Label style={{ marginRight: "10px" }}>
-              Upload Pictures
-            </Form.Label>
-            {/* <FormControl> */}
-            {/* <UploadWrapper> */}
-            <div>
-              <Form.Label style={{ margin: "10px" }}>Sand</Form.Label>
-              <FileBase
-                type="file"
-                fileName="Profile.png"
-                onDone={({ base64 }) =>
-                  setFormData({ ...formData, uploadPictures3: base64 })
-                }
-              />
-
-              <Form.Label style={{ margin: "10px" }}>Rod</Form.Label>
-              <FileBase
-                type="file"
-                fileName="Profile.png"
-                onDone={({ base64 }) =>
-                  setFormData({ ...formData, uploadPictures4: base64 })
-                }
-              />
-
-              <Form.Label style={{ margin: "10px" }}>Others</Form.Label>
-              <FileBase
-                type="file"
-                fileName="Profile.png"
-                onDone={({ base64 }) =>
-                  setFormData({ ...formData, uploadPictures5: base64 })
-                }
-              />
-            </div>
-            {/* </UploadWrapper> */}
           </Form.Group>
           <Divider
             className="mt-3 mb-3"
@@ -380,14 +369,22 @@ const EntryDetails = () => {
               fontWeight: "bold",
             }}
           />
-          <button
+          <Button
             variant="primary"
             type="submit"
             className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
             onClick={handleSubmit}
           >
             Submit
-          </button>
+          </Button>
+          <Button
+            variant="primary"
+            type="submit"
+            className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
+            onClick={handleSave}
+          >
+            Save
+          </Button>
         </Form>
       </Card>
     </Container>
@@ -395,32 +392,3 @@ const EntryDetails = () => {
 };
 
 export default EntryDetails;
-
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-
-// const MyComponent = () => {
-//   // Fetch the date from the Redux store
-//   const dateFromStore = useSelector((state) => state.date); // Adjust the selector based on your state structure
-
-//   // Function to get the month from the date
-//   const getMonthFromDate = (dateString) => {
-//     const date = new Date(dateString); // Convert the string to a Date object
-//     const month = date.getMonth(); // Get the month (0-11)
-//     return month + 1; // Return the month in the 1-12 range
-//   };
-
-//   const month = dateFromStore ? getMonthFromDate(dateFromStore) : null;
-
-//   return (
-//     <div>
-//       {month ? (
-//         <p>The month is: {month}</p>
-//       ) : (
-//         <p>No date available.</p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default MyComponent;

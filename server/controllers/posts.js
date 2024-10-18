@@ -81,6 +81,8 @@ export const entryDetails = async (req, res) => {
   };
 };
 
+
+
 export const getEntryDetails = async (req, res) => {
   try {
     const postMessage = await EntryOverview.find({});

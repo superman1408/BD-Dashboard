@@ -27,7 +27,7 @@ const Dashboard = () => {
         setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        setLoading(true);
         console.log(err);
       });
   }, [dispatch]);
