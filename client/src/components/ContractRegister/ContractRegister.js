@@ -294,7 +294,7 @@ const ContractRegister = () => {
                     </div>
                     <Form.Control
                       type="file"
-                      required
+                      // required
                       margintop="10px"
                       accept="application/pdf"
                       name="GST"
