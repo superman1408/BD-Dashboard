@@ -30,26 +30,26 @@ const ContractRegister = () => {
   const [bankGurantee, setBankGurantee] = useState(null);
   const [signedContractCopy, setsignedContractCopy] = useState(null);
 
-  const [contactEmail, setContactEmail] = useState();
-  const [contractorName, setContractorName] = useState();
-  const [contactPerson, setContactPerson] = useState();
-  const [contactNumber, setContactNumber] = useState();
-  const [contractAddress, setContractAddress] = useState();
-  const [contractBillingAddress, setContractBillingAddress] = useState();
+  const [contactEmail, setContactEmail] = useState("");
+  const [contractorName, setContractorName] = useState("");
+  const [contactPerson, setContactPerson] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [contractAddress, setContractAddress] = useState("");
+  const [contractBillingAddress, setContractBillingAddress] = useState("");
 
-  const [contractStartDate, setContractStartDate] = useState();
-  const [contractEndDate, setContractEndDate] = useState();
+  const [contractStartDate, setContractStartDate] = useState("");
+  const [contractEndDate, setContractEndDate] = useState("");
   const [bankGuranteeSubmitted, setBankGuranteeSubmitted] = useState();
-  const [bankGuranteeStartDate, setBankGuranteeStartDate] = useState();
-  const [bankGuranteeEndDate, setBankGuranteeEndDate] = useState();
-  const [contractValue, setContractValue] = useState();
-  const [contractCurrency, setContractCurrency] = useState();
+  const [bankGuranteeStartDate, setBankGuranteeStartDate] = useState("");
+  const [bankGuranteeEndDate, setBankGuranteeEndDate] = useState("");
+  const [contractValue, setContractValue] = useState("");
+  const [contractCurrency, setContractCurrency] = useState("");
 
-  const [GSTNo, setGSTNo] = useState();
-  const [PANNo, setPANNo] = useState();
+  const [GSTNo, setGSTNo] = useState("");
+  const [PANNo, setPANNo] = useState("");
   const [incorporationCertificateNo, setIncorporationCertificateNo] =
-    useState();
-  const [bankGuaranteeNo, setBankGuaranteeNo] = useState();
+    useState("");
+  const [bankGuaranteeNo, setBankGuaranteeNo] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -610,13 +610,13 @@ const ContractRegister = () => {
                     </Row>
                   </Container>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer style={{ justifyContent: "center" }}>
                   <Button
                     onClick={() => {
                       navigate(`/contractviewdetails`);
                     }}
                   >
-                    Close
+                    OK
                   </Button>
                 </Modal.Footer>
               </Modal>
