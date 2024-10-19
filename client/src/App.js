@@ -5,12 +5,13 @@ import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
 import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjectPage";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
+import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -61,6 +62,11 @@ const App = () => {
             path="/contractregister"
             exact
             element={<ContractRegister />}
+          />
+          <Route
+            path="/contractviewdetails"
+            exact
+            element={<ContractViewDetail />}
           />
           <Route
             path="/detailedprogress"
