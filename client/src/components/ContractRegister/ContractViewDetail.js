@@ -77,7 +77,60 @@ const ContractViewDetail = () => {
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    <tbody>
+                      {/* {array.length > 0 ? ( */}
+                        {array.map((post, index) => (
+                          <tr key={index}>
+                            <td
+                              style={{
+                                paddingLeft: "10px",
+                                paddingRight: "10px",
+                              }}
+                            >
+                              {post.date || "N/A"}
+                            </td>
+                            <td style={{ width: "150px", height: "100px" }}>
+                              <img
+                                style={{
+                                  width: "120px",
+                                  height: "80px",
+                                  margin: "10px",
+                                }}
+                                src={post.uploadPictures1 || "N/A"}
+                              />
+                            </td>
+                            <td style={{ textAlign: "center" }}>
+                              {post.submittedBy || "N/A"}
+                            </td>
+                            <td style={{ justifyContent: "space-between" }}>
+                              <button
+                                style={{ marginRight: "10px" }}
+                                onClick={() =>
+                                  navigate(`/${post.date}/detailedprojectpage`)
+                                }
+                              >
+                                View
+                              </button>
+                              {/* <button
+                              onClick={() =>
+                                navigate(`/entrydetails/${post.date}`)
+                              } // Pass date to edit page
+                            >
+                              Edit
+                            </button> */}
+                            </td>
+                          </tr>
+                        ))}
+                      {/* ) : ( */}
+                        {/* <tr>
+                          <td colSpan="4" align="center">
+                            No data available
+                          </td>
+                        </tr> */}
+                      {/* )} */}
+                    </tbody>
+                  </tbody>
                 </table>
               </Grid>
             </Grid>
