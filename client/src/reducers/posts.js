@@ -3,7 +3,6 @@ import {
   CREATE,
   FETCH_POST,
   UPDATE,
-  GET_ENTRY,
   UPDATE_ENTRY,
 } from "../constants/actionTypes";
 
@@ -22,10 +21,7 @@ export default (posts = [], action) => {
     case UPDATE:
       return [...posts, action.payload];
 
-    case GET_ENTRY:
-      return [...posts, action.payload];
-    case UPDATE_ENTRY:
-      return [...posts, action.payload];
+   
 
     default:
       return posts;

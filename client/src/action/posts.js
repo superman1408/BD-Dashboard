@@ -2,9 +2,8 @@ import {
   CREATE,
   FETCH_ALL,
   FETCH_POST,
-  UPDATE,
-  GET_ENTRY,
   UPDATE_ENTRY,
+  GET_ENTRY,
 } from "../constants/actionTypes";
 import * as API from "../api/index";
 
@@ -40,7 +39,7 @@ export const entryDetails = (formdata) => async (dispatch) => {
   try {
     const { data } = await API.entryDetails(formdata);
 
-    dispatch({ type: UPDATE, payload: data });
+    dispatch({ type: UPDATE_ENTRY, payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -55,11 +54,11 @@ export const getEntryDetails = () => async (dispatch) => {
   }
 };
 
-export const updateEntry = (id, indexed, toEdit) => async (dispatch) => {
-  try {
-    const { data } = await API.editTable(id, indexed, toEdit);
-    dispatch({ type: UPDATE_ENTRY, payload: data });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const updateEntry = (id, indexed, toEdit) => async (dispatch) => {
+//   try {
+//     const { data } = await API.editTable(id, indexed, toEdit);
+//     dispatch({ type: UPDATE_ENTRY, payload: data });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
