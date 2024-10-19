@@ -12,6 +12,7 @@ import ViewDetails from "./components/ViewDetails/ViewDetails";
 import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjectPage";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
+import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -62,6 +63,11 @@ const App = () => {
             path="/contractregister"
             exact
             element={<ContractRegister />}
+          />
+          <Route
+            path="/contractviewdetails"
+            exact
+            element={<ContractViewDetail />}
           />
           <Route
             path="/detailedprogress"
