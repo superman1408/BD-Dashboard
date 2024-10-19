@@ -9,10 +9,13 @@ import {
 } from "@mui/material";
 import { Form, Row, Col, Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createContractPost } from "../../action/contract";
 
 const ContractRegister = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const [validated, setValidated] = useState(false);
 
@@ -590,7 +593,7 @@ const ContractRegister = () => {
                 <Modal.Header
                   closeButton
                   onClick={() => {
-                    setModalVisible(false);
+                    navigate(`/contractviewdetails`);
                   }}
                 >
                   <Modal.Title id="contained-modal-title-vcenter">
@@ -610,7 +613,7 @@ const ContractRegister = () => {
                 <Modal.Footer>
                   <Button
                     onClick={() => {
-                      setModalVisible(false);
+                      navigate(`/contractviewdetails`);
                     }}
                   >
                     Close
