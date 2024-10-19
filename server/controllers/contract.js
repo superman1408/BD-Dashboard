@@ -114,18 +114,18 @@ export const createContractPost = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "Files uploaded and processed successfully" })
-      .then(async () => {
-        try {
-          await fs.remove("uploads"); // Removes the uploads directory
-          console.log("Uploads directory removed successfully");
-        } catch (error) {
-          console.error("Error removing uploads directory:", error);
-        }
-      })
-      .catch((error) => {
-        console.error("Error saving payslip:", error);
-      });
+      .json({ message: "Files uploaded and processed successfully" });
+    // .then(async () => {
+    //   try {
+    //     await fs.remove("../uploads"); // Removes the uploads directory
+    //     console.log("Uploads directory removed successfully");
+    //   } catch (error) {
+    //     console.error("Error removing uploads directory:", error);
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.error("Error saving payslip:", error);
+    // });
   } catch (error) {
     // Handle file deletion in case of an error
     if (req.files) {
