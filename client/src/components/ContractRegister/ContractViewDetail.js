@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Container, Card, LinearProgress } from "@mui/material";
 
-import getContractDetails from "../../action/contract";
+import { getContractDetails } from "../../action/contract";
 
 const ContractViewDetail = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -16,6 +16,45 @@ const ContractViewDetail = () => {
 
   // Fetch posts from Redux store
   const contract = useSelector((state) => state.contract);
+
+  const updateArray = async (post) => {
+    const array = [];
+    // contract.map((post) => {
+    //   for (let index = 0; index < post?.contractorName.length; index++) {
+    //     if (id === post.docNo) {
+    //       array.push({
+    //         contractorName: post?.contractorName[index],
+    //         contactPerson: post?.contactPerson[index],
+    //         contactEmail: post?.contactEmail[index],
+    //       });
+    //     }
+    //   }
+    //   console.log(array.contractorName);
+    // });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (contract.length === 0) {
+      setLoading(true);
+      dispatch(getContractDetails()).then(() => {
+        updateArray().then(() => {
+          setLoading(false);
+        });
+      });
+    }
+
+    // return () => {
+    //   // Dispatch an action to reset the entry state if necessary
+    //   // dispatch(resetEntryState());
+    // };
+  }, [dispatch, contract]);
+
+  // useEffect(() => {
+  //   const handleResize = () => setWindowWidth(window.innerWidth);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   return (
     <div>
@@ -80,50 +119,50 @@ const ContractViewDetail = () => {
                   <tbody>
                     <tbody>
                       {/* {array.length > 0 ? ( */}
-                        {array.map((post, index) => (
-                          <tr key={index}>
-                            <td
+                      {array.map((post, index) => (
+                        <tr key={index}>
+                          <td
+                            style={{
+                              paddingLeft: "10px",
+                              paddingRight: "10px",
+                            }}
+                          >
+                            {post.date || "N/A"}
+                          </td>
+                          <td style={{ width: "150px", height: "100px" }}>
+                            <img
                               style={{
-                                paddingLeft: "10px",
-                                paddingRight: "10px",
+                                width: "120px",
+                                height: "80px",
+                                margin: "10px",
                               }}
+                              src={post.uploadPictures1 || "N/A"}
+                            />
+                          </td>
+                          <td style={{ textAlign: "center" }}>
+                            {post.submittedBy || "N/A"}
+                          </td>
+                          <td style={{ justifyContent: "space-between" }}>
+                            <button
+                              style={{ marginRight: "10px" }}
+                              onClick={() =>
+                                navigate(`/${post.date}/detailedprojectpage`)
+                              }
                             >
-                              {post.date || "N/A"}
-                            </td>
-                            <td style={{ width: "150px", height: "100px" }}>
-                              <img
-                                style={{
-                                  width: "120px",
-                                  height: "80px",
-                                  margin: "10px",
-                                }}
-                                src={post.uploadPictures1 || "N/A"}
-                              />
-                            </td>
-                            <td style={{ textAlign: "center" }}>
-                              {post.submittedBy || "N/A"}
-                            </td>
-                            <td style={{ justifyContent: "space-between" }}>
-                              <button
-                                style={{ marginRight: "10px" }}
-                                onClick={() =>
-                                  navigate(`/${post.date}/detailedprojectpage`)
-                                }
-                              >
-                                View
-                              </button>
-                              {/* <button
+                              View
+                            </button>
+                            {/* <button
                               onClick={() =>
                                 navigate(`/entrydetails/${post.date}`)
                               } // Pass date to edit page
                             >
                               Edit
                             </button> */}
-                            </td>
-                          </tr>
-                        ))}
+                          </td>
+                        </tr>
+                      ))}
                       {/* ) : ( */}
-                        {/* <tr>
+                      {/* <tr>
                           <td colSpan="4" align="center">
                             No data available
                           </td>
