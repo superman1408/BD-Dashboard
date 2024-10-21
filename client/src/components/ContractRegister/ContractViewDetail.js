@@ -9,52 +9,18 @@ const ContractViewDetail = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const { id } = useParams();
-
-  let array = [];
+  const [loading, setLoading] = useState(false);
 
   // Fetch posts from Redux store
   const contract = useSelector((state) => state.contract);
 
-  const updateArray = async (post) => {
-    const array = [];
-    // contract.map((post) => {
-    //   for (let index = 0; index < post?.contractorName.length; index++) {
-    //     if (id === post.docNo) {
-    //       array.push({
-    //         contractorName: post?.contractorName[index],
-    //         contactPerson: post?.contactPerson[index],
-    //         contactEmail: post?.contactEmail[index],
-    //       });
-    //     }
-    //   }
-    //   console.log(array.contractorName);
-    // });
-    setLoading(false);
-  };
-
   useEffect(() => {
-    if (contract.length === 0) {
-      setLoading(true);
-      dispatch(getContractDetails()).then(() => {
-        updateArray().then(() => {
-          setLoading(false);
-        });
-      });
-    }
+    dispatch(getContractDetails());
+  }, [contract]);
 
-    // return () => {
-    //   // Dispatch an action to reset the entry state if necessary
-    //   // dispatch(resetEntryState());
-    // };
-  }, [dispatch, contract]);
-
-  // useEffect(() => {
-  //   const handleResize = () => setWindowWidth(window.innerWidth);
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
+  const handleView = (id) => {
+    console.log(id);
+  };
 
   return (
     <div>
@@ -69,12 +35,6 @@ const ContractViewDetail = () => {
           },
         }}
       >
-        {/* {loading ? (
-          <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
-            <LinearProgress />
-            loading...
-          </div>
-        ) : ( */}
         <Container
           sx={{
             display: "flex",
@@ -110,16 +70,15 @@ const ContractViewDetail = () => {
                 >
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>Overview</th>
-                      <th>Submitted By</th>
+                      <th>Contractor Email</th>
+                      <th>Contact Person</th>
+                      <th>Contractor Name</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tbody>
-                      {/* {array.length > 0 ? ( */}
-                      {array.map((post, index) => (
+                    {contract.length > 0 ? (
+                      contract.map((post, index) => (
                         <tr key={index}>
                           <td
                             style={{
@@ -127,55 +86,42 @@ const ContractViewDetail = () => {
                               paddingRight: "10px",
                             }}
                           >
-                            {post.date || "N/A"}
+                            {post.contactEmail || "N/A"}
                           </td>
-                          <td style={{ width: "150px", height: "100px" }}>
-                            <img
-                              style={{
-                                width: "120px",
-                                height: "80px",
-                                margin: "10px",
-                              }}
-                              src={post.uploadPictures1 || "N/A"}
-                            />
+                          <td
+                            style={{
+                              paddingLeft: "10px",
+                              paddingRight: "10px",
+                            }}
+                          >
+                            {post.contactPerson || "N/A"}
                           </td>
                           <td style={{ textAlign: "center" }}>
-                            {post.submittedBy || "N/A"}
+                            {post.contractorName || "N/A"}
                           </td>
                           <td style={{ justifyContent: "space-between" }}>
                             <button
                               style={{ marginRight: "10px" }}
-                              onClick={() =>
-                                navigate(`/${post.date}/detailedprojectpage`)
-                              }
+                              onClick={() => {handleView(post._id)}}
                             >
                               View
                             </button>
-                            {/* <button
-                              onClick={() =>
-                                navigate(`/entrydetails/${post.date}`)
-                              } // Pass date to edit page
-                            >
-                              Edit
-                            </button> */}
                           </td>
                         </tr>
-                      ))}
-                      {/* ) : ( */}
-                      {/* <tr>
-                          <td colSpan="4" align="center">
-                            No data available
-                          </td>
-                        </tr> */}
-                      {/* )} */}
-                    </tbody>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" align="center">
+                          No data available
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </Grid>
             </Grid>
           </Card>
         </Container>
-        {/* )} */}
       </Container>
     </div>
   );
