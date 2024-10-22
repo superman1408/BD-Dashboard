@@ -51,6 +51,8 @@ const ViewDetails = () => {
   useEffect(() => {
     if (entry.length === 0) {
       setLoading(true);
+      window.scrollTo(0, 0);
+
       dispatch(getEntryDetails()).then(() => {
         updateArray().then(() => {
           setLoading(false);
@@ -175,6 +177,8 @@ const ViewDetails = () => {
                                 onClick={() => {
                                   navigate(`/${post.date}/detailedprojectpage`);
                                   window.location.reload();
+                                  // window.scrollTo(0, 0);
+                                  // });
                                 }}
                               >
                                 View

@@ -29,6 +29,7 @@ const DetailedProjectPage = () => {
 
   useEffect(() => {
     dispatch(getEntryDetails()).finally(() => setLoading(false));
+
     // Filter the data based on the selected date
     const allEntries = [];
     entry.forEach((post) => {
@@ -99,6 +100,9 @@ const DetailedProjectPage = () => {
     }
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // const storedDate = posts?.date; // Example stored date (ISO format)
   // const actualDate = new Date(storedDate);
   // const month = actualDate.getMonth() + 1; // Adding 1 since getMonth() returns 0-11

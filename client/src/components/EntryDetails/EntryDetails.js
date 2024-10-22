@@ -37,6 +37,8 @@ const EntryDetails = () => {
   const [uploadPic4, setUploadPic4] = useState();
   const [uploadPic5, setUploadPic5] = useState();
 
+  const [validated, setValidated] = useState(false);
+
   // const [modalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
@@ -128,7 +130,6 @@ const EntryDetails = () => {
     });
   };
 
-
   const updateFormDataWithImages = async () => {
     // e.preventDefault();
     // Batch update the formData with all uploaded pictures
@@ -141,7 +142,6 @@ const EntryDetails = () => {
       uploadPictures5: uploadPic5,
     }));
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,13 +163,12 @@ const EntryDetails = () => {
         })
         .catch((error) => {
           console.error("Error dispatching formData:", error);
-          // toast.error("Invalid Credentials, Please try Again Later...!!");
+          toast.error("Invalid Credentials, Please try Again Later...!!");
         });
     }, 9000);
 
     console.log("Updated formData:", formData); // This should now log the updated formData
   };
-
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -180,12 +179,11 @@ const EntryDetails = () => {
       setTimeout(() => {
         console.log("Updated formData Save:", formData);
       }, 6000);
+      setValidated(true);
     });
     setDisabled(false);
     // Now dispatch the updated formData
   };
-
-  
 
   return (
     <Container
@@ -205,7 +203,7 @@ const EntryDetails = () => {
         >
           Detail Input Form
         </h3>
-        <Form>
+        <Form noValidate validated={validated}>
           <Form.Group controlId="formProjectName" className="mb-3">
             <Form.Label style={{ color: "black", fontWeight: "bold" }}>
               Project Number : {projectNo.id}
@@ -218,11 +216,15 @@ const EntryDetails = () => {
                 <Form.Control
                   type="date"
                   name="date"
+                  required
                   value={formData.date}
                   onChange={(e) =>
                     setFormData({ ...formData, date: e.target.value })
                   }
                 />
+                <Form.Control.Feedback type="invalid">
+                  This field is required
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
