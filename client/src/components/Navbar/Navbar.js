@@ -86,15 +86,16 @@ export default function MenuAppBar() {
       link: "/contractregister",
     },
     {
-      text: "Letter Tracker",
-      icon: <MailIcon />,
-      link: "/lettertracker",
-    },
-    {
       text: "Contract Details",
       icon: <TopicIcon />,
       link: "/contractviewdetails",
     },
+    {
+      text: "Letter Tracker",
+      icon: <MailIcon />,
+      link: "/lettertracker",
+    },
+
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
 
@@ -134,7 +135,7 @@ export default function MenuAppBar() {
       {user ? (
         <>
           <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="sticky"  sx={{ bgcolor: "#17325C" }}>
+            <AppBar position="sticky" sx={{ bgcolor: "#17325C" }}>
               <Toolbar>
                 <IconButton
                   size="large"
