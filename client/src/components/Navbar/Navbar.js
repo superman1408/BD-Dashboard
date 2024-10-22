@@ -128,7 +128,7 @@ export default function MenuAppBar() {
       {user ? (
         <>
           <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="sticky" sx={{ bgcolor: "#17325C" }}>
+            <AppBar position="sticky"  sx={{ bgcolor: "#17325C" }}>
               <Toolbar>
                 <IconButton
                   size="large"

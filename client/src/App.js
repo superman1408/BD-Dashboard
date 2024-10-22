@@ -69,11 +69,11 @@ const App = () => {
             exact
             element={<ContractViewDetail />}
           />
-          <Route
+          {/* <Route
             path="/detailedprogress"
             exact
             // element={<DetailedProgress />}
-          />
+          /> */}
 
           <Route path="lettertracker" exact element={<LetterTracker />} />
         </Routes>

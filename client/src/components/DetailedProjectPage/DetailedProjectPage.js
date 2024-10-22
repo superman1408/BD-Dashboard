@@ -125,6 +125,7 @@ const DetailedProjectPage = () => {
             justifyContent: "center",
             marginTop: "20px",
             flexDirection: "column",
+            marginBottom: "50px",
           }}
         >
           <Card

@@ -8,11 +8,7 @@ export default (entry = [], action) => {
     case GET_ENTRY:
       return action.payload;
 
-
-      
-
     default:
       return entry;
   }
 };
-
