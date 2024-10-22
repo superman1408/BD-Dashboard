@@ -2,7 +2,10 @@ import express from "express";
 
 import upload from "../middleware/storage.js";
 
-import { createContractPost } from "../controllers/contract.js";
+import {
+  createContractPost,
+  getContractDetails,
+} from "../controllers/contract.js";
 
 const router = express.Router();
 
@@ -20,5 +23,6 @@ router.post(
   createContractPost
 );
 
+router.get("/contractDetails/view", getContractDetails);
 
 export default router;

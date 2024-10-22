@@ -37,7 +37,8 @@ export const createContractPost = (formData) => async (dispatch) => {
 
 export const getContractDetails = () => async (dispatch) => {
   try {
-    const { data } = await API.fetchContractDetails();
+    const {data}  = await API.fetchContractDetails();    
+
     dispatch({ type: GET_CONTRACT, payload: data });
   } catch (error) {
     console.log(error);

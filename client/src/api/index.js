@@ -43,4 +43,5 @@ export const createContract = (formData) =>
     },
   });
 
-export const fetchContractDetails = () => API.get(`/posts/createContractPost/view`);
+export const fetchContractDetails = () =>
+  API.get(`/contract/contractDetails/view`);

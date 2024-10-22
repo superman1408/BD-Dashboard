@@ -3,19 +3,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Container, Card, LinearProgress } from "@mui/material";
 
-import getContractDetails from "../../action/contract";
+import { getContractDetails } from "../../action/contract";
 
 const ContractViewDetail = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const { id } = useParams();
-
-  let array = [];
+  const [loading, setLoading] = useState(false);
 
   // Fetch posts from Redux store
   const contract = useSelector((state) => state.contract);
+
+  useEffect(() => {
+    dispatch(getContractDetails());
+  }, [contract]);
+
+  const handleView = (id) => {
+    console.log(id);
+  };
 
   return (
     <div>
@@ -30,12 +35,6 @@ const ContractViewDetail = () => {
           },
         }}
       >
-        {/* {loading ? (
-          <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
-            <LinearProgress />
-            loading...
-          </div>
-        ) : ( */}
         <Container
           sx={{
             display: "flex",
@@ -71,19 +70,58 @@ const ContractViewDetail = () => {
                 >
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>Overview</th>
-                      <th>Submitted By</th>
+                      <th>Contractor Email</th>
+                      <th>Contact Person</th>
+                      <th>Contractor Name</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    {contract.length > 0 ? (
+                      contract.map((post, index) => (
+                        <tr key={index}>
+                          <td
+                            style={{
+                              paddingLeft: "10px",
+                              paddingRight: "10px",
+                            }}
+                          >
+                            {post.contactEmail || "N/A"}
+                          </td>
+                          <td
+                            style={{
+                              paddingLeft: "10px",
+                              paddingRight: "10px",
+                            }}
+                          >
+                            {post.contactPerson || "N/A"}
+                          </td>
+                          <td style={{ textAlign: "center" }}>
+                            {post.contractorName || "N/A"}
+                          </td>
+                          <td style={{ justifyContent: "space-between" }}>
+                            <button
+                              style={{ marginRight: "10px" }}
+                              onClick={() => {handleView(post._id)}}
+                            >
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" align="center">
+                          No data available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
                 </table>
               </Grid>
             </Grid>
           </Card>
         </Container>
-        {/* )} */}
       </Container>
     </div>
   );

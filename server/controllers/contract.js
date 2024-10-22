@@ -142,3 +142,16 @@ export const createContractPost = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+export const getContractDetails = async (req, res) => {
+
+  try {
+    const contract = await ContractOverview.find({});
+
+    res.status(200).json(contract);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

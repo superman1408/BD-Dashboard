@@ -8,13 +8,13 @@ import {
 export default (contract = [], action) => {
   switch (action.type) {
     case CREATE_CONTRACT:
-      return [...contract, action.paylaod];
+      return [...contract, action.payload];
 
     case CONTRACT_PDF:
-      return [...contract, action.paylaod];
+      return [...contract, action.payload];
 
     case GET_CONTRACT:
-      return [...contract, action.paylaod];
+      return action.payload;
 
     default:
       return contract;
