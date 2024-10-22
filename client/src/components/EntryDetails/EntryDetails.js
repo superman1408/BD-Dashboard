@@ -391,14 +391,11 @@ const EntryDetails = () => {
           >
             {!formData.uploadPictures1 ? (
               <>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Loading...</span> {/* Accessible label */}
+                <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
               </>
             ) : (
               "Save"
