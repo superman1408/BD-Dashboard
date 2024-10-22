@@ -128,6 +128,7 @@ const EntryDetails = () => {
     });
   };
 
+
   const updateFormDataWithImages = async () => {
     // e.preventDefault();
     // Batch update the formData with all uploaded pictures
@@ -140,6 +141,7 @@ const EntryDetails = () => {
       uploadPictures5: uploadPic5,
     }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -168,6 +170,7 @@ const EntryDetails = () => {
     console.log("Updated formData:", formData); // This should now log the updated formData
   };
 
+
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -181,6 +184,8 @@ const EntryDetails = () => {
     setDisabled(false);
     // Now dispatch the updated formData
   };
+
+  
 
   return (
     <Container
@@ -395,7 +400,7 @@ const EntryDetails = () => {
             onClick={handleSave}
             disabled={picLoading}
           >
-            {!formData.uploadPictures1 ? (
+            {picLoading ? (
               <>
                 <div className="d-flex justify-content-center">
                   <div className="spinner-border" role="status">

@@ -26,7 +26,7 @@ export const signin = async (req, res) => {
         id: existingUser._id,
       },
       "test",
-      { expiresIn: "1h" }
+      { expiresIn: "28d" }
     );
 
     res.status(200).json({ result: existingUser, token });
