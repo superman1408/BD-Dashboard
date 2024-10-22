@@ -172,9 +172,10 @@ const ViewDetails = () => {
                             <td style={{ justifyContent: "space-between" }}>
                               <button
                                 style={{ marginRight: "10px" }}
-                                onClick={() =>
-                                  navigate(`/${post.date}/detailedprojectpage`)
-                                }
+                                onClick={() => {
+                                  navigate(`/${post.date}/detailedprojectpage`);
+                                  window.location.reload();
+                                }}
                               >
                                 View
                               </button>
