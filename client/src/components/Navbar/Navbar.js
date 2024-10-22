@@ -23,6 +23,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import TopicIcon from "@mui/icons-material/Topic";
 
 import MenuItem from "@mui/material/MenuItem";
 // import Menu from "@mui/material/Menu";
@@ -88,6 +89,11 @@ export default function MenuAppBar() {
       text: "Letter Tracker",
       icon: <MailIcon />,
       link: "/lettertracker",
+    },
+    {
+      text: "Contract Details",
+      icon: <TopicIcon />,
+      link: "/contractviewdetails",
     },
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
