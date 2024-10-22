@@ -15,7 +15,10 @@ const ContractViewDetail = () => {
   const contract = useSelector((state) => state.contract);
 
   useEffect(() => {
-    dispatch(getContractDetails());
+    setLoading(true);
+    dispatch(getContractDetails()).then(() => {
+      setLoading(false);
+    });
   }, [contract]);
 
   const handleView = (id) => {
