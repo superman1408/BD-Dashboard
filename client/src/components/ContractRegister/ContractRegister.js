@@ -1,15 +1,27 @@
 import React, { useState } from "react";
-import { Container, Card, Grid, Divider } from "@mui/material";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import {
+  Container,
+  Card,
+  Grid,
+  Divider,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
+import { Form, Row, Col, Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createContractPost } from "../../action/contract";
 
 const ContractRegister = () => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const [validated, setValidated] = useState(false);
 
   const [visible, setVisible] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [GST, setGST] = useState(null);
   const [PAN, setPAN] = useState(null);
@@ -18,26 +30,26 @@ const ContractRegister = () => {
   const [bankGurantee, setBankGurantee] = useState(null);
   const [signedContractCopy, setsignedContractCopy] = useState(null);
 
-  const [contactEmail, setContactEmail] = useState();
-  const [contractorName, setContractorName] = useState();
-  const [contactPerson, setContactPerson] = useState();
-  const [contactNumber, setContactNumber] = useState();
-  const [contractAddress, setContractAddress] = useState();
-  const [contractBillingAddress, setContractBillingAddress] = useState();
+  const [contactEmail, setContactEmail] = useState("");
+  const [contractorName, setContractorName] = useState("");
+  const [contactPerson, setContactPerson] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [contractAddress, setContractAddress] = useState("");
+  const [contractBillingAddress, setContractBillingAddress] = useState("");
 
-  const [contractStartDate, setContractStartDate] = useState();
-  const [contractEndDate, setContractEndDate] = useState();
+  const [contractStartDate, setContractStartDate] = useState("");
+  const [contractEndDate, setContractEndDate] = useState("");
   const [bankGuranteeSubmitted, setBankGuranteeSubmitted] = useState();
-  const [bankGuranteeStartDate, setBankGuranteeStartDate] = useState();
-  const [bankGuranteeEndDate, setBankGuranteeEndDate] = useState();
-  const [contractValue, setContractValue] = useState();
-  const [contractCurrency, setContractCurrency] = useState();
+  const [bankGuranteeStartDate, setBankGuranteeStartDate] = useState("");
+  const [bankGuranteeEndDate, setBankGuranteeEndDate] = useState("");
+  const [contractValue, setContractValue] = useState("");
+  const [contractCurrency, setContractCurrency] = useState("");
 
-  const [GSTNo, setGSTNo] = useState();
-  const [PANNo, setPANNo] = useState();
+  const [GSTNo, setGSTNo] = useState("");
+  const [PANNo, setPANNo] = useState("");
   const [incorporationCertificateNo, setIncorporationCertificateNo] =
-    useState();
-  const [bankGuaranteeNo, setBankGuaranteeNo] = useState();
+    useState("");
+  const [bankGuaranteeNo, setBankGuaranteeNo] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +97,7 @@ const ContractRegister = () => {
             },
           })
         );
-
+        setModalVisible(true);
         // Refresh the page
       } catch (err) {
         console.log(err);
@@ -277,18 +289,18 @@ const ContractRegister = () => {
                         name="GSTNo"
                         value={GSTNo}
                         onChange={(e) => {
-                          // setGSTNo(e.target.value);
-                          const value = e.target.value.toUpperCase(); // Convert to uppercase for standard GST format
-                          const gstPattern =
-                            /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
+                          setGSTNo(e.target.value);
+                          // const value = e.target.value.toUpperCase(); // Convert to uppercase for standard GST format
+                          // const gstPattern =
+                          //   /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
 
-                          if (gstPattern.test(value) || value === "") {
-                            setGSTNo(value); // Only update the state if the GST No is valid or empty
-                          } else {
-                            alert(
-                              "Invalid GST number. Please follow the correct format."
-                            );
-                          }
+                          // if (gstPattern.test(value) || value === "") {
+                          //   setGSTNo(value); // Only update the state if the GST No is valid or empty
+                          // } else {
+                          //   alert(
+                          //     "Invalid GST number. Please follow the correct format."
+                          //   );
+                          // }
                         }}
                       />
                     </div>
@@ -319,18 +331,18 @@ const ContractRegister = () => {
                         name="PANNo"
                         value={PANNo}
                         onChange={(e) => {
-                          // setPANNo(e.target.value);
-                          const value = e.target.value.toUpperCase(); // Convert to uppercase for PAN format
-                          const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+                          setPANNo(e.target.value);
+                          // const value = e.target.value.toUpperCase(); // Convert to uppercase for PAN format
+                          // const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
 
-                          if (value === "" || panPattern.test(value)) {
-                            // If the input is empty or matches the pattern, update the state
-                            setPANNo(value);
-                          } else {
-                            console.log(
-                              "Invalid PAN number. Please follow the correct format."
-                            );
-                          }
+                          // if (value === "" || panPattern.test(value)) {
+                          //   // If the input is empty or matches the pattern, update the state
+                          //   setPANNo(value);
+                          // } else {
+                          //   console.log(
+                          //     "Invalid PAN number. Please follow the correct format."
+                          //   );
+                          // }
                         }}
                       />
                     </div>
@@ -422,7 +434,7 @@ const ContractRegister = () => {
                       // onChange={(e) => {
                       //   setBankGuranteeSubmitted(e.target.value);
                       // }}
-
+                      required
                       onChange={handleBankSubmitted}
                     >
                       <option value="">Select an option</option>
@@ -573,6 +585,41 @@ const ContractRegister = () => {
               <Button type="submit" style={{ float: "right" }}>
                 Submit
               </Button>
+
+              <Modal
+                show={modalVisible}
+                aria-labelledby="contained-modal-title-vcenter"
+              >
+                <Modal.Header
+                  closeButton
+                  onClick={() => {
+                    navigate(`/contractviewdetails`);
+                  }}
+                >
+                  <Modal.Title id="contained-modal-title-vcenter">
+                    Submission Successful
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="grid-example">
+                  <Container>
+                    <Row>
+                      <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                        Your Form Has Been Submitted
+                      </Alert>
+                    </Row>
+                  </Container>
+                </Modal.Body>
+                <Modal.Footer style={{ justifyContent: "center" }}>
+                  <Button
+                    onClick={() => {
+                      navigate(`/contractviewdetails`);
+                    }}
+                  >
+                    OK
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </Form>
           </Grid>
         </Card>

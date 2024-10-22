@@ -44,7 +44,7 @@ export const entryDetails = async (req, res) => {
   const projectNumber = value.docNo;
   if (!projectNumber) {
     return res.status(400).json({ message: "Project number is required" });
-  };
+  }
 
   const updatePost = await EntryOverview.findOne({ docNo: projectNumber });
 
@@ -52,7 +52,7 @@ export const entryDetails = async (req, res) => {
     return res
       .status(400)
       .json({ message: "No Such Posts Found in Database..!!!" });
-  };
+  }
 
   try {
     const id = updatePost._id;
@@ -76,16 +76,15 @@ export const entryDetails = async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-      res.status(400);
-      throw new Error(error);
-  };
+    res.status(400);
+    throw new Error(error);
+  }
 };
-
-
 
 export const getEntryDetails = async (req, res) => {
   try {
     const postMessage = await EntryOverview.find({});
+
     res.status(200).json(postMessage);
   } catch (error) {
     res.status(404).json({ message: error.message });

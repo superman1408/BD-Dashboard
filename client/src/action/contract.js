@@ -1,4 +1,8 @@
-import { CREATE_CONTRACT, CONTRACT_PDF } from "../constants/actionTypes";
+import {
+  CREATE_CONTRACT,
+  CONTRACT_PDF,
+  GET_CONTRACT,
+} from "../constants/actionTypes";
 
 import * as API from "../api/index";
 
@@ -26,6 +30,16 @@ export const createContractPost = (formData) => async (dispatch) => {
       },
     });
     dispatch({ type: CONTRACT_PDF, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getContractDetails = () => async (dispatch) => {
+  try {
+    const {data}  = await API.fetchContractDetails();    
+
+    dispatch({ type: GET_CONTRACT, payload: data });
   } catch (error) {
     console.log(error);
   }

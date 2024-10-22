@@ -9,7 +9,7 @@ const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   // Fetch posts from Redux store
@@ -26,26 +26,43 @@ const ViewDetails = () => {
             submittedBy: post?.submittedBy[index],
             date: post?.date[index],
             uploadPictures1: post?.uploadPictures1[index],
-            // status: post.status[index],
           });
         }
       }
+      console.log(array.uploadPictures1);
     });
     setLoading(false);
   };
 
   // Fetch data when component mounts
+  // useEffect(() => {
+  //   if (entry.length === 0) {
+  //     if (loading) {
+  //       dispatch(getEntryDetails()).then(() => {
+  //         updateArray().then(() => {
+  //           console.log("Data fetched, setting loading to false");
+  //           setLoading(false);
+  //         });
+  //       });
+  //     }
+  //   }
+  // }, [dispatch, entry.length]);
+
   useEffect(() => {
     if (entry.length === 0) {
-      if (loading) {
-        dispatch(getEntryDetails()).then(() => {
-          updateArray().then(() => {
-            setLoading(false);
-          });
+      setLoading(true);
+      dispatch(getEntryDetails()).then(() => {
+        updateArray().then(() => {
+          setLoading(false);
         });
-      }
+      });
     }
-  }, [dispatch, loading]);
+
+    // return () => {
+    //   // Dispatch an action to reset the entry state if necessary
+    //   // dispatch(resetEntryState());
+    // };
+  }, [dispatch, entry]);
 
   // Optional: Update windowWidth on resize
   useEffect(() => {
@@ -61,9 +78,9 @@ const ViewDetails = () => {
           submittedBy: post?.submittedBy[index],
           date: post?.date[index],
           uploadPictures1: post?.uploadPictures1[index],
-          // status: post.status[index],
         });
       }
+      console.log(array.uploadPictures1);
     }
   });
 
@@ -191,3 +208,5 @@ const ViewDetails = () => {
 };
 
 export default ViewDetails;
+
+// the above works just once then again going to smae pages same error occurs needs to rfresh th epage

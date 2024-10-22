@@ -11,6 +11,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
 import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjectPage";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
+import LetterTracker from "./components/LetterTracker/LetterTracker";
+import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -63,10 +65,17 @@ const App = () => {
             element={<ContractRegister />}
           />
           <Route
+            path="/contractviewdetails"
+            exact
+            element={<ContractViewDetail />}
+          />
+          <Route
             path="/detailedprogress"
             exact
             // element={<DetailedProgress />}
           />
+
+          <Route path="lettertracker" exact element={<LetterTracker />} />
         </Routes>
       </div>
 

@@ -27,7 +27,7 @@ const Dashboard = () => {
         setLoading(false);
       })
       .catch((err) => {
-        setLoading(true);
+        setLoading(false);
         console.log(err);
       });
   }, [dispatch]);
@@ -151,7 +151,7 @@ const Dashboard = () => {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: "15px" }}>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project Name: </label>
               <input
                 type="text"
@@ -162,7 +162,7 @@ const Dashboard = () => {
                 style={{ marginLeft: "10px" }}
               />
             </div>
-            <div style={{ marginBottom: "15px" }}>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Client Name: </label>
               <input
                 type="text"
@@ -173,7 +173,7 @@ const Dashboard = () => {
                 style={{ marginLeft: "20px" }}
               />
             </div>
-            <div style={{ marginBottom: "15px" }}>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project No.: </label>
               <input
                 type="text"
@@ -184,7 +184,7 @@ const Dashboard = () => {
                 style={{ marginLeft: "28px" }}
               />
             </div>
-            <div style={{ marginBottom: "15px" }}>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project Picture: </label>
               <FileBase
                 type="file"

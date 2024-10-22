@@ -42,3 +42,6 @@ export const createContract = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export const fetchContractDetails = () =>
+  API.get(`/contract/contractDetails/view`);
