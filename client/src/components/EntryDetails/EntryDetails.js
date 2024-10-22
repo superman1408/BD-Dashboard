@@ -12,6 +12,8 @@ import {
 } from "react-bootstrap";
 import "./EntryDetails.css";
 import { Divider, Alert, AlertTitle } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { entryDetails } from "../../action/posts";
 import styled from "styled-components";
 
@@ -35,7 +37,7 @@ const EntryDetails = () => {
   const [uploadPic4, setUploadPic4] = useState();
   const [uploadPic5, setUploadPic5] = useState();
 
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -151,15 +153,18 @@ const EntryDetails = () => {
       dispatch(entryDetails(formData))
         .then(() => {
           console.log("Dispatched successfully");
-          setInterval(() => {
+          toast.success("Form Submitted Successfully!");
+
+          setTimeout(() => {
             navigate(`/${projectNo.id}/viewdetails`);
           }, 5000);
         })
         .catch((error) => {
           console.error("Error dispatching formData:", error);
+          // toast.error("Invalid Credentials, Please try Again Later...!!");
         });
     }, 9000);
-    setModalVisible(true);
+
     console.log("Updated formData:", formData); // This should now log the updated formData
   };
 
@@ -182,6 +187,7 @@ const EntryDetails = () => {
       className="d-flex justify-content-center align-items-center"
       style={{ minHeight: "100vh", paddingTop: "10px" }}
     >
+      <ToastContainer />
       <Card className="p-4 custom-card">
         <h3
           style={{
@@ -375,7 +381,7 @@ const EntryDetails = () => {
           />
           <Button
             variant="primary"
-            type="submit"
+            // type="submit"
             className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
             onClick={handleSubmit}
             disabled={disabled}
@@ -392,26 +398,21 @@ const EntryDetails = () => {
             {!formData.uploadPictures1 ? (
               <>
                 <div className="d-flex justify-content-center">
-                <div className="spinner-border" role="status">
-                  <span className="visually-hidden">Loading...</span>
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
                 </div>
-              </div>
               </>
             ) : (
               "Save"
             )}
           </Button>
 
-          <Modal
+          {/* <Modal
             show={modalVisible}
             aria-labelledby="contained-modal-title-vcenter"
           >
-            <Modal.Header
-              closeButton
-              onClick={() => {
-                navigate(`/contractviewdetails`);
-              }}
-            >
+            <Modal.Header closeButton onClick={handleSubmit}>
               <Modal.Title id="contained-modal-title-vcenter">
                 Submission Successful
               </Modal.Title>
@@ -427,15 +428,11 @@ const EntryDetails = () => {
               </Container>
             </Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
-              <Button
-                onClick={() => {
-                  navigate(`/contractviewdetails`);
-                }}
-              >
+              <Button type="submit" onClick={handleSubmit}>
                 OK
               </Button>
             </Modal.Footer>
-          </Modal>
+          </Modal> */}
         </Form>
       </Card>
     </Container>
