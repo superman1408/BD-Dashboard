@@ -159,7 +159,7 @@ const EntryDetails = () => {
           console.error("Error dispatching formData:", error);
         });
     }, 9000);
-    // setModalVisible(true);
+    setModalVisible(true);
     console.log("Updated formData:", formData); // This should now log the updated formData
   };
 
