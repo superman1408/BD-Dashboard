@@ -8,14 +8,12 @@ import {
   Card,
   Form,
   Button,
-  Spinner
+  Modal,
 } from "react-bootstrap";
 import "./EntryDetails.css";
-import { Divider } from "@mui/material";
-import FileBase from "react-file-base64";
+import { Divider, Alert, AlertTitle } from "@mui/material";
 import { entryDetails } from "../../action/posts";
 import styled from "styled-components";
-
 
 const UploadWrapper = styled.div`
   display: flex;
@@ -37,10 +35,14 @@ const EntryDetails = () => {
   const [uploadPic4, setUploadPic4] = useState();
   const [uploadPic5, setUploadPic5] = useState();
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   // console.log(projectNo.id);
+
+  const [disabled, setDisabled] = useState(true);
 
   const [formData, setFormData] = useState({
     docNo: projectNo.id,
@@ -60,98 +62,96 @@ const EntryDetails = () => {
     submittedBy: "",
   });
 
-// uploading 6 images here...........................................
-  const pickImages = async (pics) => { 
+  // uploading 6 images here...........................................
+  const pickImages = async (pics) => {
     setPicLoading(true);
-    
+
     if (pics.length !== 5) {
-        alert("Please select exactly 5 images");
-        setPicLoading(false);
-        return;
+      alert("Please select exactly 5 images");
+      setPicLoading(false);
+      return;
     }
 
     // Function to handle each image upload
     const uploadImage = (pic, index) => {
-        return new Promise((resolve, reject) => {
-            if (!pic || (pic.type !== 'image/jpeg' && pic.type !== 'image/png')) {
-                reject(new Error("Invalid file type. Please select JPEG/PNG images."));
-            }
+      return new Promise((resolve, reject) => {
+        if (!pic || (pic.type !== "image/jpeg" && pic.type !== "image/png")) {
+          reject(
+            new Error("Invalid file type. Please select JPEG/PNG images.")
+          );
+        }
 
-            const data = new FormData();
-            data.append("file", pic);
-            data.append("upload_preset", "chat-app");
-            data.append("cloud_name", "realtimeapp");
+        const data = new FormData();
+        data.append("file", pic);
+        data.append("upload_preset", "chat-app");
+        data.append("cloud_name", "realtimeapp");
 
-            fetch("https://api.cloudinary.com/v1_1/realtimeapp/image/upload", {
-                method: "POST",
-                body: data,
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                resolve(data.secure_url);
-            })
-            .catch((err) => reject(err));
-        });
+        fetch("https://api.cloudinary.com/v1_1/realtimeapp/image/upload", {
+          method: "POST",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            resolve(data.secure_url);
+          })
+          .catch((err) => reject(err));
+      });
     };
 
     // Array to store the image upload promises
     const uploadPromises = [];
     for (let i = 0; i < pics.length; i++) {
-        uploadPromises.push(uploadImage(pics[i], i));
+      uploadPromises.push(uploadImage(pics[i], i));
     }
 
     // Perform all image uploads
     Promise.all(uploadPromises)
-        .then((urls) => {
-            setUploadPic1(urls[0]);
-            setUploadPic2(urls[1]);
-            setUploadPic3(urls[2]);
-            setUploadPic4(urls[3]);
-            setUploadPic5(urls[4]);
-            setPicLoading(false);
-        })
-        .catch((err) => {
-            console.error(err);
-            setPicLoading(false);
-            alert("Error uploading images. Please try again.");
-        });
+      .then((urls) => {
+        setUploadPic1(urls[0]);
+        setUploadPic2(urls[1]);
+        setUploadPic3(urls[2]);
+        setUploadPic4(urls[3]);
+        setUploadPic5(urls[4]);
+        setPicLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setPicLoading(false);
+        alert("Error uploading images. Please try again.");
+      });
     await updateFormDataWithImages().then(() => {
-      setTimeout(() => { 
+      setTimeout(() => {
         console.log(formData);
       }, 30000);
-    })
+    });
   };
 
-
-
-  
   const updateFormDataWithImages = async () => {
     // e.preventDefault();
-  // Batch update the formData with all uploaded pictures
+    // Batch update the formData with all uploaded pictures
     setFormData((prevFormData) => ({
-        ...prevFormData,
-        uploadPictures1: uploadPic1,
-        uploadPictures2: uploadPic2,
-        uploadPictures3: uploadPic3,
-        uploadPictures4: uploadPic4,
-        uploadPictures5: uploadPic5,
-      }));
+      ...prevFormData,
+      uploadPictures1: uploadPic1,
+      uploadPictures2: uploadPic2,
+      uploadPictures3: uploadPic3,
+      uploadPictures4: uploadPic4,
+      uploadPictures5: uploadPic5,
+    }));
   };
-  
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Update formData with uploaded pictures
-  await updateFormDataWithImages();
+    // Update formData with uploaded pictures
+    await updateFormDataWithImages();
 
-  // Now dispatch the updated formData
+    // Now dispatch the updated formData
     setTimeout(() => {
       console.log("Updated formData Submit:", formData);
       dispatch(entryDetails(formData))
         .then(() => {
           console.log("Dispatched successfully");
-          setInterval(() => { 
+          setInterval(() => {
             navigate(`/${projectNo.id}/viewdetails`);
           }, 5000);
         })
@@ -159,25 +159,23 @@ const handleSubmit = async (e) => {
           console.error("Error dispatching formData:", error);
         });
     }, 9000);
+    // setModalVisible(true);
     console.log("Updated formData:", formData); // This should now log the updated formData
-    
   };
-
 
   const handleSave = async (e) => {
     e.preventDefault();
 
     // Update formData with uploaded pictures
-    await updateFormDataWithImages().then(() => { 
+    await updateFormDataWithImages().then(() => {
       console.log("Updated formData:", formData); // This should now log the updated formData
       setTimeout(() => {
         console.log("Updated formData Save:", formData);
       }, 6000);
     });
+    setDisabled(false);
     // Now dispatch the updated formData
   };
-
-
 
   return (
     <Container
@@ -246,7 +244,13 @@ const handleSubmit = async (e) => {
             <Form.Label style={{ marginRight: "10px" }}>
               Upload All required Pictures here
             </Form.Label>
-            <input type='file' multiple p={1.5} accept='image/*' onChange={(e) => pickImages(e.target.files)} />
+            <input
+              type="file"
+              multiple
+              p={1.5}
+              accept="image/*"
+              onChange={(e) => pickImages(e.target.files)}
+            />
             {/* Conditionally display the loading spinner when uploading */}
             {picLoading && (
               <div class="d-flex justify-content-center">
@@ -374,6 +378,7 @@ const handleSubmit = async (e) => {
             type="submit"
             className="float-end mt-3 mr-3 mb-3 ml-3 btn-custom"
             onClick={handleSubmit}
+            disabled={disabled}
           >
             Submit
           </Button>
@@ -385,6 +390,41 @@ const handleSubmit = async (e) => {
           >
             Save
           </Button>
+
+          <Modal
+            show={modalVisible}
+            aria-labelledby="contained-modal-title-vcenter"
+          >
+            <Modal.Header
+              closeButton
+              onClick={() => {
+                navigate(`/contractviewdetails`);
+              }}
+            >
+              <Modal.Title id="contained-modal-title-vcenter">
+                Submission Successful
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="grid-example">
+              <Container>
+                <Row>
+                  <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    Data Submitted Successfully!
+                  </Alert>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "center" }}>
+              <Button
+                onClick={() => {
+                  navigate(`/contractviewdetails`);
+                }}
+              >
+                OK
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Form>
       </Card>
     </Container>

@@ -30,7 +30,7 @@ const Dashboard = () => {
         setLoading(false);
         console.log(err);
       });
-  }, [dispatch]);
+  }, [dispatch, loading]);
 
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
