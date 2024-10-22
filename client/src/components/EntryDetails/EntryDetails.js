@@ -8,11 +8,10 @@ import {
   Card,
   Form,
   Button,
-  Spinner,
+  Modal,
 } from "react-bootstrap";
 import "./EntryDetails.css";
-import { Divider } from "@mui/material";
-import FileBase from "react-file-base64";
+import { Divider, Alert, AlertTitle } from "@mui/material";
 import { entryDetails } from "../../action/posts";
 import styled from "styled-components";
 
@@ -35,6 +34,8 @@ const EntryDetails = () => {
   const [uploadPic3, setUploadPic3] = useState();
   const [uploadPic4, setUploadPic4] = useState();
   const [uploadPic5, setUploadPic5] = useState();
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -158,7 +159,7 @@ const EntryDetails = () => {
           console.error("Error dispatching formData:", error);
         });
     }, 9000);
-
+    // setModalVisible(true);
     console.log("Updated formData:", formData); // This should now log the updated formData
   };
 
@@ -389,6 +390,41 @@ const EntryDetails = () => {
           >
             Save
           </Button>
+
+          <Modal
+            show={modalVisible}
+            aria-labelledby="contained-modal-title-vcenter"
+          >
+            <Modal.Header
+              closeButton
+              onClick={() => {
+                navigate(`/contractviewdetails`);
+              }}
+            >
+              <Modal.Title id="contained-modal-title-vcenter">
+                Submission Successful
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="grid-example">
+              <Container>
+                <Row>
+                  <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    Data Submitted Successfully!
+                  </Alert>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "center" }}>
+              <Button
+                onClick={() => {
+                  navigate(`/contractviewdetails`);
+                }}
+              >
+                OK
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Form>
       </Card>
     </Container>
