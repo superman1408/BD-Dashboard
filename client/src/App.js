@@ -40,13 +40,14 @@ const App = () => {
         <Routes>
           <Route
             path="/"
+            exact
             element={user ? <Dashboard /> : <Navigate to="/auth" />}
           />
           {/* <Route path="/auth" exact element={!user && <Authentication />} /> */}
           <Route
             path="/auth"
             exact
-            element={!user ? <Authentication /> : <Navigate to="/" />}
+            element={ <Authentication /> }
           />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
 

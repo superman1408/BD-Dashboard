@@ -52,31 +52,42 @@ export default function MenuAppBar() {
   const user = JSON.parse(localStorage.getItem("profile"));
   const theme = useTheme();
   const navigate = useNavigate();
+  
   const dispatch = useDispatch();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
 
-  useEffect(() => {});
+  useEffect(() => { });
+  
+
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
 
+
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const switchMode = (e) => {
+
+
+  const switchMode = async (e) => {
     e.preventDefault();
     // setUser(null);
     dispatch({ type: LOGOUT });
-    navigate("/auth");
+    navigate('/auth');
   };
+
+
 
   const menuItems = [
     { text: "Project Window", icon: <DashboardIcon />, link: "/dashboard" },
