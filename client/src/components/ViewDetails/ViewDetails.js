@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Grid, Card, LinearProgress, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
+import { Button } from "react-bootstrap";
 
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -21,7 +22,7 @@ const ViewDetails = () => {
     const array = [];
     entry.map((post) => {
       for (let index = 0; index < post?.submittedBy.length; index++) {
-        if (id === post.docNo) {
+        if (id === post.projectNumber) {
           array.push({
             submittedBy: post?.submittedBy[index],
             date: post?.date[index],
@@ -75,7 +76,7 @@ const ViewDetails = () => {
 
   entry.map((post) => {
     for (let index = 0; index < post?.submittedBy.length; index++) {
-      if (id === post.docNo) {
+      if (id === post.projectNumber) {
         array.push({
           submittedBy: post?.submittedBy[index],
           date: post?.date[index],
@@ -204,7 +205,14 @@ const ViewDetails = () => {
                   </table>
                 </Grid>
               </Grid>
-            </Card>
+            </Card>{" "}
+            <Button
+              onClick={() => {
+                navigate(`/entrydetails/${id}`);
+              }}
+            >
+              Add more
+            </Button>
           </Container>
         )}
       </Container>

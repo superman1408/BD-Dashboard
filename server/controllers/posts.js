@@ -41,12 +41,14 @@ export const getPost = async (req, res) => {
 
 export const entryDetails = async (req, res) => {
   const value = req.body;
-  const projectNumber = value.docNo;
+  const projectNumber = value.projectNumber;
   if (!projectNumber) {
     return res.status(400).json({ message: "Project number is required" });
   }
 
-  const updatePost = await EntryOverview.findOne({ docNo: projectNumber });
+  const updatePost = await EntryOverview.findOne({
+    projectNumber: projectNumber,
+  });
 
   if (!updatePost) {
     return res

@@ -36,7 +36,7 @@ const DetailedProjectPage = () => {
       for (let index = 0; index < post?.date.length; index++) {
         if (post?.date[index] === date) {
           allEntries.push({
-            docNo: post?.docNo,
+            projectNumber: post?.projectNumber,
             projectName: post?.projectName,
             clientName: post?.clientName,
             date: post?.date[index],
@@ -78,7 +78,7 @@ const DetailedProjectPage = () => {
     for (let index = 0; index < post?.date.length; index++) {
       if (post?.date[index] === date) {
         allEntries.push({
-          docNo: post?.docNo,
+          projectNumber: post?.projectNumber,
           projectName: post?.projectName,
           clientName: post?.clientName,
           date: post?.date[index],
@@ -290,7 +290,7 @@ const DetailedProjectPage = () => {
                                   padding: "10px",
                                 }}
                               >
-                                Doc No.
+                                Project Number
                               </th>
                               <td
                                 style={{
@@ -300,7 +300,7 @@ const DetailedProjectPage = () => {
                                   width: "30%",
                                 }}
                               >
-                                {entry.docNo}
+                                {entry.projectNumber}
                               </td>
                               <th
                                 style={{

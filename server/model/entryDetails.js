@@ -55,7 +55,7 @@ const entrySchema = mongoose.Schema(
     clientName: {
       type: String,
     },
-    docNo: {
+    projectNumber: {
       type: String,
     },
   },

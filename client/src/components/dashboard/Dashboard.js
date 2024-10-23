@@ -55,6 +55,8 @@ const Dashboard = () => {
         projectName: "",
         clientName: "",
         projectNumber: "",
+        commencementDate: "",
+        projectManager: "",
         selectedFile: "",
       });
     } catch (error) {
@@ -136,10 +138,23 @@ const Dashboard = () => {
                     <h6 style={{}}>Project Manager: {post?.projectManager}</h6>
                   </div>
 
-                  <Button
+                  {/* <Button
                     variant="primary"
                     style={{ display: "flex", float: "right" }}
+                    onClick={() => handleDetails(post.projectNumber)}
+                  >
+                    Details
+                  </Button> */}
+
+                  {/* <Button
+                    variant="primary"
                     onClick={() => handleEntry(post.projectNumber)}
+                  >
+                    Entry
+                  </Button> */}
+                  <Button
+                    variant="primary"
+                    onClick={() => handleDetails(post.projectNumber)}
                   >
                     Details
                   </Button>
