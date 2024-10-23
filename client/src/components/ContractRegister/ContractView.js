@@ -69,7 +69,7 @@ const ContractView = () => {
       });
       setFilteredData(allEntries);
     });
-  }, [contract, dispatch, loading]);
+  }, [_id, contract, dispatch, loading]);
 
   console.log(contract);
 
@@ -77,7 +77,7 @@ const ContractView = () => {
     for (let index = 0; index < post?._id.length; index++) {
       if (post?._id[index] === _id) {
         allEntries.push({
-          contactEmail: post?.contactEmail[index],
+          contactEmail: post?.contactEmail,
           contractorName: post?.contractorName,
           contactPerson: post?.contactPerson,
           contactNumber: post?.contactNumber,
@@ -93,19 +93,19 @@ const ContractView = () => {
           bankGuaranteeNo: post?.bankGuaranteeNo,
           bankGuranteeStartDate: post?.bankGuranteeStartDate,
           bankGuranteeEndDate: post?.bankGuranteeEndDate,
-          GST: post?.GST,
+          GST: post?.GST[index],
           PAN: post?.PAN[index],
           incorporationCertificate: post?.incorporationCertificate[index],
           bankGurantee: post?.bankGurantee[index],
           signedContractCopy: post?.signedContractCopy[index],
         });
-        const storedDate = post?.date[index]; // Example stored date (ISO format)
-        const actualDate = new Date(storedDate);
-        // const monthValue = actualDate.getMonth() + 1;
-        const monthValue = actualDate.toLocaleString("default", {
-          month: "long",
-        });
-        setMonth(monthValue);
+        // const storedDate = post?.date[index]; // Example stored date (ISO format)
+        // const actualDate = new Date(storedDate);
+        // // const monthValue = actualDate.getMonth() + 1;
+        // const monthValue = actualDate.toLocaleString("default", {
+        //   month: "long",
+        // });
+        // setMonth(monthValue);
       }
     }
   });
@@ -198,8 +198,8 @@ const ContractView = () => {
                     }}
                   >
                     <thead>
-                      {filteredData.length > 0 ? (
-                        filteredData.map((contract, index) => (
+                      {contract.length > 0 ? (
+                        contract.map((post, index) => (
                           <tr key={index}>
                             <th
                               style={{
@@ -218,7 +218,7 @@ const ContractView = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {contract?.projectName}
+                              {post?._id}
                             </td>
                           </tr>
                         ))
@@ -227,19 +227,19 @@ const ContractView = () => {
                       )}
                     </thead>
                   </table>
-                  {filteredData.length > 0 ? (
-                    filteredData.map((contract, index) => (
-                      <table
-                        style={{
-                          padding: "10px",
-                          borderCollapse: "collapse",
-                          border: "1px solid black",
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                          width: "100%",
-                          maxWidth: "800px",
-                        }}
-                      >
+                  <table
+                    style={{
+                      padding: "10px",
+                      borderCollapse: "collapse",
+                      border: "1px solid black",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      width: "100%",
+                      maxWidth: "800px",
+                    }}
+                  >
+                    {contract.length > 0 ? (
+                      contract.map((post, index) => (
                         <tbody>
                           <tr key={index}>
                             <th
@@ -258,7 +258,7 @@ const ContractView = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {contract.clientName}
+                              {post.contractorName}
                             </td>
                             <th
                               style={{
@@ -276,7 +276,7 @@ const ContractView = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {contract.date}
+                              {post.contactNumber}
                             </td>
                           </tr>
                           <tr>
@@ -296,7 +296,7 @@ const ContractView = () => {
                                 width: "30%",
                               }}
                             >
-                              {contract.docNo}
+                              {post.contractorName}
                             </td>
                             <th
                               style={{
@@ -314,92 +314,7 @@ const ContractView = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    ))
-                  ) : (
-                    <p>No data available for this date.</p>
-                  )}
-                  <br />
-                  <table
-                    style={{
-                      padding: "10px",
-                      borderCollapse: "collapse",
-                      border: "1px solid black",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: "100%",
-                      maxWidth: "800px",
-                    }}
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          style={{
-                            border: "1px solid black",
-                            // backgroundColor: "#027580",
-                            textAlign: "center",
-                          }}
-                        >
-                          Activities
-                        </th>
-                      </tr>
-                    </thead>
-                  </table>
-                  <table
-                    style={{
-                      padding: "10px",
-                      borderCollapse: "collapse",
-                      border: "1px solid black",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: "100%",
-                      maxWidth: "800px",
-                    }}
-                  >
-                    {filteredData.length > 0 ? (
-                      filteredData.map((contract, index) => (
-                        <tbody key={index}>
-                          <tr>
-                            <th
-                              style={{
-                                border: "1px solid black",
-                                padding: "10px",
-                                width: "40%",
-                              }}
-                            >
-                              Civil & Structure
-                            </th>
-                            <td
-                              style={{
-                                border: "1px solid black",
-                                padding: "10px",
-                                width: "70%",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                {contract?.activity1
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <span
-                                      key={index}
-                                      style={{
-                                        fontSize: "14px",
-                                        marginBottom: "5px",
-                                      }}
-                                    >
-                                      {line}
-                                    </span>
-                                  ))}
-                              </div>
+                              {post.contractorName}
                             </td>
                           </tr>
                         </tbody>
@@ -408,6 +323,7 @@ const ContractView = () => {
                       <p>No data available for this date.</p>
                     )}
                   </table>
+                  <br />
                 </Grid>
               </Grid>
             </Grid>
