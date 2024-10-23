@@ -49,7 +49,7 @@ const EntryDetails = () => {
   const [disabled, setDisabled] = useState(true);
 
   const [formData, setFormData] = useState({
-    docNo: projectNo.id,
+    projectNumber: projectNo.id,
     date: "",
     activity1: "",
     activity2: "",

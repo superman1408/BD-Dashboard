@@ -8,7 +8,13 @@ const projectSchema = mongoose.Schema(
     clientName: {
       type: String,
     },
-    docNo: {
+    projectNumber: {
+      type: String,
+    },
+    commencementDate: {
+      type: String,
+    },
+    projectManager: {
       type: String,
     },
     selectedFile: {

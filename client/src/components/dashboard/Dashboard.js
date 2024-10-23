@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, IconButton, Typography, LinearProgress } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  Typography,
+  LinearProgress,
+  Divider,
+} from "@mui/material";
 import { Card, Button, Modal } from "react-bootstrap";
 import FileBase from "react-file-base64";
 import AddchartSharpIcon from "@mui/icons-material/AddchartSharp";
@@ -15,7 +21,9 @@ const Dashboard = () => {
   const [formData, setFormData] = useState({
     projectName: "",
     clientName: "",
-    docNo: "",
+    projectNumber: "",
+    commencementDate: "",
+    projectManager: "",
     selectedFile: "",
   });
   const posts = useSelector((state) => state.posts);
@@ -46,7 +54,7 @@ const Dashboard = () => {
       setFormData({
         projectName: "",
         clientName: "",
-        docNo: "",
+        projectNumber: "",
         selectedFile: "",
       });
     } catch (error) {
@@ -56,12 +64,12 @@ const Dashboard = () => {
     }
   };
 
-  const handleEntry = (docNo) => {
-    navigate(`/entrydetails/${docNo}`);
+  const handleEntry = (projectNumber) => {
+    navigate(`/entrydetails/${projectNumber}`);
   };
 
-  const handleDetails = (docNo) => {
-    navigate(`/${docNo}/viewdetails`);
+  const handleDetails = (projectNumber) => {
+    navigate(`/${projectNumber}/viewdetails`);
   };
 
   return (
@@ -99,6 +107,7 @@ const Dashboard = () => {
                   padding: "12px",
                   margin: "20px ",
                   backgroundColor: "white",
+                  width: "350px",
                 }}
               >
                 <Card.Img
@@ -110,33 +119,31 @@ const Dashboard = () => {
 
                 <Card.Body>
                   <div>
-                    <h6 style={{ textAlign: "center" }}>Project Name</h6>
                     <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
                       {post?.projectName}
                     </h4>
-                    <h6 style={{ textAlign: "center" }}>
-                      Project Number: {post?.docNo}
+                    <Divider
+                      sx={{
+                        borderWidth: "3px",
+                        bgcolor: "black",
+                        marginBottom: "5px",
+                      }}
+                    />
+                    <h6 style={{}}>Project Number: {post?.projectNumber}</h6>
+                    <h6 style={{ display: "flex" }}>
+                      Date of Commencement: {post?.commencementDate}
                     </h6>
+                    <h6 style={{}}>Project Manager: {post?.projectManager}</h6>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                    }}
+
+                  <Button
+                    variant="primary"
+                    style={{ display: "flex", float: "right" }}
+                    onClick={() => handleEntry(post.projectNumber)}
                   >
-                    <Button
-                      variant="primary"
-                      onClick={() => handleEntry(post.docNo)}
-                    >
-                      Entry
-                    </Button>
-                    <Button
-                      variant="primary"
-                      onClick={() => handleDetails(post.docNo)}
-                    >
-                      Details
-                    </Button>
-                  </div>
+                    Details
+                  </Button>
+                  {/* </div> */}
                 </Card.Body>
               </Card>
             </Grid>
@@ -159,7 +166,7 @@ const Dashboard = () => {
                 value={formData.projectName}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "100px" }}
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
@@ -170,18 +177,42 @@ const Dashboard = () => {
                 value={formData.clientName}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "20px" }}
+                style={{ marginLeft: "110px" }}
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project No.: </label>
               <input
                 type="text"
-                name="docNo"
-                value={formData.docNo}
+                name="projectNumber"
+                value={formData.projectNumber}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "28px" }}
+                style={{ marginLeft: "120px" }}
+              />
+            </div>
+
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>Date of Commencement: </label>
+              <input
+                type="date"
+                name="commencementDate"
+                value={formData.commencementDate}
+                onChange={handleFormChange}
+                required
+                style={{ marginLeft: "20px" }}
+              />
+            </div>
+
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>Project Manager: </label>
+              <input
+                type="text"
+                name="projectManager"
+                value={formData.projectManager}
+                onChange={handleFormChange}
+                required
+                style={{ marginLeft: "80px" }}
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
@@ -194,7 +225,11 @@ const Dashboard = () => {
                 }
               />
             </div>
-            <Button type="submit" variant="primary">
+            <Button
+              type="submit"
+              variant="primary"
+              style={{ display: "flex", float: "right" }}
+            >
               Submit
             </Button>
           </form>
