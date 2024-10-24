@@ -36,10 +36,10 @@ const ContractView = () => {
           if (post?._id[index] === _id) {
             allEntries.push({
               contactEmail: post?.contactEmail[index],
-              contractorName: post?.contractorName,
-              contactPerson: post?.contactPerson,
-              contactNumber: post?.contactNumber,
-              //   _id: post?._id,
+              contractorName: post?.contractorName[index],
+              contactPerson: post?.contactPerson[index],
+              contactNumber: post?.contactNumber[index],
+              _id: post?._id[index],
               contractAddress: post?.contractAddress,
               contractBillingAddress: post?.contractBillingAddress,
               contractStartDate: post?.contractStartDate,
@@ -57,13 +57,13 @@ const ContractView = () => {
               bankGurantee: post?.bankGurantee[index],
               signedContractCopy: post?.signedContractCopy[index],
             });
-            const storedDate = post?.date[index]; // Example stored date (ISO format)
-            const actualDate = new Date(storedDate);
-            // const monthValue = actualDate.getMonth() + 1;
-            const monthValue = actualDate.toLocaleString("default", {
-              month: "long",
-            });
-            setMonth(monthValue);
+            // const storedId = post?._id[index]; // Example stored date (ISO format)
+            // const actualId = new Date(storedId);
+            // // const monthValue = actualDate.getMonth() + 1;
+            // const monthValue = actualId.toLocaleString("default", {
+            //   month: "long",
+            // });
+            // setMonth(monthValue);
           }
         }
       });
@@ -77,13 +77,13 @@ const ContractView = () => {
     for (let index = 0; index < post?._id.length; index++) {
       if (post?._id[index] === _id) {
         allEntries.push({
-          contactEmail: post?.contactEmail,
-          contractorName: post?.contractorName,
-          contactPerson: post?.contactPerson,
-          contactNumber: post?.contactNumber,
-          //   _id: post?._id,
-          contractAddress: post?.contractAddress,
-          contractBillingAddress: post?.contractBillingAddress,
+          contactEmail: post?.contactEmail[index],
+          contractorName: post?.contractorName[index],
+          contactPerson: post?.contactPerson[index],
+          contactNumber: post?.contactNumber[index],
+          _id: post?._id[index],
+          contractAddress: post?.contractAddress[index],
+          contractBillingAddress: post?.contractBillingAddress[index],
           contractStartDate: post?.contractStartDate,
           contractEndDate: post?.contractEndDate,
           bankGuranteeSubmitted: post?.bankGuranteeSubmitted,
