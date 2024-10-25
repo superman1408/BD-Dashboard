@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,9 +29,12 @@ const Dashboard = () => {
     selectedFile: "",
   });
   const posts = useSelector((state) => state.posts);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // setLoading(true);
+
     dispatch(getPosts())
       .then(() => {
         setLoading(false);
@@ -74,100 +79,116 @@ const Dashboard = () => {
     navigate(`/${projectNumber}/viewdetails`);
   };
 
+  const handleAddProject = () => {
+    setFormVisible(true);
+  };
+
   return (
-    <div>
-      <Grid container spacing={2} marginBottom={10}>
-        {/* Add Project Card */}
-        <Grid item xs={12} sm={4} md={3} lg={2}>
-          <Card
-            style={{
-              margin: "10px",
-              padding: "10px",
-              border: "2px solid white",
-              textAlign: "center",
-            }}
-          >
-            <IconButton onClick={() => setFormVisible(true)}>
-              <AddchartSharpIcon
-                style={{ fontSize: "36px", color: "#0d6efd" }}
-              />
-            </IconButton>
-            <Typography style={{ color: "#0d6efd" }}>Add Project</Typography>
-          </Card>
+    <div style={{ marginBottom: "20px" }}>
+      {loading ? (
+        <Grid item xs={12}>
+          <LinearProgress style={{ width: "100%", marginTop: "20px" }} />
         </Grid>
+      ) : (
+        <div>
+          <div className="items-start my-2">
+            <div className="p-2 h-screen bg-gray-200">
+              <div className="flex flex-wrap justify-between items-center">
+                <h1 className="text-xl mb-2">Projects</h1>
 
-        {/* Projects Cards */}
-        {loading ? (
-          <Grid item xs={12}>
-            <LinearProgress style={{ width: "100%", marginTop: "20px" }} />
-          </Grid>
-        ) : (
-          posts.map((post, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-              <Card
-                style={{
-                  padding: "12px",
-                  margin: "20px ",
-                  backgroundColor: "white",
-                  width: "350px",
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={post?.selectedFile} // Ensure post.selectedFile is defined
-                  alt="Profile_Picture"
-                  style={{ height: "150px" }}
-                />
+                <button
+                  className="pl-5 pr-5 pt-2 pb-2 bg-purple-800 hover:bg-purple-300 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
+                  onClick={handleAddProject}
+                >
+                  + Project
+                </button>
+              </div>
+              <div className="overflow-auto   mt-3">
+                <div className="overflow-auto rounded-lg ">
+                  <table className="w-full">
+                    <thead className="bg-gray-100 border-b-2 border-gray-200">
+                      <tr>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left"></th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Project Title
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Project Number
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Project Manager
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Date
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Last Updated On
+                        </th>
 
-                <Card.Body>
-                  <div>
-                    <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
-                      {post?.projectName}
-                    </h4>
-                    <Divider
-                      sx={{
-                        borderWidth: "3px",
-                        bgcolor: "black",
-                        marginBottom: "5px",
-                      }}
-                    />
-                    <h6 style={{}}>Project Number: {post?.projectNumber}</h6>
-                    <h6 style={{ display: "flex" }}>
-                      Date of Commencement: {post?.commencementDate}
-                    </h6>
-                    <h6 style={{}}>Project Manager: {post?.projectManager}</h6>
-                  </div>
-
-                  {/* <Button
-                    variant="primary"
-                    style={{ display: "flex", float: "right" }}
-                    onClick={() => handleDetails(post.projectNumber)}
-                  >
-                    Details
-                  </Button> */}
-
-                  {/* <Button
-                    variant="primary"
-                    onClick={() => handleEntry(post.projectNumber)}
-                  >
-                    Entry
-                  </Button> */}
-                  <Button
-                    variant="primary"
-                    onClick={() => handleDetails(post.projectNumber)}
-                  >
-                    Details
-                  </Button>
-                  {/* </div> */}
-                </Card.Body>
-              </Card>
-            </Grid>
-          ))
-        )}
-      </Grid>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    {posts.map((post, index) => (
+                      <tbody className="divide-y divide-gray-200">
+                        <tr className="bg-white">
+                          <div className="p-2 ">
+                            <img
+                              className="inline-block h-16 w-16  ring-2 ring-white rounded"
+                              src={post?.selectedFile}
+                              alt=""
+                            ></img>
+                          </div>
+                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap">
+                            {post?.projectName}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            {post?.projectNumber}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            {post?.projectManager}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            {post?.commencementDate}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                            <span className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50">
+                              {post.updatedAt}
+                            </span>
+                          </td>
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                            <a
+                              href="#"
+                              className="p-2 bg-green-500  hover:text-white transition rounded-lg bg-opacity-50 "
+                            >
+                              Active
+                            </a>
+                            <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                              {/* <button>
+                                <svg className="fill-blue-500"></svg>
+                              </button> */}
+                            </td>
+                          </td>
+                        </tr>
+                        <div className="p-0.5 bg-gray-200"></div>
+                      </tbody>
+                    ))}
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal for Adding Projects */}
-      <Modal show={formVisible} onHide={() => setFormVisible(false)} centered>
+      <Modal
+        show={formVisible}
+        onHide={() => setFormVisible(false)}
+        centered
+        style={{ marginTop: "50px" }}
+      >
         <Modal.Header closeButton>
           <h5>Add New Project</h5>
         </Modal.Header>
@@ -176,58 +197,58 @@ const Dashboard = () => {
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project Name: </label>
               <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
                 name="projectName"
                 value={formData.projectName}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "100px" }}
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Client Name: </label>
               <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
                 name="clientName"
                 value={formData.clientName}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "110px" }}
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project No.: </label>
               <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
                 name="projectNumber"
                 value={formData.projectNumber}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "120px" }}
               />
             </div>
 
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Date of Commencement: </label>
               <input
+                className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="date"
                 name="commencementDate"
                 value={formData.commencementDate}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "20px" }}
               />
             </div>
 
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project Manager: </label>
               <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
                 name="projectManager"
                 value={formData.projectManager}
                 onChange={handleFormChange}
                 required
-                style={{ marginLeft: "80px" }}
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
@@ -240,13 +261,15 @@ const Dashboard = () => {
                 }
               />
             </div>
-            <Button
-              type="submit"
-              variant="primary"
-              style={{ display: "flex", float: "right" }}
-            >
-              Submit
-            </Button>
+            <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+              <Button
+                type="submit"
+                variant="primary"
+                style={{ display: "flex", float: "right" }}
+              >
+                Submit
+              </Button>
+            </div>
           </form>
         </Modal.Body>
       </Modal>

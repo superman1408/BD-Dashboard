@@ -13,6 +13,8 @@ import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjec
 import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
+import ProjectWindow from "./components/Dashboard/ProjectWindow";
+import "./index.css";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -44,11 +46,7 @@ const App = () => {
             element={user ? <Dashboard /> : <Navigate to="/auth" />}
           />
           {/* <Route path="/auth" exact element={!user && <Authentication />} /> */}
-          <Route
-            path="/auth"
-            exact
-            element={ <Authentication /> }
-          />
+          <Route path="/auth" exact element={<Authentication />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
 
           <Route path="/dashboard" exact element={<Dashboard />} />
@@ -100,7 +98,7 @@ const App = () => {
             padding: "0", // Add some padding for better appearance
           }}
         >
-          ©️ 2023 ASHKAM ENERGY PRIVATE LIMITED. All rights reserved.
+          ©️ 2024 ASHKAM ENERGY PRIVATE LIMITED. All rights reserved.
         </footer>
       </div>
     </BrowserRouter>
