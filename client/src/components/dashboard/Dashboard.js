@@ -128,6 +128,9 @@ const Dashboard = () => {
                         <th className="p-3 text-sm font-semibold tracking-wide text-left">
                           Status
                         </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Proceed
+                        </th>
                       </tr>
                     </thead>
                     {posts.map((post, index) => (
@@ -135,12 +138,12 @@ const Dashboard = () => {
                         <tr className="bg-white">
                           <div className="p-2 ">
                             <img
-                              className="inline-block h-16 w-16  ring-2 ring-white rounded"
+                              className="inline-block h-16 w-16  ring-2 ring-white rounded center"
                               src={post?.selectedFile}
                               alt=""
                             ></img>
                           </div>
-                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap">
+                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center">
                             {post?.projectName}
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
@@ -160,15 +163,29 @@ const Dashboard = () => {
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
                             <a
                               href="#"
-                              className="p-2 bg-green-500  hover:text-white transition rounded-lg bg-opacity-50 "
+                              className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 "
                             >
                               Active
-                            </a>
-                            <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                              {/* <button>
-                                <svg className="fill-blue-500"></svg>
-                              </button> */}
-                            </td>
+                            </a>{" "}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                            <Button
+                              className="p-2 transition-colors duration-300 hover:text-gray-500"
+                              variant="ghost"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="size-7 transition-colors duration-300 hover:text-green-600"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </Button>
                           </td>
                         </tr>
                         <div className="p-0.5 bg-gray-200"></div>
