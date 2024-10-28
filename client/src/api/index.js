@@ -21,6 +21,9 @@ export const signIn = (formData) => API.post("/user/signin", formData);
 
 export const signUp = (formdata, code) => API.post(`/user/signup`, formdata);
 
+export const updatePost = (id, updatedPost) =>
+  API.patch(`/posts/${id}/dashboard`, updatedPost);
+
 export const passwordReset = (passwordForm, code) =>
   API.patch(`/user/reset/${code}`, passwordForm);
 

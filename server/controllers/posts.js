@@ -37,6 +37,39 @@ export const getPost = async (req, res) => {
   res.status(200).json(post);
 };
 
+export const update = async (req, res) => {
+  const { id } = req.params;
+  const post = req.body;
+
+  // Validate the ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send("No post with that id found");
+  }
+
+  try {
+    // Find the document and update it
+    const updatedPost = await ProjectOverview.findByIdAndUpdate(
+      id,
+      { ...post, id }, // Spread operator to merge new data with existing
+      {
+        new: true, // Return the modified document
+        runValidators: true, // Validate the new data against the schema
+      }
+    );
+
+    // If no document is found, send a 404 response
+    if (!updatedPost) {
+      return res.status(404).send("No post with that id found");
+    }
+
+    // Return the updated document
+    res.json(updatedPost);
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).send("Error updating the post");
+  }
+};
+
 // -------------------This function will be used for updating the entryDetails Model in API-------------------
 
 export const entryDetails = async (req, res) => {

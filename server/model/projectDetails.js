@@ -20,6 +20,21 @@ const projectSchema = mongoose.Schema(
     selectedFile: {
       type: String,
     },
+    scope: {
+      type: String,
+    },
+    POUnpriced: {
+      type: String,
+    },
+    projectGoverning: {
+      type: String,
+    },
+    teams: {
+      type: String,
+    },
+    status: {
+      type: String,
+    },
   },
   {
     timestamps: true,

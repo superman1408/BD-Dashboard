@@ -1,25 +1,21 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Grid,
-  IconButton,
-  Typography,
-  LinearProgress,
-  Divider,
-} from "@mui/material";
-import { Card, Button, Modal } from "react-bootstrap";
+import { Grid, LinearProgress } from "@mui/material";
+import { Button, Modal } from "react-bootstrap";
 import FileBase from "react-file-base64";
-import AddchartSharpIcon from "@mui/icons-material/AddchartSharp";
-import { createPost, getPosts } from "../../action/posts";
+import { createPost, getPosts, update } from "../../action/posts";
+import { getEntryDetails } from "../../action/posts";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [formVisible, setFormVisible] = useState(false);
+
+  const [scopeVisible, setScopeVisible] = useState(false);
+
   const [formData, setFormData] = useState({
     projectName: "",
     clientName: "",
@@ -27,10 +23,19 @@ const Dashboard = () => {
     commencementDate: "",
     projectManager: "",
     selectedFile: "",
+    scope: "",
+    POUnpriced: "",
+    projectGoverning: "",
+    teams: "",
+    status: "",
   });
   const posts = useSelector((state) => state.posts);
 
   const [loading, setLoading] = useState(true);
+
+  const entry = useSelector((state) => state.entry);
+
+  // console.log(entry);
 
   useEffect(() => {
     // setLoading(true);
@@ -43,6 +48,12 @@ const Dashboard = () => {
         setLoading(false);
         console.log(err);
       });
+  }, [dispatch, loading]);
+
+  useEffect(() => {
+    // setLoading(true);
+
+    dispatch(getEntryDetails());
   }, [dispatch, loading]);
 
   const handleFormChange = (e) => {
@@ -81,6 +92,62 @@ const Dashboard = () => {
 
   const handleAddProject = () => {
     setFormVisible(true);
+  };
+
+  const handleScope = () => {
+    setScopeVisible(true);
+  };
+
+  const handleSubmitScope = async (e) => {
+    e.preventDefault();
+    setScopeVisible(false);
+    // setIsActive(true);
+
+    const id = posts[0] && posts[0]._id; // Use the correct ID
+
+    if (!id) {
+      console.error("Project Number is empty!");
+      return;
+    }
+
+    try {
+      // Fetch the existing project data
+      const existingPost = posts.find((post) => post._id === id);
+
+      if (!existingPost) {
+        console.error("No existing project found!");
+        return;
+      }
+
+      const newStatus = existingPost.status ? false : true; // Example logic
+
+      // Merge existing and new data
+      const updatedData = {
+        ...existingPost,
+        scope: formData.scope || existingPost.scope,
+        POUnpriced: formData.POUnpriced || existingPost.POUnpriced,
+        projectGoverning:
+          formData.projectGoverning || existingPost.projectGoverning,
+        teams: formData.teams || existingPost.teams,
+        status: newStatus,
+      };
+
+      await dispatch(update(id, updatedData));
+      setFormData({
+        scope: "",
+        POUnpriced: "",
+        projectGoverning: "",
+        teams: "",
+        status: newStatus,
+      });
+      console.log("Project updated successfully:", id);
+    } catch (error) {
+      console.error("Failed to submit the project", error);
+      console.log(
+        "Error details:",
+        error.response ? error.response.data : error.message
+      );
+    }
   };
 
   return (
@@ -136,56 +203,89 @@ const Dashboard = () => {
                     {posts.map((post, index) => (
                       <tbody className="divide-y divide-gray-200">
                         <tr className="bg-white">
-                          <div className="p-2 ">
+                          <div key={index} className="p-2 h-15 w-15">
                             <img
-                              className="inline-block h-16 w-16  ring-2 ring-white rounded center"
+                              className="inline-block h-14 w-14  ring-2 ring-white rounded center"
                               src={post?.selectedFile}
-                              alt=""
+                              alt="project images"
                             ></img>
                           </div>
-                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center">
+                          <td
+                            key={index}
+                            className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center"
+                          >
                             {post?.projectName}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <td
+                            key={index}
+                            className="p-3 text-sm text-gray-700 whitespace-nowrap"
+                          >
                             {post?.projectNumber}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <td
+                            key={index}
+                            className="p-3 text-sm text-gray-700 whitespace-nowrap"
+                          >
                             {post?.projectManager}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <td
+                            key={index}
+                            className="p-3 text-sm text-gray-700 whitespace-nowrap"
+                          >
                             {post?.commencementDate}
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            <span className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50">
-                              {post.updatedAt}
-                            </span>
+                            {entry && entry.length > 0 ? (
+                              entry.map((data, dataIndex) => (
+                                <span
+                                  key={dataIndex} // or use a unique identifier from data
+                                  className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50"
+                                >
+                                  {data?.updatedAt}
+                                </span>
+                              ))
+                            ) : (
+                              <span>No updates available</span>
+                            )}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            <a
-                              href="#"
-                              className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 "
-                            >
-                              Active
-                            </a>{" "}
-                          </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            <Button
-                              className="p-2 transition-colors duration-300 hover:text-gray-500"
-                              variant="ghost"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="size-7 transition-colors duration-300 hover:text-green-600"
+                          <td
+                            key={index}
+                            className="p-3 text-sm text-gray-700 whitespace-nowrap "
+                          >
+                            {post.status === "true" ? (
+                              <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
+                                Active
+                              </a>
+                            ) : (
+                              <a
+                                className="p-2 bg-red-500 hover:text-white transition rounded-lg bg-opacity-50 "
+                                onClick={handleScope}
                               >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </Button>
+                                Inactive
+                              </a>
+                            )}
+                          </td>
+
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                            {post.status === "true" && (
+                              <Button
+                                className="p-2 transition-colors duration-300 hover:text-gray-500"
+                                variant="ghost"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  className="size-7 transition-colors duration-300 hover:text-green-600"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </Button>
+                            )}
                           </td>
                         </tr>
                         <div className="p-0.5 bg-gray-200"></div>
@@ -278,6 +378,78 @@ const Dashboard = () => {
                 }
               />
             </div>
+            <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+              <Button
+                type="submit"
+                variant="primary"
+                style={{ display: "flex", float: "right" }}
+              >
+                Submit
+              </Button>
+            </div>
+          </form>
+        </Modal.Body>
+      </Modal>
+
+      {/* ______________________ Scope Visible___________________________________ */}
+
+      <Modal
+        show={scopeVisible}
+        onHide={() => setScopeVisible(false)}
+        centered
+        style={{ marginTop: "50px" }}
+      >
+        <Modal.Header closeButton>
+          <h5>Add more data</h5>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmitScope}>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>Scope of the project: </label>
+              <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                type="text"
+                name="scope"
+                value={formData.scope}
+                onChange={handleFormChange}
+                required
+              />
+            </div>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>P.O (unpriced) </label>
+              <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                type="text"
+                name="POUnpriced"
+                value={formData.POUnpriced}
+                onChange={handleFormChange}
+                required
+              />
+            </div>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>Project-Governing T&C: </label>
+              <input
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                type="text"
+                name="projectGoverning"
+                value={formData.projectGoverning}
+                onChange={handleFormChange}
+                required
+              />
+            </div>
+
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>Teams: </label>
+              <input
+                className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                type="text"
+                name="teams"
+                value={formData.teams}
+                onChange={handleFormChange}
+                required
+              />
+            </div>
+
             <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
               <Button
                 type="submit"

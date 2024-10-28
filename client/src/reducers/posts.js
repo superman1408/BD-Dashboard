@@ -2,7 +2,7 @@ import {
   FETCH_ALL,
   CREATE,
   FETCH_POST,
-  UPDATE,
+  UPDATE_POST,
   UPDATE_ENTRY,
 } from "../constants/actionTypes";
 
@@ -18,11 +18,15 @@ export default (posts = [], action) => {
     case CREATE:
       return [...posts, action.payload];
 
-    case UPDATE:
-      return [...posts, action.payload];
-
-   
-
+    case UPDATE_POST:
+      return posts.map((post) =>
+        post.id === action.payload.id ? action.payload : post
+      );
+    // return state.map((post) =>
+    //   post.projectNumber === action.payload.projectNumber
+    //     ? { ...post, ...action.payload }
+    //     : post
+    // );
     default:
       return posts;
   }

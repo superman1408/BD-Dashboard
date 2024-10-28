@@ -2,6 +2,7 @@ import {
   CREATE,
   FETCH_ALL,
   FETCH_POST,
+  UPDATE_POST,
   UPDATE_ENTRY,
   GET_ENTRY,
 } from "../constants/actionTypes";
@@ -32,6 +33,28 @@ export const getPost = (id) => async (dispatch) => {
     dispatch({ type: FETCH_POST, payload: data });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const update = (id, formData) => async (dispatch) => {
+  try {
+    const { data } = await API.updatePost(id, formData);
+    console.log("data", data);
+
+    // const response = await api.put(`/posts/${postId}`, updatedData); // Update your API endpoint
+    dispatch({ type: UPDATE_POST, payload: data });
+  } catch (error) {
+    if (error.response) {
+      console.error("Server responded with status:", error.response.status);
+      console.error("Response data:", error.response.data);
+    } else if (error.request) {
+      console.error(
+        "Request was made but no response received:",
+        error.request
+      );
+    } else {
+      console.error("Error setting up the request:", error.message);
+    }
   }
 };
 

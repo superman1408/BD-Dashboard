@@ -6,6 +6,7 @@ import {
   getPost,
   entryDetails,
   getEntryDetails,
+  update,
   // createContractPost,
 } from "../controllers/posts.js";
 
@@ -20,6 +21,8 @@ router.get("/:id", auth, getPost);
 router.post("/", auth, createPost);
 
 router.post("/", auth, createPost);
+
+router.patch("/:id/dashboard", auth, update);
 
 router.patch("/entryDetails", auth, entryDetails);
 
