@@ -104,7 +104,7 @@ const Dashboard = () => {
     // setIsActive(true);
 
     // MongoDB Id
-    const id = posts?._id; // Use the correct ID
+    const id = posts.length > 0 ? posts[posts.length - 1]?._id : null; // Gets the ID of the last post if it exists
     console.log(id);
 
     if (!id) {
@@ -264,6 +264,9 @@ const Dashboard = () => {
                               <Button
                                 className="p-2 transition-colors duration-300 hover:text-gray-500"
                                 variant="ghost"
+                                onClick={(projectNumber) => {
+                                  navigate(`/entrydetails/${projectNumber}`);
+                                }}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
