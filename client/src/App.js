@@ -68,6 +68,8 @@ const App = () => {
             exact
             element={<ContractViewDetail />}
           />
+
+          <Route path="/projectwindow" exact element={<ProjectWindow />} />
           {/* <Route
             path="/detailedprogress"
             exact

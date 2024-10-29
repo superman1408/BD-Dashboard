@@ -103,10 +103,12 @@ const Dashboard = () => {
     setScopeVisible(false);
     // setIsActive(true);
 
-    const id = posts[0] && posts[0]._id; // Use the correct ID
+    // MongoDB Id
+    const id = posts?._id; // Use the correct ID
+    console.log(id);
 
     if (!id) {
-      console.error("Project Number is empty!");
+      console.error("Project Id is empty!");
       return;
     }
 
@@ -202,40 +204,34 @@ const Dashboard = () => {
                     </thead>
                     {posts.map((post, index) => (
                       <tbody className="divide-y divide-gray-200">
-                        <tr className="bg-white">
-                          <div key={index} className="p-2 h-15 w-15">
+                        <tr key={index} className="bg-white">
+                          <div className="p-2 h-15 w-15">
                             <img
                               className="inline-block h-14 w-14  ring-2 ring-white rounded center"
                               src={post?.selectedFile}
                               alt="project images"
                             ></img>
                           </div>
-                          <td
-                            key={index}
-                            className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center"
-                          >
+                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center">
                             {post?.projectName}
                           </td>
-                          <td
-                            key={index}
-                            className="p-3 text-sm text-gray-700 whitespace-nowrap"
-                          >
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                             {post?.projectNumber}
                           </td>
-                          <td
-                            key={index}
-                            className="p-3 text-sm text-gray-700 whitespace-nowrap"
-                          >
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                             {post?.projectManager}
                           </td>
-                          <td
-                            key={index}
-                            className="p-3 text-sm text-gray-700 whitespace-nowrap"
-                          >
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                             {post?.commencementDate}
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            {entry && entry.length > 0 ? (
+                            <span
+                              // or use a unique identifier from data
+                              className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50"
+                            >
+                              {post?.updatedAt}
+                            </span>
+                            {/* {entry && entry.length > 0 ? (
                               entry.map((data, dataIndex) => (
                                 <span
                                   key={dataIndex} // or use a unique identifier from data
@@ -246,12 +242,9 @@ const Dashboard = () => {
                               ))
                             ) : (
                               <span>No updates available</span>
-                            )}
+                            )} */}
                           </td>
-                          <td
-                            key={index}
-                            className="p-3 text-sm text-gray-700 whitespace-nowrap "
-                          >
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
                             {post.status === "true" ? (
                               <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
                                 Active
