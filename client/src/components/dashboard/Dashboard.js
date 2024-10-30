@@ -16,6 +16,8 @@ const Dashboard = () => {
 
   const [scopeVisible, setScopeVisible] = useState(false);
 
+  const [selectedPostId, setSelectedPostId] = useState(null); // New state for selected post ID
+
   const [formData, setFormData] = useState({
     projectName: "",
     clientName: "",
@@ -94,7 +96,8 @@ const Dashboard = () => {
     setFormVisible(true);
   };
 
-  const handleScope = () => {
+  const handleScope = (id) => {
+    setSelectedPostId(id);
     setScopeVisible(true);
   };
 
@@ -102,20 +105,22 @@ const Dashboard = () => {
     e.preventDefault();
     setScopeVisible(false);
     // setIsActive(true);
-
-    // MongoDB Id
-    const id = posts.length > 0 ? posts[posts.length - 1]?._id : null; // Gets the ID of the last post if it exists
-    console.log(id);
-
-    if (!id) {
+    if (!selectedPostId) {
       console.error("Project Id is empty!");
       return;
     }
+    // MongoDB Id
+    // const id = posts.length > 0 ? posts[posts.length - 1]?._id : null; // Gets the ID of the last post if it exists
+    // console.log(id);
+
+    // if (!id) {
+    //   console.error("Project Id is empty!");
+    //   return;
+    // }
 
     try {
       // Fetch the existing project data
-      const existingPost = posts.find((post) => post._id === id);
-
+      const existingPost = posts.find((post) => post._id === selectedPostId);
       if (!existingPost) {
         console.error("No existing project found!");
         return;
@@ -134,7 +139,7 @@ const Dashboard = () => {
         status: newStatus,
       };
 
-      await dispatch(update(id, updatedData));
+      await dispatch(update(selectedPostId, updatedData));
       setFormData({
         scope: "",
         POUnpriced: "",
@@ -142,7 +147,7 @@ const Dashboard = () => {
         teams: "",
         status: newStatus,
       });
-      console.log("Project updated successfully:", id);
+      console.log("Project updated successfully:", selectedPostId);
     } catch (error) {
       console.error("Failed to submit the project", error);
       console.log(
@@ -252,7 +257,7 @@ const Dashboard = () => {
                             ) : (
                               <a
                                 className="p-2 bg-red-500 hover:text-white transition rounded-lg bg-opacity-50 "
-                                onClick={handleScope}
+                                onClick={() => handleScope(post._id)}
                               >
                                 Inactive
                               </a>
