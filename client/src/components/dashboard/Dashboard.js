@@ -37,8 +37,6 @@ const Dashboard = () => {
 
   const entry = useSelector((state) => state.entry);
 
-  // console.log(entry);
-
   useEffect(() => {
     // setLoading(true);
 
@@ -83,6 +81,8 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+
+  // console.log(projectNumber);
 
   const handleEntry = (projectNumber) => {
     navigate(`/entrydetails/${projectNumber}`);
@@ -161,7 +161,7 @@ const Dashboard = () => {
           <div className="items-start my-2">
             <div className="p-2 h-screen bg-gray-200">
               <div className="flex flex-wrap justify-between items-center">
-                <h1 className="text-xl mb-2">Projects</h1>
+                <h1 className="text-xl mb-2 font-bold">Project Window</h1>
 
                 <button
                   className="pl-5 pr-5 pt-2 pb-2 bg-purple-800 hover:bg-purple-300 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
@@ -172,7 +172,7 @@ const Dashboard = () => {
               </div>
               <div className="overflow-auto   mt-3">
                 <div className="overflow-auto rounded-lg ">
-                  <table className="w-full">
+                  <table className="w-full ">
                     <thead className="bg-gray-100 border-b-2 border-gray-200">
                       <tr>
                         <th className="p-3 text-sm font-semibold tracking-wide text-left"></th>
@@ -201,15 +201,15 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     {posts.map((post, index) => (
-                      <tbody className="divide-y divide-gray-200">
-                        <tr key={index} className="bg-white">
-                          <div className="p-2 h-15 w-15">
+                      <tbody className="divide-y divide-gray-200" key={index}>
+                        <tr className="bg-white" key={index}>
+                          <td className="p-2 h-15 w-15">
                             <img
                               className="inline-block h-14 w-14  ring-2 ring-white rounded center"
                               src={post?.selectedFile}
                               alt="project images"
                             ></img>
-                          </div>
+                          </td>
                           <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center">
                             {post?.projectName}
                           </td>
@@ -223,24 +223,16 @@ const Dashboard = () => {
                             {post?.commencementDate}
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            <span
-                              // or use a unique identifier from data
-                              className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50"
-                            >
-                              {post?.updatedAt}
+                            <span className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50">
+                              {entry.length > 0 &&
+                                entry.find(
+                                  (
+                                    data //code to find particular data from different schema & match with present schema
+                                  ) =>
+                                    data?.projectNumber === post?.projectNumber
+                                )?.updatedAt}
                             </span>
-                            {/* {entry && entry.length > 0 ? (
-                              entry.map((data, dataIndex) => (
-                                <span
-                                  key={dataIndex} // or use a unique identifier from data
-                                  className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50"
-                                >
-                                  {data?.updatedAt}
-                                </span>
-                              ))
-                            ) : (
-                              <span>No updates available</span>
-                            )} */}
+                            {/* match each post with its corresponding entry based on an identifier like projectNumber or another unique field */}
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
                             {post?.status === "true" ? (
@@ -262,9 +254,7 @@ const Dashboard = () => {
                               <Button
                                 className="p-2 transition-colors duration-300 hover:text-gray-500"
                                 variant="ghost"
-                                onClick={(projectNumber) => {
-                                  navigate(`/entrydetails/${projectNumber}`);
-                                }}
+                                onClick={() => handleEntry(post.projectNumber)}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -282,7 +272,10 @@ const Dashboard = () => {
                             )}
                           </td>
                         </tr>
-                        <div className="p-0.5 bg-gray-200"></div>
+                        <tr>
+                          <td colSpan="8" className="p-0.5 bg-gray-200"></td>
+                          {/* Adjust the colspan based on your table structure */}
+                        </tr>
                       </tbody>
                     ))}
                   </table>
