@@ -109,14 +109,6 @@ const Dashboard = () => {
       console.error("Project Id is empty!");
       return;
     }
-    // MongoDB Id
-    // const id = posts.length > 0 ? posts[posts.length - 1]?._id : null; // Gets the ID of the last post if it exists
-    // console.log(id);
-
-    // if (!id) {
-    //   console.error("Project Id is empty!");
-    //   return;
-    // }
 
     try {
       // Fetch the existing project data
@@ -148,6 +140,7 @@ const Dashboard = () => {
         status: newStatus,
       });
       console.log("Project updated successfully:", selectedPostId);
+      window.location.reload();
     } catch (error) {
       console.error("Failed to submit the project", error);
       console.log(
@@ -250,7 +243,7 @@ const Dashboard = () => {
                             )} */}
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            {post.status === "true" ? (
+                            {post?.status === "true" ? (
                               <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
                                 Active
                               </a>
@@ -265,7 +258,7 @@ const Dashboard = () => {
                           </td>
 
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                            {post.status === "true" && (
+                            {post?.status === "true" && (
                               <Button
                                 className="p-2 transition-colors duration-300 hover:text-gray-500"
                                 variant="ghost"
