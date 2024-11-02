@@ -321,7 +321,10 @@ const Dashboard = () => {
                                 </div>
                               </div>
                               <div className="flex p-2 text-sm text-gray-700 justify-between">
-                                <div className="p-2 text-sm text-gray-700">
+                                <Button
+                                  className="p-2 text-sm text-gray-700"
+                                  variant="ghost"
+                                >
                                   {post?.status === "true" ? (
                                     <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
                                       Active
@@ -334,7 +337,7 @@ const Dashboard = () => {
                                       Inactive
                                     </a>
                                   )}
-                                </div>
+                                </Button>
                                 <div className="text-sm text-gray-700">
                                   {post?.status === "true" && (
                                     <Button

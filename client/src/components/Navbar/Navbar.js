@@ -142,28 +142,27 @@ export default function MenuAppBar() {
           <Box sx={{ flexGrow: 1 }}>
             <AppBar position="sticky" sx={{ bgcolor: "#17325C" }}>
               <Toolbar>
-                <IconButton
+                <MenuIcon
+                  onClick={toggleDrawer(true)}
                   size="large"
                   edge="start"
                   color="inherit"
                   aria-label="menu"
                   sx={{ mr: 2 }}
-                >
-                  <MenuIcon onClick={toggleDrawer(true)} />
-                  <Drawer open={open} onClose={toggleDrawer(false)}>
-                    <DrawerHeader>
-                      <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === "ltr" ? (
-                          <ChevronLeftIcon />
-                        ) : (
-                          <ChevronRightIcon />
-                        )}
-                      </IconButton>
-                    </DrawerHeader>
-                    <Divider />
-                    {DrawerList}
-                  </Drawer>
-                </IconButton>
+                />
+                <Drawer open={open} onClose={toggleDrawer(false)}>
+                  <DrawerHeader>
+                    <IconButton onClick={handleDrawerClose}>
+                      {theme.direction === "ltr" ? (
+                        <ChevronLeftIcon />
+                      ) : (
+                        <ChevronRightIcon />
+                      )}
+                    </IconButton>
+                  </DrawerHeader>
+                  <Divider />
+                  {DrawerList}
+                </Drawer>
                 <Typography
                   variant="h6"
                   component="div"
