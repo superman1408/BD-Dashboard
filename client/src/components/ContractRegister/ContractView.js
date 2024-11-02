@@ -12,8 +12,6 @@ const ContractView = () => {
 
   const { _id } = useParams();
 
-  const { contactEmail } = useParams();
-
   const [isPrinting, setIsPrinting] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -29,47 +27,46 @@ const ContractView = () => {
 
   useEffect(() => {
     // setLoading(true);
-    dispatch(getContractDetails()).finally(() => {
-      const allEntries = [];
-      contract.forEach((post) => {
-        for (let index = 0; index < post?._id.length; index++) {
-          if (post?._id[index] === _id) {
-            allEntries.push({
-              contactEmail: post?.contactEmail[index],
-              contractorName: post?.contractorName[index],
-              contactPerson: post?.contactPerson[index],
-              contactNumber: post?.contactNumber[index],
-              _id: post?._id[index],
-              contractAddress: post?.contractAddress,
-              contractBillingAddress: post?.contractBillingAddress,
-              contractStartDate: post?.contractStartDate,
-              contractEndDate: post?.contractEndDate,
-              bankGuranteeSubmitted: post?.bankGuranteeSubmitted,
-              GSTNo: post?.GSTNo,
-              PANNo: post?.PANNo,
-              incorporationCertificateNo: post?.incorporationCertificateNo,
-              bankGuaranteeNo: post?.bankGuaranteeNo,
-              bankGuranteeStartDate: post?.bankGuranteeStartDate,
-              bankGuranteeEndDate: post?.bankGuranteeEndDate,
-              GST: post?.GST,
-              PAN: post?.PAN[index],
-              incorporationCertificate: post?.incorporationCertificate[index],
-              bankGurantee: post?.bankGurantee[index],
-              signedContractCopy: post?.signedContractCopy[index],
-            });
-            // const storedId = post?._id[index]; // Example stored date (ISO format)
-            // const actualId = new Date(storedId);
-            // // const monthValue = actualDate.getMonth() + 1;
-            // const monthValue = actualId.toLocaleString("default", {
-            //   month: "long",
-            // });
-            // setMonth(monthValue);
-          }
+    dispatch(getContractDetails()).finally(() => setLoading(false));
+    const allEntries = [];
+    contract.forEach((post) => {
+      for (let index = 0; index < post?._id.length; index++) {
+        if (post?._id[index] === _id) {
+          allEntries.push({
+            contactEmail: post?.contactEmail[index],
+            contractorName: post?.contractorName[index],
+            contactPerson: post?.contactPerson[index],
+            contactNumber: post?.contactNumber[index],
+            _id: post?._id[index],
+            contractAddress: post?.contractAddress,
+            contractBillingAddress: post?.contractBillingAddress,
+            contractStartDate: post?.contractStartDate,
+            contractEndDate: post?.contractEndDate,
+            bankGuranteeSubmitted: post?.bankGuranteeSubmitted,
+            GSTNo: post?.GSTNo,
+            PANNo: post?.PANNo,
+            incorporationCertificateNo: post?.incorporationCertificateNo,
+            bankGuaranteeNo: post?.bankGuaranteeNo,
+            bankGuranteeStartDate: post?.bankGuranteeStartDate,
+            bankGuranteeEndDate: post?.bankGuranteeEndDate,
+            GST: post?.GST,
+            PAN: post?.PAN[index],
+            incorporationCertificate: post?.incorporationCertificate[index],
+            bankGurantee: post?.bankGurantee[index],
+            signedContractCopy: post?.signedContractCopy[index],
+          });
+          // const storedId = post?._id[index]; // Example stored date (ISO format)
+          // const actualId = new Date(storedId);
+          // // const monthValue = actualDate.getMonth() + 1;
+          // const monthValue = actualId.toLocaleString("default", {
+          //   month: "long",
+          // });
+          // setMonth(monthValue);
         }
-      });
-      setFilteredData(allEntries);
+      }
     });
-  }, [_id, contract, dispatch, loading]);
+    setFilteredData(allEntries);
+  }, [contract, dispatch, loading]);
 
   console.log(contract);
 
