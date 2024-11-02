@@ -75,6 +75,10 @@ const Dashboard = () => {
         projectManager: "",
         selectedFile: "",
       });
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error("Failed to submit the project", error);
     } finally {
