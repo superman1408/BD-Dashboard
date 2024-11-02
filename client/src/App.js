@@ -13,7 +13,6 @@ import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjec
 import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
-import ProjectWindow from "./components/Dashboard/ProjectWindow";
 import "./index.css";
 
 const App = () => {
@@ -68,13 +67,6 @@ const App = () => {
             exact
             element={<ContractViewDetail />}
           />
-
-          <Route path="/projectwindow" exact element={<ProjectWindow />} />
-          {/* <Route
-            path="/detailedprogress"
-            exact
-            // element={<DetailedProgress />}
-          /> */}
 
           <Route path="lettertracker" exact element={<LetterTracker />} />
         </Routes>
