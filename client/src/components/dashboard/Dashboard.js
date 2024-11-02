@@ -26,7 +26,7 @@ const Dashboard = () => {
     projectManager: "",
     selectedFile: "",
     scope: "",
-    POUnpriced: "",
+    poUnpriced: "",
     projectGoverning: "",
     teams: "",
     status: "",
@@ -128,7 +128,7 @@ const Dashboard = () => {
       const updatedData = {
         ...existingPost,
         scope: formData.scope || existingPost.scope,
-        POUnpriced: formData.POUnpriced || existingPost.POUnpriced,
+        poUnpriced: formData.poUnpriced || existingPost.poUnpriced,
         projectGoverning:
           formData.projectGoverning || existingPost.projectGoverning,
         teams: formData.teams || existingPost.teams,
@@ -138,7 +138,7 @@ const Dashboard = () => {
       await dispatch(update(selectedPostId, updatedData));
       setFormData({
         scope: "",
-        POUnpriced: "",
+        poUnpriced: "",
         projectGoverning: "",
         teams: "",
         status: newStatus,
@@ -495,8 +495,8 @@ const Dashboard = () => {
               <input
                 className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
-                name="POUnpriced"
-                value={formData.POUnpriced}
+                name="poUnpriced"
+                value={formData.poUnpriced}
                 onChange={handleFormChange}
                 required
               />

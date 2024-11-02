@@ -23,7 +23,7 @@ const projectSchema = mongoose.Schema(
     scope: {
       type: String,
     },
-    POUnpriced: {
+    poUnpriced: {
       type: String,
     },
     projectGoverning: {
