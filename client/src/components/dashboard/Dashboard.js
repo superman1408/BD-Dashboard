@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, LinearProgress } from "@mui/material";
+import { Grid, LinearProgress, Card, Divider } from "@mui/material";
 import { Button, Modal } from "react-bootstrap";
 import FileBase from "react-file-base64";
 import { createPost, getPosts, update } from "../../action/posts";
@@ -155,7 +155,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div style={{ marginBottom: "40px" }}>
       {loading ? (
         <Grid item xs={12}>
           <LinearProgress style={{ width: "100%", marginTop: "20px" }} />
@@ -175,7 +175,7 @@ const Dashboard = () => {
                 </button>
               </div>
               <div className="overflow-auto   mt-3">
-                <div className="overflow-auto rounded-lg ">
+                <div className="overflow-auto rounded-lg shadow hidden md:block ">
                   <table className="w-full ">
                     <thead className="bg-gray-100 border-b-2 border-gray-200">
                       <tr>
@@ -283,6 +283,90 @@ const Dashboard = () => {
                       </tbody>
                     ))}
                   </table>
+                </div>
+              </div>
+              {/* ______________________screen size md___________________________________ */}
+              <div className="grid grid-cols-1  gap-4 md:hidden mb-3">
+                <div className="bg-white space-y-3 p-4 rounded lg-shadow">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <div>
+                      {posts.map((post, index) => (
+                        <div key={index}>
+                          <div className="flex">
+                            <div className="p-1 w-32 h-32">
+                              <img
+                                className="object-cover w-full h-full w-32 h-32 "
+                                variant="top"
+                                src={post?.selectedFile} // Ensure post.selectedFile is defined
+                                alt="Profile_Picture"
+                              />
+                            </div>
+                            <div>
+                              <div>
+                                <div className="p-1 font-bold">
+                                  <h4>Project Name : {post?.projectName}</h4>
+                                </div>
+                                <div className="p-1">
+                                  <h6>
+                                    Project Number : {post?.projectNumber}
+                                  </h6>
+                                </div>
+                                <div className="p-1">
+                                  <h6>Date : {post?.commencementDate}</h6>
+                                </div>
+                                <div className="p-1">
+                                  <h6>
+                                    Project Manager : {post?.projectManager}
+                                  </h6>
+                                </div>
+                              </div>
+                              <div className="flex p-2 text-sm text-gray-700 justify-between">
+                                <div className="p-2 text-sm text-gray-700">
+                                  {post?.status === "true" ? (
+                                    <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
+                                      Active
+                                    </a>
+                                  ) : (
+                                    <a
+                                      className="p-2 bg-red-500 hover:text-white transition rounded-lg bg-opacity-50 "
+                                      onClick={() => handleScope(post._id)}
+                                    >
+                                      Inactive
+                                    </a>
+                                  )}
+                                </div>
+                                <div className="text-sm text-gray-700">
+                                  {post?.status === "true" && (
+                                    <Button
+                                      className="transition-colors duration-300 hover:text-gray-500"
+                                      variant="ghost"
+                                      onClick={() =>
+                                        handleEntry(post.projectNumber)
+                                      }
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="size-7 transition-colors duration-300 hover:text-green-600"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </Button>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="p-0.5 bg-gray-200 mb-4"></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
