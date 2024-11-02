@@ -179,27 +179,27 @@ const Dashboard = () => {
                   <table className="w-full ">
                     <thead className="bg-gray-100 border-b-2 border-gray-200">
                       <tr>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left"></th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center"></th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Project Title
                         </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Project Number
                         </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Project Manager
                         </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Date
                         </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Last Updated On
                         </th>
 
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Status
                         </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        <th className="p-3 text-sm font-semibold tracking-wide text-center">
                           Proceed
                         </th>
                       </tr>
@@ -214,19 +214,19 @@ const Dashboard = () => {
                               alt="project images"
                             ></img>
                           </td>
-                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap center">
+                          <td className="p-3 text-sm text-blue-800 font-semibold whitespace-nowrap text-center">
                             {post?.projectName}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             {post?.projectNumber}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             {post?.projectManager}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             {post?.commencementDate}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             <span className="p-1.5 text-sm font-medium text-blue-800 bg-yellow-300 rounded-lg bg-opacity-50">
                               {entry.length > 0 &&
                                 entry.find(
@@ -238,7 +238,7 @@ const Dashboard = () => {
                             </span>
                             {/* match each post with its corresponding entry based on an identifier like projectNumber or another unique field */}
                           </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             {post?.status === "true" ? (
                               <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
                                 Active
@@ -253,7 +253,7 @@ const Dashboard = () => {
                             )}
                           </td>
 
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
+                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             {post?.status === "true" && (
                               <Button
                                 className="p-2 transition-colors duration-300 hover:text-gray-500"
