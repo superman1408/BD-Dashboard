@@ -22,6 +22,7 @@ const ContractViewDetail = () => {
   }, [contract]);
 
   const handleView = (id) => {
+    // navigate(`/${post._id}/contractview`);
     console.log(id);
   };
 
@@ -112,7 +113,8 @@ const ContractViewDetail = () => {
                               <button
                                 style={{ marginRight: "10px" }}
                                 onClick={() => {
-                                  handleView(post._id);
+                                  // handleView(post._id);
+                                  navigate(`/${post._id}/contractview`);
                                 }}
                               >
                                 View

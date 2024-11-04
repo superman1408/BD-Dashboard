@@ -14,6 +14,7 @@ import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 import "./index.css";
+import ContractView from "./components/ContractRegister/ContractView";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -67,6 +68,12 @@ const App = () => {
             exact
             element={<ContractViewDetail />}
           />
+          <Route path="/:id/contractview" exact element={<ContractView />} />
+          {/* <Route
+            path="/detailedprogress"
+            exact
+            // element={<DetailedProgress />}
+          /> */}
 
           <Route path="lettertracker" exact element={<LetterTracker />} />
         </Routes>
