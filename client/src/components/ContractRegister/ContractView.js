@@ -132,14 +132,14 @@ const ContractView = () => {
                       </thead>
                     </table>
                     {allEntries.length >= 0 ? (
-                        allEntries
-                          .filter((element) => element.id !== id) // Exclude items with the specified id
-                          .map((element) => (
+                      allEntries
+                        .filter((element) => element.id === id) // Exclude items with the specified id
+                        .map((element) => (
                           <ChildView element={element} key={element.id} />
                         ))
                     ) : (
                       <p>no Data</p>
-                      )}
+                    )}
                     {/* <table
                     style={{
                       // marginLeft: "100px",
