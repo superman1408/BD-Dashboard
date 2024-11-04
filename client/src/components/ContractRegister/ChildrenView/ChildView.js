@@ -18,54 +18,22 @@ const ChildView = ({ element }) => {
           // boxShadow: "5px",
           width: "auto",
           justifyContent: "center",
-          margin: "5px",
+          margin: "2px",
         }}
       >
-        {/* <h2>{element.id}</h2>
-        <h2>{element.contactEmail}</h2> */}
         <table
           style={{
             // marginLeft: "100px",
-            padding: "10px",
+            padding: "5px",
             // marginLeft: "100px",
             borderCollapse: "collapse",
             border: "1px solid black",
             marginLeft: "auto",
             marginRight: "auto",
             width: "100%",
-            maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
+            // maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
           }}
-        >
-          <thead>
-            {/* {element.length > 0 ? (
-              allEntries.map((post, index) => ( */}
-            <tr>
-              <th
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                }}
-              >
-                CLIENT ID
-              </th>
-
-              <td
-                style={{
-                  border: "1px solid black",
-                  width: "70%",
-                  padding: "10px",
-                  textAlign: "center",
-                }}
-              >
-                {element.contactEmail}
-              </td>
-            </tr>
-            {/* ))
-            ) : (
-              <p>No data available for this date.</p>
-            )} */}
-          </thead>
-        </table>
+        ></table>
         <table
           style={{
             padding: "10px",
@@ -74,7 +42,8 @@ const ChildView = ({ element }) => {
             marginLeft: "auto",
             marginRight: "auto",
             width: "100%",
-            maxWidth: "800px",
+            fontSize: "14px",
+            // maxWidth: "800px",
           }}
         >
           {/* {contract.length > 0 ? (
@@ -117,6 +86,24 @@ const ChildView = ({ element }) => {
               >
                 {element.contactPerson}
               </td>
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                Contact Person
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  width: "30%",
+                  textAlign: "center",
+                }}
+              >
+                {element.contactEmail}
+              </td>
             </tr>
             <tr>
               <th
@@ -155,8 +142,6 @@ const ChildView = ({ element }) => {
               >
                 {element.contactNumber}
               </td>
-            </tr>
-            <tr>
               <th
                 style={{
                   border: "1px solid black",
@@ -174,26 +159,6 @@ const ChildView = ({ element }) => {
                 }}
               >
                 {element.contractBillingAddress}
-              </td>
-            </tr>
-            <tr>
-              <th
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                }}
-              >
-                Bank Guarantee Number
-              </th>
-              <td
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                  width: "30%",
-                  textAlign: "center",
-                }}
-              >
-                {element.bankGuaranteeNo}
               </td>
             </tr>
             <tr>
@@ -221,26 +186,6 @@ const ChildView = ({ element }) => {
                   padding: "10px",
                 }}
               >
-                BankGurantee Start Date
-              </th>
-              <td
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                  width: "30%",
-                  textAlign: "center",
-                }}
-              >
-                {element.bankGuranteeStartDate}
-              </td>
-            </tr>
-            <tr>
-              <th
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                }}
-              >
                 Contractor End Start
               </th>
               <td
@@ -252,6 +197,45 @@ const ChildView = ({ element }) => {
                 }}
               >
                 {element.contractEndDate}
+              </td>
+            </tr>
+            <tr>
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                Bank Guarantee Number
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  // width: "30%",
+                  textAlign: "center",
+                }}
+              >
+                {element.bankGuaranteeNo}
+              </td>
+
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                BankGurantee Start Date
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  // width: "30%",
+                  textAlign: "center",
+                }}
+              >
+                {element.bankGuranteeStartDate}
               </td>
               <th
                 style={{
@@ -265,34 +249,85 @@ const ChildView = ({ element }) => {
                 style={{
                   border: "1px solid black",
                   padding: "10px",
-                  width: "30%",
+                  // width: "30%",
                   textAlign: "center",
                 }}
               >
                 {element.bankGuranteeEndDate}
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table
+          style={{
+            padding: "10px",
+            borderCollapse: "collapse",
+            border: "1px solid black",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: "100%",
+            fontSize: "14px",
+            // maxWidth: "800px",
+          }}
+        >
+          <tbody>
             <tr>
               <th
                 style={{
                   border: "1px solid black",
                   padding: "10px",
                 }}
-              ></th>
+              >
+                GST No.
+              </th>
               <td
                 style={{
                   border: "1px solid black",
                   padding: "10px",
-                  width: "30%",
+                  // width: "30%",
                   textAlign: "center",
                 }}
-              ></td>
+              >
+                {element.GSTNo}
+              </td>
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                PAN No.
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  // width: "30%",
+                  textAlign: "center",
+                }}
+              >
+                {element.PANNo}
+              </td>
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                IncorporationCertificate No.
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  // width: "30%",
+                  textAlign: "center",
+                }}
+              >
+                {element.incorporationCertificateNo}
+              </td>
             </tr>
           </tbody>
-          {/* ))
-          ) : (
-            <p>No data available for this date.</p>
-          )} */}
         </table>
       </Card>
     </div>
