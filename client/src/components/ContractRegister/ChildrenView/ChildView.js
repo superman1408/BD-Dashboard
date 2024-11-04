@@ -1,7 +1,8 @@
-import { Card } from '@mui/material';
-import React from 'react';
+import { Card } from "@mui/material";
+import React from "react";
 
-const ChildView = ({ cont }) => {
+const ChildView = ({ element }) => {
+  console.log(element);
   
   return (
     <div>
@@ -17,13 +18,13 @@ const ChildView = ({ cont }) => {
           boxShadow: "5px",
           width: "auto",
           justifyContent: "center",
-          margin: "5px"
+          margin: "5px",
         }}
       >
-        <h2>{cont.id}</h2>
+        <h2>{element.id}</h2>
       </Card>
     </div>
-  )
-}
+  );
+};
 
 export default ChildView;

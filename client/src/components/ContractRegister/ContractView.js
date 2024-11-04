@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Grid, Card, CircularProgress } from "@mui/material";
 
 import { getContractDetails } from "../../action/contract";
-import ChildView from "./ChildrenView/ChildView"; 
+import ChildView from "./ChildrenView/ChildView";
 
 const ContractView = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { _id } = useParams();
+  const { id } = useParams();
 
   const [isPrinting, setIsPrinting] = useState(false);
 
@@ -24,14 +24,9 @@ const ContractView = () => {
   // Fetch posts from Redux store
   const contract = useSelector((state) => state.contract);
 
-
   useEffect(() => {
-    dispatch(getContractDetails())
-    .then(() => setLoading(false))
+    dispatch(getContractDetails()).then(() => setLoading(false));
   }, []);
-
-  
-
 
   const allEntries = contract.map((c) => ({
     id: c._id,
@@ -57,11 +52,7 @@ const ContractView = () => {
     signedContractCopy: c.signedContractCopy,
   }));
 
-
   // console.log(allEntries);
-
-  
-
 
   return (
     <div>
@@ -82,73 +73,72 @@ const ContractView = () => {
           marginBottom: "50px",
         }}
       >
-        {
-          loading ? <CircularProgress /> : (
-        <Card
-          elevation={20}
-          sx={{
-            borderRadius: "10px",
-            display: {
-              xs: "0",
-              sm: "600",
-            },
-            bgcolor: "background.Card",
-            boxShadow: "5px",
-            width: "auto",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ padding: "30px" }}>
-            <h3
-              style={{
-                textAlign: "center",
-                fontFamily: "Roboto ",
-                color: "#0d325c",
-                padding: "10px",
-                fontWeight: "bold",
-              }}
-            >
-              Contract Report page
-            </h3>
-            <Grid>
-              <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                <Grid>
-                  <table
-                    style={{
-                      padding: "10px",
-                      borderCollapse: "collapse",
-                      border: "1px solid black",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: "100%",
-                      maxWidth: "800px",
-                    }}
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          style={{
-                            border: "1px solid black",
-                            textAlign: "center",
-                            backgroundColor: "#0d325c",
-                            color: "white",
-                          }}
-                        >
-                          GENERATED REPORT
-                        </th>
-                      </tr>
-                    </thead>
-                  </table>
-                  {
-                    allEntries.length >= 0 ? (
-                      allEntries.map((cont) => (
-                        <ChildView cont={cont} key={cont.id} />
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Card
+            elevation={20}
+            sx={{
+              borderRadius: "10px",
+              display: {
+                xs: "0",
+                sm: "600",
+              },
+              bgcolor: "background.Card",
+              boxShadow: "5px",
+              width: "auto",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ padding: "30px" }}>
+              <h3
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Roboto ",
+                  color: "#0d325c",
+                  padding: "10px",
+                  fontWeight: "bold",
+                }}
+              >
+                Contract Report page
+              </h3>
+              <Grid>
+                <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                  <Grid>
+                    <table
+                      style={{
+                        padding: "10px",
+                        borderCollapse: "collapse",
+                        border: "1px solid black",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "100%",
+                        maxWidth: "800px",
+                      }}
+                    >
+                      <thead>
+                        <tr>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              textAlign: "center",
+                              backgroundColor: "#0d325c",
+                              color: "white",
+                            }}
+                          >
+                            GENERATED REPORT
+                          </th>
+                        </tr>
+                      </thead>
+                    </table>
+                    {allEntries.length >= 0 ? (
+                      allEntries.map((element) => (
+                        <ChildView element = {element.filter(element.id != id)} key={id} />
                       ))
                     ) : (
                       <p>no Data</p>
-                    )
-                  }
-                  {/* <table
+                    )}
+                    {/* <table
                     style={{
                       // marginLeft: "100px",
                       padding: "10px",
@@ -287,14 +277,13 @@ const ContractView = () => {
                       <p>No data available for this date.</p>
                     )}
                   </table> */}
-                  <br />
+                    <br />
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </div>
-            </Card>
-             )
-        }
+            </div>
+          </Card>
+        )}
       </Container>
     </div>
   );
