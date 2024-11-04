@@ -121,7 +121,7 @@ const ContractView = () => {
     }
   });
 
-  // console.log(allEntries);
+  console.log(allEntries);
 
   
 
