@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Grid, Card } from "@mui/material";
+import { Container, Grid, Card, CircularProgress } from "@mui/material";
 
 import { getContractDetails } from "../../action/contract";
 import ChildView from "./ChildrenView/ChildView"; 
@@ -24,104 +24,41 @@ const ContractView = () => {
   // Fetch posts from Redux store
   const contract = useSelector((state) => state.contract);
 
-  let allEntries = [];
 
   useEffect(() => {
-    dispatch(getContractDetails());
-    contract?.forEach(c => {
-      for (let index = 0; index <= contract?.length; index++) {
-        allEntries.push({
-          ...allEntries,
-          id: c._id,
-          contactEmail: c.contactEmail,
-          contractorName: c.contractorName,
-          contactPerson: c.contactPerson,
-          contactNumber: c.contactNumber,
-          contractAddress: c.contractAddress,
-          contractBillingAddress: c.contractBillingAddress,
-          contractStartDate: c.contractStartDate,
-          contractEndDate: c.contractEndDate,
-          bankGuranteeSubmitted: c.bankGuranteeSubmitted,
-          GSTNo: c.GSTNo,
-          PANNo: c.PANNo,
-          incorporationCertificateNo: c.incorporationCertificateNo,
-          bankGuaranteeNo: c.bankGuaranteeNo,
-          bankGuranteeStartDate: c.bankGuranteeStartDate,
-          bankGuranteeEndDate: c.bankGuranteeEndDate,
-          GST: c.GST,
-          PAN: c.PAN,
-          incorporationCertificate: c.incorporationCertificate,
-          bankGurantee: c.bankGurantee,
-          signedContractCopy: c.signedContractCopy,
-        })
-      }
-    });
+    dispatch(getContractDetails())
+    .then(() => setLoading(false))
   }, []);
 
   
 
 
+  const allEntries = contract.map((c) => ({
+    id: c._id,
+    contactEmail: c.contactEmail,
+    contractorName: c.contractorName,
+    contactPerson: c.contactPerson,
+    contactNumber: c.contactNumber,
+    contractAddress: c.contractAddress,
+    contractBillingAddress: c.contractBillingAddress,
+    contractStartDate: c.contractStartDate,
+    contractEndDate: c.contractEndDate,
+    bankGuranteeSubmitted: c.bankGuranteeSubmitted,
+    GSTNo: c.GSTNo,
+    PANNo: c.PANNo,
+    incorporationCertificateNo: c.incorporationCertificateNo,
+    bankGuaranteeNo: c.bankGuaranteeNo,
+    bankGuranteeStartDate: c.bankGuranteeStartDate,
+    bankGuranteeEndDate: c.bankGuranteeEndDate,
+    GST: c.GST,
+    PAN: c.PAN,
+    incorporationCertificate: c.incorporationCertificate,
+    bankGurantee: c.bankGurantee,
+    signedContractCopy: c.signedContractCopy,
+  }));
 
-  // for (let index = 0; index < contract?.length; index++) {
-  //   contract?.map((c) =>
-  //     // console.log(c)
-  //     allEntries.push({
-  //       ...allEntries,
-  //       id: c._id,
-  //       contactEmail: c.contactEmail,
-  //       contractorName: c.contractorName,
-  //       contactPerson: c.contactPerson,
-  //       contactNumber: c.contactNumber,
-  //       contractAddress: c.contractAddress,
-  //       contractBillingAddress: c.contractBillingAddress,
-  //       contractStartDate: c.contractStartDate,
-  //       contractEndDate: c.contractEndDate,
-  //       bankGuranteeSubmitted: c.bankGuranteeSubmitted,
-  //       GSTNo: c.GSTNo,
-  //       PANNo: c.PANNo,
-  //       incorporationCertificateNo: c.incorporationCertificateNo,
-  //       bankGuaranteeNo: c.bankGuaranteeNo,
-  //       bankGuranteeStartDate: c.bankGuranteeStartDate,
-  //       bankGuranteeEndDate: c.bankGuranteeEndDate,
-  //       GST: c.GST,
-  //       PAN: c.PAN,
-  //       incorporationCertificate: c.incorporationCertificate,
-  //       bankGurantee: c.bankGurantee[index],
-  //       signedContractCopy: c.signedContractCopy,
-  //     })
-  //   );
-  // }
 
-  contract?.forEach(c => {
-    for (let index = 0; index <= contract?.length; index++) {
-      allEntries.push({
-        ...allEntries,
-        id: c._id,
-        contactEmail: c.contactEmail,
-        contractorName: c.contractorName,
-        contactPerson: c.contactPerson,
-        contactNumber: c.contactNumber,
-        contractAddress: c.contractAddress,
-        contractBillingAddress: c.contractBillingAddress,
-        contractStartDate: c.contractStartDate,
-        contractEndDate: c.contractEndDate,
-        bankGuranteeSubmitted: c.bankGuranteeSubmitted,
-        GSTNo: c.GSTNo,
-        PANNo: c.PANNo,
-        incorporationCertificateNo: c.incorporationCertificateNo,
-        bankGuaranteeNo: c.bankGuaranteeNo,
-        bankGuranteeStartDate: c.bankGuranteeStartDate,
-        bankGuranteeEndDate: c.bankGuranteeEndDate,
-        GST: c.GST,
-        PAN: c.PAN,
-        incorporationCertificate: c.incorporationCertificate,
-        bankGurantee: c.bankGurantee[index],
-        signedContractCopy: c.signedContractCopy,
-      })
-    }
-  });
-
-  console.log(allEntries);
+  // console.log(allEntries);
 
   
 
@@ -145,6 +82,8 @@ const ContractView = () => {
           marginBottom: "50px",
         }}
       >
+        {
+          loading ? <CircularProgress /> : (
         <Card
           elevation={20}
           sx={{
@@ -353,7 +292,9 @@ const ContractView = () => {
               </Grid>
             </Grid>
           </div>
-        </Card>
+            </Card>
+             )
+        }
       </Container>
     </div>
   );
