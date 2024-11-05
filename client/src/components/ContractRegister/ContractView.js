@@ -113,7 +113,7 @@ const ContractView = () => {
                         marginLeft: "auto",
                         marginRight: "auto",
                         width: "100%",
-                        maxWidth: "800px",
+                        // maxWidth: "800px",
                       }}
                     >
                       <thead>
