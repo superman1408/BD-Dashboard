@@ -323,7 +323,7 @@ const ChildView = ({ element }) => {
                   textAlign: "center",
                   backgroundColor: "#0d325c",
                   color: "white",
-                  width: "30%",
+                  // width: "30%",
                 }}
               ></td>
             </tr>
@@ -335,16 +335,47 @@ const ChildView = ({ element }) => {
                 }}
               >
                 PAN pdf.
-                <IconButton />
               </th>
-              <td
+              {/* <td
                 style={{
                   border: "1px solid black",
                   padding: "10px",
                   // width: "30%",
                   textAlign: "center",
                 }}
-              ></td>
+              ></td> */}
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                GST pdf.
+              </th>
+              {/* <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  // width: "30%",
+                  textAlign: "center",
+                }}
+              ></td> */}
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                GST pdf.
+              </th>
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                GST pdf.
+              </th>
             </tr>
           </tbody>
         </table>
