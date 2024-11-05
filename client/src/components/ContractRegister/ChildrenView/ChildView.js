@@ -1,4 +1,4 @@
-import { Card } from "@mui/material";
+import { Card, IconButton } from "@mui/material";
 import React from "react";
 
 const ChildView = ({ element }) => {
@@ -31,7 +31,7 @@ const ChildView = ({ element }) => {
             marginLeft: "auto",
             marginRight: "auto",
             width: "100%",
-            // maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
+            maxWidth: "800px", // Set a max-width to prevent tables from expanding too much
           }}
         ></table>
         <table
@@ -86,13 +86,15 @@ const ChildView = ({ element }) => {
               >
                 {element.contactPerson}
               </td>
+            </tr>
+            <tr>
               <th
                 style={{
                   border: "1px solid black",
                   padding: "10px",
                 }}
               >
-                Contact Person
+                Contact Person Email
               </th>
               <td
                 style={{
@@ -104,26 +106,7 @@ const ChildView = ({ element }) => {
               >
                 {element.contactEmail}
               </td>
-            </tr>
-            <tr>
-              <th
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                }}
-              >
-                Contractor Address
-              </th>
-              <td
-                style={{
-                  border: "1px solid black",
-                  padding: "10px",
-                  textAlign: "center",
-                  width: "30%",
-                }}
-              >
-                {element.contractAddress}
-              </td>
+
               <th
                 style={{
                   border: "1px solid black",
@@ -142,6 +125,8 @@ const ChildView = ({ element }) => {
               >
                 {element.contactNumber}
               </td>
+            </tr>
+            <tr>
               <th
                 style={{
                   border: "1px solid black",
@@ -159,6 +144,24 @@ const ChildView = ({ element }) => {
                 }}
               >
                 {element.contractBillingAddress}
+              </td>
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                Contractor Address
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  textAlign: "center",
+                  width: "30%",
+                }}
+              >
+                {element.contractAddress}
               </td>
             </tr>
             <tr>
@@ -218,7 +221,26 @@ const ChildView = ({ element }) => {
               >
                 {element.bankGuaranteeNo}
               </td>
-
+              <th
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                }}
+              >
+                IncorporationCertificate No.
+              </th>
+              <td
+                style={{
+                  border: "1px solid black",
+                  padding: "10px",
+                  // width: "30%",
+                  textAlign: "center",
+                }}
+              >
+                {element.incorporationCertificateNo}
+              </td>
+            </tr>
+            <tr>
               <th
                 style={{
                   border: "1px solid black",
@@ -256,21 +278,6 @@ const ChildView = ({ element }) => {
                 {element.bankGuranteeEndDate}
               </td>
             </tr>
-          </tbody>
-        </table>
-        <table
-          style={{
-            padding: "10px",
-            borderCollapse: "collapse",
-            border: "1px solid black",
-            marginLeft: "auto",
-            marginRight: "auto",
-            width: "100%",
-            fontSize: "14px",
-            // maxWidth: "800px",
-          }}
-        >
-          <tbody>
             <tr>
               <th
                 style={{
@@ -308,13 +315,27 @@ const ChildView = ({ element }) => {
               >
                 {element.PANNo}
               </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  border: "1px solid black",
+                  textAlign: "center",
+                  backgroundColor: "#0d325c",
+                  color: "white",
+                  width: "30%",
+                }}
+              ></td>
+            </tr>
+            <tr>
               <th
                 style={{
                   border: "1px solid black",
                   padding: "10px",
                 }}
               >
-                IncorporationCertificate No.
+                PAN pdf.
+                <IconButton />
               </th>
               <td
                 style={{
@@ -323,9 +344,7 @@ const ChildView = ({ element }) => {
                   // width: "30%",
                   textAlign: "center",
                 }}
-              >
-                {element.incorporationCertificateNo}
-              </td>
+              ></td>
             </tr>
           </tbody>
         </table>
