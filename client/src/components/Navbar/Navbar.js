@@ -80,7 +80,7 @@ export default function MenuAppBar() {
   };
 
   const menuItems = [
-    { text: "Project Window", icon: <DashboardIcon />, link: "/dashboard" },
+    { text: "Project Window", icon: <DashboardIcon />, link: "/projectwindow" },
     {
       text: "Contract Register",
       icon: <AppRegistrationIcon />,

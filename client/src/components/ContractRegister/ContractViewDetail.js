@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Container, Card, LinearProgress } from "@mui/material";
+import { Grid, Container, Card, LinearProgress, Button } from "@mui/material";
 
 import { getContractDetails } from "../../action/contract";
 
@@ -110,7 +110,8 @@ const ContractViewDetail = () => {
                               {post.contractorName || "N/A"}
                             </td>
                             <td style={{ justifyContent: "space-between" }}>
-                              <button
+                              <Button
+                                variant="contained"
                                 style={{ marginRight: "10px" }}
                                 onClick={() => {
                                   // handleView(post._id);
@@ -118,7 +119,7 @@ const ContractViewDetail = () => {
                                 }}
                               >
                                 View
-                              </button>
+                              </Button>
                             </td>
                           </tr>
                         ))
