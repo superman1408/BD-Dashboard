@@ -5,7 +5,7 @@ import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
-import Dashboard from "./components/Dashboard/Dashboard";
+import ProjectWindow from "./components/ProjectWindow/ProjectWindow";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
@@ -43,13 +43,13 @@ const App = () => {
           <Route
             path="/"
             exact
-            element={user ? <Dashboard /> : <Navigate to="/auth" />}
+            element={user ? <ProjectWindow /> : <Navigate to="/auth" />}
           />
           {/* <Route path="/auth" exact element={!user && <Authentication />} /> */}
           <Route path="/auth" exact element={<Authentication />} />
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
 
-          <Route path="/dashboard" exact element={<Dashboard />} />
+          <Route path="/projectwindow" exact element={<ProjectWindow />} />
 
           <Route path="/:id/viewdetails" exact element={<ViewDetails />} />
 

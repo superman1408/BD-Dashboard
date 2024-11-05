@@ -13,8 +13,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    navigate("/dashboard", { replace: true });
-    
+    navigate("/projectwindow", { replace: true });
   } catch (error) {
     console.log(error);
 
@@ -30,7 +29,7 @@ export const signup = (formData, navigate) => async (dispatch) => {
     // signUp block
     const { data } = await API.signUp(formData);
     dispatch({ type: AUTH, data });
-    navigate("/dashboard", { replace: true });
+    navigate("/projectwindow", { replace: true });
   } catch (error) {
     console.log(error);
     toast.error("Invalid Credentials, Please try Again Later...!!", {
