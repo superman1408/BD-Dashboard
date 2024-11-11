@@ -9,9 +9,6 @@ const ChildView = ({ element }) => {
 
   const handleDownload = async (element) => {
     try {
-      console.log("ePan:", ePan); // Confirm the structure
-      console.log("ePan.data:", ePan?.data); // Check if ePan.data is defined
-
       // Check if ePan.data exists
       if (!element || !element.data) {
         throw new Error("PDF data is not available.");
