@@ -15,6 +15,7 @@ import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 import "./index.css";
 import ContractView from "./components/ContractRegister/ContractView";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -50,6 +51,8 @@ const App = () => {
           <Route path="/auth/reset" exact element={<PasswordResetForm />} />
 
           <Route path="/projectwindow" exact element={<ProjectWindow />} />
+
+          <Route path="/dashboard/:id" exact element={<Dashboard />} />
 
           <Route path="/:id/viewdetails" exact element={<ViewDetails />} />
 
