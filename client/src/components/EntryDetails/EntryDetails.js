@@ -159,6 +159,7 @@ const EntryDetails = () => {
 
           setTimeout(() => {
             navigate(`/${projectNo.id}/viewdetails`);
+            window.location.reload();
           }, 5000);
         })
         .catch((error) => {

@@ -23,7 +23,7 @@ const Dashboard = () => {
   }, [dispatch]);
 
   const handleClick = () => {
-    navigate(`/entrydetails/${id}`);
+    navigate(`/${id}/viewdetails`);
   };
 
   return (
@@ -36,7 +36,7 @@ const Dashboard = () => {
             <>
               <div className="p-2 h-screen bg-white items-center justify-center">
                 <div className="flex flex-wrap items-center justify-center">
-                  <h1 className="text-xl mb-2 font-bold text-center">
+                  <h1 className="p-2 mt-2 text-[22px] font-bold text-blue-900 text-center">
                     {post?.projectName}
                   </h1>
                 </div>

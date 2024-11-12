@@ -100,6 +100,16 @@ const ViewDetails = () => {
           },
         }}
       >
+        {entry.map((post, index) => {
+          if (post.projectNumber === id) {
+            return (
+              <span className="p-2 mt-2 text-[22px] font-bold text-blue-900 text-center">
+                {post?.projectName}
+              </span>
+            );
+          }
+        })}
+
         {loading ? (
           <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
             <LinearProgress />
@@ -116,103 +126,108 @@ const ViewDetails = () => {
               width: "auto",
             }}
           >
-            <Card
-              elevation={10}
-              sx={{
-                display: "flex",
-                flexDirection: "column", // Optional, based on your design
-                alignItems: "center", // Center contents horizontally
-                justifyContent: "center", // Center contents vertically
-                padding: "20px",
-              }}
-            >
-              <Grid sx={{ display: "flex", flexDirection: "row" }}>
-                <Grid>
-                  <table
-                    className="time-sheet-table"
-                    style={{
-                      padding: "10px",
-                      borderCollapse: "collapse",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: windowWidth <= 600 ? "30%" : "100%",
-                      border: "1px solid black", // Optional: Add border for clarity
-                    }}
-                  >
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Overview</th>
-                        <th>Submitted By</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {array.length > 0 ? (
-                        array.map((post, index) => (
-                          <tr key={index}>
-                            <td
-                              style={{
-                                paddingLeft: "10px",
-                                paddingRight: "10px",
-                              }}
-                            >
-                              {post.date || "N/A"}
-                            </td>
-                            <td style={{ width: "150px", height: "100px" }}>
-                              <img
-                                style={{
-                                  width: "120px",
-                                  height: "80px",
-                                  margin: "10px",
-                                }}
-                                src={post.uploadPictures1 || "N/A"}
-                              />
-                            </td>
-                            <td style={{ textAlign: "center" }}>
-                              {post.submittedBy || "N/A"}
-                            </td>
-                            <td style={{ justifyContent: "space-between" }}>
-                              <button
-                                style={{ marginRight: "10px" }}
-                                onClick={() => {
-                                  navigate(`/${post.date}/detailedprojectpage`);
-                                  window.location.reload();
-                                  // window.scrollTo(0, 0);
-                                  // });
-                                }}
-                              >
-                                View
-                              </button>
-                              {/* <button
-                              onClick={() =>
-                                navigate(`/entrydetails/${post.date}`)
-                              } // Pass date to edit page
-                            >
-                              Edit
-                            </button> */}
-                            </td>
+            <div className="flex">
+              <div
+                // elevation={10}
+                style={{
+                  display: "flex",
+                  flexDirection: "column", // Optional, based on your design
+                  alignItems: "center", // Center contents horizontally
+                  justifyContent: "center", // Center contents vertically
+                  // padding: "20px",
+                }}
+              >
+                <Grid sx={{ display: "flex", flexDirection: "row" }}>
+                  <Grid>
+                    <Card
+                      elevation={10}
+                      sx={{ padding: "10px", marginLeft: "100px" }}
+                    >
+                      <table
+                        className="time-sheet-table"
+                        style={{
+                          padding: "10px",
+                          borderCollapse: "collapse",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          width: windowWidth <= 600 ? "30%" : "100%",
+                          border: "1px solid black", // Optional: Add border for clarity
+                        }}
+                      >
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Overview</th>
+                            <th>Submitted By</th>
+                            <th>Actions</th>
                           </tr>
-                        ))
-                      ) : (
-                        <tr>
-                          <td colSpan="4" align="center">
-                            No data available
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+                        </thead>
+                        <tbody>
+                          {array.length > 0 ? (
+                            array.map((post, index) => (
+                              <tr key={index}>
+                                <td
+                                  style={{
+                                    paddingLeft: "10px",
+                                    paddingRight: "10px",
+                                  }}
+                                >
+                                  {post.date || "N/A"}
+                                </td>
+                                <td style={{ width: "150px", height: "100px" }}>
+                                  <img
+                                    style={{
+                                      width: "120px",
+                                      height: "80px",
+                                      margin: "10px",
+                                    }}
+                                    src={post.uploadPictures1 || "N/A"}
+                                  />
+                                </td>
+                                <td style={{ textAlign: "center" }}>
+                                  {post.submittedBy || "N/A"}
+                                </td>
+                                <td style={{ justifyContent: "space-between" }}>
+                                  <Button
+                                    style={{ marginRight: "10px" }}
+                                    onClick={() => {
+                                      navigate(
+                                        `/${post.date}/detailedprojectpage`
+                                      );
+                                      window.location.reload();
+                                      // window.scrollTo(0, 0);
+                                      // });
+                                    }}
+                                  >
+                                    View
+                                  </Button>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan="4" align="center">
+                                No data available
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </Card>
+                  </Grid>
+                  <Grid sx={{ padding: "10px", float: "right" }}>
+                    <button
+                      className="pl-5 pr-5 pt-2 pb-2 bg-green-600 hover:bg-green-300 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
+                      onClick={() => {
+                        navigate(`/entrydetails/${id}`);
+                      }}
+                    >
+                      + Add more
+                    </button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Card>{" "}
-            <Button
-              onClick={() => {
-                navigate(`/entrydetails/${id}`);
-              }}
-            >
-              Add more
-            </Button>
+              </div>
+            </div>
           </Container>
         )}
       </Container>
