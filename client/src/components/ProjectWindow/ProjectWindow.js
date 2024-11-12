@@ -89,7 +89,7 @@ const Dashboard = () => {
   // console.log(projectNumber);
 
   const handleEntry = (projectNumber) => {
-    navigate(`/entrydetails/${projectNumber}`);
+    navigate(`/dashboard/${projectNumber}`);
   };
 
   const handleDetails = (projectNumber) => {
@@ -517,7 +517,7 @@ const Dashboard = () => {
             </div>
 
             <div style={{ display: "flex", marginBottom: "15px" }}>
-              <label>Teams: </label>
+              <label>Employees Involved: </label>
               <input
                 className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
