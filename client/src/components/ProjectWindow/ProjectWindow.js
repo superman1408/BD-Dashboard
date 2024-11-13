@@ -128,7 +128,7 @@ const Dashboard = () => {
 
   const handleDecline = () => {
     setTermsConditions(false);
-    console.log("decline");
+    setTermsVisible(false);
   };
 
   const handleSubmitScope = async (e) => {
@@ -574,23 +574,125 @@ const Dashboard = () => {
         show={termsVisible}
         onHide={() => setTermsVisible(false)}
         centered
-        style={{ marginTop: "50px" }}
+        style={{ marginTop: "50px", height: "400px" }}
+        scrollable
+        // style={{}}
       >
         <Modal.Header closeButton>
           <h5>Terms & Conditions</h5>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ height: "400px" }} scrollable>
           <form onSubmit={handleSubmitScope}>
-            <div style={{ display: "flex", marginBottom: "15px" }}>
+            <div style={{ marginBottom: "15px", padding: "15px" }}>
+              <h4 className="font-bold">GENERAL TERMS </h4>
               <p>
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
+                i. Ensure that all future communication with employees is
+                performed with the consent of the Ashkam; and No pouching of
+                Ashkam’s appointed consultants/employees internal or external
+                shall be permitted till 3 years from the date of contract.{" "}
+              </p>
+              <p>
+                ii.Obtain any work or other permits required if necessary; and
+                unless otherwise expressly stated in this agreement, all direct
+                expenses of ASHKAM representative including to the performance
+                of the services specified here under shall be borne by the
+                Client including but not limited to travel, outstation boarding
+                and lodging and other expenses. ASHKAM shall submit the incurred
+                cost with relevant bills attached.{" "}
+              </p>
+              <p>
+                iii. The Consultancy shall be under no liability whatever to the
+                Client for any indirect loss and/or expense (including loss of
+                profit) suffered by the Client arising out of a breach by the
+                Consultancy of these terms and conditions.
+              </p>
+              <p>
+                {" "}
+                iv. In the event of any breach of this contract by the
+                Consultancy the remedies of the Client shall be limited to
+                damages. Under no circumstances shall the liability of the
+                Consultancy exceed the Fee of the Services.
+              </p>
+              <p>
+                {" "}
+                v. The Client shall not be entitled to set off against or deduct
+                from the Fee any sums owed or claimed to be owed to the Client
+                by the Consultancy.
+              </p>
+
+              <p>
+                vi. The Consultancy reserves the right to review these terms and
+                conditions at any time. If, following any such review, there is
+                to be any change to these terms and conditions, then that change
+                shall take effect from the date on which the Consultancy
+                notifies the Client of such change. Except where the Consultancy
+                supplies further Services to the Client and the Client accepts
+                such Services, the Client shall be under no obligation to accept
+                such changes.
+              </p>
+              <p>
+                vii. Client accepts such Services; the Client shall be under no
+                obligation to accept such changes. In the event of a default in
+                performance or event of termination, all calculations report in
+                the possession of ASHKAM shall be subject to lien for the
+                payment of all fees and expenses due and owing by virtue of this
+                agreement.
+              </p>
+              <p>
+                viii. Client has to paid the additional amount for the hard copy
+                or CD dive submission.
+              </p>
+              <p>
+                ix. Any other Analysis which is not part of scope of work will
+                require the additional amount.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: "15px", padding: "15px" }}>
+              <h4 className="font-bold">CONFIDENTIALITY </h4>
+              <p>
+                i. All correspondence forwarded by the Consultancy to the Client
+                and relating to any and all Candidates shall be considered to be
+                strictly private and confidential between the parties involved
+                and cannot be forwarded to any other party unless formal written
+                permission is given, in advance, by the Consultancy.
+              </p>
+              <p>
+                ii. Should these conditions be breached by the Client the
+                Consultancy reserves the right to charge the Client a penalty
+                Fee equivalent to the value of the original placement Fee for
+                the Candidate
+              </p>
+            </div>
+
+            <div style={{ marginBottom: "15px", padding: "15px" }}>
+              <h4 className="font-bold"> DISCLAIMER</h4>
+              <p>
+                i. The Consultancy interviews Candidates and obtains details
+                from them of their qualifications, skills and experience, which
+                the Consultancy records and retains. The information contained
+                in the Consultancy’s assessment and report is therefore based on
+                details supplied to the Consultancy and is correct to the best
+                of the Consultancy’s knowledge. The Consultancy accepts no
+                responsibility whatsoever for errors, omissions or incorrect
+                conclusions.
+              </p>
+              <p>
+                ii.Whilst the Consultancy endeavors to select Candidates which,
+                in the Consultancy’s opinion, are most suitable to the Client’s
+                needs, the Consultancy shall accept no liability on behalf of
+                themselves, the Consultancy’s employees, agents or assigns for
+                any loss or damage, costs of compensation, howsoever caused,
+                which the Client may suffer or for which the Client may become
+                liable arising out of, or in connection with, or as a result of,
+                the introduction by the Consultancy to the Client, of any
+                Candidate.
+              </p>
+              <p>
+                iii. The Consultancy cannot accept responsibility for any loss
+                or expense incurred due to the Client’s lack of familiarity with
+                any relevant legislation regarding employment of Candidates, or
+                as a result of any infringement
               </p>
             </div>
 
@@ -616,11 +718,7 @@ const Dashboard = () => {
               </div>
 
               <div className="p-2">
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  onClick={handleDecline}
-                >
+                <Button variant="secondary" onClick={handleDecline}>
                   Decline
                 </Button>
               </div>
