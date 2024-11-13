@@ -559,6 +559,7 @@ const DetailedProjectPage = () => {
                                 style={{
                                   border: "1px solid black",
                                   textAlign: "center",
+                                  display: "flex",
                                 }}
                               >
                                 <img

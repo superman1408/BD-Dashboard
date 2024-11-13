@@ -16,6 +16,10 @@ const Dashboard = () => {
 
   const [scopeVisible, setScopeVisible] = useState(false);
 
+  const [termsVisible, setTermsVisible] = useState(false);
+
+  const [termsConditions, setTermsConditions] = useState(false);
+
   const [selectedPostId, setSelectedPostId] = useState(null); // New state for selected post ID
 
   const [formData, setFormData] = useState({
@@ -27,7 +31,7 @@ const Dashboard = () => {
     selectedFile: "",
     scope: "",
     poUnpriced: "",
-    projectGoverning: "",
+    termsConditions: "",
     teams: "",
     status: "",
   });
@@ -105,6 +109,23 @@ const Dashboard = () => {
     setScopeVisible(true);
   };
 
+  const handleOpenTerms = (e) => {
+    e.preventDefault();
+    setTermsVisible(true);
+    setScopeVisible(false);
+    console.log("openterms");
+  };
+
+  const handleAccept = () => {
+    setTermsConditions(true);
+    console.log("accept");
+  };
+
+  const handleDecline = () => {
+    setTermsConditions(false);
+    console.log("decline");
+  };
+
   const handleSubmitScope = async (e) => {
     e.preventDefault();
     setScopeVisible(false);
@@ -124,13 +145,14 @@ const Dashboard = () => {
 
       const newStatus = existingPost.status ? false : true; // Example logic
 
+      // const newtermsCondition = existingPost.termsConditions ? false : true; // Example logic
+
       // Merge existing and new data
       const updatedData = {
         ...existingPost,
         scope: formData.scope || existingPost.scope,
         poUnpriced: formData.poUnpriced || existingPost.poUnpriced,
-        projectGoverning:
-          formData.projectGoverning || existingPost.projectGoverning,
+        termsConditions: termsConditions,
         teams: formData.teams || existingPost.teams,
         status: newStatus,
       };
@@ -139,7 +161,7 @@ const Dashboard = () => {
       setFormData({
         scope: "",
         poUnpriced: "",
-        projectGoverning: "",
+        termsConditions: termsConditions,
         teams: "",
         status: newStatus,
       });
@@ -481,11 +503,11 @@ const Dashboard = () => {
           <h5>Add more data</h5>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmitScope}>
+          <form onSubmit={handleOpenTerms}>
             <div style={{ display: "flex", marginBottom: "15px" }}>
-              <label>Scope of the project: </label>
+              <label>Scope of the project : </label>
               <input
-                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-10 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
                 name="scope"
                 value={formData.scope}
@@ -494,7 +516,7 @@ const Dashboard = () => {
               />
             </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
-              <label>P.O (unpriced) </label>
+              <label>P.O (unpriced) : </label>
               <input
                 className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
@@ -504,22 +526,22 @@ const Dashboard = () => {
                 required
               />
             </div>
-            <div style={{ display: "flex", marginBottom: "15px" }}>
+            {/* <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project-Governing T&C: </label>
               <input
                 className="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-20 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
-                name="projectGoverning"
-                value={formData.projectGoverning}
+                name="termsConditions"
+                value={formData.termsConditions}
                 onChange={handleFormChange}
                 required
               />
-            </div>
+            </div> */}
 
             <div style={{ display: "flex", marginBottom: "15px" }}>
-              <label>Employees Involved: </label>
+              <label>Employees Involved : </label>
               <input
-                className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-10 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="text"
                 name="teams"
                 value={formData.teams}
@@ -536,6 +558,52 @@ const Dashboard = () => {
               >
                 Submit
               </Button>
+            </div>
+          </form>
+        </Modal.Body>
+      </Modal>
+
+      {/* ___________________________________Terms & condition modal __________________________________________ */}
+
+      <Modal
+        show={termsVisible}
+        onHide={() => setTermsVisible(false)}
+        centered
+        style={{ marginTop: "50px" }}
+      >
+        <Modal.Header closeButton>
+          <h5>Terms & Conditions</h5>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmitScope}>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <p>
+                With less than a month to go before the European Union enacts
+                new consumer privacy laws for its citizens, companies around the
+                world are updating their terms of service agreements to comply.
+                The European Union’s General Data Protection Regulation
+                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
+                common set of data rights in the European Union. It requires
+                organizations to notify users as soon as possible of high-risk
+                data breaches that could personally affect them.
+              </p>
+            </div>
+            <div className="bg-gray-100 flex p-2 ">
+              <div className="p-2">
+                <Button type="submit" variant="success" onClick={handleAccept}>
+                  Accept
+                </Button>
+              </div>
+
+              <div className="p-2">
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  onClick={handleDecline}
+                >
+                  Decline
+                </Button>
+              </div>
             </div>
           </form>
         </Modal.Body>
