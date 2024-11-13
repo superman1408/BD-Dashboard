@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, LinearProgress, Card, Divider } from "@mui/material";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import FileBase from "react-file-base64";
 import { createPost, getPosts, update } from "../../action/posts";
 import { getEntryDetails } from "../../action/posts";
@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [termsConditions, setTermsConditions] = useState(false);
 
   const [selectedPostId, setSelectedPostId] = useState(null); // New state for selected post ID
+
+  const [isChecked, setIsChecked] = useState(false); // State to track checkbox
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -116,6 +118,9 @@ const Dashboard = () => {
     console.log("openterms");
   };
 
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked); // Update checkbox state
+  };
   const handleAccept = () => {
     setTermsConditions(true);
     console.log("accept");
@@ -588,9 +593,24 @@ const Dashboard = () => {
                 data breaches that could personally affect them.
               </p>
             </div>
-            <div className="bg-gray-100 flex p-2 ">
+
+            <Form.Check
+              type="checkbox"
+              label="I agree to the Terms & Conditions"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+
+            {/* Conditionally render Accept and Decline buttons */}
+
+            <div className="bg-gray-100 flex p-2">
               <div className="p-2">
-                <Button type="submit" variant="success" onClick={handleAccept}>
+                <Button
+                  type="submit"
+                  variant="success"
+                  onClick={handleAccept}
+                  disabled={!isChecked}
+                >
                   Accept
                 </Button>
               </div>
@@ -608,6 +628,8 @@ const Dashboard = () => {
           </form>
         </Modal.Body>
       </Modal>
+
+      {/* But I want till the checked in not checked accept button will be disable not hidden */}
     </div>
   );
 };
