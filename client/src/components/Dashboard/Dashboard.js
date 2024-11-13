@@ -61,8 +61,15 @@ const Dashboard = () => {
                     </div>
                     <div className=" bg-white flex mb-2">
                       <div className=" w-2 bg-blue-800"></div>
-                      <h4 className="p-3 font-bold">Project-Governing T&C :</h4>
-                      <h4 className="p-3 ml-4">{post?.projectGoverning}</h4>
+                      <h4 className="p-3 font-bold">
+                        Project-Governing Terms & Conditions :
+                      </h4>
+
+                      {post?.termsConditions === "true" ? (
+                        <h4 className="p-3 ml-4 text-green-700">Accepted</h4>
+                      ) : (
+                        <h4 className="p-3 ml-4 text-red-600">Declined</h4>
+                      )}
                     </div>
                     <div className=" bg-white flex ">
                       <div className=" w-2 bg-blue-800"></div>

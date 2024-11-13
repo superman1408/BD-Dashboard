@@ -26,7 +26,7 @@ const projectSchema = mongoose.Schema(
     poUnpriced: {
       type: String,
     },
-    projectGoverning: {
+    termsConditions: {
       type: String,
     },
     teams: {

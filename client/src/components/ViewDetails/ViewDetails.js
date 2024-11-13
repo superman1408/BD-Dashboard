@@ -217,7 +217,7 @@ const ViewDetails = () => {
                   </Grid>
                   <Grid sx={{ padding: "10px", float: "right" }}>
                     <button
-                      className="pl-5 pr-5 pt-2 pb-2 bg-green-600 hover:bg-green-300 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
+                      className="pl-5 pr-5 pt-2 pb-2 bg-green-600 hover:bg-green-500 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
                       onClick={() => {
                         navigate(`/entrydetails/${id}`);
                       }}
