@@ -67,8 +67,6 @@ const ContractView = () => {
       container="true"
       spacing={0}
       direction="column"
-      alignitems="center"
-      justifycontent="center"
       // fluid="true"
       sx={{
         display: "flex",
@@ -113,7 +111,7 @@ const ContractView = () => {
                 color: "#0d325c",
                 fontWeight: "bold",
                 padding: "10px",
-                fontSize: "15px", // responsive font size
+                // fontSize: "15px", // responsive font size
               }}
             >
               Contract Report page
@@ -141,7 +139,7 @@ const ContractView = () => {
                             backgroundColor: "#0d325c",
                             color: "white",
                             padding: "8px",
-                            fontSize: "13px",
+                            // fontSize: "13px",
                           }}
                         >
                           GENERATED REPORT

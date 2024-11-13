@@ -1,4 +1,10 @@
-import { Card, IconButton, Grid } from "@mui/material";
+import {
+  Card,
+  IconButton,
+  Grid,
+  Container,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 
 import DownloadIcon from "@mui/icons-material/Download";
@@ -6,6 +12,8 @@ import { LOGOUT } from "../../../constants/actionTypes";
 
 const ChildView = ({ element }) => {
   console.log(element);
+
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const handleDownload = async (element) => {
     try {
@@ -37,12 +45,25 @@ const ChildView = ({ element }) => {
   };
 
   return (
-    <div>
+    <Container
+      elevation={10}
+      padding="10px"
+      container="true"
+      spacing={0}
+      direction="column"
+      // fluid="true"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "20px",
+        flexDirection: "column",
+        marginBottom: "50px",
+      }}
+    >
       <Card
         // elevation={20}
         sx={{
-          display: { sm: "flex", xs: 400, lg: "flex" },
-
+          display: "flex",
           // bgcolor: "blue",
           color: "black",
           // boxShadow: "5px",
@@ -55,14 +76,14 @@ const ChildView = ({ element }) => {
           <Grid>
             <table
               style={{
-                padding: "10px",
-                borderCollapse: "collapse",
-                border: "1px solid black",
-                marginLeft: "auto",
-                marginRight: "auto",
+                // display: "flex",
+                flexDirection: isSmallScreen ? "column" : "row",
                 width: "100%",
-                fontSize: "12px",
-                // maxWidth: "800px",
+                fontSize: isSmallScreen ? "10px" : "12px",
+                // borderCollapse: "collapse",
+                border: "1px solid black",
+                margin: "0 auto",
+                padding: isSmallScreen ? "5px" : "10px",
               }}
             >
               {/* {contract.length > 0 ? (
@@ -341,13 +362,15 @@ const ChildView = ({ element }) => {
           <Grid>
             <table
               style={{
+                // display: "flex",
+                flexDirection: isSmallScreen ? "column" : "row",
                 padding: "10px",
                 borderCollapse: "collapse",
                 border: "1px solid black",
                 marginLeft: "auto",
                 marginRight: "auto",
                 width: "100%",
-                fontSize: "12px",
+                fontSize: isSmallScreen ? "10px" : "12px",
                 // maxWidth: "800px",
               }}
             >
@@ -367,13 +390,15 @@ const ChildView = ({ element }) => {
           <Grid>
             <table
               style={{
+                // display: "flex",
+                flexDirection: isSmallScreen ? "column" : "row",
                 padding: "10px",
                 borderCollapse: "collapse",
                 border: "1px solid black",
                 marginLeft: "auto",
                 marginRight: "auto",
                 width: "100%",
-                fontSize: "12px",
+                fontSize: isSmallScreen ? "10px" : "12px",
                 // maxWidth: "800px",
               }}
             >
@@ -457,7 +482,7 @@ const ChildView = ({ element }) => {
           </Grid>
         </Grid>
       </Card>
-    </div>
+    </Container>
   );
 };
 
