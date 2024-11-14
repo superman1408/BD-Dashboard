@@ -267,7 +267,7 @@ const Dashboard = () => {
                           </td>
                           <td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                             {post?.status === "true" ? (
-                              <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 ">
+                              <a className="p-2 bg-green-500 hover:text-white transition rounded-lg bg-opacity-50 cursor-pointer">
                                 Active
                               </a>
                             ) : (

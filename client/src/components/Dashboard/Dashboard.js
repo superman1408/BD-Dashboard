@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import DPRimage from "../../assests/DPR.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
+import scurve from "../../assests/scurve.png";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -22,8 +23,12 @@ const Dashboard = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  const handleClick = () => {
+  const handleDPRClick = () => {
     navigate(`/${id}/viewdetails`);
+  };
+
+  const handleCDRClick = () => {
+    navigate(`/contractregister`);
   };
 
   return (
@@ -41,9 +46,10 @@ const Dashboard = () => {
                   </h1>
                 </div>
 
-                <div className="p-3  mx-auto overflow-auto mt-3 bg-gray-100 rounded flex flex-col  justify-center">
+                <div className="flex mt-3 mx-auto overflow-auto">
                   {/* mx-auto: Centers the container within the available space horizontally. */}
-                  <div>
+
+                  <div className="p-3  mx-auto overflow-auto  bg-gray-100 rounded ">
                     <div className=" bg-white flex mb-2">
                       <div className=" w-2 bg-blue-800"></div>
                       <h4 className="p-3 font-bold">Scope of the Project :</h4>
@@ -77,6 +83,12 @@ const Dashboard = () => {
                       <h4 className="p-3 ml-10">{post?.teams}</h4>
                     </div>
                   </div>
+
+                  <div className="bg-white mb-2 ">
+                    <Card className="bg-blue-400 ">
+                      <img src={scurve} />
+                    </Card>
+                  </div>
                 </div>
 
                 <div className="p-3 overflow-auto mt-3 bg-gray-100 rounded flex">
@@ -94,7 +106,7 @@ const Dashboard = () => {
                           // class="rounded-md bg-white p-4 text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-8"
                           className="p-2 hover:shadow transition-all shadow-sm focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-white active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-8"
                           type="button"
-                          onClick={handleClick}
+                          onClick={handleDPRClick}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -123,6 +135,7 @@ const Dashboard = () => {
                         <button
                           className="p-2 hover:shadow transition-all shadow-sm focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-white active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-8"
                           type="button"
+                          onClick={handleCDRClick}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
