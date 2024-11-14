@@ -79,7 +79,7 @@ const ChildView = ({ element }) => {
                 // display: "flex",
                 flexDirection: isSmallScreen ? "column" : "row",
                 width: "100%",
-                fontSize: isSmallScreen ? "10px" : "12px",
+                fontSize: isSmallScreen ? "10px" : "14px",
                 // borderCollapse: "collapse",
                 border: "1px solid black",
                 margin: "0 auto",
@@ -370,7 +370,7 @@ const ChildView = ({ element }) => {
                 marginLeft: "auto",
                 marginRight: "auto",
                 width: "100%",
-                fontSize: isSmallScreen ? "10px" : "12px",
+                fontSize: isSmallScreen ? "10px" : "14px",
                 // maxWidth: "800px",
               }}
             >
@@ -398,7 +398,7 @@ const ChildView = ({ element }) => {
                 marginLeft: "auto",
                 marginRight: "auto",
                 width: "100%",
-                fontSize: isSmallScreen ? "10px" : "12px",
+                fontSize: isSmallScreen ? "10px" : "14px",
                 // maxWidth: "800px",
               }}
             >
