@@ -40,7 +40,13 @@ const ContractViewDetail = () => {
         }}
       >
         {loading ? (
-          <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
+          <div
+            style={{
+              marginTop: "20px",
+              paddingBottom: "200vh",
+              // justifyContent: "center",
+            }}
+          >
             <LinearProgress />
             loading...
           </div>
