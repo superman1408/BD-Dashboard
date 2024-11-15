@@ -1,0 +1,39 @@
+.time-sheet-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+@media (max-width: 600px) {
+
+    .time-sheet-table,
+    .time-sheet-table thead,
+    .time-sheet-table tbody,
+    .time-sheet-table th,
+    .time-sheet-table td,
+    .time-sheet-table tr {
+        display: block;
+    }
+
+    .time-sheet-table thead tr {
+        display: none;
+    }
+
+    .time-sheet-table tr {
+        margin-bottom: 15px;
+    }
+
+    .time-sheet-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .time-sheet-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
