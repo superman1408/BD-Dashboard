@@ -110,7 +110,7 @@ const ContractView = () => {
                 fontFamily: "Roboto",
                 color: "#0d325c",
                 fontWeight: "bold",
-                padding: "10px",
+                // padding: "10px",
                 // fontSize: "15px", // responsive font size
               }}
             >
