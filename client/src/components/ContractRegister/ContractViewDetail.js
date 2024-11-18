@@ -35,6 +35,7 @@ const ContractViewDetail = () => {
         "@media (max-width: 600px)": {
           // backgroundColor: "lightgreen",
           padding: "10px", // Adjust padding for smaller screens
+          // width:"50vh"
         },
       }}
     >
