@@ -53,8 +53,8 @@ const ContractRegister = () => {
     useState("");
   const [bankGuaranteeNo, setBankGuaranteeNo] = useState("");
 
-
-  const gstPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+  const gstPattern =
+    /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
 
   const handleGstChange = (e) => {
     const value = e.target.value.toUpperCase(); // convert to uppercase
@@ -593,7 +593,10 @@ const ContractRegister = () => {
                   fontWeight: "bold",
                 }}
               />
-              <Button type="submit" style={{ float: "right" }}>
+              <Button
+                type="submit"
+                style={{ float: "right", marginBottom: "20px" }}
+              >
                 Submit
               </Button>
 
