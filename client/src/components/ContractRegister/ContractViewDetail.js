@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Container, Card, LinearProgress, Button } from "@mui/material";
+import {
+  Grid,
+  Container,
+  Card,
+  LinearProgress,
+  Button,
+  Typography,
+} from "@mui/material";
 
 import { getContractDetails } from "../../action/contract";
 
@@ -19,11 +26,16 @@ const ContractViewDetail = () => {
     dispatch(getContractDetails()).then(() => {
       setLoading(false);
     });
-  }, [contract]);
+
+    // Update window width dynamically
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [dispatch]);
 
   const handleView = (id) => {
-    // navigate(`/${post._id}/contractview`);
-    console.log(id);
+    navigate(`/${id}/contractview`);
   };
 
   return (
@@ -32,47 +44,46 @@ const ContractViewDetail = () => {
         display: "flex",
         flexDirection: "column",
         maxWidth: "100%",
-        "@media (max-width: 600px)": {
-          // backgroundColor: "lightgreen",
-          padding: "10px", // Adjust padding for smaller screens
-          // width:"50vh"
-        },
+        padding: windowWidth <= 600 ? "10px" : "20px",
       }}
     >
       {loading ? (
         <div
           style={{
             marginTop: "20px",
-            paddingBottom: "200vh",
-            // justifyContent: "center",
+            paddingBottom: "20vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
           }}
         >
-          <LinearProgress />
-          loading...
+          <LinearProgress style={{ width: "100%", marginBottom: "10px" }} />
+          <Typography>Loading...</Typography>
         </div>
       ) : (
         <Container
           sx={{
             display: "flex",
-            justifyContent: "center", // Center horizontally
-            alignItems: "center", // Center vertically
-            padding: "12px",
-            marginBottom: "50vh",
-            width: "auto",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: windowWidth <= 600 ? "10px" : "20px",
+            marginBottom: "50px",
           }}
         >
           <Card
             elevation={10}
             sx={{
               display: "flex",
-              flexDirection: "column", // Optional, based on your design
-              alignItems: "center", // Center contents horizontally
-              justifyContent: "center", // Center contents vertically
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               padding: "20px",
+              width: windowWidth <= 600 ? "auto" : "80%",
             }}
           >
-            <Grid sx={{ display: "flex", flexDirection: "row" }}>
-              <Grid>
+            <Grid container>
+              <Grid item xs={12}>
                 <table
                   className="time-sheet-table"
                   style={{
@@ -80,8 +91,8 @@ const ContractViewDetail = () => {
                     borderCollapse: "collapse",
                     marginLeft: "auto",
                     marginRight: "auto",
-                    width: windowWidth <= 600 ? "30%" : "100%",
-                    border: "1px solid black", // Optional: Add border for clarity
+                    width: "100%",
+                    border: "1px solid black",
                   }}
                 >
                   <thead>
@@ -98,31 +109,36 @@ const ContractViewDetail = () => {
                         <tr key={index}>
                           <td
                             style={{
-                              paddingLeft: "10px",
-                              paddingRight: "10px",
+                              padding: "10px",
+                              textAlign: "left",
+                              wordBreak: "break-word",
                             }}
                           >
                             {post.contactEmail || "N/A"}
                           </td>
                           <td
                             style={{
-                              paddingLeft: "10px",
-                              paddingRight: "10px",
+                              padding: "10px",
+                              textAlign: "left",
+                              wordBreak: "break-word",
                             }}
                           >
                             {post.contactPerson || "N/A"}
                           </td>
-                          <td style={{ textAlign: "center" }}>
+                          <td
+                            style={{
+                              padding: "10px",
+                              textAlign: "center",
+                              wordBreak: "break-word",
+                            }}
+                          >
                             {post.contractorName || "N/A"}
                           </td>
-                          <td style={{ justifyContent: "space-between" }}>
+                          <td style={{ textAlign: "center" }}>
                             <Button
                               variant="contained"
-                              style={{ marginRight: "10px" }}
-                              onClick={() => {
-                                // handleView(post._id);
-                                navigate(`/${post._id}/contractview`);
-                              }}
+                              style={{ margin: "auto" }}
+                              onClick={() => handleView(post._id)}
                             >
                               View
                             </Button>
