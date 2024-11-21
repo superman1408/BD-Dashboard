@@ -1,91 +1,62 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Grid, Card, LinearProgress, Container } from "@mui/material";
+import {
+  Grid,
+  Card,
+  LinearProgress,
+  Container,
+  Typography,
+  Button,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
-import { Button } from "react-bootstrap";
 
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
-  // Fetch posts from Redux store
+  // Redux state
   const entry = useSelector((state) => state.entry);
 
-  let array = [];
+  // Local state for filtered data
+  const [filteredArray, setFilteredArray] = useState([]);
 
-  const updateArray = async (post) => {
-    const array = [];
-    entry.map((post) => {
-      for (let index = 0; index < post?.submittedBy.length; index++) {
-        if (id === post.projectNumber) {
-          array.push({
-            submittedBy: post?.submittedBy[index],
+  const filterArray = (entries) => {
+    const tempArray = [];
+    entries.forEach((post) => {
+      if (id === post.projectNumber) {
+        post?.submittedBy?.forEach((submittedBy, index) => {
+          tempArray.push({
+            submittedBy,
             date: post?.date[index],
             uploadPictures1: post?.uploadPictures1[index],
           });
-        }
+        });
       }
-      console.log(array.uploadPictures1);
     });
-    setLoading(false);
+    setFilteredArray(tempArray);
   };
-
-  // Fetch data when component mounts
-  // useEffect(() => {
-  //   if (entry.length === 0) {
-  //     if (loading) {
-  //       dispatch(getEntryDetails()).then(() => {
-  //         updateArray().then(() => {
-  //           console.log("Data fetched, setting loading to false");
-  //           setLoading(false);
-  //         });
-  //       });
-  //     }
-  //   }
-  // }, [dispatch, entry.length]);
 
   useEffect(() => {
     if (entry.length === 0) {
       setLoading(true);
-      window.scrollTo(0, 0);
-
       dispatch(getEntryDetails()).then(() => {
-        updateArray().then(() => {
-          setLoading(false);
-        });
+        setLoading(false);
       });
+    } else {
+      filterArray(entry);
     }
+  }, [entry, dispatch, id]);
 
-    // return () => {
-    //   // Dispatch an action to reset the entry state if necessary
-    //   // dispatch(resetEntryState());
-    // };
-  }, [dispatch, entry]);
-
-  // Optional: Update windowWidth on resize
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  entry.map((post) => {
-    for (let index = 0; index < post?.submittedBy.length; index++) {
-      if (id === post.projectNumber) {
-        array.push({
-          submittedBy: post?.submittedBy[index],
-          date: post?.date[index],
-          uploadPictures1: post?.uploadPictures1[index],
-        });
-      }
-      console.log(array.uploadPictures1);
-    }
-  });
 
   return (
     <div>
@@ -94,140 +65,134 @@ const ViewDetails = () => {
           display: "flex",
           flexDirection: "column",
           maxWidth: "100%",
+          padding: "10px",
           "@media (max-width: 600px)": {
-            // backgroundColor: "lightgreen",
-            padding: "10px", // Adjust padding for smaller screens
+            padding: "5px",
           },
         }}
       >
-        {entry.map((post, index) => {
+        {/* Project Name */}
+        {entry.map((post) => {
           if (post.projectNumber === id) {
             return (
-              <span className="p-2 mt-2 text-[22px] font-bold text-blue-900 text-center">
-                {post?.projectName}
-              </span>
+              <Typography
+                key={post.projectNumber}
+                variant="h6"
+                className="text-center"
+                sx={{ color: "blue", fontWeight: "bold" }}
+              >
+                {post.projectName}
+              </Typography>
             );
           }
         })}
 
         {loading ? (
-          <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
-            <LinearProgress />
-            loading...
+          <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <LinearProgress style={{ width: "100%", marginBottom: "10px" }} />
+            <Typography>Loading...</Typography>
           </div>
         ) : (
           <Container
             sx={{
               display: "flex",
-              justifyContent: "center", // Center horizontally
-              alignItems: "center", // Center vertically
+              justifyContent: "center",
+              flexWrap: "wrap",
               padding: "12px",
-              marginBottom: "50vh",
-              width: "auto",
+              width: "100%",
             }}
           >
-            <div className="flex">
-              <div
-                // elevation={10}
+            {/* Add More Button */}
+            <Button
+              variant="contained"
+              color="success"
+              sx={{
+                marginTop: "20px",
+                float: "right",
+                width: windowWidth <= 600 ? "100%" : "20%",
+              }}
+              onClick={() => navigate(`/entrydetails/${id}`)}
+            >
+              + Add More
+            </Button>
+
+            {/* Data Table */}
+            <Card
+              elevation={10}
+              sx={{
+                padding: "10px",
+                margin: "10px",
+                marginBottom: "50px",
+                width: windowWidth <= 600 ? "100%" : "80%",
+              }}
+            >
+              <table
+                className="time-sheet-table"
                 style={{
-                  display: "flex",
-                  flexDirection: "column", // Optional, based on your design
-                  alignItems: "center", // Center contents horizontally
-                  justifyContent: "center", // Center contents vertically
-                  // padding: "20px",
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  textAlign: "center",
+                  border: "1px solid black",
                 }}
               >
-                <Grid sx={{ display: "flex", flexDirection: "row" }}>
-                  <Grid>
-                    <Card
-                      elevation={10}
-                      sx={{ padding: "10px", marginLeft: "100px" }}
-                    >
-                      <table
-                        className="time-sheet-table"
-                        style={{
-                          padding: "10px",
-                          borderCollapse: "collapse",
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                          width: windowWidth <= 600 ? "30%" : "100%",
-                          border: "1px solid black", // Optional: Add border for clarity
-                        }}
-                      >
-                        <thead>
-                          <tr>
-                            <th>Date</th>
-                            <th>Overview</th>
-                            <th>Submitted By</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {array.length > 0 ? (
-                            array.map((post, index) => (
-                              <tr key={index}>
-                                <td
-                                  style={{
-                                    paddingLeft: "10px",
-                                    paddingRight: "10px",
-                                  }}
-                                >
-                                  {post.date || "N/A"}
-                                </td>
-                                <td style={{ width: "150px", height: "100px" }}>
-                                  <img
-                                    style={{
-                                      width: "120px",
-                                      height: "80px",
-                                      margin: "10px",
-                                    }}
-                                    src={post.uploadPictures1 || "N/A"}
-                                  />
-                                </td>
-                                <td style={{ textAlign: "center" }}>
-                                  {post.submittedBy || "N/A"}
-                                </td>
-                                <td style={{ justifyContent: "space-between" }}>
-                                  <Button
-                                    style={{ marginRight: "10px" }}
-                                    onClick={() => {
-                                      navigate(
-                                        `/${post.date}/detailedprojectpage`
-                                      );
-                                      window.location.reload();
-                                      // window.scrollTo(0, 0);
-                                      // });
-                                    }}
-                                  >
-                                    View
-                                  </Button>
-                                </td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td colSpan="4" align="center">
-                                No data available
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </Card>
-                  </Grid>
-                  <Grid sx={{ padding: "10px", float: "right" }}>
-                    <button
-                      className="pl-5 pr-5 pt-2 pb-2 bg-green-600 hover:bg-green-500 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
-                      onClick={() => {
-                        navigate(`/entrydetails/${id}`);
-                      }}
-                    >
-                      + Add more
-                    </button>
-                  </Grid>
-                </Grid>
-              </div>
-            </div>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Overview</th>
+                    <th>Submitted By</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredArray.length > 0 ? (
+                    filteredArray.map((item, index) => (
+                      <tr key={index}>
+                        <td style={{ padding: "10px" }}>
+                          {item.date || "N/A"}
+                        </td>
+                        <td>
+                          <img
+                            style={{
+                              width: "100px",
+                              height: "70px",
+                              objectFit: "cover",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            src={item.uploadPictures1 || "N/A"}
+                            alt="Overview"
+                          />
+                        </td>
+                        <td style={{ padding: "10px" }}>
+                          {item.submittedBy || "N/A"}
+                        </td>
+                        <td>
+                          <Button
+                            variant="contained"
+                            onClick={() =>
+                              navigate(`/${item.date}/detailedprojectpage`)
+                            }
+                          >
+                            View
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4">No data available</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </Card>
           </Container>
         )}
       </Container>
@@ -236,5 +201,3 @@ const ViewDetails = () => {
 };
 
 export default ViewDetails;
-
-// the above works just once then again going to smae pages same error occurs needs to rfresh th epage
