@@ -574,153 +574,113 @@ const Dashboard = () => {
         show={termsVisible}
         onHide={() => setTermsVisible(false)}
         centered
-        style={{ padding: "12px", marginTop: "100px", height: "400px" }}
-        scrollable
+        style={{ padding: "12px", marginTop: "10vh" }}
+        // scrollable
       >
         <Modal.Header closeButton>
           <h5>Terms & Conditions</h5>
         </Modal.Header>
 
-        <Modal.Body style={{ maxHeight: "300px", overflowY: "auto" }}>
-          <form onSubmit={handleSubmitScope}>
-            <div style={{ marginBottom: "15px", padding: "15px" }}>
-              <h4 className="font-bold">GENERAL TERMS </h4>
-              <ol>
-                <li>
-                  i. Ensure that all future communication with employees is
-                  performed with the consent of the Ashkam; and No pouching of
-                  Ashkam’s appointed consultants/employees internal or external
-                  shall be permitted till 3 years from the date of contract.
-                </li>
-                <li>
-                  ii. Obtain any work or other permits required if necessary;
-                  and unless otherwise expressly stated in this agreement, all
-                  direct expenses of ASHKAM representative including to the
-                  performance of the services specified hereunder shall be borne
-                  by the Client, including but not limited to travel, outstation
-                  boarding and lodging and other expenses. ASHKAM shall submit
-                  the incurred cost with relevant bills attached.
-                </li>
-                <li>
-                  iii. The Consultancy shall be under no liability whatever to
-                  the Client for any indirect loss and/or expense (including
-                  loss of profit) suffered by the Client arising out of a breach
-                  by the Consultancy of these terms and conditions.
-                </li>
-                <li>
-                  iv. In the event of any breach of this contract by the
-                  Consultancy, the remedies of the Client shall be limited to
-                  damages. Under no circumstances shall the liability of the
-                  Consultancy exceed the Fee of the Services.
-                </li>
-                <li>
-                  v. The Client shall not be entitled to set off against or
-                  deduct from the Fee any sums owed or claimed to be owed to the
-                  Client by the Consultancy.
-                </li>
-                <li>
-                  vi. The Consultancy reserves the right to review these terms
-                  and conditions at any time. If, following any such review,
-                  there is to be any change to these terms and conditions, then
-                  that change shall take effect from the date on which the
-                  Consultancy notifies the Client of such change. Except where
-                  the Consultancy supplies further Services to the Client and
-                  the Client accepts such Services, the Client shall be under no
-                  obligation to accept such changes.
-                </li>
-                <li>
-                  vii. In the event of a default in performance or termination,
-                  all calculations and reports in the possession of ASHKAM shall
-                  be subject to lien for the payment of all fees and expenses
-                  due and owing by virtue of this agreement.
-                </li>
-                <li>
-                  viii. Client has to pay the additional amount for the hard
-                  copy or CD drive submission.
-                </li>
-                <li>
-                  ix. Any other analysis which is not part of the scope of work
-                  will require an additional amount.
-                </li>
-              </ol>
-            </div>
-
-            <div style={{ marginBottom: "15px", padding: "15px" }}>
-              <h4 className="font-bold">CONFIDENTIALITY </h4>
-              <ol>
-                <li>
-                  i. All correspondence forwarded by the Consultancy to the
-                  Client and relating to any and all Candidates shall be
-                  considered to be strictly private and confidential between the
-                  parties involved and cannot be forwarded to any other party
-                  unless formal written permission is given, in advance, by the
-                  Consultancy.
-                </li>
-                <li>
-                  ii. Should these conditions be breached by the Client, the
-                  Consultancy reserves the right to charge the Client a penalty
-                  Fee equivalent to the value of the original placement Fee for
-                  the Candidate.
-                </li>
-              </ol>
-            </div>
-
-            <div style={{ marginBottom: "15px", padding: "15px" }}>
-              <h4 className="font-bold">DISCLAIMER</h4>
-              <ol>
-                <li>
-                  i. The Consultancy interviews Candidates and obtains details
-                  from them of their qualifications, skills, and experience,
-                  which the Consultancy records and retains. The information
-                  contained in the Consultancy’s assessment and report is
-                  therefore based on details supplied to the Consultancy and is
-                  correct to the best of the Consultancy’s knowledge. The
-                  Consultancy accepts no responsibility whatsoever for errors,
-                  omissions, or incorrect conclusions.
-                </li>
-                <li>
-                  ii. Whilst the Consultancy endeavors to select Candidates
-                  which, in the Consultancy’s opinion, are most suitable to the
-                  Client’s needs, the Consultancy shall accept no liability on
-                  behalf of themselves, the Consultancy’s employees, agents, or
-                  assigns for any loss or damage, costs of compensation, however
-                  caused, which the Client may suffer or for which the Client
-                  may become liable arising out of, or in connection with, or as
-                  a result of, the introduction by the Consultancy to the
-                  Client, of any Candidate.
-                </li>
-                <li>
-                  iii. The Consultancy cannot accept responsibility for any loss
-                  or expense incurred due to the Client’s lack of familiarity
-                  with any relevant legislation regarding employment of
-                  Candidates, or as a result of any infringement.
-                </li>
-              </ol>
-            </div>
-
+        <form onSubmit={handleSubmitScope}>
+          <Modal.Body
+            style={{ maxHeight: "300px", overflowY: "auto" }}
+            scrollable
+          >
+            <div style={{ marginBottom: "15px", padding: "10px" }}>
+              <h4 className="font-bold">
+                Welcome to our Project Management Tool . By accessing or using
+                our web application, you agree to comply with and be bound by
+                these Terms and Conditions (“Terms”). If you do not agree, you
+                will not proceed further.
+              </h4>
+              <div style={{ marginTop: "15px", padding: "5px" }}>
+                <label>1. Acceptance: </label>
+                <ol>
+                  <li>
+                    By using our application, you agree to these terms. If you
+                    disagree, please do not use the app.
+                  </li>
+                </ol>
+              </div>
+              <div style={{ padding: "5px" }}>
+                <label>2. Usage: </label>
+                <ol>
+                  <li>
+                    Use the app responsibly and for lawful purposes only.
+                    Unauthorized access or misuse is prohibited.
+                  </li>
+                </ol>
+              </div>{" "}
+              <div style={{ padding: "5px" }}>
+                <label>3. Privacy: </label>
+                <ol>
+                  <li>We collect and process data per our Privacy policy.</li>
+                </ol>
+              </div>{" "}
+              <div style={{ padding: "5px" }}>
+                <label>4. Intellectual Property: </label>
+                <ol>
+                  <li>
+                    All app content belongs to us or our licensors. Do not copy
+                    or distribute without permission.
+                  </li>
+                </ol>
+              </div>{" "}
+              <div style={{ padding: "5px" }}>
+                <label>5. Liability: </label>
+                <ol>
+                  <li>
+                    We provide the app "as-is" without guarantees. We are not
+                    liable for any damages caused by its use.
+                  </li>
+                </ol>
+              </div>{" "}
+              <div style={{ padding: "5px" }}>
+                <label>6. Governing Law: </label>
+                <ol>
+                  <li>
+                    These terms are governed by the laws of Indian Government.
+                  </li>
+                </ol>
+              </div>{" "}
+              <div style={{ padding: "5px" }}>
+                <label>7. Contact Information: </label>
+                <ol>
+                  <li>
+                    For questions or concerns, please contact us at:
+                    <h6> Email: info_tec@ashkamenergy.com</h6>
+                  </li>
+                </ol>
+              </div>
+            </div>{" "}
             <Form.Check
               type="checkbox"
               label="I agree to the Terms & Conditions"
               checked={isChecked}
               onChange={handleCheckboxChange}
             />
-          </form>
-        </Modal.Body>
+          </Modal.Body>
+
+          <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+            <Button variant="secondary" onClick={handleDecline}>
+              Decline
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={handleAccept}
+              disabled={!isChecked}
+              style={{ display: "flex", float: "right", marginRight: "5px" }}
+            >
+              Accept
+            </Button>
+          </div>
+        </form>
 
         {/* Buttons outside of scrollable content */}
-        <Modal.Footer>
-          <Button
-            type="submit"
-            variant="success"
-            onClick={handleAccept}
-            disabled={!isChecked}
-          >
-            Accept
-          </Button>
-          <Button variant="secondary" onClick={handleDecline}>
-            Decline
-          </Button>
-        </Modal.Footer>
+        {/* <Modal.Footer> */}
+
+        {/* </Modal.Footer> */}
       </Modal>
 
       {/* But I want till the checked in not checked accept button will be disable not hidden */}
@@ -729,3 +689,118 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+{
+  /*Terms & Condition regarding software 
+ <ol>
+* <li>
+i. Ensure that all future communication with employees is
+performed with the consent of the Ashkam; and No pouching of
+Ashkam’s appointed consultants/employees internal or external
+shall be permitted till 3 years from the date of contract.
+</li>
+<li>
+ii. Obtain any work or other permits required if necessary;
+and unless otherwise expressly stated in this agreement, all
+direct expenses of ASHKAM representative including to the
+performance of the services specified hereunder shall be borne
+by the Client, including but not limited to travel, outstation
+boarding and lodging and other expenses. ASHKAM shall submit
+the incurred cost with relevant bills attached.
+</li>
+<li>
+iii. The Consultancy shall be under no liability whatever to
+the Client for any indirect loss and/or expense (including
+loss of profit) suffered by the Client arising out of a breach
+by the Consultancy of these terms and conditions.
+</li>
+<li>
+iv. In the event of any breach of this contract by the
+Consultancy, the remedies of the Client shall be limited to
+damages. Under no circumstances shall the liability of the
+Consultancy exceed the Fee of the Services.
+</li>
+<li>
+v. The Client shall not be entitled to set off against or
+deduct from the Fee any sums owed or claimed to be owed to the
+Client by the Consultancy.
+</li>
+<li>
+vi. The Consultancy reserves the right to review these terms
+and conditions at any time. If, following any such review,
+there is to be any change to these terms and conditions, then
+that change shall take effect from the date on which the
+Consultancy notifies the Client of such change. Except where
+the Consultancy supplies further Services to the Client and
+the Client accepts such Services, the Client shall be under no
+obligation to accept such changes.
+</li>
+<li>
+vii. In the event of a default in performance or termination,
+all calculations and reports in the possession of ASHKAM shall
+be subject to lien for the payment of all fees and expenses
+due and owing by virtue of this agreement.
+</li>
+<li>
+viii. Client has to pay the additional amount for the hard
+copy or CD drive submission.
+</li>
+<li>
+ix. Any other analysis which is not part of the scope of work
+will require an additional amount.
+</li>
+</ol>
+</div>
+
+<div style={{ marginBottom: "15px", padding: "15px" }}>
+<h4 className="font-bold">CONFIDENTIALITY </h4>
+<ol>
+<li>
+i. All correspondence forwarded by the Consultancy to the
+Client and relating to any and all Candidates shall be
+considered to be strictly private and confidential between the
+parties involved and cannot be forwarded to any other party
+unless formal written permission is given, in advance, by the
+Consultancy.
+</li>
+<li>
+ii. Should these conditions be breached by the Client, the
+Consultancy reserves the right to charge the Client a penalty
+Fee equivalent to the value of the original placement Fee for
+the Candidate.
+</li>
+</ol>
+</div>
+
+<div style={{ marginBottom: "15px", padding: "15px" }}>
+<h4 className="font-bold">DISCLAIMER</h4>
+<ol>
+<li>
+i. The Consultancy interviews Candidates and obtains details
+from them of their qualifications, skills, and experience,
+which the Consultancy records and retains. The information
+contained in the Consultancy’s assessment and report is
+therefore based on details supplied to the Consultancy and is
+correct to the best of the Consultancy’s knowledge. The
+Consultancy accepts no responsibility whatsoever for errors,
+omissions, or incorrect conclusions.
+</li>
+<li>
+ii. Whilst the Consultancy endeavors to select Candidates
+which, in the Consultancy’s opinion, are most suitable to the
+Client’s needs, the Consultancy shall accept no liability on
+behalf of themselves, the Consultancy’s employees, agents, or
+assigns for any loss or damage, costs of compensation, however
+caused, which the Client may suffer or for which the Client
+may become liable arising out of, or in connection with, or as
+a result of, the introduction by the Consultancy to the
+Client, of any Candidate.
+</li>
+<li>
+iii. The Consultancy cannot accept responsibility for any loss
+or expense incurred due to the Client’s lack of familiarity
+with any relevant legislation regarding employment of
+Candidates, or as a result of any infringement.
+</li>
+</ol> */
+}
