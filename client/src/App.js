@@ -16,6 +16,7 @@ import ContractViewDetail from "./components/ContractRegister/ContractViewDetail
 import "./index.css";
 import ContractView from "./components/ContractRegister/ContractView";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Curve from "./components/CurveDisplay/Curve";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -79,6 +80,8 @@ const App = () => {
           /> */}
 
           <Route path="lettertracker" exact element={<LetterTracker />} />
+
+          <Route path="/curve" exact element={<Curve />} />
         </Routes>
       </div>
 
