@@ -1,104 +1,91 @@
-import React, { Component } from "react";
-import CanvasJSReact from "@canvasjs/react-charts";
-import { Button } from "react-bootstrap";
-//var CanvasJSReact = require('@canvasjs/react-charts');
+import React, { useMemo } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-class Curve extends Component {
-  render() {
-    const options = {
-      animationEnabled: true,
-      title: {
-        text: "S-Curve of Project Growth",
-      },
-      axisY: {
-        title: "Growth Rate (%)",
-        suffix: " %",
-      },
-      Tooltip: { shared: true },
-      data: [
-        {
-          type: "splineArea", // S-curve style (smoothed line)
-          xValueFormatString: "Month",
-          yValueFormatString: "#,##0.## ",
-          showInLegend: true,
-          legendText: " Planned Growth Rate",
-          name: "Planned",
-          dataPoints: [
-            { x: (2023, 1), y: 48.07 },
-            { x: (2023, 2), y: 54.14 },
-            { x: (2023, 3), y: 57.57 },
-            { x: (2023, 4), y: 61.05 },
-            { x: (2023, 5), y: 64.56 },
-            { x: (2023, 6), y: 69.46 },
-            { x: (2023, 7), y: 74.04 },
-            { x: (2023, 8), y: 75.78 },
-            { x: (2023, 9), y: 76.79 },
-            { x: (2023, 10), y: 77.56 },
-            { x: (2023, 11), y: 78.45 },
-            { x: (2023, 12), y: 79.56 }, // This value represents the saturation or upper limit of the curve
-          ],
-        },
-        {
-          type: "splineArea", // S-curve style (smoothed line)
-          xValueFormatString: "Month",
-          yValueFormatString: "#,##0.## ",
-          showInLegend: true,
-          legendText: " Actual Growth Rate",
-          name: "Actual",
-          dataPoints: [
-            { x: (2023, 1), y: 45.0 },
-            { x: (2023, 2), y: 50.0 },
-            { x: (2023, 3), y: 55.0 },
-            { x: (2023, 4), y: 60.0 },
-            { x: (2023, 5), y: 65.0 },
-            { x: (2023, 6), y: 70.0 },
-            { x: (2023, 7), y: 75.0 },
-            { x: (2023, 8), y: 80.0 },
-            { x: (2023, 9), y: 85.0 },
-            { x: (2023, 10), y: 90.0 },
-            { x: (2023, 11), y: 95.0 },
-            { x: (2023, 12), y: 100.0 }, // This value represents the saturation or upper limit of the curve
-          ],
-        },
-      ],
-    };
+// S-Curve function: S(x) = 1 / (1 + exp(-k(x - midpoint)))^a
+const calculateSCurve = (duration, midpoint, growthRate, exponent) => {
+  const data = [];
+  const k = growthRate; // Growth rate determines the steepness of the curve
+  const a = exponent; // Exponent adjusts the sharpness of the curve
 
-    return (
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "500px", height: "100px" }}>
-          <CanvasJSChart
-            style={{ width: "500px", height: "100px" }}
-            options={options}
-            /* onRef={ref => this.chart = ref} */
-          />
-          {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-        </div>
-        <div>
-          <div style={{ display: "flex" }}>
-            <label>Enter Time : </label>
-            <input type="text" placeholder="Enter Time" />
-          </div>
-          <div style={{ display: "flex" }}>
-            <label>Enter Mid-Time : </label>
-            <input type="text" placeholder="Enter Mid-Time" />
-          </div>
-          <div style={{ display: "flex" }}>
-            <label>Enter Growth Rate : </label>
-            <input type="text" placeholder="Enter Growth Rate" />
-          </div>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ float: "right", backgroundColor: "#1976d2" }}
-          >
-            Submit
-          </Button>
-        </div>
-      </div>
-    );
+  for (let x = 0; x <= duration; x++) {
+    const growth = (1 / Math.pow(1 + Math.exp(-k * (x - midpoint)), a)) * 100;
+    data.push({ day: x, growth: growth });
   }
-}
+  return data;
+};
+
+const Curve = ({
+  duration1 = 12,
+  midpoint1 = 6,
+  growthRate1 = 0.5,
+  exponent1 = 1,
+
+  duration2 = 12,
+  midpoint2 = 6,
+  growthRate2 = 1,
+  exponent2 = 1,
+}) => {
+  // Calculate data for the first chart
+  const data1 = useMemo(
+    () => calculateSCurve(duration1, midpoint1, growthRate1, exponent1),
+    [duration1, midpoint1, growthRate1, exponent1]
+  );
+
+  // Calculate data for the second chart
+  const data2 = useMemo(
+    () => calculateSCurve(duration2, midpoint2, growthRate2, exponent2),
+    [duration2, midpoint2, growthRate2, exponent2]
+  );
+
+  const combinedData = data1.map((entry, index) => ({
+    day: entry.day,
+    growth1: entry.growth,
+    growth2: data2[index]?.growth || 0, // Use 0 if no matching day in data2
+  }));
+
+  return (
+    <ResponsiveContainer width={600} height={300}>
+      <LineChart
+        data={combinedData}
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="day"
+          label={{ value: "Days", position: "Center", offset: 0, margin: "2" }}
+        />
+        <YAxis
+          label={{ value: "Growth", angle: -90, position: "insideLeft" }}
+        />
+        <Tooltip />
+        {/* First Line */}
+        <Line
+          type="monotone"
+          dataKey="growth1"
+          stroke="#e46025"
+          strokeWidth={2}
+          name="Actual"
+        />
+        {/* Second Line */}
+        <Line
+          type="monotone"
+          dataKey="growth2"
+          stroke="#0d325c"
+          strokeWidth={2}
+          name="Planned"
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+};
 
 export default Curve;
+// Render both the line charts on same canvas on one chart

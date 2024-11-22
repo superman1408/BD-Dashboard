@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
 import scurve from "../../assests/scurve.png";
+import Curve from "../CurveDisplay/Curve";
+import CurveDisplay from "../CurveDisplay/CurveDisplay";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="items-start my-2">
+    <div className="items-start my-2 mb-50">
       {posts.map((post) => {
         console.log(post?.projectNumber);
         if (post.projectNumber === id) {
@@ -46,7 +48,7 @@ const Dashboard = () => {
                   </h1>
                 </div>
 
-                <div className="flex mt-3 mx-auto overflow-auto">
+                <div className="flex">
                   {/* mx-auto: Centers the container within the available space horizontally. */}
 
                   <div className="p-3  mx-auto overflow-auto  bg-gray-100 rounded ">
@@ -84,14 +86,12 @@ const Dashboard = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white mb-2 ">
-                    <Card className="bg-blue-400 ">
-                      <img src={scurve} />
-                    </Card>
+                  <div>
+                    <CurveDisplay />
                   </div>
                 </div>
 
-                <div className="p-3 overflow-auto mt-3 bg-gray-100 rounded flex">
+                <div className="p-3 overflow-auto mt-3 bg-gray-100 rounded flex mb-5">
                   <div className="h-auto w-18 flex">
                     <div className="p-2  ml-10">
                       <OverlayTrigger
