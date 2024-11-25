@@ -16,7 +16,8 @@ const calculateSCurve = (duration, midpoint, growthRate, exponent) => {
   const a = exponent; // Exponent adjusts the sharpness of the curve
 
   for (let x = 0; x <= duration; x++) {
-    const growth = (1 / Math.pow(1 + Math.exp(-k * (x - midpoint)), a)) ;
+    // const growth = (1 / Math.pow(1 + Math.exp(-k * (x - midpoint)), a)) ;
+    const growth = 1 / (1 + Math.exp(-k * (x - midpoint)));
     data.push({ day: x, growth: growth });
   }
   return data;
@@ -93,5 +94,3 @@ const Curve = ({
 };
 
 export default Curve;
-// Render both the line charts on same canvas on one chart
-// This graph is s-curve that shows only value till the month I want , like I have duration of 12 month , midpoint is 6 but my project running on 7th month so I want to display grapg till 7th month with the rate of 0.6
