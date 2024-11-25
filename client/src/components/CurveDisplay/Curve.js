@@ -93,5 +93,3 @@ const Curve = ({
 };
 
 export default Curve;
-// Render both the line charts on same canvas on one chart
-// This graph is s-curve that shows only value till the month I want , like I have duration of 12 month , midpoint is 6 but my project running on 7th month so I want to display grapg till 7th month with the rate of 0.6
