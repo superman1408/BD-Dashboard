@@ -449,7 +449,6 @@ const Dashboard = () => {
                 required
               />
             </div>
-
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Date of Commencement: </label>
               <input
@@ -462,6 +461,18 @@ const Dashboard = () => {
               />
             </div>
 
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+              <label>Target End Date : </label>
+              <input
+                className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-14
+                 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                type="date"
+                name="commencementDate"
+                value={formData.commencementDate}
+                onChange={handleFormChange}
+                required
+              />
+            </div>
             <div style={{ display: "flex", marginBottom: "15px" }}>
               <label>Project Manager: </label>
               <input
