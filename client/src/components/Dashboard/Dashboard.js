@@ -41,17 +41,17 @@ const Dashboard = () => {
           console.log(post?.projectNumber);
           return (
             <>
-              <div className="p-2 h-screen bg-white items-center justify-center">
+              <div className="p-2 h-screen bg-white items-center justify-center ">
                 <div className="flex flex-wrap items-center justify-center">
                   <h1 className="p-2 mt-2 text-[22px] font-bold text-blue-900 text-center">
                     {post?.projectName}
                   </h1>
                 </div>
 
-                <div className="flex">
+                <div className="flex md:flex-row flex-col">
                   {/* mx-auto: Centers the container within the available space horizontally. */}
 
-                  <div className="p-3  mx-auto overflow-auto  bg-gray-100 rounded ">
+                  <div className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100">
                     <div className=" bg-white flex mb-2">
                       <div className=" w-2 bg-blue-800"></div>
                       <h4 className="p-3 font-bold">Scope of the Project :</h4>

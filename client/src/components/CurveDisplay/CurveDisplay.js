@@ -7,7 +7,7 @@ const CurveDisplay = () => (
     <Curve
       duration1={12}
       midpoint1={6}
-      growthRate1={0.5}
+      growthRate1={0.6}
       exponent1={1}
       duration2={12}
       midpoint2={6}
