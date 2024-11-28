@@ -157,4 +157,3 @@ const Curve = ({
 };
 
 export default Curve;
-// here I want first formula is for finding growth & second is for finding growth rate & use That growth rate in second graph but ists not recognising actual growth rate values how to do it
