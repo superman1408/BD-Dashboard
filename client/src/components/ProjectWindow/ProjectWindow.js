@@ -29,6 +29,7 @@ const Dashboard = () => {
     clientName: "",
     projectNumber: "",
     commencementDate: "",
+    endDate: "",
     projectManager: "",
     selectedFile: "",
     scope: "",
@@ -78,6 +79,7 @@ const Dashboard = () => {
         clientName: "",
         projectNumber: "",
         commencementDate: "",
+        endDate: "",
         projectManager: "",
         selectedFile: "",
       });
@@ -272,7 +274,7 @@ const Dashboard = () => {
                               </a>
                             ) : (
                               <a
-                                className="p-2 bg-red-500 hover:text-white transition rounded-lg bg-opacity-50 "
+                                className="p-2 bg-red-500 hover:text-white transition rounded-lg bg-opacity-50 cursor-pointer"
                                 onClick={() => handleScope(post._id)}
                               >
                                 Inactive
@@ -467,8 +469,8 @@ const Dashboard = () => {
                 className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-14
                  transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 type="date"
-                name="commencementDate"
-                value={formData.commencementDate}
+                name="endDate"
+                value={formData.endDate}
                 onChange={handleFormChange}
                 required
               />

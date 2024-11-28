@@ -14,6 +14,9 @@ const projectSchema = mongoose.Schema(
     commencementDate: {
       type: String,
     },
+    endDate: {
+      type: String,
+    },
     projectManager: {
       type: String,
     },
@@ -33,6 +36,9 @@ const projectSchema = mongoose.Schema(
       type: String,
     },
     status: {
+      type: String,
+    },
+    growthRate: {
       type: String,
     },
   },
