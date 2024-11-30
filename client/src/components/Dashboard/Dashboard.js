@@ -57,10 +57,19 @@ const Dashboard = () => {
                       <h4 className="p-3 font-bold">Scope of the Project :</h4>
                       <h1 className="p-3 ml-8">{post?.scope}</h1>
                     </div>
-                    <div className=" bg-white flex mb-2">
+                    <div className=" bg-white flex mb-2 ">
                       <div className=" w-2 bg-blue-800"></div>
-                      <h4 className="p-3 font-bold">Date of Commencement :</h4>
-                      <h4 className="p-3 ml-2">{post?.commencementDate}</h4>
+                      <div className=" flex">
+                        <h4 className="p-3 font-bold">
+                          Date of Commencement :
+                        </h4>
+                        <h4 className="p-3 ">{post?.commencementDate}</h4>
+                      </div>
+
+                      <div className=" flex ml-5">
+                        <h4 className="p-3 font-bold">Date of Completion :</h4>
+                        <h4 className="p-3 ">{post?.endDate}</h4>
+                      </div>
                     </div>
                     <div className=" bg-white flex mb-2">
                       <div className=" w-2 bg-blue-800"></div>
@@ -85,7 +94,7 @@ const Dashboard = () => {
                       <h4 className="p-3 ml-10">{post?.teams}</h4>
                     </div>
                   </div>
-
+{/*  */}
                   <div>
                     <CurveDisplay />
                   </div>

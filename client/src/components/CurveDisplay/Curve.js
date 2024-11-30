@@ -21,6 +21,8 @@ const calculateSCurve = (duration, midpoint, growthRate, exponent, da) => {
     const growth = 1 / (1 + Math.exp(-k * (x - midpoint)));
     // data.push({ day: x, growth: growth });
 
+    console.log("growth", growth);
+
     if (growth <= 0 || growth >= 1) {
       console.warn(`Growth out of bounds at day ${x}:`, growth);
       continue; // Skip invalid growth values
@@ -36,7 +38,7 @@ const calculateSCurve = (duration, midpoint, growthRate, exponent, da) => {
     // Push results to the data array
     data.push({
       day: x,
-      growth: growth,
+      growth: growth * 100,
       requiredGrowthRate: requiredGrowthRate,
     });
   }
@@ -104,8 +106,8 @@ const Curve = ({
           }}
         />
         <YAxis
-          tickFormatter={(value) => `${value * 100}%`}
-          label={{ value: "Growth", angle: -90, position: "insideLeft" }}
+          tickFormatter={(value) => `${value}%`}
+          label={{ value: "Progress", angle: -90, position: "insideLeft" }}
         />
         <Tooltip />
         {/* First Line */}
@@ -121,7 +123,7 @@ const Curve = ({
           dataKey="growth1"
           stroke="#e46025"
           strokeWidth={2}
-          name="Actual Growth"
+          name="Current"
         />
         {/* Second Line */}
         <Line
@@ -129,7 +131,7 @@ const Curve = ({
           dataKey="growth2"
           stroke="#0d325c"
           strokeWidth={2}
-          name="Planned Growth"
+          name="Planned"
         />
       </LineChart>
       <div className="flex justify-center ">
@@ -157,3 +159,4 @@ const Curve = ({
 };
 
 export default Curve;
+//

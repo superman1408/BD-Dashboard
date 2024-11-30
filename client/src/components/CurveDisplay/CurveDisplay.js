@@ -55,18 +55,70 @@ const CurveDisplay = () => {
 
   console.log(posts);
 
+  // eslint-disable-next-line no-lone-blocks
+  // {
+  //   posts.map((post) => {
+  //     const isoDate = post?.updatedAt;
+
+  //     const options = {
+  //       year: "numeric",
+  //       month: "long",
+  //       day: "numeric",
+  //       hour: "2-digit",
+  //       minute: "2-digit",
+  //       second: "2-digit",
+  //       hour12: true,
+  //       timeZone: "UTC",
+  //     };
+
+  //     const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+  //       new Date(isoDate)
+  //     );
+
+  //     console.log(formattedDate);
+  //   });
+  // }
+  // Outputs: November 30, 2024, 07:41:24 AM
+
   return (
     <>
       <div className="mb-8">
         {posts.map((post, index) => {
+          const isoDate = post?.updatedAt;
+          const options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            // hour: "2-digit",
+            // minute: "2-digit",
+            // second: "2-digit",
+            // hour12: true,
+            timeZone: "UTC",
+          };
+
+          const formattedDate = new Intl.DateTimeFormat(
+            "en-US",
+            options
+          ).format(new Date(isoDate));
+
+          const currentDate = new Date();
+          console.log(currentDate);
+
           if (post.projectNumber === id) {
             return (
-              <div className="flex justify-between items-center bg-gray-100 rounded">
-                <h1 className="p-3 font-bold">Cummulative Progress</h1>
+              <div className="flex justify-between items-center bg-gray-100 rounded ">
+                <div className="p-2">
+                  <h1 className="font-bold text-lg">Overview</h1>
+                  <h3 className=" font-semi-bold text-xs">
+                    {/* bg-gray-700 text-white rounded-lg */}
+                    Last Updated Growth Rate At : {formattedDate}
+                  </h3>
+                </div>
 
-                <h3 className="p-3 font-bold text-sm">
+                {/* <h3 className="p-3 font-bold text-sm">
                   {post?.commencementDate}-{post?.endDate}
-                </h3>
+                  {post?.updatedAt}
+                </h3> */}
 
                 <button
                   onClick={() => openCard(post._id)}
