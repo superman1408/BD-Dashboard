@@ -566,7 +566,7 @@ const DetailedProjectPage = () => {
                                   src={entry.uploadPictures1}
                                   alt="Image"
                                   style={{
-                                    width: "150px",
+                                    width: "130px",
                                     height: "100px",
                                     margin: "10px",
                                   }}
@@ -575,7 +575,7 @@ const DetailedProjectPage = () => {
                                   src={entry.uploadPictures2}
                                   alt="Image"
                                   style={{
-                                    width: "150px",
+                                    width: "130px",
                                     height: "100px",
                                     margin: "10px",
                                   }}
@@ -584,7 +584,7 @@ const DetailedProjectPage = () => {
                                   src={entry.uploadPictures3}
                                   alt="Image"
                                   style={{
-                                    width: "150px",
+                                    width: "130px",
                                     height: "100px",
                                     margin: "10px",
                                   }}
@@ -593,7 +593,7 @@ const DetailedProjectPage = () => {
                                   src={entry.uploadPictures4}
                                   alt="Image"
                                   style={{
-                                    width: "150px",
+                                    width: "130px",
                                     height: "100px",
                                     margin: "10px",
                                   }}
@@ -602,7 +602,7 @@ const DetailedProjectPage = () => {
                                   src={entry.uploadPictures5}
                                   alt="Image"
                                   style={{
-                                    width: "150px",
+                                    width: "130px",
                                     height: "100px",
                                     margin: "10px",
                                   }}
