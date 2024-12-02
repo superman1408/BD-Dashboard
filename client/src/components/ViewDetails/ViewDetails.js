@@ -157,14 +157,18 @@ const ViewDetails = () => {
                         <td style={{ padding: "10px" }}>
                           {item.date || "N/A"}
                         </td>
-                        <td>
+                        <td
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
                           <img
                             style={{
                               width: "100px",
                               height: "70px",
                               objectFit: "cover",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             src={item.uploadPictures1 || "N/A"}
                             alt="Overview"
