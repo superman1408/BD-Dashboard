@@ -35,7 +35,7 @@ const CurveDisplay = () => {
     const existingPost = posts.find((post) => post._id === currentPostId);
 
     if (!existingPost) {
-      console.error("No existing project found!");
+      // console.error("No existing project found!");
       return;
     }
 
@@ -53,32 +53,7 @@ const CurveDisplay = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  console.log(posts);
-
-  // eslint-disable-next-line no-lone-blocks
-  // {
-  //   posts.map((post) => {
-  //     const isoDate = post?.updatedAt;
-
-  //     const options = {
-  //       year: "numeric",
-  //       month: "long",
-  //       day: "numeric",
-  //       hour: "2-digit",
-  //       minute: "2-digit",
-  //       second: "2-digit",
-  //       hour12: true,
-  //       timeZone: "UTC",
-  //     };
-
-  //     const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-  //       new Date(isoDate)
-  //     );
-
-  //     console.log(formattedDate);
-  //   });
-  // }
-  // Outputs: November 30, 2024, 07:41:24 AM
+  // console.log(posts);
 
   return (
     <>
@@ -102,7 +77,7 @@ const CurveDisplay = () => {
           ).format(new Date(isoDate));
 
           const currentDate = new Date();
-          console.log(currentDate);
+          console.log(currentDate, currentDate);
 
           if (post.projectNumber === id) {
             return (
@@ -163,6 +138,18 @@ const CurveDisplay = () => {
 
                   exponent2={1}
                   dateCommence={dateCommence}
+                  duration3={duration}
+                  midpoint3={midpoint}
+                  // growthRate2={1.9}
+
+                  exponent3={1}
+                  dateCommence1={dateCommence}
+                  duration={duration}
+                  midpoint={midpoint}
+                  growthRate={currentgrowthRate}
+                  exponent={1}
+                  totalGrowth={currentgrowthRate} // 85% growth
+                  // dateCommence={new Date("2024-01-01")}
                 />
               </div>
             );
@@ -197,7 +184,10 @@ const CurveDisplay = () => {
               />
             </div>
           </Modal.Body>
+          {/* 9) The average age of the committee of 10 members is 40 years. A member of age 52 retires and a new member of age 38 takes his place. What is the average age of the present committee?
+           */}
 
+          {/* I want to calculate requiredgrowthrate on the provided growth till the current month from whole duration how to doi it */}
           <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
             <Button
               type="submit"
