@@ -18,6 +18,10 @@ const CurveDisplay = () => {
     growthRate: "",
   });
 
+  // const [formData, setFormData] = useState({
+  // growthRate:"0.3",
+  // })
+
   const posts = useSelector((state) => state.posts);
 
   const openCard = (postid) => {
