@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
-import Curve from "../CurveDisplay/Scurve/Curve";
+// import Curve from "../CurveDisplay/Scurve/Curve";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, update } from "../../action/posts";
 import { useParams } from "react-router-dom";
+import TrialScurve from "./TrialCurve/TrialScurve";
 
 const CurveDisplay = () => {
   const [dialogOpen, setDialogOpen] = useState();
@@ -18,9 +19,15 @@ const CurveDisplay = () => {
     growthRate: "",
   });
 
+
+  useEffect(() => { 
+    dispatch(getPosts());
+  }, [dispatch]);
+
   // const [formData, setFormData] = useState({
   // growthRate:"0.3",
   // })
+
 
   const posts = useSelector((state) => state.posts);
 
@@ -53,11 +60,9 @@ const CurveDisplay = () => {
     window.location.reload();
   };
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
 
-  // console.log(posts);
+
+  console.log(posts);
 
   return (
     <>
@@ -130,8 +135,8 @@ const CurveDisplay = () => {
 
           if (post.projectNumber === id) {
             return (
-              <div key={index}>
-                <Curve
+              <div>
+                {/* <Curve
                   duration1={duration}
                   midpoint1={midpoint}
                   growthRate1={currentgrowthRate}
@@ -154,7 +159,8 @@ const CurveDisplay = () => {
                   exponent={1}
                   totalGrowth={currentgrowthRate} // 85% growth
                   // dateCommence={new Date("2024-01-01")}
-                />
+                /> */}
+                <TrialScurve key={index} dateCommence={dateCommence} dateEnd={dateEnd} />
               </div>
             );
           }
