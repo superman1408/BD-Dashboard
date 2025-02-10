@@ -4,8 +4,7 @@ import DPRimage from "../../assests/DPR.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
-import scurve from "../../assests/scurve.png";
-import Curve from "../CurveDisplay/Curve";
+
 import CurveDisplay from "../CurveDisplay/CurveDisplay";
 
 const Dashboard = () => {

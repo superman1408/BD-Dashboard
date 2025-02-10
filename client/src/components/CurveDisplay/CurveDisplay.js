@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
-import Curve from "./Curve";
+import Curve from "../CurveDisplay/Scurve/Curve";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, update } from "../../action/posts";
 import { useParams } from "react-router-dom";

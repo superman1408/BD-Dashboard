@@ -16,7 +16,6 @@ import ContractViewDetail from "./components/ContractRegister/ContractViewDetail
 import "./index.css";
 import ContractView from "./components/ContractRegister/ContractView";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Curve from "./components/CurveDisplay/Curve";
 import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 
 const App = () => {
