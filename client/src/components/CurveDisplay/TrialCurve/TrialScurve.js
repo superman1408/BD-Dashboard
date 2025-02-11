@@ -1,67 +1,81 @@
-// import React from 'react';
+import React from 'react';
 
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   ResponsiveContainer,
-// } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-// const TrialScurve = ({ dateCommence, dateEnd }) => {
-//   console.log(dateCommence);
-//   console.log(dateEnd);
-//   // ------------------Now to Calculate the cumulative Progress in S-Curve using Sigmoid Function------------------------
-//   //progress = 1/(1 + (e^-k*(t-t0))
+const TrialScurve = ({ dateCommence, dateEnd }) => {
+  console.log(dateCommence);
+  console.log(dateEnd);
+  // ------------------Now to Calculate the cumulative Progress in S-Curve using Sigmoid Function------------------------
+  //progress = 1/(1 + (e^-k*(t-t0))
 
-//   const projectStart = new Date(dateCommence);
-//   const projectEnd = new Date(dateEnd);
-//   const currentDate = new Date();
-//   console.log(currentDate);
+  const projectStart = new Date(dateCommence);
+  const projectEnd = new Date(dateEnd);
+  const currentDate = new Date();
+  console.log(currentDate);
   
   
-// // ------------------------Ideal Project Duration here-----------------------------------------------
-//   const durationInMillSec = projectEnd - projectStart;
+// ------------------------Ideal Project Duration here-----------------------------------------------
+  const durationInMillSec = projectEnd - projectStart;
 
-//   // console.log(durationInMillSec);
+  // console.log(durationInMillSec);
 
-//   const durationInDays = Math.floor(durationInMillSec / (1000 * 3600 * 24));
-//   // console.log(durationInDays);
-//   const durationInMonth = Math.floor(durationInDays / 30);
-//   // console.log(durationInMonth);
+  const durationInDays = Math.floor(durationInMillSec / (1000 * 3600 * 24));
+  // console.log(durationInDays);
+  const durationInMonth = Math.floor(durationInDays / 30);
+  // console.log(durationInMonth);
 
-//   const durationInYears = Math.floor(durationInDays / 365);
-//   // console.log(durationInYears);
+  const durationInYears = Math.floor(durationInDays / 365);
+  // console.log(durationInYears);
   
-//   // -----------Project current status---------------------------------
-//   const durationCurrentDateInMilli = currentDate - projectStart;
-//   // console.log(durationCurrentDateInMilli);
-//   const durationCurrentDateInMonth = Math.floor(durationCurrentDateInMilli / (1000 * 3600 * 24 * 30)) + 1;
-//   console.log(durationCurrentDateInMonth);
+  // -----------Project current status---------------------------------
+  const durationCurrentDateInMilli = currentDate - projectStart;
+  // console.log(durationCurrentDateInMilli);
+  const durationCurrentDateInMonth = Math.floor(durationCurrentDateInMilli / (1000 * 3600 * 24 * 30)) + 1;
+  console.log(durationCurrentDateInMonth);
 
-//   // ----------------------Project Future Scope and expectation-------------------------------------------------
+  // ----------------------Project Future Scope and expectation-------------------------------------------------
   
-  
+  const calculateSteepness = () => { 
+    const fullDuration = durationInMonth;
+    const midPoint = fullDuration / 2;
+    const currentMonthCount = durationCurrentDateInMonth;
+    const workCompleted = 0.1;
+    // console.log(typeof midPoint);
+    // console.log(typeof workCompleted);
+    // Sigmoid formula: y(t) = 1 / (1 + e^(-k * (t - t0)))
+    const e = Math.E; //Euler's number
+    console.log(e);
+    
+    
+  };
+
+  calculateSteepness();
     
     
     
-//   return (
-//     <ResponsiveContainer>
-//       <div>
-//         <h1>Date of Commencement : {dateCommence.toString()}</h1>
-//         <h1>Date of Completion : {dateEnd.toString()}</h1>
-//         <h1>Duration of Project : {durationInMonth.toString()} Months</h1>
-//       </div>
-//     </ResponsiveContainer>
-//   );
-// };
+  return (
+    <ResponsiveContainer>
+      <div>
+        <h1>Date of Commencement : {dateCommence.toString()}</h1>
+        <h1>Date of Completion : {dateEnd.toString()}</h1>
+        <h1>Duration of Project : {durationInMonth.toString()} Months</h1>
+      </div>
+    </ResponsiveContainer>
+  );
+};
 
 
 
 
-// export default TrialScurve;
+export default TrialScurve;
 
 
 // export default TrialScurve;
@@ -85,86 +99,86 @@
 
 
 
-import React, { useMemo } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+// import React, { useMemo } from "react";
+// import {
+//   LineChart,
+//   Line,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   ResponsiveContainer,
+// } from "recharts";
 
-const TrialScurve = ({ dateCommence, dateEnd }) => {
-  // Convert string dates to Date objects
-  const projectStart = new Date(dateCommence);
-  const projectEnd = new Date(dateEnd);
-  const currentDate = new Date();
+// const TrialScurve = ({ dateCommence, dateEnd }) => {
+//   // Convert string dates to Date objects
+//   const projectStart = new Date(dateCommence);
+//   const projectEnd = new Date(dateEnd);
+//   const currentDate = new Date();
 
-  // Project duration calculations
-  const durationInDays = useMemo(() => {
-    const durationInMillSec = projectEnd - projectStart;
-    return Math.floor(durationInMillSec / (1000 * 3600 * 24));
-  }, [projectEnd, projectStart]);
+//   // Project duration calculations
+//   const durationInDays = useMemo(() => {
+//     const durationInMillSec = projectEnd - projectStart;
+//     return Math.floor(durationInMillSec / (1000 * 3600 * 24));
+//   }, [projectEnd, projectStart]);
 
-  const durationInMonths = useMemo(
-    () => Math.ceil(durationInDays / 30),
-    [durationInDays]
-  );
+//   const durationInMonths = useMemo(
+//     () => Math.ceil(durationInDays / 30),
+//     [durationInDays]
+//   );
 
-  const durationCurrentDateInMonths = useMemo(() => {
-    const durationCurrentInMilli = currentDate - projectStart;
-    return Math.ceil(durationCurrentInMilli / (1000 * 3600 * 24 * 30));
-  }, [currentDate, projectStart]);
+//   const durationCurrentDateInMonths = useMemo(() => {
+//     const durationCurrentInMilli = currentDate - projectStart;
+//     return Math.ceil(durationCurrentInMilli / (1000 * 3600 * 24 * 30));
+//   }, [currentDate, projectStart]);
 
-  // Generate progress data for S-Curve
-  const progressData = useMemo(() => {
-    const k = 0.1; // Sigmoid curve steepness constant
-    const midpoint = durationInDays / 2; // Midpoint of the project
-    const data = [];
+//   // Generate progress data for S-Curve
+//   const progressData = useMemo(() => {
+//     const k = 0.1; // Sigmoid curve steepness constant
+//     const midpoint = durationInDays / 2; // Midpoint of the project
+//     const data = [];
 
-    for (let day = 0; day <= durationInDays; day++) {
-      const progress = 1 / (1 + Math.exp(-k * (day - midpoint))); // Sigmoid function
-      data.push({ day, progress: Math.round(progress * 100) }); // Progress as percentage
-    }
-    return data;
-  }, [durationInDays]);
+//     for (let day = 0; day <= durationInDays; day++) {
+//       const progress = 1 / (1 + Math.exp(-k * (day - midpoint))); // Sigmoid function
+//       data.push({ day, progress: Math.round(progress * 100) }); // Progress as percentage
+//     }
+//     return data;
+//   }, [durationInDays]);
 
-  return (
-    <div>
-      <div style={{ marginBottom: "20px" }}>
-        <h1>Date of Commencement: {projectStart.toDateString()}</h1>
-        <h1>Date of Completion: {projectEnd.toDateString()}</h1>
-        <h1>Duration of Project: {durationInMonths} Months</h1>
-        <h1>Current Month in Project: {durationCurrentDateInMonths}</h1>
-      </div>
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={progressData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="day"
-            label={{ value: "Days", position: "insideBottom", offset: -5 }}
-          />
-          <YAxis
-            label={{
-              value: "Progress (%)",
-              angle: -90,
-              position: "insideLeft",
-            }}
-          />
-          <Tooltip />
-          <Line
-            type="monotone"
-            dataKey="progress"
-            stroke="#8884d8"
-            strokeWidth={2}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <div style={{ marginBottom: "20px" }}>
+//         <h1>Date of Commencement: {projectStart.toDateString()}</h1>
+//         <h1>Date of Completion: {projectEnd.toDateString()}</h1>
+//         <h1>Duration of Project: {durationInMonths} Months</h1>
+//         <h1>Current Month in Project: {durationCurrentDateInMonths}</h1>
+//       </div>
+//       <ResponsiveContainer width="100%" height={400}>
+//         <LineChart data={progressData}>
+//           <CartesianGrid strokeDasharray="3 3" />
+//           <XAxis
+//             dataKey="day"
+//             label={{ value: "Days", position: "insideBottom", offset: -5 }}
+//           />
+//           <YAxis
+//             label={{
+//               value: "Progress (%)",
+//               angle: -90,
+//               position: "insideLeft",
+//             }}
+//           />
+//           <Tooltip />
+//           <Line
+//             type="monotone"
+//             dataKey="progress"
+//             stroke="#8884d8"
+//             strokeWidth={2}
+//           />
+//         </LineChart>
+//       </ResponsiveContainer>
+//     </div>
+//   );
+// };
 
-export default TrialScurve;
+// export default TrialScurve;
 

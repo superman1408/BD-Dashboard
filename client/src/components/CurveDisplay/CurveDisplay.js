@@ -131,7 +131,7 @@ const CurveDisplay = () => {
           const duration = timeDifference / (1000 * 60 * 60 * 24 * 30);
           const midpoint = duration / 2;
           const currentgrowthRate = post?.growthRate;
-          console.log(currentgrowthRate);
+          // console.log(currentgrowthRate);
 
           if (post.projectNumber === id) {
             return (

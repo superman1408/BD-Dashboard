@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   // If your route path looks like /dashboard/:id, then id will be an object, for example: { id: '123' }. So, you need to access it like this:
 
-  console.log(id);
+  // console.log(id);
 
   const posts = useSelector((state) => state.posts);
 
@@ -35,9 +35,9 @@ const Dashboard = () => {
   return (
     <div className="items-start my-2 mb-50">
       {posts.map((post, index) => {
-        console.log(post?.projectNumber);
+        // console.log(post?.projectNumber);
         if (post.projectNumber === id) {
-          console.log(post?.projectNumber);
+          // console.log(post?.projectNumber);
           return (
             <div key={index}>
               <div className="p-2 h-screen bg-white items-center justify-center ">
