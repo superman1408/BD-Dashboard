@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPosts, update } from "../../action/posts";
 import { useParams } from "react-router-dom";
 import TrialScurve from "./TrialCurve/TrialScurve";
+import LineGraph from "./TrialCurve/LineGraph";
 
 const CurveDisplay = () => {
   const [dialogOpen, setDialogOpen] = useState();
@@ -160,14 +161,19 @@ const CurveDisplay = () => {
                   totalGrowth={currentgrowthRate} // 85% growth
                   // dateCommence={new Date("2024-01-01")}
                 /> */}
-                <TrialScurve key={index} dateCommence={dateCommence} dateEnd={dateEnd} />
+                <LineGraph
+                  key={index}
+                  dateCommence={dateCommence}
+                  dateEnd={dateEnd}
+                  workCompleted = {0.60}
+                />
               </div>
             );
           }
         })}
       </div>
 
-      <Modal
+      {/* <Modal
         show={dialogOpen}
         onHide={() => setDialogOpen(false)}
         centered
@@ -192,13 +198,13 @@ const CurveDisplay = () => {
                 onChange={handleFormChange}
                 required
               />
-            </div>
-          </Modal.Body>
+            </div> */}
+          {/* </Modal.Body> */}
           {/* 9) The average age of the committee of 10 members is 40 years. A member of age 52 retires and a new member of age 38 takes his place. What is the average age of the present committee?
            */}
 
           {/* I want to calculate requiredgrowthrate on the provided growth till the current month from whole duration how to doi it */}
-          <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+          {/* <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
             <Button
               type="submit"
               variant="primary"
@@ -209,7 +215,7 @@ const CurveDisplay = () => {
             </Button>
           </div>
         </form>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
