@@ -1,129 +1,4 @@
-// import React from "react";
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   ResponsiveContainer,
-// } from "recharts";
-
-// const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
-//   const projectStart = new Date(dateCommence);
-//   const projectEnd = new Date(dateEnd);
-
-//   const durationInMillSec = projectEnd - projectStart;
-//   const durationInDays = Math.floor(durationInMillSec / (1000 * 3600 * 24));
-//   const durationInMonth = Math.ceil(durationInDays / 30);
-
-//   const calculateSteepness = (
-//     workCompleted,
-//     currentMonthCount,
-//     fullDuration
-//   ) => {
-//     const midPoint = fullDuration / 2;
-//     if (workCompleted <= 0.01 || workCompleted >= 0.99) return null;
-
-//     const numerator = -Math.log(1 / workCompleted - 1);
-//     let denominator = currentMonthCount - midPoint;
-//     if (denominator === 0) denominator = 0.0001;
-//     return numerator / denominator;
-//   };
-
-//   const generateSigmoidData = (k, fullDuration, midpoint, label) => {
-//     const data = [];
-//     for (let t = 0; t <= fullDuration; t++) {
-//       const progress = 1 / (1 + Math.exp(-k * (t - midpoint)));
-//       data.push({ month: t, progress: progress * 100, label });
-//     }
-//     return data;
-//   };
-
-//   // Case 1: Full projection
-//   const k1 = calculateSteepness(0.99, durationInMonth, durationInMonth);
-//   const case1Data = generateSigmoidData(
-//     k1,
-//     durationInMonth,
-//     durationInMonth / 2,
-//     "Case 1"
-//   );
-
-//   // Case 2: Current projection based on user input
-//   const currentMonthCount = Math.ceil(
-//     (new Date() - projectStart) / (1000 * 3600 * 24 * 30)
-//   );
-//   const k2 = calculateSteepness(
-//     workCompleted,
-//     currentMonthCount,
-//     durationInMonth
-//   );
-//   const case2Data = generateSigmoidData(
-//     k2,
-//     durationInMonth,
-//     durationInMonth / 2,
-//     "Case 2"
-//   );
-
-//   // Case 3: Future projection using Case 2's k
-//   const case3Data = generateSigmoidData(
-//     k2,
-//     durationInMonth,
-//     durationInMonth / 2,
-//     "Case 3"
-//   );
-
-//   const combinedData = [...case1Data, ...case2Data, ...case3Data];
-
-//   return (
-//     <div>
-//       <h1>Project S-Curve</h1>
-//       <ResponsiveContainer width="100%" height={400}>
-//         <LineChart data={combinedData}>
-//           <CartesianGrid strokeDasharray="3 3" />
-//           <XAxis
-//             dataKey="month"
-//             label={{ value: "Months", position: "insideBottom", offset: -5 }}
-//           />
-//           <YAxis
-//             label={{
-//               value: "Progress (%)",
-//               angle: -90,
-//               position: "insideLeft",
-//             }}
-//           />
-//           <Tooltip />
-//           <Line
-//             type="monotone"
-//             dataKey="progress"
-//             data={case1Data}
-//             name="Case 1"
-//             stroke="#8884d8"
-//           />
-//           <Line
-//             type="monotone"
-//             dataKey="progress"
-//             data={case2Data}
-//             name="Case 2"
-//             stroke="#82ca9d"
-//           />
-//           <Line
-//             type="monotone"
-//             dataKey="progress"
-//             data={case3Data}
-//             name="Case 3"
-//             stroke="#ffc658"
-//           />
-//         </LineChart>
-//       </ResponsiveContainer>
-//     </div>
-//   );
-// };
-
-// export default LineGraph;
-
-
-import React, { useState } from "react";
+import React from "react";
 import {
   LineChart,
   Line,
@@ -135,144 +10,159 @@ import {
 } from "recharts";
 
 const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
-  // ------------------Now to Calculate the cumulative Progress in S-Curve using Sigmoid Function------------------------
-  //progress = 1/(1 + (e^-k*(t-t0))
-
+  // ------------------- Date and Duration Calculations -------------------
   const projectStart = new Date(dateCommence);
   const projectEnd = new Date(dateEnd);
-  const durationInMillSec = projectEnd - projectStart;
-  const durationInDays = Math.floor(durationInMillSec / (1000 * 3600 * 24));
-  const durationInMonth = Math.floor(durationInDays / 30);
-  const durationCurrentDateInMillSec = new Date() - projectStart;
-  const durationCurrentDateInMonth =
-    Math.floor(durationCurrentDateInMillSec / (1000 * 3600 * 24 * 30)) + 1;
+  const currentDate = new Date();
+  const userInput = workCompleted;
 
+  const durationInMilliSec = projectEnd - projectStart;
+  const durationInDays = Math.floor(durationInMilliSec / (1000 * 3600 * 24));
+  const durationInMonth = Math.floor(durationInDays / 30);
+  const durationCurrentDateInMilli = currentDate - projectStart;
+  const durationCurrentDateInMonth = Math.floor(
+    durationCurrentDateInMilli / (1000 * 3600 * 24 * 30)
+  );
+
+  // ------------------- Calculate Steepness Factor (k) -------------------
   const calculateSteepness = (
     workCompleted,
     currentMonthCount,
     fullDuration
   ) => {
     const midPoint = fullDuration / 2; // Midpoint of the project (t0)
-
-    // Ensure valid `workCompleted` input
-    // if (workCompleted <= 0.01 || workCompleted >= 0.99) {
-    //   console.error("workCompleted must be between 0.01 (1%) and 0.99 (99%).");
-    //   return null;
-    // }
-
-    // Euler's number
-    const e = Math.E;
-
-    // Numerator: -ln(1/y - 1)
-    const numerator = -Math.log(1 / workCompleted - 1);
-
-    // Denominator: t - t0
-    let denominator = currentMonthCount - midPoint;
-
-    // Handle edge cases
-    if (denominator === 0) {
-      denominator = 0.0001; // Small adjustment to avoid division by zero
-    }
-
-    // Calculate k
+    const numerator = -Math.log(1 / workCompleted - 1); // -ln(1/y - 1)
+    const denominator = currentMonthCount - midPoint || 0.0001; // Avoid division by zero
     const k = numerator / denominator;
-
-    console.log(`Work Completed: ${workCompleted * 100}%`);
-    console.log(`Denominator (t - t0): ${denominator}`);
-    console.log(`Steepness factor (k): ${k}`);
-
-    return k; // Return k for further use
+    console.log(`k for workCompleted=${workCompleted}: ${k}`);
+    return k;
   };
 
-  const generateSigmoidData = (k, t0, duration, label) => {
+  // ------------------- Generate Sigmoid Data -------------------
+  const generateSigmoidData = (k, t0, duration, startMonth = 0) => {
     const data = [];
-    for (let t = 1; t <= duration; t++) {
-      const progress = 1 / (1 + Math.exp(-k * (t - t0)));
-      data.push({ month: t, progress: parseFloat(progress.toFixed(4)), label });
+    for (let t = startMonth; t <= duration; t++) {
+      const progress = 1 / (1 + Math.exp(-k * (t - t0))); // Sigmoid formula
+      data.push({ month: t, completion: (progress * 100).toFixed(2) }); // Convert to percentage
     }
-    console.log(`Sigmoid Data for ${label}:`, data);
     return data;
   };
 
-  // --------------------------- Case 1: Full Progression ----------------------------
-  const k1 = calculateSteepness(0.99, durationInMonth, durationInMonth);
-  const case1Data = k1
-    ? generateSigmoidData(k1, durationInMonth / 2, durationInMonth, "Case 1")
-    : [];
+  const generateSigmoidDataCase2 = (k, t0, duration, startMonth = 0) => {
+    const data = [];
+    for (let t = startMonth; t <= durationCurrentDateInMonth; t++) {
+      const progress = 1 / (1 + Math.exp(-k * (t - t0))); // Sigmoid formula
+      data.push({ month: t, completion: (progress * 100).toFixed(2) }); // Convert to percentage
+    }
+    return data;
+  };
 
-  // --------------------------- Case 2: User-defined Progress -----------------------
-  const k2 = calculateSteepness(
-    workCompleted,
+  const generateSigmoidDataCase3 = (k, t0, duration, startMonth = 0) => {
+    const data = [];
+    for (let t = durationCurrentDateInMonth; t <= duration; t++) {
+      const progress = 1 / (1 + Math.exp(-k * (t - t0))); // Sigmoid formula
+      data.push({ month: t, completion: (progress * 100).toFixed(2) }); // Convert to percentage
+    }
+    return data;
+  };
+
+  // ------------------- Case Calculations -------------------
+  // Case 1: Full Project Progress
+  const case1_k = calculateSteepness(0.99, durationInMonth, durationInMonth);
+  const case1Data = generateSigmoidData(
+    case1_k,
+    durationInMonth / 2,
+    durationInMonth
+  );
+
+  // Case 2: User Input Progress
+  const userInputProgress = userInput; // Example user input for progress
+  const case2_k = calculateSteepness(
+    userInputProgress,
     durationCurrentDateInMonth,
     durationInMonth
   );
-  const case2Data = k2
-    ? generateSigmoidData(
-        k2,
-        durationInMonth / 2,
-        durationCurrentDateInMonth,
-        "Case 2"
-      )
-    : [];
+  const case2Data = generateSigmoidDataCase2(
+    case2_k,
+    durationInMonth / 2,
+    durationInMonth
+  );
 
-  // --------------------------- Case 3: Future Projection ---------------------------
-  const case3Data = k2
-    ? generateSigmoidData(k2, durationInMonth / 2, durationInMonth, "Case 3")
-    : [];
+  // Case 3: Future Projection (from current month onward but starts at Month 0)
+  const case3Data = generateSigmoidData(
+    case2_k,
+    durationInMonth / 2,
+    durationInMonth,
+    0 // Start at Month 0
+  );
 
-  // Combine all data
-  const combinedData = [...case1Data, ...case2Data, ...case3Data];
+  console.log(case1Data);
+  console.log(case2Data);
+  console.log(case3Data);
+  console.log(userInput);
+  
 
+  // ------------------- Render Graph -------------------
   return (
     <div>
-      <h1>Date of Commencement: {dateCommence.toString()}</h1>
-      <h1>Date of Completion: {dateEnd.toString()}</h1>
-      <h1>Duration of Project (Months): {durationInMonth.toString()}</h1>
-
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={combinedData}>
+      <ResponsiveContainer width="95%" height={400}>
+        <LineChart margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="month"
-            label={{
-              value: "Month",
-              position: "insideBottomRight",
-              offset: -5,
-            }}
+            label={{ value: "Months", position: "insideBottom", dy: 10 }}
+            tickFormatter={(value) => `${value}`}
           />
           <YAxis
-            label={{ value: "Progress", angle: -90, position: "insideLeft" }}
+            tickFormatter={(value) => `${value}%`}
+            domain={[0, 100]}
+            label={{
+              value: "Completion (%)",
+              angle: -90,
+              position: "insideLeft",
+            }}
           />
-          <Tooltip />
+          <Tooltip formatter={(value) => `${value}%`} />
           <Line
             type="monotone"
-            dataKey="progress"
+            dataKey="completion"
             data={case1Data}
-            stroke="#8884d8"
+            stroke="blue"
+            name="Full Progress (Case 1)"
+            strokeWidth={2}
             dot={false}
-            name="Case 1: Full Progression"
           />
           <Line
             type="monotone"
-            dataKey="progress"
+            dataKey="completion"
             data={case2Data}
-            stroke="#82ca9d"
+            stroke="red"
+            name="User Input Progress (Case 2)"
+            strokeWidth={3}
             dot={false}
-            name="Case 2: User-defined Progress"
           />
           <Line
             type="monotone"
-            dataKey="progress"
+            dataKey="completion"
             data={case3Data}
-            stroke="#ffc658"
+            stroke="green"
+            name="Future Projection (Case 3)"
+            strokeWidth={1}
+            strokeDasharray="3 3"
             dot={false}
-            name="Case 3: Future Projection"
           />
         </LineChart>
       </ResponsiveContainer>
+      <div>
+        <h3>Project Start Date: {projectStart.toDateString()}</h3>
+        <h3>Project End Date: {projectEnd.toDateString()}</h3>
+        <h3>Total Duration: {durationInMonth} months</h3>
+        <h3>Current Month: {durationCurrentDateInMonth}</h3>
+        <h3>k (Case 1): {case1_k}</h3>
+        <h3>k (Case 2): {case2_k}</h3>
+      </div>
     </div>
   );
 };
 
 export default LineGraph;
-

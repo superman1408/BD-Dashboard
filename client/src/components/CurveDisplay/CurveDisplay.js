@@ -4,7 +4,6 @@ import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, update } from "../../action/posts";
 import { useParams } from "react-router-dom";
-import TrialScurve from "./TrialCurve/TrialScurve";
 import LineGraph from "./TrialCurve/LineGraph";
 
 const CurveDisplay = () => {
@@ -165,7 +164,7 @@ const CurveDisplay = () => {
                   key={index}
                   dateCommence={dateCommence}
                   dateEnd={dateEnd}
-                  workCompleted = {0.60}
+                  workCompleted={currentgrowthRate}
                 />
               </div>
             );
