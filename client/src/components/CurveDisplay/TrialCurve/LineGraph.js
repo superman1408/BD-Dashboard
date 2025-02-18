@@ -34,7 +34,6 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
     const numerator = -Math.log(1 / workCompleted - 1); // -ln(1/y - 1)
     const denominator = currentMonthCount - midPoint || 0.0001; // Avoid division by zero
     const k = numerator / denominator;
-    console.log(`k for workCompleted=${workCompleted}: ${k}`);
     return k;
   };
 
@@ -42,24 +41,6 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
   const generateSigmoidData = (k, t0, duration, startMonth = 0) => {
     const data = [];
     for (let t = startMonth; t <= duration; t++) {
-      const progress = 1 / (1 + Math.exp(-k * (t - t0))); // Sigmoid formula
-      data.push({ month: t, completion: (progress * 100).toFixed(2) }); // Convert to percentage
-    }
-    return data;
-  };
-
-  const generateSigmoidDataCase2 = (k, t0, duration, startMonth = 0) => {
-    const data = [];
-    for (let t = startMonth; t <= durationCurrentDateInMonth; t++) {
-      const progress = 1 / (1 + Math.exp(-k * (t - t0))); // Sigmoid formula
-      data.push({ month: t, completion: (progress * 100).toFixed(2) }); // Convert to percentage
-    }
-    return data;
-  };
-
-  const generateSigmoidDataCase3 = (k, t0, duration, startMonth = 0) => {
-    const data = [];
-    for (let t = durationCurrentDateInMonth; t <= duration; t++) {
       const progress = 1 / (1 + Math.exp(-k * (t - t0))); // Sigmoid formula
       data.push({ month: t, completion: (progress * 100).toFixed(2) }); // Convert to percentage
     }
@@ -76,16 +57,16 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
   );
 
   // Case 2: User Input Progress
-  const userInputProgress = userInput; // Example user input for progress
+  const userInputProgress = userInput;
   const case2_k = calculateSteepness(
     userInputProgress,
     durationCurrentDateInMonth,
     durationInMonth
   );
-  const case2Data = generateSigmoidDataCase2(
+  const case2Data = generateSigmoidData(
     case2_k,
     durationInMonth / 2,
-    durationInMonth
+    durationCurrentDateInMonth
   );
 
   // Case 3: Future Projection (from current month onward but starts at Month 0)
@@ -93,24 +74,39 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
     case2_k,
     durationInMonth / 2,
     durationInMonth,
-    0 // Start at Month 0
+    0
   );
 
-  console.log(case1Data);
-  console.log(case2Data);
-  console.log(case3Data);
-  console.log(userInput);
-  
+  // ------------------- Merging Data -------------------
+
+  const mergedData = [...Array(durationInMonth + 1).keys()].map((i) => ({
+    month: i,
+    case1: case1Data.find((d) => d.month === i)?.completion
+      ? parseFloat(case1Data.find((d) => d.month === i).completion)
+      : 0,
+    case2:
+      i <= durationCurrentDateInMonth
+        ? case2Data.find((d) => d.month === i)?.completion
+          ? parseFloat(case2Data.find((d) => d.month === i).completion)
+          : 0
+        : null, // Ensure Case 2 stops after current month
+    case3: case3Data.find((d) => d.month === i)?.completion
+      ? parseFloat(case3Data.find((d) => d.month === i).completion)
+      : 0,
+  }));
 
   // ------------------- Render Graph -------------------
   return (
     <div>
-      <ResponsiveContainer width="95%" height={400}>
-        <LineChart margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
+      <ResponsiveContainer width={500} height={300}>
+        <LineChart
+          data={mergedData} // Use merged data instead of separate datasets
+          margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="month"
-            label={{ value: "Months", position: "insideBottom", dy: 10 }}
+            label={{ value: "Months (Days)", position: "insideBottom", dy: 10 }}
             tickFormatter={(value) => `${value}`}
           />
           <YAxis
@@ -123,29 +119,28 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
             }}
           />
           <Tooltip formatter={(value) => `${value}%`} />
+
+          {/* Using mergedData for all lines */}
           <Line
             type="monotone"
-            dataKey="completion"
-            data={case1Data}
-            stroke="blue"
+            dataKey="case1"
+            stroke="#0D325C"
             name="Full Progress (Case 1)"
             strokeWidth={2}
             dot={false}
           />
           <Line
             type="monotone"
-            dataKey="completion"
-            data={case2Data}
-            stroke="red"
+            dataKey="case2"
+            stroke="#E46025"
             name="User Input Progress (Case 2)"
             strokeWidth={3}
             dot={false}
           />
           <Line
             type="monotone"
-            dataKey="completion"
-            data={case3Data}
-            stroke="green"
+            dataKey="case3"
+            stroke="#0B7882"
             name="Future Projection (Case 3)"
             strokeWidth={1}
             strokeDasharray="3 3"
@@ -153,13 +148,10 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
           />
         </LineChart>
       </ResponsiveContainer>
-      <div>
-        <h3>Project Start Date: {projectStart.toDateString()}</h3>
-        <h3>Project End Date: {projectEnd.toDateString()}</h3>
-        <h3>Total Duration: {durationInMonth} months</h3>
-        <h3>Current Month: {durationCurrentDateInMonth}</h3>
-        <h3>k (Case 1): {case1_k}</h3>
-        <h3>k (Case 2): {case2_k}</h3>
+
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+        <h3>Current Growth Rate (k): {case1_k.toFixed(4)}</h3>
+        <h3>Required Growth Rate (k): {case2_k.toFixed(4)}</h3>
       </div>
     </div>
   );

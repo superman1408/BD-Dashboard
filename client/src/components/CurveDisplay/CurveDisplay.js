@@ -19,15 +19,13 @@ const CurveDisplay = () => {
     growthRate: "",
   });
 
-
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
 
   // const [formData, setFormData] = useState({
   // growthRate:"0.3",
   // })
-
 
   const posts = useSelector((state) => state.posts);
 
@@ -59,8 +57,6 @@ const CurveDisplay = () => {
     setFormData({ growthRate: "" });
     window.location.reload();
   };
-
-
 
   console.log(posts);
 
@@ -172,7 +168,7 @@ const CurveDisplay = () => {
         })}
       </div>
 
-      {/* <Modal
+      <Modal
         show={dialogOpen}
         onHide={() => setDialogOpen(false)}
         centered
@@ -187,7 +183,7 @@ const CurveDisplay = () => {
             scrollable
           >
             <div className="p-3 flex">
-              <label>Current Growth Rate : </label>
+              <label>Current Project Status : </label>
               <input
                 className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-3
                  transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
@@ -197,13 +193,13 @@ const CurveDisplay = () => {
                 onChange={handleFormChange}
                 required
               />
-            </div> */}
-          {/* </Modal.Body> */}
+            </div>
+          </Modal.Body>
           {/* 9) The average age of the committee of 10 members is 40 years. A member of age 52 retires and a new member of age 38 takes his place. What is the average age of the present committee?
            */}
 
           {/* I want to calculate requiredgrowthrate on the provided growth till the current month from whole duration how to doi it */}
-          {/* <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+          <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
             <Button
               type="submit"
               variant="primary"
@@ -214,7 +210,7 @@ const CurveDisplay = () => {
             </Button>
           </div>
         </form>
-      </Modal> */}
+      </Modal>
     </>
   );
 };
