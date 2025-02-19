@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, update } from "../../action/posts";
 import { useParams } from "react-router-dom";
-import LineGraph from "./TrialCurve/LineGraph";
+import LineGraph from "./SCurve/LineGraph";
 
 const CurveDisplay = () => {
   const [dialogOpen, setDialogOpen] = useState();
