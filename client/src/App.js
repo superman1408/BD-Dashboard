@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <header>
+      <header style={{margin: "5px"}}>
         <div
           style={{
             display: {
@@ -37,10 +37,11 @@ const App = () => {
         >
           <img src={LOGO} alt="logo" style={{ width: "185px" }} />
         </div>
-        {/* )} */}
+        <div>
+          <Navbar />
+        </div>
       </header>
 
-      <Navbar />
       <div>
         <Routes>
           <Route
