@@ -96,6 +96,11 @@ export default function MenuAppBar() {
       icon: <MailIcon />,
       link: "/lettertracker",
     },
+    {
+      text: "Time Sheet Display",
+      icon: <MailIcon />,
+      link: "/timesheet",
+    },
 
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
