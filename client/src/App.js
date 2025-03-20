@@ -15,7 +15,8 @@ import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 import "./index.css";
 import ContractView from "./components/ContractRegister/ContractView";
-import Dashboard from "./components/Dashboard/Dashboard";
+// import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./pages/dashboard";
 import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 import TimeSheet from "./components/TimeSheet/TimeSheet";
 
