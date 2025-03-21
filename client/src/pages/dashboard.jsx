@@ -5,11 +5,11 @@ import {
   MdKeyboardArrowUp,
   MdKeyboardDoubleArrowUp,
 } from "react-icons/md";
-// import { LuClipboardEdit } from "react-icons/lu";
-// import { FaNewspaper, FaUsers } from "react-icons/fa";
-// import { FaArrowsToDot } from "react-icons/fa6";
+import { FaBarsProgress } from "react-icons/fa6";
+import { FaNewspaper, FaUsers } from "react-icons/fa";
+import { FaArrowsToDot } from "react-icons/fa6";
 import moment from "moment";
-import { summary } from "../assests/data";
+import { summary } from "../assets/data.js";
 import clsx from "clsx";
 // import { Chart } from "../components1/Chart.jsx";
 import { Chart } from "../components1/Chart.jsx";
@@ -154,7 +154,7 @@ const Dashboard = () => {
       _id: "1",
       label: "TOTAL TASK",
       total: summary?.totalTasks || 0,
-      // icon: <FaNewspaper />,
+      icon: <FaNewspaper />,
       bg: "bg-[#1d4ed8]",
     },
     {
@@ -168,14 +168,14 @@ const Dashboard = () => {
       _id: "3",
       label: "TASK IN PROGRESS ",
       total: totals["in progress"] || 0,
-      // icon: <LuClipboardEdit />,
+      icon: <FaBarsProgress />,
       bg: "bg-[#f59e0b]",
     },
     {
       _id: "4",
       label: "TODOS",
       total: totals["todo"],
-      // icon: <FaArrowsToDot />,
+      icon: <FaArrowsToDot />,
       bg: "bg-[#be185d]" || 0,
     },
   ];

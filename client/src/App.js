@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
-import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
+import LOGO from "./assets/AshkamLogoTransparentbc copy.png";
 import Navbar from "./components/Navbar/Navbar";
 import ProjectWindow from "./components/ProjectWindow/ProjectWindow";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
@@ -16,16 +16,19 @@ import ContractViewDetail from "./components/ContractRegister/ContractViewDetail
 import "./index.css";
 import ContractView from "./components/ContractRegister/ContractView";
 // import Dashboard from "./components/Dashboard/Dashboard";
-import Dashboard from "./pages/dashboard";
 import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 import TimeSheet from "./components/TimeSheet/TimeSheet";
+
+//Pages sections are called here......
+import Dashboard from "./pages/dashboard";
+import TaskDetails from "./pages/TaskDetails";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
     <BrowserRouter>
-      <header style={{margin: "5px"}}>
+      <header style={{ margin: "5px" }}>
         <div
           style={{
             display: {
