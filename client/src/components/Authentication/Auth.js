@@ -14,7 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import image from "../../assests/BD_login.png";
+import image from "../../assets/BD_login.png";
 
 import { ToastContainer } from "react-toastify";
 
