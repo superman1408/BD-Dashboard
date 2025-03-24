@@ -101,6 +101,26 @@ export default function MenuAppBar() {
       icon: <MailIcon />,
       link: "/timesheet",
     },
+    {
+      text: "Tasks",
+      icon: <MailIcon />,
+      link: "/tasks",
+    },
+    {
+      text: "Task Completed",
+      icon: <MailIcon />,
+      link: "/completed/:status",
+    },
+    {
+      text: "Task in-progress",
+      icon: <MailIcon />,
+      link: "/in-progress/:status",
+    },
+    {
+      text: "Todo",
+      icon: <MailIcon />,
+      link: "/todo/:status",
+    },
 
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
