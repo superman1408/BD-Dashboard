@@ -25,6 +25,7 @@ import TaskDetails from "./pages/TaskDetails";
 import Tasks from "./pages/Tasks";
 import Users from "./pages/Users";
 import Trash from "./pages/Trash";
+// import Navbar from "./components1/Navbar";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
