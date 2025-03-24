@@ -35,6 +35,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import TaskIcon from "@mui/icons-material/Task";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 // import NotificationsIcon from "@mui/icons-material/Notifications";
 // import Badge from "@mui/material/Badge";
 import { useTheme } from "@emotion/react";
@@ -93,17 +97,17 @@ export default function MenuAppBar() {
     },
     {
       text: "Letter Tracker",
-      icon: <MailIcon />,
+      icon: <ListAltIcon />,
       link: "/lettertracker",
     },
     {
       text: "Time Sheet Display",
-      icon: <MailIcon />,
+      icon: <AssignmentTurnedInIcon />,
       link: "/timesheet",
     },
     {
       text: "Tasks",
-      icon: <MailIcon />,
+      icon: <AssignmentTurnedInIcon />,
       link: "/tasks",
     },
     {
@@ -113,7 +117,7 @@ export default function MenuAppBar() {
     },
     {
       text: "Task in-progress",
-      icon: <MailIcon />,
+      icon: <AssignmentIcon />,
       link: "/in-progress/:status",
     },
     {
