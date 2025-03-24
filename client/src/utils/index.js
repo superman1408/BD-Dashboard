@@ -24,8 +24,8 @@ export function dateFormatter(dateString) {
   return formattedDate;
 }
 
-export function getInitials(fullName) {
-  console.log(fullName);
+export function getInitials(full) {
+  const fullName = "Hello Charlie";
   const names = fullName.split(" ");
 
   const initials = names.slice(0, 2).map((name) => name[0].toUpperCase());
