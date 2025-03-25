@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
 import LOGO from "./assets/AshkamLogoTransparentbc copy.png";
-// import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import ProjectWindow from "./components/ProjectWindow/ProjectWindow";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,7 +25,7 @@ import TaskDetails from "./pages/TaskDetails";
 import Tasks from "./pages/Tasks";
 import Users from "./pages/Users";
 import Trash from "./pages/Trash";
-import Navbar from "./components1/Navbar";
+// import Navbar from "./components1/Navbar";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
