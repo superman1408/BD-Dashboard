@@ -18,6 +18,8 @@ import ContractView from "./components/ContractRegister/ContractView";
 // import Dashboard from "./components/Dashboard/Dashboard";
 import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 import TimeSheet from "./components/TimeSheet/TimeSheet";
+import Tasks_Table from "./components/Table/Tasks_Table";
+import ProjectManager from "./components/ProjectManager/ProjectManager";
 
 //Pages sections are called here......
 import Dashboard from "./pages/dashboard";
@@ -95,9 +97,11 @@ const App = () => {
 
           <Route path="/scurve" exact element={<CurveDisplay />} />
 
-          {/* <Route index path="/" element={<Navigate to="/dashboard" />} /> */}
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/projectmanager" exact element={<ProjectManager />} />
+
+          <Route index path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/tasks" element={<Tasks_Table />} />
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />
           <Route path="/todo/:status" element={<Tasks />} />

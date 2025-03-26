@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-distracting-elements */
 import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
@@ -39,6 +40,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import TaskIcon from "@mui/icons-material/Task";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 // import NotificationsIcon from "@mui/icons-material/Notifications";
 // import Badge from "@mui/material/Badge";
 import { useTheme } from "@emotion/react";
@@ -97,22 +99,22 @@ export default function MenuAppBar() {
     },
     {
       text: "Letter Tracker",
-      icon: <ListAltIcon />,
+      icon: <MailIcon />,
       link: "/lettertracker",
     },
     {
       text: "Time Sheet Display",
-      icon: <AssignmentTurnedInIcon />,
+      icon: <ListAltIcon />,
       link: "/timesheet",
     },
     {
       text: "Tasks",
-      icon: <AssignmentTurnedInIcon />,
+      icon: <TaskIcon />,
       link: "/tasks",
     },
     {
       text: "Task Completed",
-      icon: <MailIcon />,
+      icon: <AssignmentTurnedInIcon />,
       link: "/completed/:status",
     },
     {
@@ -122,7 +124,7 @@ export default function MenuAppBar() {
     },
     {
       text: "Todo",
-      icon: <MailIcon />,
+      icon: <FormatListBulletedIcon />,
       link: "/todo/:status",
     },
 
