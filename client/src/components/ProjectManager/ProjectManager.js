@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 
 import ListIcon from "@mui/icons-material/List";
 import NoteIcon from "@mui/icons-material/Note";
@@ -21,7 +21,17 @@ const ProjectManager = () => {
           </h1>
         </Grid>
         <Grid>
-          <Diversity2Icon />
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            // onClick={}
+            color="inherit"
+          >
+            <Diversity2Icon />
+          </IconButton>
+
           <h1 className="text-base font-normal text-black-500 ml-[20px] mr-[40px]">
             TEAM SUMMARY
           </h1>
@@ -43,7 +53,17 @@ const ProjectManager = () => {
           </h1>
         </Grid>
         <Grid>
-          <CalendarMonthIcon />
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            // onClick={}
+            color="inherit"
+          >
+            <CalendarMonthIcon />
+          </IconButton>
+
           <h1 className="text-base font-normal text-black-500 ml-[20px] mr-[40px]">
             CALENDAR
           </h1>
