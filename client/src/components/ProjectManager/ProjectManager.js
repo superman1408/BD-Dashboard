@@ -74,22 +74,40 @@ const ProjectManager = () => {
               Project Manager
             </h1>
             <List>
-              <ListItem disablePadding>
+              <ListItem
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "0px",
+                }}
+                disablePadding
+              >
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
-                  <ListItemText />
+                  {/* <ListItemIcon></ListItemIcon> */}
+                  <ListItemText className="text-sm font-normal text-black-500  mr-[40px]">
+                    Project Manager
+                  </ListItemText>
                 </ListItemButton>
 
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
-                  <ListItemText />
+                  {/* <ListItemIcon></ListItemIcon> */}
+                  <ListItemText className="text-sm font-normal text-black-500  mr-[40px]">
+                    Project Manager
+                  </ListItemText>
+                </ListItemButton>
+
+                <ListItemButton>
+                  {/* <ListItemIcon></ListItemIcon> */}
+                  <ListItemText className="text-sm font-normal text-black-500  mr-[40px]">
+                    Project Manager
+                  </ListItemText>
                 </ListItemButton>
               </ListItem>
             </List>
           </Grid>
         </Grid>
         <Grid sx={{ display: "flex", flexDirection: "row" }}>
-          <Grid className="flex flex-row items-center gap-2">
+          <Grid className="flex flex-row items-center ">
             <IconButton
               size="small"
               aria-label="account of current user"
@@ -103,7 +121,7 @@ const ProjectManager = () => {
               MY SUMMARY
             </h1>
           </Grid>
-          <Grid className="flex flex-row items-center gap-2">
+          <Grid className="flex flex-row items-center">
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -119,7 +137,7 @@ const ProjectManager = () => {
               TEAM SUMMARY
             </h1>
           </Grid>
-          <Grid className="flex flex-row items-center gap-2">
+          <Grid className="flex flex-row items-center">
             <IconButton
               size="small"
               aria-label="account of current user"
@@ -133,13 +151,13 @@ const ProjectManager = () => {
               Portfolio SUMMARY
             </h1>
           </Grid>
-          <Grid className="flex flex-row items-center gap-2">
+          <Grid className="flex flex-row items-center">
             <ListIcon sx={{ margin: "2px" }} />
             <h1 className="text-sm font-normal text-black-500 ml-[20px] mr-[40px]">
               LIST
             </h1>
           </Grid>
-          <Grid className="flex flex-row items-center gap-2">
+          <Grid className="flex flex-row items-center">
             <IconButton
               size="small"
               aria-label="account of current user"
@@ -154,7 +172,7 @@ const ProjectManager = () => {
             </h1>
           </Grid>
 
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center">
             <IconButton
               size="small"
               aria-label="account of current user"
@@ -169,7 +187,7 @@ const ProjectManager = () => {
             </h1>
           </div>
 
-          <Grid className="flex flex-row items-center gap-2">
+          <Grid className="flex flex-row items-center">
             <IconButton
               size="small"
               aria-label="account of current user"
