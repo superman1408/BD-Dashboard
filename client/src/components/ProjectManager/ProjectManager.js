@@ -76,7 +76,7 @@ const ProjectManager = () => {
             <List>
               <ListItem
                 sx={{
-                  display: "flex",
+                  // display: "flex",
                   flexDirection: "column",
                   marginLeft: "0px",
                 }}
@@ -123,7 +123,7 @@ const ProjectManager = () => {
           </Grid>
           <Grid className="flex flex-row items-center">
             <IconButton
-              size="large"
+              size="small"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
