@@ -204,7 +204,7 @@ const ProjectManager = () => {
           </Grid>
         </Grid>
       </Grid>
-      {/* <div className="overflow-auto   mt-3">
+      <div className="overflow-auto   mt-3">
         <div className="overflow-auto rounded-lg shadow hidden md:block ">
           <table className="w-full ">
             <thead className="bg-gray-100 border-b-2 border-gray-200">
@@ -225,7 +225,7 @@ const ProjectManager = () => {
             </thead>
           </table>
         </div>
-      </div> */}
+      </div>
       <Grid></Grid>
     </div>
   );
