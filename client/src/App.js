@@ -21,6 +21,7 @@ import TimeSheet from "./components/TimeSheet/TimeSheet";
 import Tasks_Table from "./components/Table/Tasks_Table";
 import ProjectManager from "./components/ProjectManager/ProjectManager";
 
+import Task2 from "./components/pages/Task2";
 //Pages sections are called here......
 import Dashboard from "./pages/dashboard";
 import TaskDetails from "./pages/TaskDetails";
@@ -47,9 +48,7 @@ const App = () => {
         >
           <img src={LOGO} alt="logo" style={{ width: "185px" }} />
         </div>
-        <div>
-          <Navbar />
-        </div>
+        <div>{/* <Navbar /> */}</div>
       </header>
 
       <div>
@@ -101,13 +100,15 @@ const App = () => {
 
           <Route index path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/tasks" element={<Tasks_Table />} />
+          {/* <Route path="/tasks" element={<Tasks_Table />} /> */}
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />
           <Route path="/todo/:status" element={<Tasks />} />
           <Route path="/team" element={<Users />} />
           <Route path="/trashed" element={<Trash />} />
           <Route path="/task/:id" element={<TaskDetails />} />
+          <Route path="/task2" element={<Task2 />} />
         </Routes>
       </div>
 
