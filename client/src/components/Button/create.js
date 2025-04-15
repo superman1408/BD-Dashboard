@@ -4,18 +4,16 @@ import { Grid } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
-const createUser = () => {
-    
+export const create = () => {
   return (
     <div>
-      {" "}
       <Grid sx={{ margin: "20px" }}>
         <Fab
           variant="extended"
           size="small"
-          color="primary" 
+          color="primary"
           sx={{ mr: 1 }}
-        //   onClick={openDialog}
+          //   onClick={openDialog}
         >
           <AddIcon sx={{ mr: 1 }} />
           Create new user
@@ -24,5 +22,3 @@ const createUser = () => {
     </div>
   );
 };
-
-export default createUser;

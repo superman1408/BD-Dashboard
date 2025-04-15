@@ -1,6 +1,9 @@
 import React from "react";
+
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+
+import { create } from "../Button/create";
 
 import {
   Grid,
@@ -76,8 +79,6 @@ const ProjectManager = () => {
     },
   ];
 
-  const handleClick = () => {};
-
   return (
     <div style={{ marginBottom: "10px" }}>
       <Grid sx={{ display: "flex", flexDirection: "row" }}>
@@ -93,6 +94,7 @@ const ProjectManager = () => {
               <AddIcon sx={{ mr: 1 }} />
               Create new user
             </Fab>
+            <h1>{create}</h1>
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog as="div" className="relative z-10" onClose={closeDialog}>
                 <Transition.Child
@@ -160,37 +162,36 @@ const ProjectManager = () => {
                 </div>
               </Dialog>
             </Transition>
-          </Grid>
-          <Grid>
-            <h1 className="text-lg font-normal text-500 ml-[20px] mr-[80px]">
+            {/* </Grid>
+          <Grid> */}
+            <h1 className="text-lg font-normal text-500 ml-[20px] mr-[80px] mt-[20px]">
               Project Manager
             </h1>
             <List>
               <ListItem
                 sx={{
-                  // display: "flex",
+                  display: "flex",
                   flexDirection: "column",
-                  marginLeft: "0px",
                 }}
                 disablePadding
               >
                 <ListItemButton>
                   {/* <ListItemIcon></ListItemIcon> */}
-                  <ListItemText className="text-sm font-normal text-black-500  mr-[40px]">
+                  <ListItemText className="text-sm font-normal text-black-500  ml-[20px]">
                     Project Manager
                   </ListItemText>
                 </ListItemButton>
 
                 <ListItemButton>
                   {/* <ListItemIcon></ListItemIcon> */}
-                  <ListItemText className="text-sm font-normal text-black-500  mr-[40px]">
+                  <ListItemText className="text-sm font-normal text-black-500  ml-[20px]">
                     Project Manager
                   </ListItemText>
                 </ListItemButton>
 
                 <ListItemButton>
                   {/* <ListItemIcon></ListItemIcon> */}
-                  <ListItemText className="text-sm font-normal text-black-500  mr-[40px]">
+                  <ListItemText className="text-sm font-normal text-black-500  ml-[20px]">
                     Project Manager
                   </ListItemText>
                 </ListItemButton>
