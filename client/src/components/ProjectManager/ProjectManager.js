@@ -3,7 +3,7 @@ import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-import { create } from "../Button/create";
+import { create } from "../Button/createUser";
 
 import {
   Grid,
@@ -29,7 +29,7 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import TopicIcon from "@mui/icons-material/Topic";
 import AddIcon from "@mui/icons-material/Add";
 
-const ProjectManager = () => {
+const ProjectManager = ({ create }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => setIsOpen(true);
@@ -240,7 +240,7 @@ const ProjectManager = () => {
             >
               <CalendarMonthIcon />
             </IconButton>
-            <h1 className="text-sm font-normal text-black-500  mr-[40px]">
+            <h1 className="text-sm font-normal text-black-500 mr-[40px]">
               Portfolio SUMMARY
             </h1>
           </Grid>
@@ -260,7 +260,7 @@ const ProjectManager = () => {
             >
               <CalendarMonthIcon />
             </IconButton>
-            <h1 className="text-sm font-normal text-black-500  mr-[40px]">
+            <h1 className="text-sm font-normal text-black-500 mr-[40px]">
               BOARD
             </h1>
           </Grid>

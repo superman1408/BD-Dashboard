@@ -15,7 +15,7 @@ import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";
 import "./index.css";
 import ContractView from "./components/ContractRegister/ContractView";
-// import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 import TimeSheet from "./components/TimeSheet/TimeSheet";
 import Tasks_Table from "./components/Table/Tasks_Table";
@@ -23,7 +23,7 @@ import ProjectManager from "./components/ProjectManager/ProjectManager";
 
 import Task2 from "./components/pages/Task2";
 //Pages sections are called here......
-import Dashboard from "./pages/dashboard";
+// import Dashboard from "./pages/dashboard";
 import TaskDetails from "./pages/TaskDetails";
 import Tasks from "./pages/Tasks";
 import Users from "./pages/Users";
@@ -48,7 +48,7 @@ const App = () => {
         >
           <img src={LOGO} alt="logo" style={{ width: "185px" }} />
         </div>
-        <div>{/* <Navbar /> */}</div>
+        <div><Navbar /></div>
       </header>
 
       <div>
