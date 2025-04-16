@@ -3,7 +3,7 @@ import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-import { create } from "../Button/createUser";
+import createUser from "../Button/createUser";
 
 import {
   Grid,
@@ -29,55 +29,11 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import TopicIcon from "@mui/icons-material/Topic";
 import AddIcon from "@mui/icons-material/Add";
 
-const ProjectManager = ({ create }) => {
+const ProjectManager = ({ createUser, label }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
-
-  const menuItems = [
-    { text: "Project Window", icon: <DashboardIcon />, link: "/projectwindow" },
-    {
-      text: "Contract Register",
-      icon: <AppRegistrationIcon />,
-      link: "/contractregister",
-    },
-    {
-      text: "Contract Details",
-      icon: <TopicIcon />,
-      link: "/contractviewdetails",
-    },
-    {
-      text: "Letter Tracker",
-      icon: <MailIcon />,
-      link: "/lettertracker",
-    },
-    {
-      text: "Time Sheet Display",
-      icon: <MailIcon />,
-      link: "/timesheet",
-    },
-    {
-      text: "Tasks",
-      icon: <MailIcon />,
-      link: "/tasks",
-    },
-    {
-      text: "Task Completed",
-      icon: <MailIcon />,
-      link: "/completed/:status",
-    },
-    {
-      text: "Task in-progress",
-      icon: <MailIcon />,
-      link: "/in-progress/:status",
-    },
-    {
-      text: "Todo",
-      icon: <MailIcon />,
-      link: "/todo/:status",
-    },
-  ];
 
   return (
     <div style={{ marginBottom: "10px" }}>
@@ -94,7 +50,7 @@ const ProjectManager = ({ create }) => {
               <AddIcon sx={{ mr: 1 }} />
               Create new user
             </Fab>
-            <h1>{create}</h1>
+            <h1>{createUser}</h1>
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog as="div" className="relative z-10" onClose={closeDialog}>
                 <Transition.Child
