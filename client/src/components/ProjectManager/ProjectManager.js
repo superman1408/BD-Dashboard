@@ -166,7 +166,6 @@ const ProjectManager = ({ createUser, label }) => {
           </table>
         </div>
       </div> */}
-      <Grid></Grid>
     </div>
   );
 };
