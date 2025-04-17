@@ -36,9 +36,9 @@ const ProjectManager = ({ createUser, label }) => {
   const closeDialog = () => setIsOpen(false);
 
   return (
-    <div style={{ marginBottom: "10px" }}>
-      <Grid sx={{ display: "flex", flexDirection: "row" }}>
-        <Grid sx={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ marginBottom: "10px", float: "left" }}>
+      <Grid container direction="row" alignItems="center" spacing={2}>
+        <Grid item>
           <Grid sx={{ margin: "20px" }}>
             <Fab
               variant="extended"
@@ -118,138 +118,29 @@ const ProjectManager = ({ createUser, label }) => {
                 </div>
               </Dialog>
             </Transition>
-            {/* </Grid>
-          <Grid> */}
-            <h1 className="text-lg font-normal text-500 ml-[20px] mr-[80px] mt-[20px]">
+            <h1 className="text-lg font-normal text-500 ml-[20px] mr-[20px] mt-[2px]">
               Project Manager
             </h1>
-            <List>
-              <ListItem
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-                disablePadding
-              >
-                <ListItemButton>
-                  {/* <ListItemIcon></ListItemIcon> */}
-                  <ListItemText className="text-sm font-normal text-black-500  ml-[20px]">
-                    Project Manager
-                  </ListItemText>
-                </ListItemButton>
-
-                <ListItemButton>
-                  {/* <ListItemIcon></ListItemIcon> */}
-                  <ListItemText className="text-sm font-normal text-black-500  ml-[20px]">
-                    Project Manager
-                  </ListItemText>
-                </ListItemButton>
-
-                <ListItemButton>
-                  {/* <ListItemIcon></ListItemIcon> */}
-                  <ListItemText className="text-sm font-normal text-black-500  ml-[20px]">
-                    Project Manager
-                  </ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </List>
           </Grid>
         </Grid>
-        <Grid sx={{ display: "flex", flexDirection: "row" }}>
-          <Grid className="flex flex-row items-center ">
-            <IconButton
-              size="small"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <CalendarMonthIcon />
-            </IconButton>
-            <h1 className="text-sm font-normal text-black-500  mr-[40px]">
-              MY SUMMARY
-            </h1>
-          </Grid>
-          <Grid className="flex flex-row items-center">
-            <IconButton
-              size="small"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              // onClick={}
-              color="inherit"
-            >
-              <Diversity2Icon />
-            </IconButton>
-
-            <h1 className="text-sm font-normal text-black-500  mr-[40px]">
-              TEAM SUMMARY
-            </h1>
-          </Grid>
-          <Grid className="flex flex-row items-center">
-            <IconButton
-              size="small"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <CalendarMonthIcon />
-            </IconButton>
-            <h1 className="text-sm font-normal text-black-500 mr-[40px]">
-              Portfolio SUMMARY
-            </h1>
-          </Grid>
-          <Grid className="flex flex-row items-center">
-            <ListIcon sx={{ margin: "2px" }} />
-            <h1 className="text-sm font-normal text-black-500 ml-[20px] mr-[40px]">
-              LIST
-            </h1>
-          </Grid>
-          <Grid className="flex flex-row items-center">
-            <IconButton
-              size="small"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <CalendarMonthIcon />
-            </IconButton>
-            <h1 className="text-sm font-normal text-black-500 mr-[40px]">
-              BOARD
-            </h1>
-          </Grid>
-
-          <div className="flex flex-row items-center">
-            <IconButton
-              size="small"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <CalendarMonthIcon />
-            </IconButton>
-            <h1 className="text-sm font-normal text-black-500 mr-[40px]">
-              CALENDAR
-            </h1>
-          </div>
-
-          <Grid className="flex flex-row items-center">
-            <IconButton
-              size="small"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              // onClick={}
-              color="inherit"
-            >
-              <NoteIcon />
-            </IconButton>
-            <h1 className="text-sm font-normal text-black-500  mr-[40px]">
-              FILES
-            </h1>
+        <Grid item xs sx={{ marginTop: 0 }}>
+          <Grid container spacing={2} alignItems="center">
+            {[
+              { icon: <CalendarMonthIcon />, label: "MY SUMMARY" },
+              { icon: <Diversity2Icon />, label: "TEAM SUMMARY" },
+              { icon: <CalendarMonthIcon />, label: "Portfolio SUMMARY" },
+              { icon: <ListIcon />, label: "LIST" },
+              { icon: <CalendarMonthIcon />, label: "BOARD" },
+              { icon: <CalendarMonthIcon />, label: "CALENDAR" },
+              { icon: <NoteIcon />, label: "FILES" },
+            ].map((item, index) => (
+              <Grid item key={index} className="flex items-center space-x-2">
+                <IconButton size="small" color="inherit">
+                  {item.icon}
+                </IconButton>
+                <span className="text-sm text-gray-700">{item.label}</span>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>
