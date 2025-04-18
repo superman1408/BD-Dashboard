@@ -32,6 +32,7 @@ const Tasks = () => {
   const [loading, setLoading] = useState(false);
 
   const status = params?.status || "";
+  console.log("status", status);
 
   return loading ? (
     <div className="py-10">
