@@ -4,10 +4,9 @@ import { Grid } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
-const createUser = () => {
+export const create = () => {
   return (
     <div>
-      {" "}
       <Grid sx={{ margin: "20px" }}>
         <Fab
           variant="extended"
@@ -23,5 +22,3 @@ const createUser = () => {
     </div>
   );
 };
-
-export default createUser;
