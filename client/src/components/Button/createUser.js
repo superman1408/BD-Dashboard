@@ -5,7 +5,6 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
 const createUser = () => {
-    
   return (
     <div>
       {" "}
@@ -15,7 +14,7 @@ const createUser = () => {
           size="small"
           color="primary"
           sx={{ mr: 1 }}
-        //   onClick={openDialog}
+          //   onClick={openDialog}
         >
           <AddIcon sx={{ mr: 1 }} />
           Create new user
