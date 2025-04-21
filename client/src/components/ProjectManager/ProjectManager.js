@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
-import createUser from "../Button/createUser";
+import AddUser from "../../components1/AddUser";
 
 import {
   Grid,
@@ -29,8 +29,10 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import TopicIcon from "@mui/icons-material/Topic";
 import AddIcon from "@mui/icons-material/Add";
 
-const ProjectManager = ({ createUser, label }) => {
+const ProjectManager = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
@@ -50,7 +52,12 @@ const ProjectManager = ({ createUser, label }) => {
               <AddIcon sx={{ mr: 1 }} />
               Create new user
             </Fab>
-            <h1>{createUser}</h1>
+            <AddUser
+              open={open}
+              setOpen={setOpen}
+              userData={selected}
+              key={new Date().getTime().toString()}
+            />
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog as="div" className="relative z-10" onClose={closeDialog}>
                 <Transition.Child
