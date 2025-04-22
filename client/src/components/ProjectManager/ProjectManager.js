@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-import AddUser from "../../components1/AddUser";
+// import AddUser from "../../components1/AddUser";
+import AddUser from "../Dialog/AddUser";
+import Button from "../Button/createButton";
 
 import {
   Grid,
@@ -58,7 +60,7 @@ const ProjectManager = () => {
               userData={selected}
               key={new Date().getTime().toString()}
             />
-            <Transition appear show={isOpen} as={Fragment}>
+            {/* <Transition appear show={isOpen} as={Fragment}>
               <Dialog as="div" className="relative z-10" onClose={closeDialog}>
                 <Transition.Child
                   as={Fragment}
@@ -124,10 +126,13 @@ const ProjectManager = () => {
                   </div>
                 </div>
               </Dialog>
-            </Transition>
+            </Transition> */}
             <h1 className="text-lg font-normal text-500 ml-[20px] mr-[20px] mt-[2px]">
               Project Manager
             </h1>
+            <Button onClick={AddUser}>
+              <h1>Create new user</h1>
+            </Button>
           </Grid>
         </Grid>
         <Grid item xs sx={{ marginTop: 0 }}>

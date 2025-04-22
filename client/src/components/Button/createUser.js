@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid } from "@mui/material";
+
+import AddUser from "../Dialog/AddUser";
 
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
-export const create = () => {
+const Button = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
   return (
     <div>
       <Grid sx={{ margin: "20px" }}>
@@ -13,12 +18,19 @@ export const create = () => {
           size="small"
           color="primary"
           sx={{ mr: 1 }}
-          //   onClick={openDialog}
+          onClick={openDialog}
         >
-          <AddIcon sx={{ mr: 1 }} />
+          <AddUser
+            open={open}
+            setOpen={setOpen}
+            userData={selected}
+            key={new Date().getTime().toString()}
+          />
           Create new user
         </Fab>
       </Grid>
     </div>
   );
 };
+
+export default Button;
