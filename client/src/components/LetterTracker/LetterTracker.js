@@ -10,7 +10,7 @@ const LetterTracker = () => {
       <Container
         elevation={10}
         sx={{
-          padding: "10px",
+          padding: "12px",
           display: "flex",
           justifyContent: "center",
           marginTop: "20px",
