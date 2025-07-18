@@ -554,6 +554,8 @@
 // export default EntryDetails;
 
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Card } from "react-bootstrap";
 import EntryStep1 from "./EntryStep1";
 import EntryStep2 from "./EntryStep2";
@@ -561,14 +563,23 @@ import EntryStep2 from "./EntryStep2";
 // import Step3 from "./Step3";
 
 const EntryDetails = () => {
+  const { id: projectNumber } = useParams();
   const [step, setStep] = useState(1);
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    projectNumber: "",
+    projectNumber: projectNumber,
     date: "",
+    activityList: [],
+    materialRequiredList: [],
+    procurementList: [],
+    plannedWorkList: [],
     activity1: "",
     activity2: "",
     activity3: "",
@@ -585,13 +596,17 @@ const EntryDetails = () => {
   });
 
   return (
-    <Container className="d-flex justify-content-center mt-4 mb-5">
+    <Container className="d-flex justify-content-center mt-4 mb-5 background-color-gray">
       <Card
         className="p-4 custom-card"
         style={{ width: "100%", maxWidth: "900px" }}
       >
         {step === 1 && (
-          <EntryStep1 formData={formData} setFormData={setFormData} />
+          <EntryStep1
+            formData={formData}
+            setFormData={setFormData}
+            projectNumber={projectNumber}
+          />
         )}
         {step === 2 && (
           <EntryStep2 formData={formData} setFormData={setFormData} />

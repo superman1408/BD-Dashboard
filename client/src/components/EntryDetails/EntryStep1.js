@@ -10,60 +10,58 @@ import {
 } from "react-bootstrap";
 import { Divider } from "@mui/material";
 
-const EntryStep1 = ({ formData, setFormData }) => {
+const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [show, setShow] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [activities, setActivities] = useState([]);
-  const [materialRows, setMaterialRows] = useState([
-    { serialNo: "", description: "", quantity: "" },
-  ]);
 
   const handleAddActivity = () => {
     if (inputValue.trim() === "") return;
-    setActivities([...activities, { text: inputValue, image: imageFile }]);
+    const newActivity = { text: inputValue, image: imageFile };
+    const updatedActivities = [...(formData.activityList || []), newActivity];
+    setFormData({ ...formData, activityList: updatedActivities });
     setInputValue("");
     setImageFile(null);
     setShow(false);
   };
 
-  const handleRowChange = (index, field, value) => {
-    const updatedRows = [...materialRows];
-    updatedRows[index][field] = value;
-    setMaterialRows(updatedRows);
-    setFormData({ ...formData, materialRows: updatedRows });
+  const handleRemoveActivity = (index) => {
+    const updatedActivities = formData.activityList.filter(
+      (_, i) => i !== index
+    );
+    setFormData({ ...formData, activityList: updatedActivities });
   };
 
   const handleAddRow = () => {
-    setMaterialRows([
-      ...materialRows,
+    const updatedRows = [
+      ...(formData.materialRequiredList || []),
       { serialNo: "", description: "", quantity: "" },
-    ]);
+    ];
+    setFormData({ ...formData, materialRequiredList: updatedRows });
+  };
+
+  const handleRowChange = (index, field, value) => {
+    const updatedRows = [...formData.materialRequiredList];
+    updatedRows[index][field] = value;
+    setFormData({ ...formData, materialRequiredList: updatedRows });
   };
 
   const handleRemoveRow = (index) => {
-    const updatedRows = materialRows.filter((_, i) => i !== index);
-    setMaterialRows(updatedRows);
-    setFormData({ ...formData, materialRows: updatedRows });
+    const updatedRows = formData.materialRequiredList.filter(
+      (_, i) => i !== index
+    );
+    setFormData({ ...formData, materialRequiredList: updatedRows });
   };
 
   return (
     <>
-      <h3
-        style={{
-          textAlign: "center",
-          color: "#0d325c",
-          padding: "10px",
-          fontWeight: "bold",
-          fontSize: "30px",
-        }}
-      >
+      <h3 className="text-center text-primary fw-bold py-2">
         Detail Input Form
       </h3>
 
       <Form.Group controlId="formProjectName" className="mb-3">
-        <Form.Label style={{ color: "black", fontWeight: "bold" }}>
-          Project Number :
+        <Form.Label>
+          <strong>Project Number :</strong> {projectNumber}
         </Form.Label>
       </Form.Group>
 
@@ -73,50 +71,72 @@ const EntryStep1 = ({ formData, setFormData }) => {
             <Form.Label>Date</Form.Label>
             <Form.Control
               type="date"
-              value={formData.date}
+              value={formData.date || ""}
               onChange={(e) =>
                 setFormData({ ...formData, date: e.target.value })
               }
               required
             />
-            <Form.Control.Feedback type="invalid">
-              This field is required
-            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
 
       <Divider
-        className="mt-3 mb-3"
+        className="my-3"
         style={{ height: "2px", backgroundColor: "#000" }}
       />
 
-      <h4
-        style={{
-          color: "#0d325c",
-          fontWeight: "bold",
-          fontSize: "20px",
-          marginTop: "10px",
-          marginBottom: "20px",
-        }}
-      >
-        Activities
-      </h4>
+      <h4 className="text-primary fw-bold my-3">Activities</h4>
 
       <Form.Group className="mb-3">
         <Form.Label>Civil & Structure (Max 5)</Form.Label>
-        <Button onClick={() => setShow(true)} disabled={activities.length >= 5}>
+        <Button
+          onClick={() => setShow(true)}
+          disabled={(formData.activityList?.length || 0) >= 5}
+          className="ms-2"
+        >
           Add Activity
         </Button>
+
         <ListGroup className="mt-2">
-          {activities.map((item, index) => (
-            <ListGroup.Item key={index}>
-              {item.text} {item.image && <span>📸</span>}
+          {(formData.activityList || []).map((item, index) => (
+            <ListGroup.Item
+              key={index}
+              className="d-flex align-items-center justify-content-between"
+            >
+              <div className="d-flex align-items-center gap-3">
+                <strong>{index + 1}.</strong>
+                {item.image && (
+                  <img
+                    src={URL.createObjectURL(item.image)}
+                    alt={`Uploaded ${index}`}
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      objectFit: "cover",
+                      borderRadius: "4px",
+                    }}
+                  />
+                )}
+                <span>{item.text}</span>
+              </div>
+
+              <Button
+                variant="danger"
+                onClick={() => handleRemoveActivity(index)}
+                size="sm"
+              >
+                ✖
+              </Button>
             </ListGroup.Item>
           ))}
         </ListGroup>
 
-        <Modal show={show} onHide={() => setShow(false)}>
+        <Modal
+          show={show}
+          style={{ marginTop: "150px" }}
+          onHide={() => setShow(false)}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Add Activity</Modal.Title>
           </Modal.Header>
@@ -133,12 +153,21 @@ const EntryStep1 = ({ formData, setFormData }) => {
               onChange={(e) => setImageFile(e.target.files[0])}
               className="mt-2"
             />
+            {imageFile && (
+              <img
+                src={URL.createObjectURL(imageFile)}
+                alt="Preview"
+                style={{ width: "100px", marginTop: "10px" }}
+              />
+            )}
           </Modal.Body>
-          <Modal.Footer>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button onClick={() => setShow(false)}>Close</Button>
-              <Button onClick={handleAddActivity}>Add</Button>
-            </div>
+          <Modal.Footer className="w-100 d-flex justify-content-between">
+            <Button onClick={() => setShow(false)} variant="secondary">
+              Close
+            </Button>
+            <Button onClick={handleAddActivity} variant="primary">
+              Add
+            </Button>
           </Modal.Footer>
         </Modal>
       </Form.Group>
@@ -155,15 +184,10 @@ const EntryStep1 = ({ formData, setFormData }) => {
             </tr>
           </thead>
           <tbody>
-            {materialRows.map((row, index) => (
+            {(formData.materialRequiredList || []).map((row, index) => (
               <tr key={index}>
                 <td>
-                  <Form.Control
-                    type="text"
-                    style={{ width: "80px" }}
-                    value={index + 1}
-                    readOnly
-                  />
+                  <Form.Control type="text" value={index + 1} readOnly />
                 </td>
                 <td>
                   <Form.Control
@@ -187,6 +211,7 @@ const EntryStep1 = ({ formData, setFormData }) => {
                   <Button
                     variant="danger"
                     onClick={() => handleRemoveRow(index)}
+                    size="sm"
                   >
                     ✖
                   </Button>

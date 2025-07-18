@@ -7,10 +7,6 @@ const EntryStep2 = ({ formData, setFormData }) => {
     { serialNo: "", description: "", presentCompletion: "" },
   ]);
 
-  const [materialRows, setMaterialRows] = useState([
-    { serialNo: "", description: "", quantity: "" },
-  ]);
-
   const [procurementRows, setProcurementRows] = useState([
     { serialNo: "", description: "", status: "" },
   ]);
@@ -19,24 +15,15 @@ const EntryStep2 = ({ formData, setFormData }) => {
   const handleRowChange = (type, index, field, value) => {
     let updatedRows;
     switch (type) {
-      case "plannedWork":
-        updatedRows = [...plannedWorkRows];
-        updatedRows[index][field] = value;
-        setPlannedWorkRows(updatedRows);
-        setFormData({ ...formData, activity2: updatedRows });
-        break;
-
-      case "material":
-        updatedRows = [...materialRows];
-        updatedRows[index][field] = value;
-        setMaterialRows(updatedRows);
-        setFormData({ ...formData, materialRows: updatedRows });
-        break;
-
       case "procurement":
-        updatedRows = [...procurementRows];
+        updatedRows = [...formData.procurementList];
         updatedRows[index][field] = value;
-        setProcurementRows(updatedRows);
+        setFormData({ ...formData, procurementList: updatedRows });
+        break;
+
+      case "plannedWork":
+        updatedRows = [...formData.plannedWorkList];
+        updatedRows[index][field] = value;
         setFormData({ ...formData, procurementRows: updatedRows });
         break;
 
@@ -48,26 +35,29 @@ const EntryStep2 = ({ formData, setFormData }) => {
   // Generic Add Handler
   const handleAddRow = (type) => {
     switch (type) {
-      case "plannedWork":
-        setPlannedWorkRows([
-          ...plannedWorkRows,
-          { serialNo: "", description: "", presentCompletion: "" },
-        ]);
-        break;
-
-      case "material":
-        setMaterialRows([
-          ...materialRows,
+      case "procurement": {
+        const updatedRows = [
+          ...(formData.procurementList || []),
           { serialNo: "", description: "", quantity: "" },
-        ]);
+        ];
+        setFormData({
+          ...formData,
+          procurementList: updatedRows,
+        });
         break;
+      }
 
-      case "procurement":
-        setProcurementRows([
-          ...procurementRows,
+      case "plannedWork": {
+        const updatedRows = [
+          ...(formData.plannedWorkList || []),
           { serialNo: "", description: "", status: "" },
-        ]);
+        ];
+        setFormData({
+          ...formData,
+          plannedWorkList: updatedRows,
+        });
         break;
+      }
 
       default:
         break;
@@ -78,22 +68,16 @@ const EntryStep2 = ({ formData, setFormData }) => {
   const handleRemoveRow = (type, index) => {
     let updatedRows;
     switch (type) {
-      case "plannedWork":
+      case "procurement":
         updatedRows = plannedWorkRows.filter((_, i) => i !== index);
         setPlannedWorkRows(updatedRows);
-        setFormData({ ...formData, activity2: updatedRows });
+        setFormData({ ...formData, procurementList: updatedRows });
         break;
 
-      case "material":
-        updatedRows = materialRows.filter((_, i) => i !== index);
-        setMaterialRows(updatedRows);
-        setFormData({ ...formData, materialRows: updatedRows });
-        break;
-
-      case "procurement":
+      case "plannedWork":
         updatedRows = procurementRows.filter((_, i) => i !== index);
         setProcurementRows(updatedRows);
-        setFormData({ ...formData, procurementRows: updatedRows });
+        setFormData({ ...formData, plannedWorkList: updatedRows });
         break;
 
       default:
@@ -105,8 +89,6 @@ const EntryStep2 = ({ formData, setFormData }) => {
     <>
       {/* Planned Work Table */}
       <div style={{ marginTop: "20px" }}>
-       
-
         {/* Material Requirement Table */}
         {/* <Form.Group controlId="formMaterialRequirement" className="mb-3">
           <Form.Label>Material Requirement</Form.Label>
@@ -188,7 +170,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               </tr>
             </thead>
             <tbody>
-              {procurementRows.map((row, index) => (
+              {(formData.procurementList || []).map((row, index) => (
                 <tr key={index}>
                   <td>
                     <Form.Control
@@ -243,7 +225,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
           </Button>
         </Form.Group>
 
-         <Form.Group controlId="formPlannedWork" className="mb-3">
+        <Form.Group controlId="formPlannedWork" className="mb-3">
           <Form.Label>Planned Work For Tomorrow</Form.Label>
           <Table bordered hover>
             <thead>
