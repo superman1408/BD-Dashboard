@@ -556,9 +556,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { Divider } from "@mui/material";
 import { Button, Container, Card } from "react-bootstrap";
 import EntryStep1 from "./EntryStep1";
 import EntryStep2 from "./EntryStep2";
+import { entryDetails } from "../../action/posts";
+import { ToastContainer, toast } from "react-toastify";
 // import EntryStep2 from "./EntryStep2";
 // import Step3 from "./Step3";
 
@@ -573,6 +576,14 @@ const EntryDetails = () => {
 
   const navigate = useNavigate();
 
+  const labourTypes = [
+    "Male Labour",
+    "Female Labour",
+    "Mason",
+    "HQ Staff",
+    "Others",
+  ];
+
   const [formData, setFormData] = useState({
     projectNumber: projectNumber,
     date: "",
@@ -580,6 +591,7 @@ const EntryDetails = () => {
     materialRequiredList: [],
     procurementList: [],
     plannedWorkList: [],
+    attendance: [],
     activity1: "",
     activity2: "",
     activity3: "",
@@ -592,11 +604,33 @@ const EntryDetails = () => {
     uploadPictures3: "",
     uploadPictures4: "",
     uploadPictures5: "",
-    submittedBy: "",
+    preparedBy: "",
+    reviewedBy: "",
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(entryDetails(formData))
+      .then(() => {
+        console.log("Dispatched successfully");
+        toast.success("Form Submitted Successfully!");
+
+        setTimeout(() => {
+          navigate(`/${projectNumber}/viewdetails`);
+          window.location.reload();
+        }, 5000); // This 5000 is correct, you want a 5-second delay before navigation
+      })
+      .catch((error) => {
+        console.error("Error dispatching formData:", error);
+        toast.error("Invalid Credentials, Please try Again Later...!!");
+      });
+
+    console.log("Updated formData:", formData);
+  };
 
   return (
     <Container className="d-flex justify-content-center mt-4 mb-5 background-color-gray">
+      <ToastContainer />
       <Card
         className="p-4 custom-card"
         style={{ width: "100%", maxWidth: "900px" }}
@@ -618,9 +652,19 @@ const EntryDetails = () => {
           {step < 2 ? (
             <Button onClick={nextStep}>Next →</Button>
           ) : (
-            <Button variant="success" type="submit">
-              Submit
-            </Button>
+            <>
+              <Divider
+                className="mt-3 mb-3"
+                style={{
+                  height: "2px",
+                  backgroundColor: "#000",
+                  fontWeight: "bold",
+                }}
+              />
+              <Button variant="success" type="submit" onClick={handleSubmit}>
+                Submit
+              </Button>
+            </>
           )}
         </div>
       </Card>

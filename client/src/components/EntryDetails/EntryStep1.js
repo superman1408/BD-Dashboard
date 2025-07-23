@@ -35,7 +35,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const handleAddRow = () => {
     const updatedRows = [
       ...(formData.materialRequiredList || []),
-      { serialNo: "", description: "", quantity: "" },
+      { description: "", quantity: "" },
     ];
     setFormData({ ...formData, materialRequiredList: updatedRows });
   };

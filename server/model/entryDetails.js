@@ -5,21 +5,42 @@ const entrySchema = mongoose.Schema(
     date: {
       type: [String],
     },
-    activity1: {
-      type: [String],
-    },
-    activity2: {
-      type: [String],
-    },
-    activity3: {
-      type: [String],
-    },
-    activity4: {
-      type: [String],
-    },
-    maleLabour: {
-      type: [Number],
-    },
+    activityList: [
+      {
+        text: String,
+        image: mongoose.Schema.Types.Mixed,
+      },
+    ],
+
+    materialRequiredList: [
+      {
+        description: String,
+        quantity: String,
+      },
+    ],
+    procurementList: [
+      {
+        description: String,
+        status: String,
+      },
+    ],
+
+    plannedWorkList: [
+      {
+        description: String,
+        status: String,
+      },
+    ],
+    attendance: [
+      {
+        maleLabour: String,
+        femaleLabour: String,
+        mason: String,
+        hqStaff: String,
+        others: String,
+      },
+    ],
+
     femaleLabour: {
       type: [Number],
     },
@@ -46,7 +67,10 @@ const entrySchema = mongoose.Schema(
       type: [String], // Change this line
       default: [],
     },
-    submittedBy: {
+    preparedBy: {
+      type: [String],
+    },
+    reviewedBy: {
       type: [String],
     },
     projectName: {

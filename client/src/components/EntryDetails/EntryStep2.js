@@ -4,11 +4,12 @@ import { Divider } from "@mui/material";
 
 const EntryStep2 = ({ formData, setFormData }) => {
   const [plannedWorkRows, setPlannedWorkRows] = useState([
-    { serialNo: "", description: "", presentCompletion: "" },
+    // { serialNo: "", description: "", presentCompletion: "" },
+    { description: "", presentCompletion: "" },
   ]);
 
   const [procurementRows, setProcurementRows] = useState([
-    { serialNo: "", description: "", status: "" },
+    { description: "", status: "" },
   ]);
 
   // Generic Change Handler
@@ -24,7 +25,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
       case "plannedWork":
         updatedRows = [...formData.plannedWorkList];
         updatedRows[index][field] = value;
-        setFormData({ ...formData, procurementRows: updatedRows });
+        setFormData({ ...formData, plannedWorkList: updatedRows });
         break;
 
       default:
@@ -38,7 +39,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
       case "procurement": {
         const updatedRows = [
           ...(formData.procurementList || []),
-          { serialNo: "", description: "", quantity: "" },
+          { description: "", status: "" },
         ];
         setFormData({
           ...formData,
@@ -50,7 +51,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
       case "plannedWork": {
         const updatedRows = [
           ...(formData.plannedWorkList || []),
-          { serialNo: "", description: "", status: "" },
+          { description: "", presentCompletion: "" },
         ];
         setFormData({
           ...formData,
@@ -237,7 +238,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               </tr>
             </thead>
             <tbody>
-              {plannedWorkRows.map((row, index) => (
+              {(formData.plannedWorkList || []).map((row, index) => (
                 <tr key={index}>
                   <td>
                     <Form.Control
@@ -385,9 +386,9 @@ const EntryStep2 = ({ formData, setFormData }) => {
             <Form.Label>Prepared By</Form.Label>
             <Form.Control
               type="text"
-              value={formData.submittedBy}
+              value={formData.preparedBy}
               onChange={(e) =>
-                setFormData({ ...formData, submittedBy: e.target.value })
+                setFormData({ ...formData, preparedBy: e.target.value })
               }
             />
           </div>
@@ -396,9 +397,9 @@ const EntryStep2 = ({ formData, setFormData }) => {
             <Form.Label>Reviewed By</Form.Label>
             <Form.Control
               type="text"
-              value={formData.submittedBy}
+              value={formData.reviewdBy}
               onChange={(e) =>
-                setFormData({ ...formData, submittedBy: e.target.value })
+                setFormData({ ...formData, reviewdBy: e.target.value })
               }
             />
           </div>
