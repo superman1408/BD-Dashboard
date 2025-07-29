@@ -615,10 +615,10 @@ const EntryDetails = () => {
         console.log("Dispatched successfully");
         toast.success("Form Submitted Successfully!");
 
-        setTimeout(() => {
-          navigate(`/${projectNumber}/viewdetails`);
-          window.location.reload();
-        }, 5000); // This 5000 is correct, you want a 5-second delay before navigation
+        // setTimeout(() => {
+        //   navigate(`/${projectNumber}/viewdetails`);
+        //   window.location.reload();
+        // }, 5000); // This 5000 is correct, you want a 5-second delay before navigation
       })
       .catch((error) => {
         console.error("Error dispatching formData:", error);

@@ -817,3 +817,5 @@ const DetailedProjectPage = () => {
 };
 
 export default DetailedProjectPage;
+
+
