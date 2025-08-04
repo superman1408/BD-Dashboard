@@ -327,6 +327,8 @@ const EntryStep2 = ({ formData, setFormData }) => {
         </Col>
       </Row> */}
 
+        {/* after changing theffrontend my whole structire for backend has changed & not storing like this  I am providing you new code try to make it like the above & saving of sxat in he same format*/}
+
         <Form.Group controlId="formAttendance" className="mb-3">
           <Form.Label>Attendance</Form.Label>
           <Table bordered hover>
@@ -397,9 +399,9 @@ const EntryStep2 = ({ formData, setFormData }) => {
             <Form.Label>Reviewed By</Form.Label>
             <Form.Control
               type="text"
-              value={formData.reviewdBy}
+              value={formData.reviewedBy}
               onChange={(e) =>
-                setFormData({ ...formData, reviewdBy: e.target.value })
+                setFormData({ ...formData, reviewedBy: e.target.value })
               }
             />
           </div>

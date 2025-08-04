@@ -40,19 +40,20 @@ const DetailedProjectPage = () => {
             projectName: post?.projectName,
             clientName: post?.clientName,
             date: post?.date[index],
-            activity1: post?.activity1[index],
-            activity2: post?.activity2[index],
-            activity3: post?.activity3[index],
-            activity4: post?.activity4[index],
-            maleLabour: post?.maleLabour[index],
-            femaleLabour: post?.femaleLabour[index],
-            mason: post?.mason[index],
+            activityList: post?.activityList[index],
+            plannedWorkList: post?.plannedWorkList[index],
+            materialRequiredList: post?.materialRequiredList[index],
+            procurementList: post?.procurementList[index],
+            attendance: post?.attendance[index],
+            // femaleLabour: post?.femaleLabour[index],
+            // mason: post?.mason[index],
             uploadPictures1: post?.uploadPictures1[index],
             uploadPictures2: post?.uploadPictures2[index],
             uploadPictures3: post?.uploadPictures3[index],
             uploadPictures4: post?.uploadPictures4[index],
             uploadPictures5: post?.uploadPictures5[index],
-            submittedBy: post?.submittedBy[index],
+            preparedBy: post?.preparedBy[index],
+            reviewedBy: post?.reviewedBy[index],
           });
           const storedDate = post?.date[index]; // Example stored date (ISO format)
           const actualDate = new Date(storedDate);
@@ -82,19 +83,20 @@ const DetailedProjectPage = () => {
           projectName: post?.projectName,
           clientName: post?.clientName,
           date: post?.date[index],
-          activity1: post?.activity1[index],
-          activity2: post?.activity2[index],
-          activity3: post?.activity3[index],
-          activity4: post?.activity4[index],
-          maleLabour: post?.maleLabour[index],
-          femaleLabour: post?.femaleLabour[index],
-          mason: post?.mason[index],
+          activityList: post?.activityList[index],
+          plannedWorkList: post?.plannedWorkList[index],
+          materialRequiredList: post?.materialRequiredList[index],
+          procurementList: post?.procurementList[index],
+          attendance: post?.attendance[index],
+          // femaleLabour: post?.femaleLabour[index],
+          // mason: post?.mason[index],
           uploadPictures1: post?.uploadPictures1[index],
           uploadPictures2: post?.uploadPictures2[index],
           uploadPictures3: post?.uploadPictures3[index],
           uploadPictures4: post?.uploadPictures4[index],
           uploadPictures5: post?.uploadPictures5[index],
-          submittedBy: post?.submittedBy[index],
+          preparedBy: post?.preparedBy[index],
+          reviewedBy: post?.reviewedBy[index],
         });
       }
     }
@@ -390,7 +392,7 @@ const DetailedProjectPage = () => {
                                     flexDirection: "column",
                                   }}
                                 >
-                                  {entry?.activity1
+                                  {entry?.activityList
                                     .split("\n")
                                     .map((line, index) => (
                                       <span
@@ -429,7 +431,7 @@ const DetailedProjectPage = () => {
                                     flexDirection: "column",
                                   }}
                                 >
-                                  {entry?.activity2
+                                  {entry?.plannedWorkList
                                     .split("\n")
                                     .map((line, index) => (
                                       <span
@@ -468,7 +470,7 @@ const DetailedProjectPage = () => {
                                     flexDirection: "column",
                                   }}
                                 >
-                                  {entry?.activity3
+                                  {entry?.materialRequiredList
                                     .split("\n")
                                     .map((line, index) => (
                                       <span
@@ -507,7 +509,7 @@ const DetailedProjectPage = () => {
                                     flexDirection: "column",
                                   }}
                                 >
-                                  {entry?.activity4
+                                  {entry?.procurementList
                                     .split("\n")
                                     .map((line, index) => (
                                       <span
@@ -732,7 +734,7 @@ const DetailedProjectPage = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                {entry?.submittedBy}
+                                {entry?.preparedBy}
                               </td>
                               <td
                                 style={{
@@ -817,5 +819,3 @@ const DetailedProjectPage = () => {
 };
 
 export default DetailedProjectPage;
-
-

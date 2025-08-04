@@ -29,7 +29,7 @@ const ViewDetails = () => {
     const tempArray = [];
     entries.forEach((post) => {
       if (id === post.projectNumber) {
-        post?.submittedBy?.forEach((submittedBy, index) => {
+        post?.preparedBy?.forEach((submittedBy, index) => {
           tempArray.push({
             submittedBy,
             date: post?.date[index],
@@ -175,7 +175,7 @@ const ViewDetails = () => {
                           />
                         </td>
                         <td style={{ padding: "10px" }}>
-                          {item.submittedBy || "N/A"}
+                          {item.preparedBy || "N/A"}
                         </td>
                         <td>
                           <Button

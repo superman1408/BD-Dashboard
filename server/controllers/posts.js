@@ -91,22 +91,20 @@ export const entryDetails = async (req, res) => {
 
   try {
     const id = updatePost._id;
-    if (!Array.isArray(updatePost.attendance)) {
-      updatePost.attendance = [];
-    }
     updatePost.date.push(value.date);
-    updatePost.activityList.push(...value.activityList);
-    updatePost.materialRequiredList.push(...value.materialRequiredList);
-    updatePost.procurementList.push(...value.procurementList);
-    updatePost.plannedWorkList.push(...value.plannedWorkList);
+    updatePost.activityList.push(value.activityList);
+    updatePost.plannedWorkList.push(value.plannedWorkList);
+    updatePost.materialRequiredList.push(value.materialRequiredList);
+    updatePost.procurementList.push(value.procurementList);
+    updatePost.maleLabour.push(value.maleLabour);
+    updatePost.femaleLabour.push(value.femaleLabour);
     updatePost.attendance.push(value.attendance);
-    // updatePost.femaleLabour.push(value.femaleLabour);
-    // updatePost.mason.push(value.mason);
-    // updatePost.uploadPictures1.push(value.uploadPictures1);
-    // updatePost.uploadPictures2.push(value.uploadPictures2);
-    // updatePost.uploadPictures3.push(value.uploadPictures3);
-    // updatePost.uploadPictures4.push(value.uploadPictures4);
-    // updatePost.uploadPictures5.push(value.uploadPictures5);
+    updatePost.mason.push(value.mason);
+    updatePost.uploadPictures1.push(value.uploadPictures1);
+    updatePost.uploadPictures2.push(value.uploadPictures2);
+    updatePost.uploadPictures3.push(value.uploadPictures3);
+    updatePost.uploadPictures4.push(value.uploadPictures4);
+    updatePost.uploadPictures5.push(value.uploadPictures5);
     updatePost.preparedBy.push(value.preparedBy);
     updatePost.reviewedBy.push(value.reviewedBy);
 

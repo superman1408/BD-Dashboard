@@ -608,24 +608,104 @@ const EntryDetails = () => {
     reviewedBy: "",
   });
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(entryDetails(formData))
+  //     .then(() => {
+  //       console.log("Dispatched successfully");
+  //       toast.success("Form Submitted Successfully!");
+
+  //       // setTimeout(() => {
+  //       //   navigate(`/${projectNumber}/viewdetails`);
+  //       //   window.location.reload();
+  //       // }, 5000); // This 5000 is correct, you want a 5-second delay before navigation
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error dispatching formData:", error);
+  //       toast.error("Invalid Credentials, Please try Again Later...!!");
+  //     });
+
+  //   console.log("Updated formData:", formData);
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(entryDetails(formData))
-      .then(() => {
-        console.log("Dispatched successfully");
-        toast.success("Form Submitted Successfully!");
 
-        // setTimeout(() => {
-        //   navigate(`/${projectNumber}/viewdetails`);
-        //   window.location.reload();
-        // }, 5000); // This 5000 is correct, you want a 5-second delay before navigation
+    // Upload images (Cloudinary)
+    const imageUploadPromises = (formData.activityList || []).map((item) => {
+      if (!item.image) return Promise.resolve(""); // no image, skip
+      const data = new FormData();
+      data.append("file", item.image);
+      data.append("upload_preset", "chat-app");
+      data.append("cloud_name", "realtimeapp");
+
+      return fetch("https://api.cloudinary.com/v1_1/realtimeapp/image/upload", {
+        method: "POST",
+        body: data,
       })
-      .catch((error) => {
-        console.error("Error dispatching formData:", error);
-        toast.error("Invalid Credentials, Please try Again Later...!!");
-      });
+        .then((res) => res.json())
+        .then((data) => data.secure_url)
+        .catch((err) => {
+          console.error("Image upload failed:", err);
+          return "";
+        });
+    });
 
-    console.log("Updated formData:", formData);
+    const uploadedImages = await Promise.all(imageUploadPromises);
+
+    // Flatten activityList into activity1, activity2...
+    const updatedFormData = {
+      projectNumber: formData.projectNumber,
+      date: formData.date,
+      activityList: formData.activityList?.[0]?.text || "",
+      plannedWorkList:
+        formData.plannedWorkList
+          ?.map((m) => `${m.description}: ${m.presentCompletion}`)
+          .join(", ") || "",
+      materialRequiredList:
+        formData.materialRequiredList
+          ?.map((m) => `${m.description}: ${m.quantity}`)
+          .join(", ") || "",
+      procurementList:
+        formData.procurementList
+          ?.map((m) => `${m.description}: ${m.status}`)
+          .join(", ") || "",
+
+      attendance: formData.attendance
+        ? Object.entries(formData.attendance)
+            .map(([type, count]) => `${type}: ${count}`)
+            .join(", ")
+        : "",
+
+      maleLabour: formData.maleLabour || "",
+      femaleLabour: formData.femaleLabour || "",
+      mason: formData.mason || "",
+      uploadPictures1: uploadedImages[0] || "",
+      uploadPictures2: uploadedImages[1] || "",
+      uploadPictures3: uploadedImages[2] || "",
+      uploadPictures4: uploadedImages[3] || "",
+      uploadPictures5: uploadedImages[4] || "",
+      preparedBy: formData.preparedBy || "", // assuming this is who submitted it
+      reviewedBy: formData.reviewedBy || "",
+    };
+
+    console.log("Final transformed formData:", updatedFormData);
+
+    dispatch(entryDetails(updatedFormData))
+      .then(() => {
+        toast.success("Form Submitted Successfully!");
+        // navigate after 5s if needed
+
+        setTimeout(() => {
+          navigate(`/${projectNumber}/viewdetails`);
+          window.location.reload();
+        }, 5000);
+        //         })
+      })
+      .catch((err) => {
+        console.error("Dispatch error:", err);
+        toast.error("Submission failed. Please try again.");
+      });
   };
 
   return (
