@@ -9,7 +9,7 @@ import ProjectWindow from "./components/ProjectWindow/ProjectWindow";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
-import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjectPage";
+import DetailedProjectPage from "./components/DetailedProjectPage/DetailDPR";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";

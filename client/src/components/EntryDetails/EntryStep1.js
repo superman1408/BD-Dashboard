@@ -14,14 +14,24 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [show, setShow] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [status, setStatus] = useState("");
+
+  const [materialInventoryRows, setMaterialInventoryRows] = useState([
+    { description: "", quantity: "" },
+  ]);
+
+  const [materialRequirementRows, setMaterialRequirementRows] = useState([
+    { description: "", quantity: "" },
+  ]);
 
   const handleAddActivity = () => {
     if (inputValue.trim() === "") return;
-    const newActivity = { text: inputValue, image: imageFile };
+    const newActivity = { text: inputValue, image: imageFile, status: status };
     const updatedActivities = [...(formData.activityList || []), newActivity];
     setFormData({ ...formData, activityList: updatedActivities });
     setInputValue("");
     setImageFile(null);
+    setStatus("");
     setShow(false);
   };
 
@@ -32,25 +42,79 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     setFormData({ ...formData, activityList: updatedActivities });
   };
 
-  const handleAddRow = () => {
-    const updatedRows = [
-      ...(formData.materialRequiredList || []),
-      { description: "", quantity: "" },
-    ];
-    setFormData({ ...formData, materialRequiredList: updatedRows });
+  const handleRowChange = (type, index, field, value) => {
+    let updatedRows;
+    switch (type) {
+      case "materialInventory":
+        updatedRows = [...formData.materialInventoryList];
+        updatedRows[index][field] = value;
+        setFormData({ ...formData, materialInventoryList: updatedRows });
+        break;
+
+      case "materialRequirement":
+        updatedRows = [...formData.materialRequiredList];
+        updatedRows[index][field] = value;
+        setFormData({ ...formData, materialRequiredList: updatedRows });
+        break;
+
+      default:
+        break;
+    }
   };
 
-  const handleRowChange = (index, field, value) => {
-    const updatedRows = [...formData.materialRequiredList];
-    updatedRows[index][field] = value;
-    setFormData({ ...formData, materialRequiredList: updatedRows });
+  const handleAddRow = (type) => {
+    switch (type) {
+      case "materialInventory": {
+        const updatedRows = [
+          ...(formData.materialInventoryList || []),
+          { description: "", quantity: "" },
+        ];
+        setFormData({
+          ...formData,
+          materialInventoryList: updatedRows,
+        });
+        break;
+      }
+
+      case "materialRequirement": {
+        const updatedRows = [
+          ...(formData.materialRequiredList || []),
+          { description: "", quantity: "" },
+        ];
+        setFormData({
+          ...formData,
+          materialRequiredList: updatedRows,
+        });
+        break;
+      }
+
+      default:
+        break;
+    }
   };
 
-  const handleRemoveRow = (index) => {
-    const updatedRows = formData.materialRequiredList.filter(
-      (_, i) => i !== index
-    );
-    setFormData({ ...formData, materialRequiredList: updatedRows });
+  const handleRemoveRow = (type, index) => {
+    let updatedRows;
+    switch (type) {
+      case "materialInventory":
+        updatedRows = materialInventoryRows.filter((_, i) => i !== index);
+        setMaterialInventoryRows(updatedRows);
+        setFormData({ ...formData, materialInventoryList: updatedRows });
+        break;
+
+      case "materialRequirement":
+        updatedRows = materialRequirementRows.filter((_, i) => i !== index);
+        setMaterialRequirementRows(updatedRows);
+        setFormData({ ...formData, materialRequiredList: updatedRows });
+        break;
+
+      default:
+        break;
+    }
+    // const updatedRows = formData.materialRequiredList.filter(
+    //   (_, i) => i !== index
+    // );
+    // setFormData({ ...formData, materialRequiredList: updatedRows });
   };
 
   return (
@@ -104,7 +168,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               key={index}
               className="d-flex align-items-center justify-content-between"
             >
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex align-items-center gap-3 justify-space-evenly">
                 <strong>{index + 1}.</strong>
                 {item.image && (
                   <img
@@ -119,6 +183,22 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                   />
                 )}
                 <span>{item.text}</span>
+                <span
+                  style={{
+                    backgroundColor:
+                      item.status === "In Progress"
+                        ? "orange"
+                        : item.status === "Completed"
+                        ? "green"
+                        : "transparent",
+                    color: item.status ? "white" : "black",
+                    padding: "2px 8px",
+                    borderRadius: "4px",
+                    fontSize: "0.85rem",
+                  }}
+                >
+                  {item.status}
+                </span>
               </div>
 
               <Button
@@ -160,6 +240,21 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                 style={{ width: "100px", marginTop: "10px" }}
               />
             )}
+
+            <Form.Control
+              as="select"
+              value={status}
+              onChange={(e) => {
+                setStatus(e.target.value);
+                console.log(e.target.value);
+              }}
+              className="mt-2"
+            >
+              <option value="">Select Status</option>
+              {/* <option value="Pending">Pending</option> */}
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </Form.Control>
           </Modal.Body>
           <Modal.Footer className="w-100 d-flex justify-content-between">
             <Button onClick={() => setShow(false)} variant="secondary">
@@ -170,6 +265,72 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
             </Button>
           </Modal.Footer>
         </Modal>
+      </Form.Group>
+
+      <Form.Group controlId="formMaterialInventory" className="mb-3">
+        <Form.Label>Material Inventory</Form.Label>
+        <Table bordered hover>
+          <thead>
+            <tr>
+              <th style={{ width: "80px" }}>S.No</th>
+              <th>Material Description</th>
+              <th>Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(formData.materialInventoryList || []).map((row, index) => (
+              <tr key={index}>
+                <td>
+                  <Form.Control type="text" value={index + 1} readOnly />
+                </td>
+                <td>
+                  <Form.Control
+                    type="text"
+                    value={row.description}
+                    onChange={(e) =>
+                      handleRowChange(
+                        "materialInventory",
+                        index,
+                        "description",
+                        e.target.value
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  <Form.Control
+                    type="text"
+                    value={row.quantity}
+                    onChange={(e) =>
+                      handleRowChange(
+                        "materialInventory",
+                        index,
+                        "quantity",
+                        e.target.value
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleRemoveRow("materialInventory", index)}
+                    size="sm"
+                  >
+                    ✖
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <Button
+          variant="primary"
+          onClick={() => handleAddRow("materialInventory")}
+        >
+          + Add Row
+        </Button>
       </Form.Group>
 
       <Form.Group controlId="formMaterialRequirement" className="mb-3">
@@ -194,7 +355,12 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                     type="text"
                     value={row.description}
                     onChange={(e) =>
-                      handleRowChange(index, "description", e.target.value)
+                      handleRowChange(
+                        "materialRequirement",
+                        index,
+                        "description",
+                        e.target.value
+                      )
                     }
                   />
                 </td>
@@ -203,14 +369,21 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                     type="text"
                     value={row.quantity}
                     onChange={(e) =>
-                      handleRowChange(index, "quantity", e.target.value)
+                      handleRowChange(
+                        "materialRequirement",
+                        index,
+                        "quantity",
+                        e.target.value
+                      )
                     }
                   />
                 </td>
                 <td>
                   <Button
                     variant="danger"
-                    onClick={() => handleRemoveRow(index)}
+                    onClick={() =>
+                      handleRemoveRow("materialRequirement", index)
+                    }
                     size="sm"
                   >
                     ✖
@@ -220,7 +393,10 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
             ))}
           </tbody>
         </Table>
-        <Button variant="primary" onClick={handleAddRow}>
+        <Button
+          variant="primary"
+          onClick={() => handleAddRow("materialRequirement")}
+        >
           + Add Row
         </Button>
       </Form.Group>

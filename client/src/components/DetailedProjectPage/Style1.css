@@ -90,3 +90,56 @@ button:hover {
 .time-sheet-table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+/* Screen vs Print display */
+.print-header {
+  display: none;
+}
+
+.screen-header {
+  display: block;
+}
+
+@media print {
+  .print-header {
+    display: table-header-group; /* repeats on every printed page */
+  }
+  .screen-header {
+    display: none;
+  }
+}
+
+.print-header {
+  display: none;
+}
+
+@media print {
+  .print-header {
+    display: block;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group; /* if you want repeating footers too */
+  }
+}
+
+@media print {
+  .hide-on-print {
+    display: none !important;
+  }
+}
+
+@media print {
+  thead {
+    display: table-header-group;
+  }
+}
+
+@media print {
+  .print-header-auto {
+    display: table-header-group;
+  }
+}

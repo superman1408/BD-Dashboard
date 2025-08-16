@@ -94,7 +94,9 @@ export const entryDetails = async (req, res) => {
     updatePost.date.push(value.date);
     updatePost.activityList.push(value.activityList);
     updatePost.plannedWorkList.push(value.plannedWorkList);
+    updatePost.materialInventoryList.push(value.materialInventoryList);
     updatePost.materialRequiredList.push(value.materialRequiredList);
+
     updatePost.procurementList.push(value.procurementList);
     updatePost.maleLabour.push(value.maleLabour);
     updatePost.femaleLabour.push(value.femaleLabour);

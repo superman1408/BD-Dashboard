@@ -588,6 +588,7 @@ const EntryDetails = () => {
     projectNumber: projectNumber,
     date: "",
     activityList: [],
+    materialInventoryList: [],
     materialRequiredList: [],
     procurementList: [],
     plannedWorkList: [],
@@ -657,15 +658,28 @@ const EntryDetails = () => {
     const updatedFormData = {
       projectNumber: formData.projectNumber,
       date: formData.date,
-      activityList: formData.activityList?.[0]?.text || "",
+      activityList:
+        formData.activityList
+          ?.map((m, idx) => `${m.text}: ${m.status} `)
+          .join(", ") || "",
+
       plannedWorkList:
         formData.plannedWorkList
           ?.map((m) => `${m.description}: ${m.presentCompletion}`)
+          .join(", ") || "",
+
+      materialInventoryList:
+        formData.materialInventoryList
+          ?.map((m) => `${m.description}: ${m.quantity}`)
           .join(", ") || "",
       materialRequiredList:
         formData.materialRequiredList
           ?.map((m) => `${m.description}: ${m.quantity}`)
           .join(", ") || "",
+      // materialRequiredList:
+      //   formData.materialRequiredList?.map(
+      //     (m) => `${m.description}: ${m.quantity}`
+      //   ) || "",
       procurementList:
         formData.procurementList
           ?.map((m) => `${m.description}: ${m.status}`)

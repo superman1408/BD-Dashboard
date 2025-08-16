@@ -9,7 +9,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
   ]);
 
   const [procurementRows, setProcurementRows] = useState([
-    { description: "", status: "" },
+    { description: "", vendor: "", status: "" },
   ]);
 
   // Generic Change Handler
@@ -39,7 +39,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
       case "procurement": {
         const updatedRows = [
           ...(formData.procurementList || []),
-          { description: "", status: "" },
+          { description: "", vendor: "", status: "" },
         ];
         setFormData({
           ...formData,
@@ -70,13 +70,13 @@ const EntryStep2 = ({ formData, setFormData }) => {
     let updatedRows;
     switch (type) {
       case "procurement":
-        updatedRows = plannedWorkRows.filter((_, i) => i !== index);
+        updatedRows = procurementRows.filter((_, i) => i !== index);
         setPlannedWorkRows(updatedRows);
         setFormData({ ...formData, procurementList: updatedRows });
         break;
 
       case "plannedWork":
-        updatedRows = procurementRows.filter((_, i) => i !== index);
+        updatedRows = plannedWorkRows.filter((_, i) => i !== index);
         setProcurementRows(updatedRows);
         setFormData({ ...formData, plannedWorkList: updatedRows });
         break;
@@ -166,7 +166,8 @@ const EntryStep2 = ({ formData, setFormData }) => {
               <tr>
                 <th style={{ width: "80px" }}>S.No</th>
                 <th>Item Description</th>
-                <th>Status</th>
+                <th>Vendor / Petty Cash</th>
+                <th>Quantity</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -190,6 +191,20 @@ const EntryStep2 = ({ formData, setFormData }) => {
                           "procurement",
                           index,
                           "description",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="text"
+                      value={row.vendor}
+                      onChange={(e) =>
+                        handleRowChange(
+                          "procurement",
+                          index,
+                          "vendor",
                           e.target.value
                         )
                       }

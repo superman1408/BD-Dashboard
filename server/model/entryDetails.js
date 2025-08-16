@@ -104,9 +104,15 @@ const entrySchema = mongoose.Schema(
     plannedWorkList: {
       type: [String],
     },
+
+    materialInventoryList: {
+      type: [String],
+    },
+
     materialRequiredList: {
       type: [String],
     },
+
     procurementList: {
       type: [String],
     },
