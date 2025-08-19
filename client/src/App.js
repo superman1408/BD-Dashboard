@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Authentication from "./components/Authentication/Auth";
 import PasswordResetForm from "./components/PasswordReset/PasswordResetForm";
-import LOGO from "./assests/AshkamLogoTransparentbc copy.png";
+import LOGO from "./assests/Ashkam_Logo.png";
 import Navbar from "./components/Navbar/Navbar";
 import ProjectWindow from "./components/ProjectWindow/ProjectWindow";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
-import DetailedProjectPage from "./components/DetailedProjectPage/DetailedProjectPage";
+import DetailedProjectPage from "./components/DetailedProjectPage/DetailDPR";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
 import ContractViewDetail from "./components/ContractRegister/ContractViewDetail";

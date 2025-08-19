@@ -20,7 +20,7 @@ router.get("/:id", auth, getPost);
 
 router.post("/", auth, createPost);
 
-router.post("/", auth, createPost);
+// router.post("/", auth, createPost);
 
 router.patch("/:id/dashboard", auth, update);
 

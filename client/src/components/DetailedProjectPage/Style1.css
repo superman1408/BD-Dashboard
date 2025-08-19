@@ -90,3 +90,92 @@ button:hover {
 .time-sheet-table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+/* Screen vs Print display */
+.print-header {
+  display: none;
+}
+
+.screen-header {
+  display: block;
+}
+
+@media print {
+  .print-header {
+    display: table-header-group; /* repeats on every printed page */
+  }
+  .screen-header {
+    display: none;
+  }
+}
+
+.print-header {
+  display: none;
+}
+
+@media print {
+  .print-header {
+    display: block;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group; /* if you want repeating footers too */
+  }
+}
+
+@media print {
+  .hide-on-print {
+    display: none !important;
+  }
+}
+
+@media print {
+  thead {
+    display: table-header-group;
+  }
+}
+
+@media print {
+  .print-header-auto {
+    display: table-header-group;
+  }
+}
+
+/* Style1.css */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Default styles for DPR tables */
+.dpr-table td,
+.dpr-table th {
+  font-size: 15px;
+  padding: 8px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 600px) {
+  .dpr-table td,
+  .dpr-table th {
+    font-size: 12px; /* smaller font */
+    padding: 5px; /* reduce padding so table fits */
+  }
+
+  .dpr-table img {
+    max-width: 100px; /* shrink images in mobile */
+    height: auto;
+  }
+
+  .dpr-table th {
+    font-size: 13px; /* make headers a little more visible */
+  }
+}

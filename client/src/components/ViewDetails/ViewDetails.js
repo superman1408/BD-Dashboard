@@ -29,11 +29,13 @@ const ViewDetails = () => {
     const tempArray = [];
     entries.forEach((post) => {
       if (id === post.projectNumber) {
-        post?.submittedBy?.forEach((submittedBy, index) => {
+        post?.preparedBy?.forEach((submittedBy, index) => {
           tempArray.push({
             submittedBy,
             date: post?.date[index],
             uploadPictures1: post?.uploadPictures1[index],
+            preparedBy: post?.preparedBy[index],
+            reviewedBy: post?.reviewedBy[index],
           });
         });
       }
@@ -146,7 +148,8 @@ const ViewDetails = () => {
                   <tr>
                     <th>Date</th>
                     <th>Overview</th>
-                    <th>Submitted By</th>
+                    <th>Prepared By</th>
+                    <th>Reviewed By</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -175,7 +178,10 @@ const ViewDetails = () => {
                           />
                         </td>
                         <td style={{ padding: "10px" }}>
-                          {item.submittedBy || "N/A"}
+                          {item?.preparedBy || "N/A"}
+                        </td>
+                        <td style={{ padding: "10px" }}>
+                          {item?.reviewedBy || "N/A"}
                         </td>
                         <td>
                           <Button

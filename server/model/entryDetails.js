@@ -5,16 +5,22 @@ const entrySchema = mongoose.Schema(
     date: {
       type: [String],
     },
-    activity1: {
+    activityList: {
       type: [String],
     },
-    activity2: {
+    plannedWorkList: {
       type: [String],
     },
-    activity3: {
+
+    materialInventoryList: {
       type: [String],
     },
-    activity4: {
+
+    materialRequiredList: {
+      type: [String],
+    },
+
+    procurementList: {
       type: [String],
     },
     maleLabour: {
@@ -25,6 +31,9 @@ const entrySchema = mongoose.Schema(
     },
     mason: {
       type: [Number],
+    },
+    attendance: {
+      type: [String],
     },
     uploadPictures1: {
       type: [String], // Change this line
@@ -46,7 +55,10 @@ const entrySchema = mongoose.Schema(
       type: [String], // Change this line
       default: [],
     },
-    submittedBy: {
+    preparedBy: {
+      type: [String],
+    },
+    reviewedBy: {
       type: [String],
     },
     projectName: {

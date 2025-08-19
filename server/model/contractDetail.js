@@ -81,3 +81,4 @@ const contractSchema = mongoose.Schema(
 
 const ContractDetails = mongoose.model("ContractDetails", contractSchema);
 export default ContractDetails;
+  
