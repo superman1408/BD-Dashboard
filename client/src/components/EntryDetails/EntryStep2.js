@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Table, Col, Row } from "react-bootstrap";
 import { Divider } from "@mui/material";
+import "./EntryDetails.css";
 
 const EntryStep2 = ({ formData, setFormData }) => {
   const [plannedWorkRows, setPlannedWorkRows] = useState([
@@ -86,85 +87,20 @@ const EntryStep2 = ({ formData, setFormData }) => {
     }
   };
 
+  const isMobile = window.innerWidth <= 600;
+
   return (
     <>
       {/* Planned Work Table */}
       <div style={{ marginTop: "20px" }}>
-        {/* Material Requirement Table */}
-        {/* <Form.Group controlId="formMaterialRequirement" className="mb-3">
-          <Form.Label>Material Requirement</Form.Label>
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th style={{ width: "80px" }}>S.No</th>
-                <th>Material Description</th>
-                <th>Quantity</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {materialRows.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <Form.Control
-                      type="text"
-                      style={{ width: "80px" }}
-                      value={index + 1}
-                      readOnly
-                    />
-                  </td>
-                  <td>
-                    <Form.Control
-                      type="text"
-                      value={row.description}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "material",
-                          index,
-                          "description",
-                          e.target.value
-                        )
-                      }
-                    />
-                  </td>
-                  <td>
-                    <Form.Control
-                      type="text"
-                      value={row.quantity}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "material",
-                          index,
-                          "quantity",
-                          e.target.value
-                        )
-                      }
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      onClick={() => handleRemoveRow("material", index)}
-                    >
-                      ✖
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Button variant="primary" onClick={() => handleAddRow("material")}>
-            + Add Row
-          </Button>
-        </Form.Group> */}
-
         {/* Procurement Status Table */}
+
         <Form.Group controlId="formProcurementStatus" className="mb-3">
           <Form.Label>Procurement Status</Form.Label>
           <Table bordered hover>
             <thead>
               <tr>
-                <th style={{ width: "80px" }}>S.No</th>
+                <th style={{ width: "50px" }}>S.No</th>
                 <th>Item Description</th>
                 <th>Vendor / Petty Cash</th>
                 <th>Quantity</th>
@@ -175,12 +111,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               {(formData.procurementList || []).map((row, index) => (
                 <tr key={index}>
                   <td>
-                    <Form.Control
-                      type="text"
-                      style={{ width: "80px" }}
-                      value={index + 1}
-                      readOnly
-                    />
+                    <Form.Control type="text" value={index + 1} readOnly />
                   </td>
                   <td>
                     <Form.Control
@@ -200,14 +131,15 @@ const EntryStep2 = ({ formData, setFormData }) => {
                     <Form.Control
                       type="text"
                       value={row.vendor}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         handleRowChange(
                           "procurement",
                           index,
                           "vendor",
                           e.target.value
-                        )
-                      }
+                        );
+                        console.log(row.vendor);
+                      }}
                     />
                   </td>
                   <td>
@@ -256,12 +188,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               {(formData.plannedWorkList || []).map((row, index) => (
                 <tr key={index}>
                   <td>
-                    <Form.Control
-                      type="text"
-                      style={{ width: "80px" }}
-                      value={index + 1}
-                      readOnly
-                    />
+                    <Form.Control type="text" value={index + 1} readOnly />
                   </td>
                   <td>
                     <Form.Control
@@ -346,11 +273,12 @@ const EntryStep2 = ({ formData, setFormData }) => {
 
         <Form.Group controlId="formAttendance" className="mb-3">
           <Form.Label>Attendance</Form.Label>
+          {/* <div className="table-responsive"> */}
           <Table bordered hover>
             <thead>
               <tr>
                 <th style={{ width: "80px" }}>S.No</th>
-                <th>Labour Type</th>
+                <th style={{ width: isMobile ? 150 : 500 }}>Labour Type</th>
                 <th>No. of People</th>
               </tr>
             </thead>
@@ -393,6 +321,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               ))}
             </tbody>
           </Table>
+          {/* </div> */}
         </Form.Group>
 
         <Form.Group

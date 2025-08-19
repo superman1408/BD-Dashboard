@@ -36,7 +36,7 @@ const DetailedProjectPage = () => {
     const allEntries = [];
     entry.forEach((post) => {
       // console.log(post);
-      
+
       for (let index = 0; index < post?.date.length; index++) {
         if (post?.date[index] === date) {
           allEntries.push({
@@ -169,11 +169,13 @@ const DetailedProjectPage = () => {
           >
             <div ref={componentRef} style={{ padding: "30px" }}>
               {/* {isPrinting && ( */}
-
               {/* for printing only  */}
-
               <div className="print-header">
+                <div className="print-header ">
+                  ASHKAM ENERGY PRIVATE LIMTED
+                </div>
                 <table
+                  className="dpr-table"
                   style={{
                     width: "100%",
                     borderCollapse: "collapse",
@@ -181,65 +183,95 @@ const DetailedProjectPage = () => {
                     fontFamily: "Arial, sans-serif",
                   }}
                 >
-                  <thead className="print-header">
+                  <tbody>
                     <tr>
-                      {/* Uncomment this if you want the logo column */}
-
+                      {/* Logo */}
                       <td
+                        className="report-cell"
                         style={{
-                          border: "1px solid black",
-                          padding: "5px",
+                          width: "25%",
+                          borderRight: "1px solid black",
+                          textAlign: "center",
                           verticalAlign: "middle",
                         }}
                       >
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <img
-                            src={LOGO}
-                            alt="ASHKAM Logo"
-                            style={{ height: "80px", alignItems: "center" }}
-                          />
-                        </div>
+                        <img
+                          src={LOGO}
+                          alt="Company Logo"
+                          style={{ height: "auto" }}
+                        />
                       </td>
-                      <td>
-                        <div
-                          style={{
-                            fontWeight: "bold",
-                            fontSize: "14px",
-                            padding: "5px",
-                            textAlign: "center",
-                          }}
-                        >
-                          DAILY PROGRESS REPORT
-                        </div>
-                      </td>
-                      {filteredData.length > 0 ? (
-                        filteredData.map((entry, index) => (
-                          <td
-                            key={index}
-                            style={{
-                              border: "1px solid black",
-                              padding: "5px",
-                              fontSize: "15px",
-                              textAlign: "center",
-                              width: "30%",
-                            }}
-                          >
-                            {entry?.date}
-                          </td>
-                        ))
-                      ) : (
-                        <p>Not available</p>
-                      )}
-                    </tr>
-                  </thead>
-                </table>
 
+                      {/* Title */}
+                      <td
+                        className="report-cell"
+                        style={{
+                          width: "50%",
+                          textAlign: "center",
+                          fontWeight: "bold",
+                          fontSize: "16px",
+                          borderRight: "1px solid black",
+                          verticalAlign: "middle",
+                        }}
+                      >
+                        DAILY PROGRESS REPORT
+                      </td>
+
+                      {/* Info box (Date, Location, Doc.No) */}
+                      <td
+                        className="report-cell"
+                        style={{ width: "30%", verticalAlign: "top" }}
+                      >
+                        <table
+                          className="dpr-table"
+                          style={{
+                            width: "100%",
+                            borderCollapse: "collapse",
+                            fontSize: "14px",
+                          }}
+                        >
+                          {filteredData.length > 0 ? (
+                            filteredData.map((entry, index) => (
+                              <tr key={index}>
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      style={{
+                                        borderBottom: "1px solid black",
+                                        padding: "8px",
+                                      }}
+                                    >
+                                      Date: {entry?.date}
+                                    </td>
+                                  </tr>
+                                  {/* <tr>
+                                    <td
+                                      style={{
+                                        borderBottom: "1px solid black",
+                                        padding: "4px",
+                                      }}
+                                    >
+                                      Location: Ranchi
+                                    </td>
+                                  </tr> */}
+                                  <tr>
+                                    <td style={{ padding: "8px" }}>
+                                      Project Number: {entry?.projectNumber}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </tr>
+                            ))
+                          ) : (
+                            <p>No data</p>
+                          )}
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <table
+                  className="dpr-table"
                   style={{
                     width: "100%",
                     borderCollapse: "collapse",
@@ -312,9 +344,7 @@ const DetailedProjectPage = () => {
                   </tbody>
                 </table>
               </div>
-
               {/* till here */}
-
               <div className="hide-on-print">
                 <h3
                   style={{
@@ -331,6 +361,7 @@ const DetailedProjectPage = () => {
                 <div>
                   <Grid>
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -357,6 +388,7 @@ const DetailedProjectPage = () => {
                       </thead>
                     </table>
                     <table
+                      className="dpr-table"
                       style={{
                         // marginLeft: "100px",
                         padding: "10px",
@@ -402,6 +434,7 @@ const DetailedProjectPage = () => {
                     {filteredData.length > 0 ? (
                       filteredData.map((entry, index) => (
                         <table
+                          className="dpr-table"
                           style={{
                             padding: "10px",
                             borderCollapse: "collapse",
@@ -498,7 +531,6 @@ const DetailedProjectPage = () => {
                   </Grid>
                 </div>
               </div>
-
               <Grid>
                 <Grid>
                   <Grid sx={{ display: "flex", flexDirection: "column" }}>
@@ -506,6 +538,7 @@ const DetailedProjectPage = () => {
 
                     {/* table for activity List */}
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -513,14 +546,15 @@ const DetailedProjectPage = () => {
                         marginLeft: "auto",
                         marginRight: "auto",
                         width: "100%",
+                        wordWrap: "break-word",
+                        whiteSpace: "normal",
                         maxWidth: "800px",
-                        // tableLayout: "fixed", // forces fixed column widths
                       }}
                     >
                       <colgroup>
-                        <col style={{ width: "60px" }} /> {/* S.No */}
-                        <col style={{ width: "300px" }} /> {/* Activities */}
-                        <col style={{ width: "250px" }} />{" "}
+                        <col style={{ width: "10px" }} /> {/* S.No */}
+                        <col style={{ width: "600px" }} /> {/* Activities */}
+                        <col style={{ width: "450px" }} />
                         {/* Related Images */}
                         <col style={{ width: "150px" }} /> {/* Status */}
                       </colgroup>
@@ -544,7 +578,6 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "8px",
                               backgroundColor: "#e9eef4",
-                              width: "5px",
                             }}
                           >
                             S.No
@@ -554,7 +587,6 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "8px",
                               backgroundColor: "#e9eef4",
-                              width: "45px",
                             }}
                           >
                             Activities
@@ -564,7 +596,6 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "8px",
                               backgroundColor: "#e9eef4",
-                              width: "30px",
                             }}
                           >
                             Related Images
@@ -574,7 +605,6 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "8px",
                               backgroundColor: "#e9eef4",
-                              width: "20px",
                             }}
                           >
                             Status
@@ -598,7 +628,7 @@ const DetailedProjectPage = () => {
                           if (Array.isArray(entry.activityList)) {
                             if (typeof entry.activityList[0] === "string") {
                               activityListData = entry.activityList[0]
-                                .split(",")
+                                .split("||")
                                 .map((item) => item.trim());
                             } else if (Array.isArray(entry.activityList[0])) {
                               activityListData = entry.activityList[0].map(
@@ -614,7 +644,7 @@ const DetailedProjectPage = () => {
                             }
                           } else if (typeof entry.activityList === "string") {
                             activityListData = entry.activityList
-                              .split(",")
+                              .split("||")
                               .map((item) => item.trim());
                           }
 
@@ -627,7 +657,9 @@ const DetailedProjectPage = () => {
                           ];
 
                           return activityListData.map((item, i) => {
-                            const [text, status] = item.split(":");
+                            const [textRaw, statusRaw] = item.split(":");
+                            const text = textRaw?.trim();
+                            const status = statusRaw?.trim();
                             return (
                               <tr key={`${index}-${i}`}>
                                 <td
@@ -644,6 +676,10 @@ const DetailedProjectPage = () => {
                                   style={{
                                     border: "1px solid black",
                                     padding: "8px",
+                                    wordBreak: "break-word", // 🔑 this forces long strings to break
+                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                    maxWidth: "200px", // adjust width so it stays in card
+                                    overflowWrap: "anywhere", //
                                   }}
                                 >
                                   {text}
@@ -673,6 +709,13 @@ const DetailedProjectPage = () => {
                                     border: "1px solid black",
                                     padding: "8px",
                                     textAlign: "center",
+                                    color:
+                                      status === "In Progress"
+                                        ? "orange"
+                                        : status === "Completed"
+                                        ? "#006400"
+                                        : "transparent",
+                                    // color: status ? "white" : "black",
                                   }}
                                 >
                                   {status}
@@ -686,6 +729,7 @@ const DetailedProjectPage = () => {
                     <br />
 
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -833,6 +877,7 @@ const DetailedProjectPage = () => {
                     <br />
 
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -977,6 +1022,7 @@ const DetailedProjectPage = () => {
                     </table>
                     <br />
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -990,12 +1036,13 @@ const DetailedProjectPage = () => {
                       <colgroup>
                         <col style={{ width: "60px" }} /> {/* S.No */}
                         <col style={{ width: auto }} /> {/* Activities */}
-                        <col style={{ width: "250px" }} /> {/* Status */}
+                        <col style={{ width: "200px" }} /> {/* Activities */}
+                        <col style={{ width: "150px" }} /> {/* Status */}
                       </colgroup>
                       <thead>
                         <tr>
                           <th
-                            colSpan="3"
+                            colSpan="4"
                             style={{
                               textAlign: "left",
                               padding: "8px",
@@ -1024,6 +1071,15 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Description
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "8px",
+                              backgroundColor: "#e9eef4",
+                            }}
+                          >
+                            Vendor / Petty Cash
                           </th>
                           <th
                             style={{
@@ -1071,7 +1127,8 @@ const DetailedProjectPage = () => {
                           }
 
                           return procurementListData.map((item, i) => {
-                            const [description, quantity] = item.split(":");
+                            const [description, vendor, quantity] =
+                              item.split(":");
                             return (
                               <tr key={`${index}-${i}`}>
                                 <td
@@ -1098,6 +1155,15 @@ const DetailedProjectPage = () => {
                                     textAlign: "center",
                                   }}
                                 >
+                                  {vendor}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "8px",
+                                    textAlign: "center",
+                                  }}
+                                >
                                   {quantity}
                                 </td>
                               </tr>
@@ -1110,6 +1176,7 @@ const DetailedProjectPage = () => {
                     <br />
 
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -1292,6 +1359,7 @@ const DetailedProjectPage = () => {
                               padding: "8px",
 
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Value
@@ -1425,7 +1493,9 @@ const DetailedProjectPage = () => {
                     </table>
 
                     <br />
+
                     <table
+                      className="dpr-table"
                       style={{
                         padding: "10px",
                         borderCollapse: "collapse",
@@ -1436,64 +1506,72 @@ const DetailedProjectPage = () => {
                         maxWidth: "800px",
                       }}
                     >
-                      {filteredData.length > 0 ? (
-                        filteredData.map((entry, index) => (
-                          <tbody key={index}>
-                            <tr>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "40px",
-                                  width: "0%",
-                                  textAlign: "center",
-                                }}
-                              >
-                                {entry?.preparedBy}
-                              </td>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  padding: "40px",
-                                  width: "0%",
-                                  textAlign: "center",
-                                }}
-                              >
-                                {entry?.reviewedBy}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  textAlign: "center",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                Prepared By
-                              </td>
+                      <colgroup>
+                        <col style={{ width: auto }} />
+                        <col style={{ width: auto }} />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "8px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
+                            }}
+                          >
+                            Prepared By
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "8px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
+                            }}
+                          >
+                            Reviewed By
+                          </th>
+                        </tr>
+                      </thead>
 
-                              <td
-                                style={{
-                                  border: "1px solid black",
-                                  textAlign: "center",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                Reviewed By
-                              </td>
-                            </tr>
-                          </tbody>
-                        ))
-                      ) : (
-                        <p>No data available</p>
-                      )}
+                      <tbody>
+                        {filteredData.length > 0 ? (
+                          filteredData.map((entry, index) => (
+                            <>
+                              <tr key={index}>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "8px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {entry?.preparedBy}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "8px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {entry?.reviewedBy}
+                                </td>
+                              </tr>
+                            </>
+                          ))
+                        ) : (
+                          <p>No data available</p>
+                        )}
+                      </tbody>
                     </table>
                   </Grid>
                 </Grid>
               </Grid>
-            </div>
-            <div className="print-footer">
-              Printed on: {new Date().toLocaleString()}
+              <div className="print-footer">
+                Printed on: {new Date().toLocaleString()}
+              </div>
             </div>
           </Card>
 
@@ -1511,7 +1589,7 @@ const DetailedProjectPage = () => {
                 }}
                 onClick={handlePpd}
               >
-                Print
+                Download ↓
               </Button>
             )}
           </Grid>
@@ -1522,3 +1600,72 @@ const DetailedProjectPage = () => {
 };
 
 export default DetailedProjectPage;
+
+// {
+//   filteredData.length > 0 ? (
+//     filteredData.map((entry, index) => (
+//       <table
+//         key={index}
+//         style={{
+//           padding: "10px",
+//           borderCollapse: "collapse",
+//           border: "1px solid black",
+//           marginLeft: "auto",
+//           marginRight: "auto",
+//           width: "100%",
+//           maxWidth: "800px",
+//         }}
+//       >
+//         <thead>
+//           <tr>
+//             <th
+//               colSpan="3"
+//               style={{
+//                 textAlign: "left",
+//                 padding: "8px",
+//                 backgroundColor: "#0d325c",
+//                 color: "white",
+//               }}
+//             >
+//               Prepared By:
+//             </th>
+//             <th
+//               colSpan="3"
+//               style={{
+//                 textAlign: "left",
+//                 padding: "8px",
+//                 backgroundColor: "#0d325c",
+//                 color: "white",
+//               }}
+//             >
+//               Reviewed By:
+//             </th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           <tr>
+//             <td
+//               style={{
+//                 border: "1px solid black",
+//                 padding: "8px",
+//               }}
+//             >
+//               {entry?.preparedBy}
+//             </td>
+
+//             <td
+//               style={{
+//                 border: "1px solid black",
+//                 padding: "8px",
+//               }}
+//             >
+//               {entry?.preparedBy}
+//             </td>
+//           </tr>
+//         </tbody>
+//       </table>
+//     ))
+//   ) : (
+//     <p>No data available</p>
+//   );
+// }

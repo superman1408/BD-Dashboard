@@ -111,10 +111,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
       default:
         break;
     }
-    // const updatedRows = formData.materialRequiredList.filter(
-    //   (_, i) => i !== index
-    // );
-    // setFormData({ ...formData, materialRequiredList: updatedRows });
+  
   };
 
   return (
@@ -159,7 +156,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           disabled={(formData.activityList?.length || 0) >= 5}
           className="ms-2"
         >
-          Add Activity
+          + Add Activity
         </Button>
 
         <ListGroup className="mt-2">
@@ -182,8 +179,27 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                     }}
                   />
                 )}
-                <span>{item.text}</span>
-                <span
+                {/* <label>{item.text}</label> */}
+
+                <input
+                  type="text"
+                  value={item.text}
+                  onChange={(e) => {
+                    const newList = [...formData.activityList];
+                    newList[index].text = e.target.value;
+                    setFormData({ ...formData, activityList: newList });
+                  }}
+                  style={{
+                    width: "100%",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    padding: "2px 6px",
+                    fontSize: "0.85rem",
+                  }}
+                />
+
+                <label
                   style={{
                     backgroundColor:
                       item.status === "In Progress"
@@ -198,7 +214,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                   }}
                 >
                   {item.status}
-                </span>
+                </label>
               </div>
 
               <Button

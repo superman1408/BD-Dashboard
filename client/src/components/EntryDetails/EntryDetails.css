@@ -20,3 +20,9 @@
 .btn-custom:hover {
   background-color: #132136; /* Slightly darker shade for hover effect */
 }
+
+.table-responsive td,
+.table-responsive th {
+  white-space: normal;
+  word-break: break-word;
+}
