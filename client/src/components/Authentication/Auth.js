@@ -77,188 +77,143 @@ const Auth = () => {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{
+      sx={{
+        minHeight: "100vh",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        padding: "40px",
+        p: { xs: 2, sm: 4 },
         // backgroundColor: "#15345c",
       }}
     >
       <Grid
+        container
+        item
+        spacing={2}
+        justifyContent="center"
+        alignItems="stretch"
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          // height: "600px",
-          //   maxHeight: "1000px",
+          flexDirection: { xs: "column", md: "row" }, // stack on mobile
+          width: "100%",
+          maxWidth: "800px",
         }}
       >
-        <Card
-          className="card"
-          elevation={10}
-          sx={{
-            backgroundImage: `url(${image})`,
-            // minheight: "100%",
-            width: "300px",
-            maxWidth: "300px",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            padding: "40px",
-          }}
-        ></Card>
-        <Card
-          className="card"
-          elevation={10}
-          sx={{
-            display: "flex",
-            width: "400px",
-            maxWidth: "400px",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "40px",
-          }}
-        >
-          <Grid sx={{ justifyContent: "center", alignItems: "center" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                color: "primary",
-                marginTop: "2px",
-              }}
-            >
-              <AccountCircleIcon
-                fontSize="large"
-                color={isSignUp ? "primary" : "secondary"}
-              />
-            </div>
-
-            <h3
-              style={{
-                color: "#16355d",
-                textAlign: "center",
-              }}
-            >
-              {isSignUp ? "Sign Up" : "Sign In"}
-            </h3>
-            {/* <Typography color="#0B7882"> Welcome to Ashkam 👋 </Typography> */}
-
-            <form autoComplete="on" onSubmit={handleSubmit}>
-              {isSignUp && (
-                <div
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <div>
-                    {formData.role === "admin" && (
-                      // eslint-disable-next-line
-                      <TextField
-                        type="password"
-                        label="Secret Code"
-                        name="secretCode"
-                        variant="outlined"
-                        onChange={(event) => setCode(event.target.value)}
-                      />
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div style={{ marginTop: "30px", display: "flex" }}>
-                {isSignUp && (
-                  <TextField
-                    label="First Name"
-                    name="firstName"
-                    variant="outlined"
-                    onChange={(event) =>
-                      setFormData({
-                        ...formData,
-                        firstName: event.target.value,
-                      })
-                    }
-                  />
-                )}
-                {isSignUp && (
-                  <TextField
-                    sx={{ marginLeft: "10px" }}
-                    label="Last Name"
-                    name="lastName"
-                    variant="outlined"
-                    onChange={(event) =>
-                      setFormData({
-                        ...formData,
-                        lastName: event.target.value,
-                      })
-                    }
-                  />
-                )}
-              </div>
+        <Grid item xs={12} md={6}>
+          <Card
+            elevation={10}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              p: { xs: 2, sm: 4 },
+              width: "100%",
+            }}
+          >
+            <Grid sx={{ justifyContent: "center", alignItems: "center" }}>
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  marginTop: "10px",
+                  justifyContent: "center",
+                  color: "primary",
+                  marginTop: "2px",
                 }}
               >
-                <TextField
-                  name="email"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  label="Email Address"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                <AccountCircleIcon
+                  fontSize="large"
+                  color={isSignUp ? "primary" : "secondary"}
                 />
+              </div>
 
-                <FormControl
-                  sx={{ marginTop: "10px" }}
-                  variant="outlined"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                </FormControl>
+              <h3
+                style={{
+                  color: "#16355d",
+                  textAlign: "center",
+                }}
+              >
+                {isSignUp ? "Sign Up" : "Sign In"}
+              </h3>
+              {/* <Typography color="#0B7882"> Welcome to Ashkam 👋 </Typography> */}
 
+              <form autoComplete="on" onSubmit={handleSubmit}>
                 {isSignUp && (
-                  <FormControl
-                    sx={{ marginTop: "10px" }}
+                  <div
+                    style={{ display: "flex", justifyContent: "space-evenly" }}
+                  >
+                    <div>
+                      {formData.role === "admin" && (
+                        // eslint-disable-next-line
+                        <TextField
+                          type="password"
+                          label="Secret Code"
+                          name="secretCode"
+                          variant="outlined"
+                          onChange={(event) => setCode(event.target.value)}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <div style={{ marginTop: "30px", display: "flex" }}>
+                  {isSignUp && (
+                    <TextField
+                      label="First Name"
+                      name="firstName"
+                      variant="outlined"
+                      onChange={(event) =>
+                        setFormData({
+                          ...formData,
+                          firstName: event.target.value,
+                        })
+                      }
+                    />
+                  )}
+                  {isSignUp && (
+                    <TextField
+                      sx={{ marginLeft: "10px" }}
+                      label="Last Name"
+                      name="lastName"
+                      variant="outlined"
+                      onChange={(event) =>
+                        setFormData({
+                          ...formData,
+                          lastName: event.target.value,
+                        })
+                      }
+                    />
+                  )}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: "10px",
+                  }}
+                >
+                  <TextField
+                    name="email"
                     variant="outlined"
                     required
                     fullWidth
+                    label="Email Address"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                  />
+
+                  <FormControl
+                    sx={{ marginTop: "10px" }}
+                    variant="outlined"
+                    name="password"
                     type="password"
-                    label="Confirm Password"
                     autoComplete="current-password"
                     onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        confirmPassword: e.target.value,
-                      })
+                      setFormData({ ...formData, password: e.target.value })
                     }
                   >
-                    <InputLabel htmlFor="outlined-adornment-confirmPassword">
-                      Confirm Password
+                    <InputLabel htmlFor="outlined-adornment-password">
+                      Password
                     </InputLabel>
                     <OutlinedInput
                       type={showPassword ? "text" : "password"}
@@ -274,56 +229,98 @@ const Auth = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      label="Confirm Password"
+                      label="Password"
                     />
                   </FormControl>
-                )}
-              </div>
-              <div>
-                <Button
-                  variant="contained"
-                  required
-                  color={isSignUp ? "primary" : "secondary"}
-                  fullWidth
-                  type="submit"
-                  sx={{ marginTop: "10px" }}
-                >
-                  {isSignUp ? "Sign Up" : "Sign In"}
-                </Button>
-                {isSignUp ? <ToastContainer /> : <ToastContainer />}
-                {/* this is required for rendering taost it works as a container*/}
-              </div>
-              <Grid>
-                <div
-                  style={{
-                    display: "flex",
-                    alignContent: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button sx={{ color: "#16355d" }} onClick={resetPassword}>
-                    Reset The Password
-                  </Button>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignContent: "center",
-                    justifyContent: "center",
 
-                    color: "#16355d",
-                  }}
-                >
-                  <Button sx={{ color: "#16355d" }} onClick={switchMode}>
-                    {isSignUp
-                      ? "  Already have an account? Login here!  "
-                      : "Don't have an account ? Register here!"}
-                  </Button>
+                  {isSignUp && (
+                    <FormControl
+                      sx={{ marginTop: "10px" }}
+                      variant="outlined"
+                      required
+                      fullWidth
+                      type="password"
+                      label="Confirm Password"
+                      autoComplete="current-password"
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          confirmPassword: e.target.value,
+                        })
+                      }
+                    >
+                      <InputLabel htmlFor="outlined-adornment-confirmPassword">
+                        Confirm Password
+                      </InputLabel>
+                      <OutlinedInput
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Confirm Password"
+                      />
+                    </FormControl>
+                  )}
                 </div>
-              </Grid>
-            </form>
-          </Grid>
-        </Card>
+                <div>
+                  <Button
+                    variant="contained"
+                    required
+                    color={isSignUp ? "primary" : "secondary"}
+                    fullWidth
+                    type="submit"
+                    sx={{ marginTop: "10px" }}
+                  >
+                    {isSignUp ? "Sign Up" : "Sign In"}
+                  </Button>
+                  {isSignUp ? <ToastContainer /> : <ToastContainer />}
+                  {/* this is required for rendering taost it works as a container*/}
+                </div>
+                <Grid>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button sx={{ color: "#16355d" }} onClick={resetPassword}>
+                      Reset The Password
+                    </Button>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+
+                      color: "#16355d",
+                    }}
+                  >
+                    <Button sx={{ color: "#16355d" }} onClick={switchMode}>
+                      {isSignUp
+                        ? "  Already have an account? Login here!  "
+                        : "Don't have an account ? Register here!"}
+                    </Button>
+                  </div>
+                </Grid>
+              </form>
+            </Grid>
+          </Card>
+        </Grid>
       </Grid>
     </Grid>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -15,6 +15,8 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
   const projectEnd = new Date(dateEnd);
   const currentDate = new Date();
   const userInput = workCompleted;
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const durationInMilliSec = projectEnd - projectStart;
   const durationInDays = Math.floor(durationInMilliSec / (1000 * 3600 * 24));
@@ -95,10 +97,20 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
       : 0,
   }));
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Adjust size based on screen width
+  const chartWidth = windowWidth < 768 ? 400 : 600; // mobile vs desktop
+  const chartHeight = windowWidth < 500 ? 300 : 400;
+
   // ------------------- Render Graph -------------------
   return (
     <div>
-      <ResponsiveContainer width={500} height={300}>
+      <ResponsiveContainer width={chartWidth} height={chartHeight}>
         <LineChart
           data={mergedData} // Use merged data instead of separate datasets
           margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
@@ -148,7 +160,6 @@ const LineGraph = ({ dateCommence, dateEnd, workCompleted }) => {
           />
         </LineChart>
       </ResponsiveContainer>
-
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         <h3>Current Growth Rate (k): {case1_k.toFixed(4)}</h3>
         <h3>Required Growth Rate (k): {case2_k.toFixed(4)}</h3>

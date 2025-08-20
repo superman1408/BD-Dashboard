@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { Grid, Card, Container, Button, LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
 import LOGO from "../../assests/Ashkam_Logo.png";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import "./Style1.css";
 import { auto } from "@popperjs/core";
@@ -28,6 +30,8 @@ const DetailedProjectPage = () => {
   const [month, setMonth] = useState(null);
 
   const allEntries = [];
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getEntryDetails()).finally(() => setLoading(false));
@@ -128,8 +132,26 @@ const DetailedProjectPage = () => {
 
   // console.log(allEntries);
 
+  const handleGoBack = () => {
+    navigate(-1); // this means "go back one step in history"
+  };
+
   return (
     <div>
+      <div>
+        <Button
+          onClick={handleGoBack}
+          sx={{
+            padding: "8px 16px",
+            color: "#16355d",
+            display: {
+              sm: "inline-block",
+            },
+          }}
+        >
+          <ArrowBackIcon />
+        </Button>
+      </div>
       {loading ? (
         <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
           <LinearProgress />

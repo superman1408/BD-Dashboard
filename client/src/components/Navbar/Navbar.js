@@ -24,6 +24,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import TopicIcon from "@mui/icons-material/Topic";
+import Avatar from "@mui/material/Avatar";
 
 import MenuItem from "@mui/material/MenuItem";
 // import Menu from "@mui/material/Menu";
@@ -50,6 +51,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function MenuAppBar() {
   const user = JSON.parse(localStorage.getItem("profile"));
+  console.log(user);
+
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -171,7 +174,7 @@ export default function MenuAppBar() {
                     fontSize: { xs: "18px", sm: "20px", md: "21px" },
                   }}
                 >
-                  Project Management Tool
+                  Construction Tool
                 </Typography>
                 {auth && (
                   <div>
@@ -201,7 +204,10 @@ export default function MenuAppBar() {
                       onClick={handleMenu}
                       color="inherit"
                     >
-                      <AccountCircle />
+                      <Avatar sx={{ bgcolor: "#16355d" }}>
+                        {user?.result?.firstName.charAt(0).toUpperCase() +
+                          user?.result?.lastName.charAt(0).toUpperCase()}
+                      </Avatar>
                     </IconButton>
                     {/* <Menu
                       id="menu-appbar"

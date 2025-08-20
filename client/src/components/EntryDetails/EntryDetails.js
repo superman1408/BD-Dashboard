@@ -46,8 +46,6 @@ const EntryDetails = () => {
     reviewedBy: "",
   });
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

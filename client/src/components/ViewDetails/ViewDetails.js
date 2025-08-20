@@ -9,8 +9,10 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -60,14 +62,35 @@ const ViewDetails = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleGoBack = () => {
+    navigate(-1); // this means "go back one step in history"
+  };
+
   return (
-    <div>
+    <div style={{ margin: "5px" }}>
+      <div>
+        <Button
+          onClick={handleGoBack}
+          sx={{
+            padding: "8px 16px",
+            color: "#16355d",
+            display: {
+              sm: "inline-block",
+            },
+          }}
+        >
+          <ArrowBackIcon />
+        </Button>
+      </div>
+
       <Container
         sx={{
           display: "flex",
           flexDirection: "column",
           maxWidth: "100%",
           padding: "10px",
+          // border: "0.5px solid gray",
+          boxShadow: "2px 2px 2px 2px #888888",
           "@media (max-width: 600px)": {
             padding: "5px",
           },
@@ -81,7 +104,18 @@ const ViewDetails = () => {
                 key={post.projectNumber}
                 variant="h6"
                 className="text-center"
-                sx={{ color: "blue", fontWeight: "bold" }}
+                sx={{
+                  margin: "5px",
+                  color: "#0D325C",
+                  fontWeight: "bold",
+                  fontSize: {
+                    xs: "0.8rem", // mobile
+                    sm: "1rem", // small screens
+                    md: "1.25rem", // tablets
+                    lg: "1.5rem", // laptops
+                    xl: "1.5rem", // desktops}}
+                  },
+                }}
               >
                 {post.projectName}
               </Typography>
@@ -112,29 +146,39 @@ const ViewDetails = () => {
             }}
           >
             {/* Add More Button */}
-            <Button
-              variant="contained"
-              color="success"
-              sx={{
-                marginTop: "20px",
-                float: "right",
-                width: windowWidth <= 600 ? "100%" : "20%",
-              }}
-              onClick={() => navigate(`/entrydetails/${id}`)}
-            >
-              + Add More
-            </Button>
+            {/* <div className="hidden md:block ">
+              <Button
+                variant="contained"
+                color="success"
+                sx={{
+                  marginTop: "20px",
+                  float: "right",
+                  width: windowWidth <= 600 ? "100%" : "20%",
+                }}
+                onClick={() => navigate(`/entrydetails/${id}`)}
+              >
+                + Add More
+              </Button>
+            </div> */}
 
-            {/* Data Table */}
             <Card
+              className=" hidden md:block "
               elevation={10}
               sx={{
                 padding: "10px",
                 margin: "10px",
                 marginBottom: "50px",
                 width: windowWidth <= 600 ? "100%" : "80%",
+                height: "500px",
+                overflow: "auto",
               }}
             >
+              <button
+                onClick={() => navigate(`/entrydetails/${id}`)}
+                className="bg-green-600 text-white rounded-lg hover:bg-green-700 mb-3 float-right p-2 "
+              >
+                + Add More
+              </button>
               <table
                 className="time-sheet-table"
                 style={{
@@ -142,6 +186,7 @@ const ViewDetails = () => {
                   borderCollapse: "collapse",
                   textAlign: "center",
                   border: "1px solid black",
+                  minWidth: "600px",
                 }}
               >
                 <thead>
@@ -186,6 +231,7 @@ const ViewDetails = () => {
                         <td>
                           <Button
                             variant="contained"
+                            size={windowWidth <= 600 ? "small" : "medium"}
                             onClick={() =>
                               navigate(`/${item.date}/detailedprojectpage`)
                             }
@@ -203,6 +249,65 @@ const ViewDetails = () => {
                 </tbody>
               </table>
             </Card>
+
+            <div className="grid grid-cols-1 gap-6 md:hidden mb-3b shadow-lg p-2 m-2">
+              <div className="p-6 space-y-4 bg-gray-100 max-h-[600px] overflow-y-auto">
+                <div className="flex justify-end mb-3">
+                  <button
+                    onClick={() => navigate(`/entrydetails/${id}`)}
+                    className="bg-green-600 text-white rounded-lg hover:bg-green-700 p-2"
+                  >
+                    + Add More
+                  </button>
+                </div>
+                {filteredArray.length > 0 ? (
+                  filteredArray.map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg shadow-md p-6 flex items-center justify-between min-h-[120px]"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <img
+                          className="w-12 h-12 object-cover"
+                          src={item.uploadPictures1 || "N/A"}
+                          alt="profile"
+                        />
+                        <div>
+                          <h6 className="font-semibold text-gray-900">
+                            Date : {item.date}
+                          </h6>
+                          <h6 className="text-gray-900">
+                            Prepared By : {item.preparedBy}
+                          </h6>
+                        </div>
+                      </div>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full"
+                        onClick={() =>
+                          navigate(`/${item.date}/detailedprojectpage`)
+                        }
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-chevron-right"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p>No data</p>
+                )}
+              </div>
+            </div>
           </Container>
         )}
       </Container>

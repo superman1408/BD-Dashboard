@@ -34,6 +34,7 @@ const Dashboard = () => {
 
   return (
     <div className="items-start my-2 mb-50">
+      
       {posts.map((post, index) => {
         // console.log(post?.projectNumber);
         if (post.projectNumber === id) {
@@ -51,25 +52,41 @@ const Dashboard = () => {
                   {/* mx-auto: Centers the container within the available space horizontally. */}
 
                   <div className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100">
-                    <div className=" bg-white flex mb-2">
-                      <div className=" w-2 bg-blue-800"></div>
-                      <h4 className="p-3 font-bold">Scope of the Project :</h4>
-                      <h1 className="p-3 ml-8">{post?.scope}</h1>
-                    </div>
-                    <div className=" bg-white flex mb-2 ">
-                      <div className=" w-2 bg-blue-800"></div>
-                      <div className=" flex">
-                        <h4 className="p-3 font-bold">
-                          Date of Commencement :
-                        </h4>
-                        <h4 className="p-3 ">{post?.commencementDate}</h4>
-                      </div>
+                    <div className="bg-white flex mb-2">
+                      {/* Blue line stays fixed */}
+                      <div className="w-2 bg-blue-800"></div>
 
-                      <div className=" flex ml-5">
-                        <h4 className="p-3 font-bold">Date of Completion :</h4>
-                        <h4 className="p-3 ">{post?.endDate}</h4>
+                      {/* Content adapts */}
+                      <div className="flex flex-col md:flex-row flex-1">
+                        <h4 className="p-3 font-bold">
+                          Scope of the Project :
+                        </h4>
+                        <h1 className="p-3">{post?.scope}</h1>
                       </div>
                     </div>
+
+                    <div className="bg-white flex mb-2">
+                      {/* Blue line stays fixed on the left */}
+                      <div className="w-2 bg-blue-800"></div>
+
+                      {/* Content handles responsiveness */}
+                      <div className="flex flex-col md:flex-row flex-1">
+                        <div className="flex">
+                          <h4 className="p-3 font-bold">
+                            Date of Commencement :
+                          </h4>
+                          <h4 className="p-3">{post?.commencementDate}</h4>
+                        </div>
+
+                        <div className="flex">
+                          <h4 className="p-3 font-bold">
+                            Date of Completion :
+                          </h4>
+                          <h4 className="p-3">{post?.endDate}</h4>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className=" bg-white flex mb-2">
                       <div className=" w-2 bg-blue-800"></div>
                       <h4 className="p-3 font-bold">P.O (unpriced) :</h4>
@@ -93,7 +110,6 @@ const Dashboard = () => {
                       <h4 className="p-3 ml-10">{post?.teams}</h4>
                     </div>
                   </div>
-{/*  */}
                   <div>
                     <CurveDisplay />
                   </div>
@@ -135,7 +151,7 @@ const Dashboard = () => {
                         DPR
                       </h6>
                     </div>
-                    <div className="p-2 ml-10">
+                    <div className="p-2 ml-10 mb-10">
                       <OverlayTrigger
                         placement="top"
                         overlay={<Tooltip>Contract Detail Report</Tooltip>}
