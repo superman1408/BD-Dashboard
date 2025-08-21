@@ -121,14 +121,33 @@ const PasswordResetForm = () => {
             </Grid>
           </Grid>
           <Grid sx={{ justifyContent: "space-between" }}>
-            <button style={{ fontFamily: "Roboto " }} type="submit">
+            <button
+              style={{
+                fontFamily: "Roboto",
+                backgroundColor: "#16355d", // dark blue
+                color: "white",
+                padding: "10px 16px",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+              type="submit"
+            >
               Reset Password
             </button>
             <button
               onClick={() => {
                 navigate("/", { replace: true });
               }}
-              style={{ fontFamily: "Roboto " }}
+              style={{
+                fontFamily: "Roboto",
+                backgroundColor: "#16355d", // dark blue
+                color: "white",
+                padding: "10px 16px",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
             >
               Back To Login Page
             </button>

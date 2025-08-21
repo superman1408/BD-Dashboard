@@ -111,7 +111,6 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
       default:
         break;
     }
-  
   };
 
   return (
@@ -262,7 +261,6 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               value={status}
               onChange={(e) => {
                 setStatus(e.target.value);
-                console.log(e.target.value);
               }}
               className="mt-2"
             >

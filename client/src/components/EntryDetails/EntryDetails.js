@@ -21,6 +21,8 @@ const EntryDetails = () => {
 
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     projectNumber: projectNumber,
     date: "",
@@ -48,95 +50,80 @@ const EntryDetails = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // start loading
 
-    // Upload images (Cloudinary)
-    const imageUploadPromises = (formData.activityList || []).map((item) => {
-      if (!item.image) return Promise.resolve(""); // no image, skip
-      const data = new FormData();
-      data.append("file", item.image);
-      data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "realtimeapp");
+    try {
+      // Upload images
+      const imageUploadPromises = (formData.activityList || []).map((item) => {
+        if (!item.image) return Promise.resolve("");
+        const data = new FormData();
+        data.append("file", item.image);
+        data.append("upload_preset", "chat-app");
+        data.append("cloud_name", "realtimeapp");
 
-      return fetch("https://api.cloudinary.com/v1_1/realtimeapp/image/upload", {
-        method: "POST",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => data.secure_url)
-        .catch((err) => {
-          console.error("Image upload failed:", err);
-          return "";
-        });
-    });
-
-    const uploadedImages = await Promise.all(imageUploadPromises);
-
-    // Flatten activityList into activity1, activity2...
-    const updatedFormData = {
-      projectNumber: formData.projectNumber,
-      date: formData.date,
-      activityList:
-        formData.activityList
-          ?.map((m) => `${m.text}: ${m.status} `)
-          .join("||") || "",
-
-      plannedWorkList:
-        formData.plannedWorkList
-          ?.map((m) => `${m.description}: ${m.presentCompletion}`)
-          .join(", ") || "",
-
-      materialInventoryList:
-        formData.materialInventoryList
-          ?.map((m) => `${m.description}: ${m.quantity}`)
-          .join(", ") || "",
-      materialRequiredList:
-        formData.materialRequiredList
-          ?.map((m) => `${m.description}: ${m.quantity}`)
-          .join(", ") || "",
-      // materialRequiredList:
-      //   formData.materialRequiredList?.map(
-      //     (m) => `${m.description}: ${m.quantity}`
-      //   ) || "",
-      procurementList:
-        formData.procurementList
-          ?.map((m) => `${m.description}:${m.vendor}: ${m.status}`)
-          .join(", ") || "",
-
-      attendance: formData.attendance
-        ? Object.entries(formData.attendance)
-            .map(([type, count]) => `${type}: ${count}`)
-            .join(", ")
-        : "",
-
-      maleLabour: formData.maleLabour || "",
-      femaleLabour: formData.femaleLabour || "",
-      mason: formData.mason || "",
-      uploadPictures1: uploadedImages[0] || "",
-      uploadPictures2: uploadedImages[1] || "",
-      uploadPictures3: uploadedImages[2] || "",
-      uploadPictures4: uploadedImages[3] || "",
-      uploadPictures5: uploadedImages[4] || "",
-      preparedBy: formData.preparedBy || "", // assuming this is who submitted it
-      reviewedBy: formData.reviewedBy || "",
-    };
-
-    console.log("Final transformed formData:", updatedFormData);
-
-    dispatch(entryDetails(updatedFormData))
-      .then(() => {
-        toast.success("Form Submitted Successfully!");
-        // navigate after 5s if needed
-
-        setTimeout(() => {
-          navigate(`/${projectNumber}/viewdetails`);
-          window.location.reload();
-        }, 5000);
-        //         })
-      })
-      .catch((err) => {
-        console.error("Dispatch error:", err);
-        toast.error("Submission failed. Please try again.");
+        return fetch(
+          "https://api.cloudinary.com/v1_1/realtimeapp/image/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => data.secure_url)
+          .catch(() => "");
       });
+
+      const uploadedImages = await Promise.all(imageUploadPromises);
+
+      // Prepare final form data
+      const updatedFormData = {
+        ...formData,
+        activityList:
+          formData.activityList
+            ?.map((m) => `${m.text}: ${m.status}`)
+            .join("||") || "",
+        plannedWorkList:
+          formData.plannedWorkList
+            ?.map((m) => `${m.description}: ${m.presentCompletion}`)
+            .join(", ") || "",
+        materialInventoryList:
+          formData.materialInventoryList
+            ?.map((m) => `${m.description}: ${m.quantity}`)
+            .join(", ") || "",
+        materialRequiredList:
+          formData.materialRequiredList
+            ?.map((m) => `${m.description}: ${m.quantity}`)
+            .join(", ") || "",
+        procurementList:
+          formData.procurementList
+            ?.map((m) => `${m.description}:${m.vendor}: ${m.status}`)
+            .join(", ") || "",
+        attendance: formData.attendance
+          ? Object.entries(formData.attendance)
+              .map(([type, count]) => `${type}: ${count}`)
+              .join(", ")
+          : "",
+        uploadPictures1: uploadedImages[0] || "",
+        uploadPictures2: uploadedImages[1] || "",
+        uploadPictures3: uploadedImages[2] || "",
+        uploadPictures4: uploadedImages[3] || "",
+        uploadPictures5: uploadedImages[4] || "",
+      };
+
+      // Dispatch
+      await dispatch(entryDetails(updatedFormData));
+
+      toast.success("Form Submitted Successfully!");
+      setTimeout(() => {
+        navigate(`/${projectNumber}/viewdetails`);
+        window.location.reload();
+      }, 5000);
+    } catch (err) {
+      console.error("Dispatch error:", err);
+      toast.error("Submission failed. Please try again.");
+    } finally {
+      setLoading(false); // stop loading after everything is done
+    }
   };
 
   return (
@@ -172,8 +159,13 @@ const EntryDetails = () => {
                   fontWeight: "bold",
                 }}
               />
-              <Button variant="success" type="submit" onClick={handleSubmit}>
-                Submit
+              <Button
+                variant="success"
+                type="submit"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Submit"}
               </Button>
             </>
           )}

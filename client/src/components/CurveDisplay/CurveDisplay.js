@@ -58,7 +58,6 @@ const CurveDisplay = () => {
     window.location.reload();
   };
 
-  console.log(posts);
 
   return (
     <>
@@ -82,7 +81,6 @@ const CurveDisplay = () => {
           ).format(new Date(isoDate));
 
           const currentDate = new Date();
-          console.log(currentDate, currentDate);
 
           if (post.projectNumber === id) {
             return (

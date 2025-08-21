@@ -34,7 +34,6 @@ const Dashboard = () => {
 
   return (
     <div className="items-start my-2 mb-50">
-      
       {posts.map((post, index) => {
         // console.log(post?.projectNumber);
         if (post.projectNumber === id) {

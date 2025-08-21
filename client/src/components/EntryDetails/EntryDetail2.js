@@ -125,7 +125,6 @@ const EntryDetails = () => {
       });
     await updateFormDataWithImages().then(() => {
       setTimeout(() => {
-        console.log(formData);
       }, 30000);
     });
   };
@@ -154,7 +153,6 @@ const EntryDetails = () => {
       console.log("Updated formData Submit:", formData);
       dispatch(entryDetails(formData))
         .then(() => {
-          console.log("Dispatched successfully");
           toast.success("Form Submitted Successfully!");
 
           setTimeout(() => {
@@ -168,7 +166,7 @@ const EntryDetails = () => {
         });
     }, 9000);
 
-    console.log("Updated formData:", formData); // This should now log the updated formData
+   
   };
 
   const handleSave = async (e) => {
@@ -176,7 +174,6 @@ const EntryDetails = () => {
 
     // Update formData with uploaded pictures
     await updateFormDataWithImages().then(() => {
-      console.log("Updated formData:", formData); // This should now log the updated formData
       setTimeout(() => {
         console.log("Updated formData Save:", formData);
       }, 6000);

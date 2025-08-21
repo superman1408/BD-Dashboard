@@ -138,7 +138,6 @@ const EntryStep2 = ({ formData, setFormData }) => {
                           "vendor",
                           e.target.value
                         );
-                        console.log(row.vendor);
                       }}
                     />
                   </td>

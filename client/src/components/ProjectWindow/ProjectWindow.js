@@ -172,7 +172,6 @@ const Dashboard = () => {
         teams: "",
         status: newStatus,
       });
-      console.log("Project updated successfully:", selectedPostId);
       window.location.reload();
     } catch (error) {
       console.error("Failed to submit the project", error);
@@ -322,18 +321,20 @@ const Dashboard = () => {
                       {posts.map((post, index) => (
                         <div key={index}>
                           <div className="flex">
-                            <div className="p-1 w-32 h-32">
+                            <div className="p-1  w-24 h-24">
                               <img
-                                className="object-cover w-full h-full w-32 h-32 "
+                                className="object-cover w-full h-full "
                                 variant="top"
                                 src={post?.selectedFile} // Ensure post.selectedFile is defined
                                 alt="Profile_Picture"
                               />
                             </div>
                             <div>
-                              <div>
-                                <div className="p-1 font-bold">
-                                  <h4>Project Name : {post?.projectName}</h4>
+                              <div className="flex-1 min-w-0">
+                                <div className="p-1 font-bold ">
+                                  <h4 className="whitespace-normal break-words ">
+                                    Project Name : {post?.projectName}
+                                  </h4>
                                 </div>
                                 <div className="p-1">
                                   <h6>

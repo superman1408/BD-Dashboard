@@ -51,7 +51,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function MenuAppBar() {
   const user = JSON.parse(localStorage.getItem("profile"));
-  console.log(user);
 
   const theme = useTheme();
   const navigate = useNavigate();
