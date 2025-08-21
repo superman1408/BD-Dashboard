@@ -97,15 +97,20 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     let updatedRows;
     switch (type) {
       case "materialInventory":
-        updatedRows = materialInventoryRows.filter((_, i) => i !== index);
-        setMaterialInventoryRows(updatedRows);
-        setFormData({ ...formData, materialInventoryList: updatedRows });
+        updatedRows = formData.materialInventoryList.filter(
+          (_, i) => i !== index
+        );
+        setFormData((prev) => ({
+          ...prev,
+          materialInventoryList: updatedRows,
+        }));
         break;
 
       case "materialRequirement":
-        updatedRows = materialRequirementRows.filter((_, i) => i !== index);
-        setMaterialRequirementRows(updatedRows);
-        setFormData({ ...formData, materialRequiredList: updatedRows });
+        updatedRows = formData.materialRequiredList.filter(
+          (_, i) => i !== index
+        );
+        setFormData((prev) => ({ ...prev, materialRequiredList: updatedRows }));
         break;
 
       default:

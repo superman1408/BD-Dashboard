@@ -1447,6 +1447,10 @@ const DetailedProjectPage = () => {
                                   label: "HQ Staff",
                                   value: getValue("HQ Staff"),
                                 },
+                                {
+                                  label: "Security Staff",
+                                  value: getValue("Security Staff"),
+                                },
                                 { label: "Others", value: getValue("Others") },
                               ];
 

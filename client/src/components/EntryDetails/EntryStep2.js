@@ -71,15 +71,15 @@ const EntryStep2 = ({ formData, setFormData }) => {
     let updatedRows;
     switch (type) {
       case "procurement":
-        updatedRows = procurementRows.filter((_, i) => i !== index);
-        setPlannedWorkRows(updatedRows);
-        setFormData({ ...formData, procurementList: updatedRows });
+        updatedRows = formData.procurementList.filter((_, i) => i !== index);
+        // setPlannedWorkRows(updatedRows);
+        setFormData((prev) => ({ ...prev, procurementList: updatedRows }));
         break;
 
       case "plannedWork":
-        updatedRows = plannedWorkRows.filter((_, i) => i !== index);
-        setProcurementRows(updatedRows);
-        setFormData({ ...formData, plannedWorkList: updatedRows });
+        updatedRows = formData.plannedWorkList.filter((_, i) => i !== index);
+        // setProcurementRows(updatedRows);
+        setFormData((prev) => ({ ...prev, plannedWorkList: updatedRows }));
         break;
 
       default:
@@ -287,6 +287,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
                 "Female Labour",
                 "Mason",
                 "HQ Staff",
+                "Security Staff",
                 "Others",
               ].map((type, index) => (
                 <tr key={index}>
