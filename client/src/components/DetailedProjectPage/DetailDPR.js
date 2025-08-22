@@ -142,7 +142,7 @@ const DetailedProjectPage = () => {
         <Button
           onClick={handleGoBack}
           sx={{
-            padding: "8px 16px",
+            padding: "8px 14px",
             color: "#16355d",
             display: {
               sm: "inline-block",
@@ -211,7 +211,7 @@ const DetailedProjectPage = () => {
                       <td
                         className="report-cell"
                         style={{
-                          width: "25%",
+                          width: "30%",
                           borderRight: "1px solid black",
                           textAlign: "center",
                           verticalAlign: "middle",
@@ -228,10 +228,10 @@ const DetailedProjectPage = () => {
                       <td
                         className="report-cell"
                         style={{
-                          width: "50%",
+                          width: "40%",
                           textAlign: "center",
                           fontWeight: "bold",
-                          fontSize: "16px",
+                          fontSize: "14px",
                           borderRight: "1px solid black",
                           verticalAlign: "middle",
                         }}
@@ -240,16 +240,13 @@ const DetailedProjectPage = () => {
                       </td>
 
                       {/* Info box (Date, Location, Doc.No) */}
-                      <td
-                        className="report-cell"
-                        style={{ width: "30%", verticalAlign: "top" }}
-                      >
+                      <td className="report-cell">
                         <table
                           className="dpr-table"
                           style={{
                             width: "100%",
                             borderCollapse: "collapse",
-                            fontSize: "14px",
+                            fontSize: "12px", // smaller text
                           }}
                         >
                           {filteredData.length > 0 ? (
@@ -259,8 +256,8 @@ const DetailedProjectPage = () => {
                                   <tr>
                                     <td
                                       style={{
-                                        borderBottom: "1px solid black",
-                                        padding: "8px",
+                                        padding: "2px 4px",
+                                        textAlign: "left",
                                       }}
                                     >
                                       Date: {entry?.date}
@@ -277,7 +274,12 @@ const DetailedProjectPage = () => {
                                     </td>
                                   </tr> */}
                                   <tr>
-                                    <td style={{ padding: "8px" }}>
+                                    <td
+                                      style={{
+                                        padding: "2px 4px",
+                                        textAlign: "left",
+                                      }}
+                                    >
                                       Project Number: {entry?.projectNumber}
                                     </td>
                                   </tr>
@@ -300,7 +302,7 @@ const DetailedProjectPage = () => {
                     border: "1px solid black",
                     marginTop: "5px",
                     fontFamily: "Arial, sans-serif",
-                    fontSize: "13px",
+                    fontSize: "12px",
                   }}
                 >
                   <tbody>
@@ -310,7 +312,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "5px",
+                              padding: "2px 4px",
                               fontWeight: "bold",
                               backgroundColor: "#f5f5f5",
                             }}
@@ -321,8 +323,8 @@ const DetailedProjectPage = () => {
                           <td
                             style={{
                               border: "1px solid black",
-                              width: "50%",
-                              padding: "10px",
+                              width: "80%",
+                              padding: "2px 4px",
                               textAlign: "center",
                               fontSize: "15px",
                             }}
@@ -340,7 +342,7 @@ const DetailedProjectPage = () => {
                           <td
                             style={{
                               border: "1px solid black",
-                              padding: "5px",
+                              padding: "2px 4px",
                               fontWeight: "bold",
                               backgroundColor: "#f5f5f5",
                             }}
@@ -350,8 +352,8 @@ const DetailedProjectPage = () => {
                           <td
                             style={{
                               border: "1px solid black",
-                              width: "70%",
-                              padding: "10px",
+                              width: "80%",
+                              padding: "2px 4px",
                               textAlign: "center",
                               fontSize: "15px",
                             }}
@@ -430,7 +432,7 @@ const DetailedProjectPage = () => {
                               <th
                                 style={{
                                   border: "1px solid black",
-                                  padding: "10px",
+                                  padding: "4px 4px",
                                 }}
                               >
                                 PROJECT NAME
@@ -439,8 +441,8 @@ const DetailedProjectPage = () => {
                               <td
                                 style={{
                                   border: "1px solid black",
-                                  width: "70%",
-                                  padding: "10px",
+                                  width: "80%",
+                                  padding: "4px 4px",
                                   textAlign: "center",
                                 }}
                               >
@@ -472,7 +474,7 @@ const DetailedProjectPage = () => {
                               <th
                                 style={{
                                   border: "1px solid black",
-                                  padding: "10px",
+                                  padding: "4px",
                                 }}
                               >
                                 Client
@@ -480,8 +482,8 @@ const DetailedProjectPage = () => {
                               <td
                                 style={{
                                   border: "1px solid black",
-                                  padding: "10px",
-                                  width: "30%",
+                                  padding: "4px",
+                                  width: "40%",
                                   textAlign: "center",
                                 }}
                               >
@@ -498,7 +500,7 @@ const DetailedProjectPage = () => {
                               <td
                                 style={{
                                   border: "1px solid black",
-                                  padding: "10px",
+                                  padding: "4px",
                                   width: "30%",
                                   textAlign: "center",
                                 }}
@@ -510,7 +512,7 @@ const DetailedProjectPage = () => {
                               <th
                                 style={{
                                   border: "1px solid black",
-                                  padding: "10px",
+                                  padding: "4px",
                                 }}
                               >
                                 Project Number
@@ -520,7 +522,7 @@ const DetailedProjectPage = () => {
                                   border: "1px solid black",
                                   padding: "10px",
                                   textAlign: "center",
-                                  width: "30%",
+                                  width: "40%",
                                 }}
                               >
                                 {entry.projectNumber}
@@ -562,7 +564,7 @@ const DetailedProjectPage = () => {
                     <table
                       className="dpr-table"
                       style={{
-                        padding: "10px",
+                        padding: "4px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
@@ -586,7 +588,7 @@ const DetailedProjectPage = () => {
                             colSpan="4"
                             style={{
                               textAlign: "left",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                             }}
@@ -598,7 +600,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -607,7 +609,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -616,16 +618,16 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
-                            Related Images
+                            Related Image
                           </th>
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -697,7 +699,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     wordBreak: "break-word", // 🔑 this forces long strings to break
                                     whiteSpace: "pre-wrap", // keeps line breaks, wraps text
                                     maxWidth: "200px", // adjust width so it stays in card
@@ -729,7 +731,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                     color:
                                       status === "In Progress"
@@ -753,7 +755,7 @@ const DetailedProjectPage = () => {
                     <table
                       className="dpr-table"
                       style={{
-                        padding: "10px",
+                        padding: "4px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
@@ -773,7 +775,7 @@ const DetailedProjectPage = () => {
                             colSpan="4"
                             style={{
                               textAlign: "left",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                             }}
@@ -785,7 +787,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -794,7 +796,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -803,7 +805,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -866,7 +868,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -875,7 +877,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                   }}
                                 >
                                   {description}
@@ -883,7 +885,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -901,7 +903,7 @@ const DetailedProjectPage = () => {
                     <table
                       className="dpr-table"
                       style={{
-                        padding: "10px",
+                        padding: "4px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
@@ -921,7 +923,7 @@ const DetailedProjectPage = () => {
                             colSpan="4"
                             style={{
                               textAlign: "left",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                             }}
@@ -933,7 +935,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -942,7 +944,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -951,7 +953,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1013,7 +1015,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1022,7 +1024,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                   }}
                                 >
                                   {description}
@@ -1030,7 +1032,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1046,7 +1048,7 @@ const DetailedProjectPage = () => {
                     <table
                       className="dpr-table"
                       style={{
-                        padding: "10px",
+                        padding: "4px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
@@ -1067,7 +1069,7 @@ const DetailedProjectPage = () => {
                             colSpan="4"
                             style={{
                               textAlign: "left",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                             }}
@@ -1079,7 +1081,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1088,7 +1090,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1097,7 +1099,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1106,7 +1108,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1156,7 +1158,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1165,7 +1167,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                   }}
                                 >
                                   {description}
@@ -1173,7 +1175,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1182,7 +1184,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1200,7 +1202,7 @@ const DetailedProjectPage = () => {
                     <table
                       className="dpr-table"
                       style={{
-                        padding: "10px",
+                        padding: "4px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
@@ -1220,7 +1222,7 @@ const DetailedProjectPage = () => {
                             colSpan="3"
                             style={{
                               textAlign: "left",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                             }}
@@ -1232,7 +1234,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1241,7 +1243,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1250,7 +1252,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                             }}
                           >
@@ -1299,7 +1301,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1308,7 +1310,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                   }}
                                 >
                                   {description}
@@ -1316,7 +1318,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1348,7 +1350,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                               textAlign: "left",
@@ -1359,7 +1361,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#0d325c",
                               color: "white",
                               textAlign: "left",
@@ -1370,7 +1372,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
 
                               backgroundColor: "#e9eef4",
                             }}
@@ -1378,7 +1380,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
 
                               backgroundColor: "#e9eef4",
                               textAlign: "center",
@@ -1466,7 +1468,7 @@ const DetailedProjectPage = () => {
                                   <td
                                     style={{
                                       border: "1px solid black",
-                                      padding: "8px",
+                                      padding: "4px",
                                     }}
                                   >
                                     {row.label}
@@ -1474,7 +1476,7 @@ const DetailedProjectPage = () => {
                                   <td
                                     style={{
                                       border: "1px solid black",
-                                      padding: "8px",
+                                      padding: "4px",
                                       textAlign: "center",
                                     }}
                                   >
@@ -1497,7 +1499,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                   }}
                                 >
                                   Total
@@ -1505,7 +1507,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1523,7 +1525,7 @@ const DetailedProjectPage = () => {
                     <table
                       className="dpr-table"
                       style={{
-                        padding: "10px",
+                        padding: "4px",
                         borderCollapse: "collapse",
                         border: "1px solid black",
                         marginLeft: "auto",
@@ -1541,7 +1543,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                               textAlign: "center",
                             }}
@@ -1551,7 +1553,7 @@ const DetailedProjectPage = () => {
                           <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
                               backgroundColor: "#e9eef4",
                               textAlign: "center",
                             }}
@@ -1569,7 +1571,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1578,7 +1580,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                   }}
                                 >
@@ -1626,72 +1628,3 @@ const DetailedProjectPage = () => {
 };
 
 export default DetailedProjectPage;
-
-// {
-//   filteredData.length > 0 ? (
-//     filteredData.map((entry, index) => (
-//       <table
-//         key={index}
-//         style={{
-//           padding: "10px",
-//           borderCollapse: "collapse",
-//           border: "1px solid black",
-//           marginLeft: "auto",
-//           marginRight: "auto",
-//           width: "100%",
-//           maxWidth: "800px",
-//         }}
-//       >
-//         <thead>
-//           <tr>
-//             <th
-//               colSpan="3"
-//               style={{
-//                 textAlign: "left",
-//                 padding: "8px",
-//                 backgroundColor: "#0d325c",
-//                 color: "white",
-//               }}
-//             >
-//               Prepared By:
-//             </th>
-//             <th
-//               colSpan="3"
-//               style={{
-//                 textAlign: "left",
-//                 padding: "8px",
-//                 backgroundColor: "#0d325c",
-//                 color: "white",
-//               }}
-//             >
-//               Reviewed By:
-//             </th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           <tr>
-//             <td
-//               style={{
-//                 border: "1px solid black",
-//                 padding: "8px",
-//               }}
-//             >
-//               {entry?.preparedBy}
-//             </td>
-
-//             <td
-//               style={{
-//                 border: "1px solid black",
-//                 padding: "8px",
-//               }}
-//             >
-//               {entry?.preparedBy}
-//             </td>
-//           </tr>
-//         </tbody>
-//       </table>
-//     ))
-//   ) : (
-//     <p>No data available</p>
-//   );
-// }

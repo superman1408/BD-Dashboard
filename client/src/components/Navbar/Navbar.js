@@ -173,7 +173,7 @@ export default function MenuAppBar() {
                     fontSize: { xs: "18px", sm: "20px", md: "21px" },
                   }}
                 >
-                  Construction Tool
+                  Project Track
                 </Typography>
                 {auth && (
                   <div>
