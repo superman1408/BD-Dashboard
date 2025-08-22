@@ -120,9 +120,9 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
   return (
     <>
-      <h3 className="text-center text-primary fw-bold py-2">
+      <h1 className="text-2xl font-bold text-center text-blue-700 py-2 border-b-2 border-blue-500 mb-10">
         Detail Input Form
-      </h3>
+      </h1>
 
       <Form.Group controlId="formProjectName" className="mb-3">
         <Form.Label>
