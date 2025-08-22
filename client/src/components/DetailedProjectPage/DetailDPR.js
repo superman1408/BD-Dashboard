@@ -80,7 +80,7 @@ const DetailedProjectPage = () => {
 
   const handlePpd = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Progress Report",
+    documentTitle: "Daily Progress Report",
     fontSize: "15px",
     onBeforePrint: () => setIsPrinting(true),
     onAfterPrint: () => setIsPrinting(false),
@@ -1386,7 +1386,7 @@ const DetailedProjectPage = () => {
                               textAlign: "center",
                             }}
                           >
-                            Value
+                            Count
                           </th>
                         </tr>
                       </thead>
