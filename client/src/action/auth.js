@@ -50,6 +50,6 @@ export const resetPassword =
         });
       });
     } catch (error) {
-      console.log("Error occure in action section in frontend : ", error);
+      console.log("Error occur in action section in frontend : ", error);
     }
   };

@@ -10,7 +10,7 @@ export const signin = async (req, res) => {
     const existingUser = await AuthenticateUser.findOne({ email: email });
 
     if (!existingUser)
-      return res.status(404).json({ message: "uesr does not exist" });
+      return res.status(404).json({ message: "user does not exist" });
 
     const isPasswordMatch = await bcrypt.compare(
       password,
@@ -78,7 +78,7 @@ export const signup = async (req, res) => {
 };
 
 export const reset = async (req, res) => {
-  const { emailToChange, passwordtoChange, confirmPasswordToCompare } =
+  const { emailToChange, passwordToChange, confirmPasswordToCompare } =
     req.body;
 
   const admin_code = req.params;
@@ -94,13 +94,13 @@ export const reset = async (req, res) => {
         .status(400)
         .json({ message: "User not available in data base" });
 
-    if (passwordtoChange !== confirmPasswordToCompare)
+    if (passwordToChange !== confirmPasswordToCompare)
       return res.status(400).json({ message: "Passwords do not match" });
 
     if (admin_code.code !== secretCode)
       return res.status(400).json({ message: "Secret Code do not match" });
 
-    const hashedPassword = await bcrypt.hash(passwordtoChange, 12);
+    const hashedPassword = await bcrypt.hash(passwordToChange, 12);
     existingUser.password = hashedPassword;
 
     await existingUser.save();

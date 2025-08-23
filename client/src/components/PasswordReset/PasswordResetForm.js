@@ -13,7 +13,7 @@ const PasswordResetForm = () => {
   const [code, setCode] = useState(null);
   const [passwordForm, setPasswordForm] = useState({
     emailToChange: "",
-    passwordtoChange: "",
+    passwordToChange: "",
     confirmPasswordToCompare: "",
   });
 
@@ -97,11 +97,11 @@ const PasswordResetForm = () => {
               <input
                 type="password"
                 placeholder="Password"
-                value={passwordForm.passwordtoChange}
+                value={passwordForm.passwordToChange}
                 onChange={(e) =>
                   setPasswordForm({
                     ...passwordForm,
-                    passwordtoChange: e.target.value,
+                    passwordToChange: e.target.value,
                   })
                 }
               />
