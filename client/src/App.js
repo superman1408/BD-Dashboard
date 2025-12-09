@@ -9,6 +9,7 @@ import ProjectWindow from "./components/ProjectWindow/ProjectWindow";
 import EntryDetails from "./components/EntryDetails/EntryDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ViewDetails from "./components/ViewDetails/ViewDetails";
+import InventoryDetails from "./components/InventoryDetails/inventory";
 import DetailedProjectPage from "./components/DetailedProjectPage/DetailDPR";
 import ContractRegister from "./components/ContractRegister/ContractRegister";
 import LetterTracker from "./components/LetterTracker/LetterTracker";
@@ -66,6 +67,11 @@ const App = () => {
             path="/contractregister"
             exact
             element={<ContractRegister />}
+          />
+           <Route
+            path="/inventory"
+            exact
+            element={<InventoryDetails />}
           />
           <Route
             path="/contractviewdetails"
