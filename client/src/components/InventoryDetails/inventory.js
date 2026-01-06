@@ -116,6 +116,7 @@ export default function InventoryForm() {
             Submit
           </button>
         </form>
+
       </div>
     </div>
   );
