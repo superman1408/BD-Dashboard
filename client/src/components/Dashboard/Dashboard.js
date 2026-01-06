@@ -32,7 +32,7 @@ const Dashboard = () => {
     navigate(`/contractregister`);
   };
 
-   const handleINVENTORYClick = () => {
+  const handleINVENTORYClick = () => {
     navigate(`/inventory`);
   };
 
@@ -282,21 +282,22 @@ const Dashboard = () => {
                         Contract Detail Report
                       </h6>
                     </div>
-                    <div className="p-2 ml-10 mb-10">
+
+                    <div className="flex items-center space-x-4 ml-10 ">
                       <OverlayTrigger
                         placement="top"
-                        overlay={<Tooltip>Contract Detail Report</Tooltip>}
+                        overlay={<Tooltip id="tooltip-cdr">Inventory</Tooltip>}
                       >
                         <button
-                          className="p-2 hover:shadow transition-all shadow-sm focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-white active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-8"
                           type="button"
                           onClick={handleINVENTORYClick}
+                          className="flex items-center justify-center w-12 h-12 rounded-xl bg-green-100 text-green-600 shadow-md hover:bg-green-200 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 active:bg-green-300"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            fill="green"
-                            className="size-8"
+                            fill="currentColor"
+                            className="w-6 h-6"
                           >
                             <path
                               fillRule="evenodd"
@@ -307,7 +308,10 @@ const Dashboard = () => {
                           </svg>
                         </button>
                       </OverlayTrigger>
-                      <h6 className="mt-1 font-bold justify-center text-center ml-6">
+                      <h6
+                        className="font-semibold text-gray-700 cursor-pointer"
+                        onClick={handleINVENTORYClick}
+                      >
                         Inventory
                       </h6>
                     </div>
