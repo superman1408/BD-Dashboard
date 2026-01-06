@@ -17,6 +17,9 @@ body {
     counter-reset: page;
   }
 
+  @page {
+    margin-bottom: 20px; /* reserve space for footer */
+  }
   .print-footer {
     position: fixed;
     bottom: 0;

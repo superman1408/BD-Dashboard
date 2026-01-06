@@ -124,8 +124,7 @@ const EntryDetails = () => {
         alert("Error uploading images. Please try again.");
       });
     await updateFormDataWithImages().then(() => {
-      setTimeout(() => {
-      }, 30000);
+      setTimeout(() => {}, 30000);
     });
   };
 
@@ -165,8 +164,6 @@ const EntryDetails = () => {
           toast.error("Invalid Credentials, Please try Again Later...!!");
         });
     }, 9000);
-
-   
   };
 
   const handleSave = async (e) => {

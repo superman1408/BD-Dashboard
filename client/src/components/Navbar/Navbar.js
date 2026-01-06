@@ -99,6 +99,12 @@ export default function MenuAppBar() {
       link: "/lettertracker",
     },
 
+    {
+      text: "Inventory Management",
+      icon: <MailIcon />,
+      link: "/inventorymanagement",
+    },
+
     { text: "Logout", icon: <LogoutIcon />, onClick: switchMode },
   ];
 
