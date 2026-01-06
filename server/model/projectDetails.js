@@ -38,8 +38,21 @@ const projectSchema = mongoose.Schema(
     status: {
       type: String,
     },
-    growthRate: {
-      type: String,
+    // currentTaskDone: {
+    //   type: [Number],
+    //   required: true,
+    // },
+    currentTaskDone: [
+      {
+        _id: false,
+        month: { type: String, required: true },
+        index: { type: Number, required: true },
+        value: { type: Number, required: true },
+      },
+    ],
+
+    totalTask: {
+      type: Number,
     },
   },
   {

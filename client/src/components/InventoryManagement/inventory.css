@@ -1,0 +1,118 @@
+.inv-wrapper {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.inv-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inv-top-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.edit-btn {
+  background: #6c7ae0;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inv-main {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 25px;
+}
+
+.inv-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.primary-btn {
+  background: #6c7ae0;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+}
+
+.box {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+
+.field input,
+.field select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.submit-btn {
+  margin-top: 18px;
+  width: 100%;
+  background: #6c7ae0;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inv-right {
+  width: 100%;
+}
+
+.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.inv-table th,
+.inv-table td {
+  border: 1px solid #eee;
+  padding: 12px;
+  text-align: left;
+}
+
+.inv-table input {
+  width: 80px;
+  padding: 6px;
+}
+
+.del-btn {
+  background: #e75353;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.table-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+}

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 // import Curve from "../CurveDisplay/Scurve/Curve";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, update } from "../../action/posts";
 import { useParams } from "react-router-dom";
 import LineGraph from "./SCurve/LineGraph";
+import AddTaskIcon from "@mui/icons-material/AddTask";
+import TaskIcon from "@mui/icons-material/Task";
 
 const CurveDisplay = () => {
   const [dialogOpen, setDialogOpen] = useState();
@@ -15,8 +18,15 @@ const CurveDisplay = () => {
 
   const [currentPostId, setCurrentPostId] = useState(null); // Add state for current post ID
 
+  const [modalType, setModalType] = useState(null);
+
+  const [nextMonthLabel, setNextMonthLabel] = useState("");
+
+  const [nextYearLabel, setNextYearLabel] = useState("");
+
   const [formData, setFormData] = useState({
-    growthRate: "",
+    currentTaskDone: "",
+    totalTask: "",
   });
 
   useEffect(() => {
@@ -29,35 +39,131 @@ const CurveDisplay = () => {
 
   const posts = useSelector((state) => state.posts);
 
-  const openCard = (postid) => {
+  console.log(posts);
+
+  const handleOpen = (type, post) => {
+    setModalType(type);
     setDialogOpen(true);
-    setCurrentPostId(postid);
+
+    if (type === "growth") {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const start = new Date(post.commencementDate);
+      let baseMonth = start.getMonth();
+      let baseYear = start.getFullYear();
+
+      if (post?.currentTaskDone?.length > 0) {
+        const nextIndex = baseMonth + post.currentTaskDone.length;
+        setNextMonthLabel(monthNames[nextIndex % 12]);
+        setNextYearLabel(baseYear + Math.floor(nextIndex / 12));
+      } else {
+        setNextMonthLabel(monthNames[baseMonth]);
+        setNextYearLabel(baseYear);
+      }
+    }
   };
 
-  const handleFormChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleClose = () => {
+    setDialogOpen(false);
+    setModalType(null);
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
-    setDialogOpen(false);
-
+    e.preventDefault();
     const existingPost = posts.find((post) => post._id === currentPostId);
 
-    if (!existingPost) {
-      // console.error("No existing project found!");
-      return;
+    if (!existingPost) return;
+
+    if (modalType === "growth") {
+      const currentList = existingPost.currentTaskDone || [];
+      const nextMonth = currentList.length;
+
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      // FIXED HERE ✔
+      const projectStart = new Date(existingPost.commencementDate);
+
+      console.log("RAW:", existingPost.commencementDate);
+      console.log("PARSED:", new Date(existingPost.commencementDate));
+      console.log("MONTH:", new Date(existingPost.commencementDate).getMonth());
+
+      const startMonth = isNaN(projectStart.getTime())
+        ? 0
+        : projectStart.getMonth();
+
+      const monthIndex = startMonth + nextMonth;
+      const monthName = monthNames[monthIndex % 12];
+      const yearOffset = Math.floor((startMonth + nextMonth) / 12);
+
+      const updatedData = {
+        ...existingPost,
+        currentTaskDone: [
+          ...currentList,
+          {
+            month: monthName,
+            value: Number(formData.currentTaskDone),
+            index: nextMonth, // <--- ✨ Add this important line
+          },
+        ],
+      };
+
+      await dispatch(update(currentPostId, updatedData));
+      setFormData({ currentTaskDone: "" });
     }
 
-    const updatedData = {
-      ...existingPost,
-      growthRate: formData.growthRate || existingPost.growthRate,
-    };
+    if (modalType === "task") {
+      console.log("Task Data:", formData.totalTask);
 
-    await dispatch(update(currentPostId, updatedData));
-    setFormData({ growthRate: "" });
-    window.location.reload();
+      const updatedData = {
+        ...existingPost,
+        totalTask: Number(formData.totalTask),
+      };
+
+      await dispatch(update(currentPostId, updatedData));
+      setFormData({ totalTask: "" });
+    }
+    dispatch(getPosts());
+    handleClose();
   };
 
+  const currentMonthYear = new Date().toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <>
@@ -80,39 +186,55 @@ const CurveDisplay = () => {
             options
           ).format(new Date(isoDate));
 
-          const currentDate = new Date();
-
           if (post.projectNumber === id) {
             return (
-              <div className="flex justify-between items-center bg-gray-100 rounded ">
-                <div className="p-2">
-                  <h1 className="font-bold text-lg">Overview</h1>
-                  <h3 className=" font-semi-bold text-xs">
-                    {/* bg-gray-700 text-white rounded-lg */}
-                    Last Updated Growth Rate At : {formattedDate}
-                  </h3>
+              <div key={post._id} className="mb-4">
+                <div className="flex justify-between items-center bg-gray-100 rounded p-2">
+                  <div>
+                    <h1 className="font-bold text-lg">
+                      Ideal vs Actual Scurve
+                    </h1>
+                    <h3 className="font-semi-bold text-xs">
+                      Last Updated Growth Rate At : {formattedDate}
+                    </h3>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={
+                        <Tooltip id="growth-tooltip">Add Growth Data</Tooltip>
+                      }
+                    >
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          setCurrentPostId(post._id);
+                          handleOpen("growth", post);
+                        }}
+                      >
+                        <AddTaskIcon />
+                      </Button>
+                    </OverlayTrigger>
+
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={
+                        <Tooltip id="task-tooltip">Add Total Task</Tooltip>
+                      }
+                    >
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          setCurrentPostId(post._id);
+                          handleOpen("task");
+                        }}
+                      >
+                        <TaskIcon />
+                      </Button>
+                    </OverlayTrigger>
+                  </div>
                 </div>
-
-                {/* <h3 className="p-3 font-bold text-sm">
-                  {post?.commencementDate}-{post?.endDate}
-                  {post?.updatedAt}
-                </h3> */}
-
-                <button
-                  onClick={() => openCard(post._id)}
-                  title="Add Growth Rate"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fillRule="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                  </svg>
-                </button>
               </div>
             );
           }
@@ -124,41 +246,55 @@ const CurveDisplay = () => {
           const timeDifference = dateEnd - dateCommence;
           const duration = timeDifference / (1000 * 60 * 60 * 24 * 30);
           const midpoint = duration / 2;
-          const currentgrowthRate = post?.growthRate;
+          const currentgrowthRate = post?.currentTaskDone;
+          const currentTotalTask = post?.totalTask;
           // console.log(currentgrowthRate);
 
           if (post.projectNumber === id) {
             return (
               <div>
-                {/* <Curve
-                  duration1={duration}
-                  midpoint1={midpoint}
-                  growthRate1={currentgrowthRate}
-                  exponent1={1}
-                  duration2={duration}
-                  midpoint2={midpoint}
-                  // growthRate2={1.9}
+                <div className="p-3 bg-gray-50 rounded mt-3 text-sm">
+                  <div className="flex justify-between">
+                    <span>Total Months Logged:</span>
+                    <span className="font-semibold">
+                      {post.currentTaskDone?.length}
+                    </span>
+                  </div>
 
-                  exponent2={1}
-                  dateCommence={dateCommence}
-                  duration3={duration}
-                  midpoint3={midpoint}
-                  // growthRate2={1.9}
+                  <div className="flex justify-between">
+                    <span>Total Task Completed So Far:</span>
+                    <span className="font-semibold">
+                      {post.currentTaskDone?.reduce(
+                        (a, c) => a + Number(c.value),
+                        0
+                      )}
+                    </span>
+                  </div>
 
-                  exponent3={1}
-                  dateCommence1={dateCommence}
-                  duration={duration}
-                  midpoint={midpoint}
-                  growthRate={currentgrowthRate}
-                  exponent={1}
-                  totalGrowth={currentgrowthRate} // 85% growth
-                  // dateCommence={new Date("2024-01-01")}
-                /> */}
+                  <div className="flex justify-between">
+                    <span>Average per Month:</span>
+                    <span className="font-semibold">
+                      {(
+                        post.currentTaskDone?.reduce(
+                          (a, c) => a + Number(c.value),
+                          0
+                        ) / post.currentTaskDone?.length
+                      ).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+
                 <LineGraph
                   key={index}
                   dateCommence={dateCommence}
                   dateEnd={dateEnd}
-                  workCompleted={currentgrowthRate}
+                  currentTotalTask={currentTotalTask}
+                  // workCompleted={currentgrowthRate.map((v, i) => ({
+                  //   month: i,
+                  //   value: v,
+                  // }))}
+
+                  workCompleted={currentgrowthRate || []}
                 />
               </div>
             );
@@ -174,39 +310,71 @@ const CurveDisplay = () => {
         // scrollable
       >
         <Modal.Header closeButton></Modal.Header>
-
+        <Modal.Title style={{ padding: "10px" }}>
+          {modalType === "growth"
+            ? "Update Monthly Progress"
+            : "Update Total Task"}
+        </Modal.Title>
         <form onSubmit={handleSubmit}>
-          <Modal.Body
-            style={{ maxHeight: "300px", overflowY: "auto" }}
-            scrollable
-          >
-            <div className="p-3 flex">
-              <label>Current Project Status : </label>
-              <input
-                className=" bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md ml-3
-                 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                type="text"
-                name="growthRate"
-                value={formData.growthRate}
-                onChange={handleFormChange}
-                required
-              />
-            </div>
-          </Modal.Body>
-          {/* 9) The average age of the committee of 10 members is 40 years. A member of age 52 retires and a new member of age 38 takes his place. What is the average age of the present committee?
-           */}
+          <Modal.Body>
+            {modalType === "growth" && (
+              <>
+                <div
+                  className="alert alert-warning"
+                  style={{ fontSize: "0.85rem" }}
+                >
+                  <strong>Monthly Task Progress : </strong>Update only when
+                  genuine work is completed for the month
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">
+                    Current Task Done for {nextMonthLabel} {nextYearLabel} :
+                  </label>
+                  {/* <label
+                    style={{ fontWeight: "600", marginLeft: "10px" }}
+                  ></label> */}
+                  <input
+                    type="number"
+                    name="currentTaskDone"
+                    className="form-control"
+                    value={formData.currentTaskDone}
+                    onChange={handleChange}
+                  />
+                </div>
+              </>
+            )}
 
-          {/* I want to calculate requiredgrowthrate on the provided growth till the current month from whole duration how to doi it */}
-          <div className="bg-gray-100 px-2 py-2 sm:flex sm:flex-row-reverse sm:px-6">
-            <Button
-              type="submit"
-              variant="primary"
-              // onClick={handleAccept}
-              style={{ display: "flex", float: "right", marginRight: "5px" }}
-            >
+            {modalType === "task" && (
+              <div>
+                <div
+                  className="alert alert-warning"
+                  style={{ fontSize: "0.85rem" }}
+                >
+                  <strong>Disclaimer:</strong> Total Task modifications will
+                  only be made when required and approved by higher management.
+                </div>
+
+                <label className="form-label">Add Total Task:</label>
+                <input
+                  type="number"
+                  name="totalTask"
+                  className="form-control"
+                  value={formData.totalTask}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+
+            <Button type="submit" variant="primary">
               Proceed
             </Button>
-          </div>
+          </Modal.Footer>
         </form>
       </Modal>
     </>

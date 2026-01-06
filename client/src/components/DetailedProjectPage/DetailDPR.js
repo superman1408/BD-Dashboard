@@ -750,6 +750,7 @@ const DetailedProjectPage = () => {
                         })}
                       </tbody>
                     </table>
+
                     <br />
 
                     <table
@@ -1044,7 +1045,9 @@ const DetailedProjectPage = () => {
                         })}
                       </tbody>
                     </table>
+
                     <br />
+
                     <table
                       className="dpr-table"
                       style={{
@@ -1330,7 +1333,6 @@ const DetailedProjectPage = () => {
                         })}
                       </tbody>
                     </table>
-                    <br />
 
                     <br />
 
@@ -1597,7 +1599,7 @@ const DetailedProjectPage = () => {
                   </Grid>
                 </Grid>
               </Grid>
-              <div className="print-footer">
+              <div style={{ padding: "10px" }} className="print-footer">
                 Printed on: {new Date().toLocaleString()}
               </div>
             </div>
