@@ -33,7 +33,7 @@ const Dashboard = () => {
   };
 
    const handleINVENTORYClick = () => {
-    navigate(`/inventory`);
+    navigate(`/${id}/inventory`);
   };
 
   return (

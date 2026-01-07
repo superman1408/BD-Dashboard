@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import {divider} from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function InventoryForm() {
+
+  const navigate = useNavigate();
+   const { id } = useParams();
   const [formData, setFormData] = useState({
     sno: "",
     category: "",
@@ -24,10 +28,12 @@ export default function InventoryForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted", formData);
     alert("Work in Progress!");
+    navigate(`/dashboard/${id}`);
   };
 
   const Input = ({ label, name, type = "text" }) => (

@@ -69,7 +69,7 @@ const App = () => {
             element={<ContractRegister />}
           />
            <Route
-            path="/inventory"
+            path="/:id/inventory"
             exact
             element={<InventoryDetails />}
           />
