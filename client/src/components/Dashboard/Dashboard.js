@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import DPRimage from "../../assests/DPR.png";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
 
@@ -32,8 +32,8 @@ const Dashboard = () => {
     navigate(`/contractregister`);
   };
 
-  const handleINVENTORYClick = () => {
-    navigate(`/inventory`);
+   const handleINVENTORYClick = () => {
+    navigate(`/${id}/inventory`);
   };
 
   return (
