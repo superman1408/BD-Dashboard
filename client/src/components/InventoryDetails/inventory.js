@@ -27,7 +27,7 @@ export default function InventoryForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted", formData);
-    alert("Inventory Form Submitted!");
+    alert("Work in Progress!");
   };
 
   const Input = ({ label, name, type = "text" }) => (
