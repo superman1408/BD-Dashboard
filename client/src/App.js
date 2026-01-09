@@ -98,6 +98,8 @@ const App = () => {
           <Route path="/scurve" exact element={<CurveDisplay />} />
 
           <Route path="/actualscurve" exact element={<ActualScurve />} />
+
+           <Route path="/procurement" exact element={<procurement />} />
         </Routes>
       </div>
 

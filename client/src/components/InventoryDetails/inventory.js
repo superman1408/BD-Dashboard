@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {divider} from "@mui/material";
+import {divider, Grid} from "@mui/material";
+import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function InventoryForm() {
@@ -72,6 +73,28 @@ export default function InventoryForm() {
   return (
     <div className="max-w-5xl mx-auto p-4"> {/* Added padding */}
       <div className="bg-gray-50 p-6 rounded shadow"> {/* Form wrapper padding */}
+        <Grid sx={{justifyContent:"space-evenly"}}>
+          <Grid>
+            <Link to="/procurement">
+        <button
+            type="submit"
+            className="p-3 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Pocurement
+          </button>
+          </Link>
+          </Grid>
+          <Grid>
+             <Link to="/inventory">
+          <button
+            type="submit"
+            className="p-3 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Inventory
+          </button>
+          </Link>
+          </Grid>
+          </Grid>
         <u><h2 className="text-2xl font-bold mb-4 text-center font-['Roboto'] underline">INVENTORY MANAGEMENT FORM</h2></u>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-2 p-2"> 
