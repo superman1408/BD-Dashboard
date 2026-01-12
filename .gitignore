@@ -3,4 +3,5 @@ build
 .env
 pnpm-lock.yaml
 uploads
+settings.json
 
