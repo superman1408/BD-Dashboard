@@ -75,14 +75,13 @@ export default function InventoryForm() {
       <div className="bg-gray-50 p-6 rounded shadow"> {/* Form wrapper padding */}
         <Grid sx={{justifyContent:"space-evenly"}}>
           <Grid>
-            <Link to="/procurement">
         <button
             type="submit"
+            onClick={() => navigate("/procurement")}
             className="p-3 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Pocurement
           </button>
-          </Link>
           </Grid>
           <Grid>
              <Link to="/inventory">
@@ -144,6 +143,7 @@ export default function InventoryForm() {
           >
             Submit
           </button>
+
         </form>
 
       </div>
