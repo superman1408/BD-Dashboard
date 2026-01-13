@@ -73,7 +73,7 @@ export default function InventoryForm() {
   return (
     <div className="max-w-5xl mx-auto p-4"> {/* Added padding */}
       <div className="bg-gray-50 p-6 rounded shadow"> {/* Form wrapper padding */}
-        <Grid sx={{justifyContent:"space-evenly"}}>
+        <Grid sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
           <Grid>
         <button
             type="submit"
@@ -84,14 +84,13 @@ export default function InventoryForm() {
           </button>
           </Grid>
           <Grid>
-             <Link to="/inventory">
           <button
             type="submit"
+            onClick={() => navigate("/procurement")}
             className="p-3 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Inventory
           </button>
-          </Link>
           </Grid>
           </Grid>
         <u><h2 className="text-2xl font-bold mb-4 text-center font-['Roboto'] underline">INVENTORY MANAGEMENT FORM</h2></u>
