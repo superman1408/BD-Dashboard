@@ -577,15 +577,18 @@ const DetailedProjectPage = () => {
                     >
                       <colgroup>
                         <col style={{ width: "10px" }} /> {/* S.No */}
-                        <col style={{ width: "600px" }} /> {/* Activities */}
+                        <col
+                          style={{ width: "600px" }}
+                        /> {/* Activities */} <col style={{ width: "200px" }} />
+                        {/*  */}
                         <col style={{ width: "450px" }} />
                         {/* Related Images */}
-                        <col style={{ width: "150px" }} /> {/* Status */}
+                        <col style={{ width: "250px" }} /> {/* Status */}
                       </colgroup>
                       <thead>
                         <tr>
                           <th
-                            colSpan="4"
+                            colSpan="5"
                             style={{
                               textAlign: "left",
                               padding: "4px",
@@ -614,6 +617,15 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Activities
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "4px",
+                              backgroundColor: "#e9eef4",
+                            }}
+                          >
+                            Quantity
                           </th>
                           <th
                             style={{
@@ -681,9 +693,14 @@ const DetailedProjectPage = () => {
                           ];
 
                           return activityListData.map((item, i) => {
-                            const [textRaw, statusRaw] = item.split(":");
-                            const text = textRaw?.trim();
-                            const status = statusRaw?.trim();
+                            // const [textRaw, statusRaw] = item.split(":");
+                            // const text = textRaw?.trim();
+                            // const status = statusRaw?.trim();
+
+                            const [text, quantity, status] = item
+                              .split("::")
+                              .map((v) => v?.trim());
+
                             return (
                               <tr key={`${index}-${i}`}>
                                 <td
@@ -711,7 +728,21 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
+                                    padding: "2px",
+                                    wordBreak: "break-word", // 🔑 this forces long strings to break
+                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                    maxWidth: "100px", // adjust width so it stays in card
+                                    overflowWrap: "anywhere",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {quantity}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
                                     padding: "5px",
+                                    margin: "5px",
                                   }}
                                 >
                                   {images[i] ? (
@@ -719,7 +750,7 @@ const DetailedProjectPage = () => {
                                       src={images[i]}
                                       alt={`Activity ${i + 1}`}
                                       style={{
-                                        width: "200px",
+                                        width: "180px",
                                         height: "100px",
                                         margin: "5px",
                                       }}
@@ -768,12 +799,15 @@ const DetailedProjectPage = () => {
                       <colgroup>
                         <col style={{ width: "60px" }} /> {/* S.No */}
                         <col style={{ width: auto }} /> {/* Activities */}
-                        <col style={{ width: "250px" }} /> {/* Status */}
+                        <col style={{ width: "100px" }} /> {/* Status */}
+                        <col style={{ width: "100px" }} /> {/* Activities */}
+                        <col style={{ width: "100px" }} /> {/* Status */}
+                        <col style={{ width: "100px" }} /> {/* Status */}
                       </colgroup>
                       <thead>
                         <tr>
                           <th
-                            colSpan="4"
+                            colSpan="6"
                             style={{
                               textAlign: "left",
                               padding: "4px",
@@ -808,18 +842,41 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
-                            Quantity Available
+                            Opening Stock
                           </th>
-                          {/* <th
+                          <th
                             style={{
                               border: "1px solid black",
-                              padding: "8px",
+                              padding: "4px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
-                            Remark
-                          </th> */}
+                            Issued
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "4px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
+                            }}
+                          >
+                            Received
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "4px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
+                            }}
+                          >
+                            Closing Stock
+                          </th>
                         </tr>
                       </thead>
 
@@ -862,7 +919,13 @@ const DetailedProjectPage = () => {
                           }
 
                           return materialInventoryListData.map((item, i) => {
-                            const [description, quantity] = item.split(":");
+                            const [
+                              materialOptions,
+                              openingStock,
+                              issued,
+                              received,
+                              closingStock,
+                            ] = item.split("::");
 
                             return (
                               <tr key={`${index}-${i}`}>
@@ -881,7 +944,7 @@ const DetailedProjectPage = () => {
                                     padding: "4px",
                                   }}
                                 >
-                                  {description}
+                                  {materialOptions}
                                 </td>
                                 <td
                                   style={{
@@ -890,7 +953,34 @@ const DetailedProjectPage = () => {
                                     textAlign: "center",
                                   }}
                                 >
-                                  {quantity}
+                                  {openingStock}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "4px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {issued}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "4px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {received || ""}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "4px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {closingStock}
                                 </td>
                               </tr>
                             );
@@ -1115,7 +1205,7 @@ const DetailedProjectPage = () => {
                               backgroundColor: "#e9eef4",
                             }}
                           >
-                            Quantity Required
+                            Quantity Procured
                           </th>
                         </tr>
                       </thead>
@@ -1259,7 +1349,7 @@ const DetailedProjectPage = () => {
                               backgroundColor: "#e9eef4",
                             }}
                           >
-                            Quantity Required
+                            Completed Status
                           </th>
                         </tr>
                       </thead>

@@ -316,3 +316,5 @@ const ActualScurve = () => {
 };
 
 export default ActualScurve;
+
+

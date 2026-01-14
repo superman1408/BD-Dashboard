@@ -80,7 +80,7 @@ const EntryDetails = () => {
         ...formData,
         activityList:
           formData.activityList
-            ?.map((m) => `${m.text}: ${m.status}`)
+            ?.map((m) => `${m.text}::${m.quantity}::${m.status}`)
             .join("||") || "",
         plannedWorkList:
           formData.plannedWorkList
@@ -88,7 +88,10 @@ const EntryDetails = () => {
             .join(", ") || "",
         materialInventoryList:
           formData.materialInventoryList
-            ?.map((m) => `${m.description}: ${m.quantity}`)
+            ?.map(
+              (m) =>
+                `${m.materialOptions}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}`
+            )
             .join(", ") || "",
         materialRequiredList:
           formData.materialRequiredList
