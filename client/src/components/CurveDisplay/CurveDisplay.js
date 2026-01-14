@@ -262,13 +262,17 @@ const CurveDisplay = () => {
                   </div>
 
                   <div className="flex justify-between">
-                    <span>Total Task Completed So Far:</span>
-                    <span className="font-semibold">
-                      {post.currentTaskDone?.reduce(
-                        (a, c) => a + Number(c.value),
-                        0
-                      )}
-                    </span>
+                    <span>Tasks Completed : </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold">
+                        {post.currentTaskDone?.reduce(
+                          (a, c) => a + Number(c.value),
+                          0
+                        )}
+                      </span>
+                      <span> of </span>
+                      <span className="font-semibold">{post?.totalTask}</span>
+                    </div>
                   </div>
 
                   <div className="flex justify-between">
