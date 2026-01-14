@@ -9,15 +9,17 @@ import {
   Table,
 } from "react-bootstrap";
 import { Divider } from "@mui/material";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [show, setShow] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [inputQuantity, setInputQuantity] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [status, setStatus] = useState("");
 
   const [materialInventoryRows, setMaterialInventoryRows] = useState([
-    { description: "", quantity: "" },
+    { description: "", openingStock: "", issued: "", closingStock: "" },
   ]);
 
   const [materialRequirementRows, setMaterialRequirementRows] = useState([
@@ -26,10 +28,16 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
   const handleAddActivity = () => {
     if (inputValue.trim() === "") return;
-    const newActivity = { text: inputValue, image: imageFile, status: status };
+    const newActivity = {
+      text: inputValue,
+      quantity: inputQuantity,
+      image: imageFile,
+      status: status,
+    };
     const updatedActivities = [...(formData.activityList || []), newActivity];
     setFormData({ ...formData, activityList: updatedActivities });
     setInputValue("");
+    setInputQuantity("");
     setImageFile(null);
     setStatus("");
     setShow(false);
@@ -48,6 +56,15 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
       case "materialInventory":
         updatedRows = [...formData.materialInventoryList];
         updatedRows[index][field] = value;
+
+        const opening = Number(updatedRows[index].openingStock) || 0;
+        const issued = Number(updatedRows[index].issued) || 0;
+        const received = Number(updatedRows[index].received) || 0;
+
+        const closingStock = opening - issued + received;
+
+        updatedRows[index].closingStock = Math.max(closingStock, 0);
+
         setFormData({ ...formData, materialInventoryList: updatedRows });
         break;
 
@@ -62,12 +79,27 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     }
   };
 
+  const isMaterialInventoryValid = () => {
+    return (formData.materialInventoryList || []).every((row) => {
+      const opening = Number(row.openingStock) || 0;
+      const issued = Number(row.issued) || 0;
+
+      return row.openingStock !== "" && row.issued !== "" && issued <= opening;
+    });
+  };
+
   const handleAddRow = (type) => {
     switch (type) {
       case "materialInventory": {
         const updatedRows = [
           ...(formData.materialInventoryList || []),
-          { description: "", quantity: "" },
+          {
+            description: "",
+            openingStock: "",
+            issued: "",
+            received: 0,
+            closingStock: 0,
+          },
         ];
         setFormData({
           ...formData,
@@ -116,6 +148,26 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
       default:
         break;
     }
+  };
+
+  const materialOptions = [
+    { label: "Cement (Bags)" },
+    { label: "Sand (CFT)" },
+    { label: "Aggregate (CFT)" },
+    { label: "Rod (Ton / Kg)" },
+    { label: "Bricks (Nos.)" },
+    { label: "Binding Wire (Kg)" },
+    { label: "Nails (Kg)" },
+    { label: "Cover Block (Nos.)" },
+    { label: "Wood Cutting Blade (Nos.)" },
+    { label: "Rod Cutting Blade (Nos.)" },
+    { label: "Others" },
+  ];
+
+  const isIssuedMoreThanOpening = (row) => {
+    const opening = Number(row.openingStock) || 0;
+    const issued = Number(row.issued) || 0;
+    return issued > opening;
   };
 
   return (
@@ -203,6 +255,24 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                   }}
                 />
 
+                <input
+                  type="text"
+                  value={item.quantity}
+                  onChange={(e) => {
+                    const newList = [...formData.activityList];
+                    newList[index].quantity = e.target.value;
+                    setFormData({ ...formData, activityList: newList });
+                  }}
+                  style={{
+                    width: "100%",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    padding: "2px 6px",
+                    fontSize: "0.85rem",
+                  }}
+                />
+
                 <label
                   style={{
                     backgroundColor:
@@ -246,6 +316,13 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter details"
+            />
+            <Form.Control
+              as="textarea"
+              value={inputQuantity}
+              onChange={(e) => setInputQuantity(e.target.value)}
+              placeholder="Enter quantity"
+              className="mt-2"
             />
             <Form.Control
               type="file"
@@ -293,7 +370,9 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
             <tr>
               <th style={{ width: "80px" }}>S.No</th>
               <th>Material Description</th>
-              <th>Quantity</th>
+              <th style={{ width: "150px" }}>Opening Stock</th>
+              <th style={{ width: "150px" }}>Issued</th>
+              <th style={{ width: "150px" }}>Received</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -304,7 +383,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                   <Form.Control type="text" value={index + 1} readOnly />
                 </td>
                 <td>
-                  <Form.Control
+                  {/* <Form.Control
                     type="text"
                     value={row.description}
                     onChange={(e) =>
@@ -315,17 +394,88 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                         e.target.value
                       )
                     }
-                  />
-                </td>
-                <td>
-                  <Form.Control
-                    type="text"
-                    value={row.quantity}
+                  /> */}
+
+                  <Form.Select
+                    value={row.materialOptions}
                     onChange={(e) =>
                       handleRowChange(
                         "materialInventory",
                         index,
-                        "quantity",
+                        "materialOptions",
+                        e.target.value
+                      )
+                    }
+                  >
+                    <option value="">Select Material</option>
+                    {materialOptions.map((m, i) => (
+                      <option key={i} value={m.label}>
+                        {m.label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </td>
+                <td>
+                  <Form.Control
+                    type="number"
+                    value={row.openingStock}
+                    required
+                    min="0"
+                    onChange={(e) =>
+                      handleRowChange(
+                        "materialInventory",
+                        index,
+                        "openingStock",
+                        e.target.value
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      isIssuedMoreThanOpening(row) ? (
+                        <Tooltip id={`tooltip-issued-${index}`}>
+                          Material Issued cannot be more than Opening Stock
+                        </Tooltip>
+                      ) : (
+                        <></>
+                      )
+                    }
+                  >
+                    <Form.Control
+                      type="number"
+                      value={row.issued}
+                      min="0"
+                      style={{
+                        borderColor: isIssuedMoreThanOpening(row)
+                          ? "#dc3545"
+                          : "",
+                        backgroundColor: isIssuedMoreThanOpening(row)
+                          ? "#fdecea"
+                          : "",
+                      }}
+                      onChange={(e) =>
+                        handleRowChange(
+                          "materialInventory",
+                          index,
+                          "issued",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </OverlayTrigger>
+                </td>
+                <td>
+                  <Form.Control
+                    type="number"
+                    value={row.received}
+                    onChange={(e) =>
+                      handleRowChange(
+                        "materialInventory",
+                        index,
+                        "received",
                         e.target.value
                       )
                     }
@@ -347,6 +497,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
         <Button
           variant="primary"
           onClick={() => handleAddRow("materialInventory")}
+          disabled={!isMaterialInventoryValid()}
         >
           + Add Row
         </Button>

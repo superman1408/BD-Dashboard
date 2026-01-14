@@ -70,11 +70,7 @@ const App = () => {
             exact
             element={<ContractRegister />}
           />
-           <Route
-            path="/:id/inventory"
-            exact
-            element={<InventoryDetails />}
-          />
+          <Route path="/:id/inventory" exact element={<InventoryDetails />} />
           <Route
             path="/contractviewdetails"
             exact
