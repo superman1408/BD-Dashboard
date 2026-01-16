@@ -90,7 +90,7 @@ const EntryDetails = () => {
           formData.materialInventoryList
             ?.map(
               (m) =>
-                `${m.materialOptions}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}`
+                `${m.material}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}::${m.requirement}`
             )
             .join(", ") || "",
         materialRequiredList:
@@ -136,7 +136,33 @@ const EntryDetails = () => {
         className="p-4 custom-card"
         style={{ width: "100%", maxWidth: "900px" }}
       >
-        {step === 1 && (
+        <EntryStep1
+          formData={formData}
+          setFormData={setFormData}
+          projectNumber={projectNumber}
+        />
+        <EntryStep2 formData={formData} setFormData={setFormData} />
+
+        <Divider
+          className="mt-3 mb-3"
+          style={{
+            height: "2px",
+            backgroundColor: "#000",
+            fontWeight: "bold",
+          }}
+        />
+        <Button
+          variant="success"
+          type="submit"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </Button>
+
+        {/* Commented for future use  */}
+
+        {/* {step === 1 && (
           <EntryStep1
             formData={formData}
             setFormData={setFormData}
@@ -146,7 +172,6 @@ const EntryDetails = () => {
         {step === 2 && (
           <EntryStep2 formData={formData} setFormData={setFormData} />
         )}
-        {/* {step === 3 && <Step3 formData={formData} setFormData={setFormData} />} */}
 
         <div className="d-flex justify-content-between mt-3">
           {step > 1 && <Button onClick={prevStep}>← Previous</Button>}
@@ -172,7 +197,7 @@ const EntryDetails = () => {
               </Button>
             </>
           )}
-        </div>
+        </div> */}
       </Card>
     </Container>
   );
