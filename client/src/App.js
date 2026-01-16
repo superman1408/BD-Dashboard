@@ -20,6 +20,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 import InventoryManagement from "./components/InventoryManagement/InventoryManagement";
 import ActualScurve from "./components/CurveDisplay/SCurve/ActualScurve";
+import Procurement from "./components/Procurement/Procurement";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -94,6 +95,8 @@ const App = () => {
           <Route path="/scurve" exact element={<CurveDisplay />} />
 
           <Route path="/actualscurve" exact element={<ActualScurve />} />
+
+           <Route path="/procurement" exact element={<Procurement/>} />
         </Routes>
       </div>
 
