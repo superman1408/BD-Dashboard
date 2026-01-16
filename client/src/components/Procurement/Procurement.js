@@ -22,29 +22,16 @@ const transactions = [
   { date: "2026-01-06", material: "Aggregate", unit: "CFT", reference: "SITE-ISSUE", qtyIn: 0, qtyOut: 150, remarks: "Concrete work" },
 ];
 
-const MergedMaterialLedger = () => {
+const Procurement = () => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(false);
-   const [inputValue, setInputValue] = useState("");
-    const [imageFile, setImageFile] = useState(null);
-    const [status, setStatus] = useState("");
 
   const balances = {};
 
-  const handleAddActivity = () => {
-    if (inputValue.trim() === "") return;
-    const newActivity = { text: inputValue, image: imageFile, status: status };
-    const updatedActivities = [...(formData.activityList || []), newActivity];
-    setFormData({ ...formData, activityList: updatedActivities });
-    setInputValue("");
-    setImageFile(null);
-    setStatus("");
-    setShow(false);
-  };
 
   return (
     <div style={{ padding: "20px" }}>
-          <Form.Group className="mb-3">
+          {/* <Form.Group className="mb-3">
                <Button
                  onClick={() => setShow(true)}
                  disabled={(formData.activityList?.length || 0) >= 5}
@@ -52,20 +39,29 @@ const MergedMaterialLedger = () => {
                >
                  + Add Inventory
                </Button>
-          </Form.Group>
+          </Form.Group> */}
 
     <div style={{ padding: "20px" }}>
-      <h2 style={{ textAlign: "center" }}>
-        Construction Inventoryaterial-wise
-      </h2>
+      <h1
+        style={{
+          textAlign: "center",
+          fontSize: "32px",   // bigger
+          fontWeight: "400" ,  // bold
+          backgroundColor: "#02274d", 
+          color:"#ffffff"
+        }}
+      >
+        Construction Inventory Material-wise
+      </h1>
 
       <table
-        border="1"
+        className="inventory-table"
+        border="3"
         width="100%"
         cellPadding="8"
         style={{ borderCollapse: "collapse", marginTop: "20px" }}
       >
-        <thead style={{ backgroundColor: "#f3f3f3" }}>
+        <thead style={{ backgroundColor: "#fdfdfd" }}>
           <tr>
             <th>S.No</th>
             <th>Date</th>
@@ -88,7 +84,10 @@ const MergedMaterialLedger = () => {
             balances[tx.material] += tx.qtyIn - tx.qtyOut;
 
             return (
-              <tr key={index}>
+              <tr  key={index}
+                  style={{
+                    backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff"
+                  }}>
                 <td style={{ textAlign: "center" }}>{index + 1}</td>
                 <td>{tx.date}</td>
                 <td>{tx.material}</td>
@@ -114,4 +113,4 @@ const MergedMaterialLedger = () => {
   );
 };
 
-export default MergedMaterialLedger;
+export default Procurement;
