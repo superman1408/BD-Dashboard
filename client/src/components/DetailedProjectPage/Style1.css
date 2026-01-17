@@ -174,18 +174,30 @@ button:hover {
   }
 } */
 
+@page {
+  margin: 5mm;
+}
+
 @media print {
   .print-footer {
-    display: none; /* hide by default */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 11px;
+    color: grey;
+    padding-right: 5mm;
+    padding-bottom: 3mm;
   }
-  .last-page {
+}
+
+/* .last-page {
     display: block;
     position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
-  }
-}
+    color: grey;
+  } */
 
 /* Style1.css */
 .table-container {

@@ -294,7 +294,7 @@ const DetailedProjectPage = () => {
                             fontSize: "12px", // smaller text
                           }}
                         >
-                          {filteredData.length > 0 ? (
+                          {/* {filteredData.length > 0 ? (
                             filteredData.map((entry, index) => (
                               <tr key={index}>
                                 <tbody>
@@ -308,16 +308,7 @@ const DetailedProjectPage = () => {
                                       Date: {entry?.date}
                                     </td>
                                   </tr>
-                                  {/* <tr>
-                                    <td
-                                      style={{
-                                        borderBottom: "1px solid black",
-                                        padding: "4px",
-                                      }}
-                                    >
-                                      Location: Ranchi
-                                    </td>
-                                  </tr> */}
+                                  
                                   <tr>
                                     <td
                                       style={{
@@ -333,7 +324,22 @@ const DetailedProjectPage = () => {
                             ))
                           ) : (
                             <p>No data</p>
-                          )}
+                          )} */}
+
+                          <tbody>
+                            {filteredData.map((entry) => (
+                              <React.Fragment
+                                key={`${entry.projectNumber}-${entry.date}`}
+                              >
+                                <tr>
+                                  <td>Date: {entry.date}</td>
+                                </tr>
+                                <tr>
+                                  <td>Project Number: {entry.projectNumber}</td>
+                                </tr>
+                              </React.Fragment>
+                            ))}
+                          </tbody>
                         </table>
                       </td>
                     </tr>
@@ -383,7 +389,7 @@ const DetailedProjectPage = () => {
                     )}
                     {filteredData.length > 0 ? (
                       filteredData.map((entry, index) => (
-                        <tr>
+                        <tr key={index}>
                           <td
                             style={{
                               border: "1px solid black",
@@ -621,14 +627,11 @@ const DetailedProjectPage = () => {
                       }}
                     >
                       <colgroup>
-                        <col style={{ width: "10px" }} /> {/* S.No */}
-                        <col
-                          style={{ width: "600px" }}
-                        /> {/* Activities */} <col style={{ width: "200px" }} />
-                        {/*  */}
+                        <col style={{ width: "10px" }} />
+                        <col style={{ width: "600px" }} />
+                        <col style={{ width: "200px" }} />
                         <col style={{ width: "450px" }} />
-                        {/* Related Images */}
-                        <col style={{ width: "250px" }} /> {/* Status */}
+                        <col style={{ width: "250px" }} />
                       </colgroup>
                       <thead>
                         <tr>
@@ -668,6 +671,7 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Quantity
@@ -677,6 +681,7 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Related Image
@@ -686,6 +691,7 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Status
@@ -713,14 +719,14 @@ const DetailedProjectPage = () => {
                                 .map((item) => item.trim());
                             } else if (Array.isArray(entry.activityList[0])) {
                               activityListData = entry.activityList[0].map(
-                                (item) => item.trim()
+                                (item) => item.trim(),
                               );
                             } else if (
                               typeof entry.activityList[0] === "object" &&
                               entry.activityList[0] !== null
                             ) {
                               activityListData = Object.entries(
-                                entry.activityList[0]
+                                entry.activityList[0],
                               ).map(([key, value]) => `${key}: ${value}`);
                             }
                           } else if (typeof entry.activityList === "string") {
@@ -813,8 +819,8 @@ const DetailedProjectPage = () => {
                                       status === "In Progress"
                                         ? "orange"
                                         : status === "Completed"
-                                        ? "#006400"
-                                        : "transparent",
+                                          ? "#006400"
+                                          : "transparent",
                                     // color: status ? "white" : "black",
                                   }}
                                 >
@@ -843,12 +849,12 @@ const DetailedProjectPage = () => {
                         }}
                       >
                         <colgroup>
-                          <col style={{ width: "60px" }} /> {/* S.No */}
-                          <col style={{ width: auto }} /> {/* Activities */}
-                          <col style={{ width: "100px" }} /> {/* Status */}
-                          <col style={{ width: "100px" }} /> {/* Activities */}
-                          <col style={{ width: "100px" }} /> {/* Status */}
-                          <col style={{ width: "100px" }} /> {/* Status */}
+                          <col style={{ width: "60px" }} />
+                          <col style={{ width: auto }} />
+                          <col style={{ width: "100px" }} />
+                          <col style={{ width: "100px" }} />
+                          <col style={{ width: "100px" }} />
+                          <col style={{ width: "100px" }} />
                         </colgroup>
                         <thead>
                           <tr>
@@ -956,7 +962,7 @@ const DetailedProjectPage = () => {
                               ) {
                                 materialInventoryListData =
                                   entry.materialInventoryList[0].map((item) =>
-                                    item.trim()
+                                    item.trim(),
                                   );
                               } else if (
                                 typeof entry.materialInventoryList[0] ===
@@ -964,7 +970,7 @@ const DetailedProjectPage = () => {
                                 entry.materialInventoryList[0] !== null
                               ) {
                                 materialInventoryListData = Object.entries(
-                                  entry.materialInventoryList[0]
+                                  entry.materialInventoryList[0],
                                 ).map(([key, value]) => `${key}: ${value}`);
                               }
                             } else if (
@@ -1089,7 +1095,7 @@ const DetailedProjectPage = () => {
                                 colSpan={
                                   filteredData?.[0]
                                     ? parseMaterialInventory(
-                                        filteredData[0].materialInventoryList
+                                        filteredData[0].materialInventoryList,
                                       ).length + 1
                                     : 1
                                 }
@@ -1117,7 +1123,7 @@ const DetailedProjectPage = () => {
 
                               {filteredData?.[0] &&
                                 parseMaterialInventory(
-                                  filteredData[0].materialInventoryList
+                                  filteredData[0].materialInventoryList,
                                 ).map((m, i) => (
                                   <th
                                     key={i}
@@ -1137,53 +1143,68 @@ const DetailedProjectPage = () => {
                           <tbody>
                             {filteredData?.map((entry, index) => {
                               const materials = parseMaterialInventory(
-                                entry.materialInventoryList
+                                entry.materialInventoryList,
                               );
 
                               if (materials.length === 0) return null;
 
                               return (
-                                <React.Fragment key={index}>
-                                  <tr>
+                                <React.Fragment key={`entry-${index}`}>
+                                  <tr key={`opening-${index}`}>
                                     <td style={rowTitleStyle}>Opening Stock</td>
                                     {materials.map((m, i) => (
-                                      <td key={i} style={cellStyle}>
+                                      <td
+                                        key={`opening-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
                                         {m.opening}
                                       </td>
                                     ))}
                                   </tr>
 
-                                  <tr>
+                                  <tr key={`issued-${index}`}>
                                     <td style={rowTitleStyle}>Issued</td>
                                     {materials.map((m, i) => (
-                                      <td key={i} style={cellStyle}>
+                                      <td
+                                        key={`issued-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
                                         {m.issued}
                                       </td>
                                     ))}
                                   </tr>
 
-                                  <tr>
+                                  <tr key={`received-${index}`}>
                                     <td style={rowTitleStyle}>Received</td>
                                     {materials.map((m, i) => (
-                                      <td key={i} style={cellStyle}>
+                                      <td
+                                        key={`received-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
                                         {m.received}
                                       </td>
                                     ))}
                                   </tr>
 
-                                  <tr>
+                                  <tr key={`closing-${index}`}>
                                     <td style={rowTitleStyle}>Closing Stock</td>
                                     {materials.map((m, i) => (
-                                      <td key={i} style={cellStyle}>
+                                      <td
+                                        key={`closing-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
                                         {m.closing}
                                       </td>
                                     ))}
                                   </tr>
 
-                                  <tr>
+                                  <tr key={`requirement-${index}`}>
                                     <td style={rowTitleStyle}>Requirement</td>
                                     {materials.map((m, i) => (
-                                      <td key={i} style={cellStyle}>
+                                      <td
+                                        key={`requirement-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
                                         {m.requirement}
                                       </td>
                                     ))}
@@ -1696,14 +1717,14 @@ const DetailedProjectPage = () => {
                                     .map((item) => item.trim());
                                 } else if (Array.isArray(entry.attendance[0])) {
                                   attendanceData = entry.attendance[0].map(
-                                    (item) => item.trim()
+                                    (item) => item.trim(),
                                   );
                                 } else if (
                                   typeof entry.attendance[0] === "object" &&
                                   entry.attendance[0] !== null
                                 ) {
                                   attendanceData = Object.entries(
-                                    entry.attendance[0]
+                                    entry.attendance[0],
                                   ).map(([key, value]) => `${key}: ${value}`);
                                 }
                               } else if (typeof entry.attendance === "string") {
@@ -1718,11 +1739,11 @@ const DetailedProjectPage = () => {
                                     .find((a) =>
                                       a
                                         .toLowerCase()
-                                        .startsWith(label.toLowerCase())
+                                        .startsWith(label.toLowerCase()),
                                     )
                                     ?.split(":")[1]
                                     ?.trim() || "0",
-                                  10
+                                  10,
                                 );
 
                               const rows = [
@@ -1749,7 +1770,7 @@ const DetailedProjectPage = () => {
                               // Add this entry's total to grand total
                               grandTotal += rows.reduce(
                                 (sum, row) => sum + row.value,
-                                0
+                                0,
                               );
 
                               // Return table rows for this entry
@@ -1774,7 +1795,7 @@ const DetailedProjectPage = () => {
                                   </td>
                                 </tr>
                               ));
-                            }
+                            },
                           );
 
                           return (
@@ -1884,16 +1905,12 @@ const DetailedProjectPage = () => {
                         )}
                       </tbody>
                     </table>
+                    <div className="print-footer">
+                      Printed on: {new Date().toLocaleString()}
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
-
-              <div className="print-wrapper">
-                <div className="content">{/* your full content here */}</div>
-                <div className="print-footer last-page">
-                  Printed on: {new Date().toLocaleString()}
-                </div>
-              </div>
             </div>
           </Card>
 

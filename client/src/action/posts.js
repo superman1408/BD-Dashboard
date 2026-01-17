@@ -39,8 +39,6 @@ export const createPost = (post) => async (dispatch) => {
 export const update = (id, formData) => async (dispatch) => {
   try {
     const { data } = await API.updatePost(id, formData);
-    console.log("data", data);
-
     // const response = await api.put(`/posts/${postId}`, updatedData); // Update your API endpoint
     dispatch({ type: UPDATE_POST, payload: data });
   } catch (error) {
@@ -50,7 +48,7 @@ export const update = (id, formData) => async (dispatch) => {
     } else if (error.request) {
       console.error(
         "Request was made but no response received:",
-        error.request
+        error.request,
       );
     } else {
       console.error("Error setting up the request:", error.message);
