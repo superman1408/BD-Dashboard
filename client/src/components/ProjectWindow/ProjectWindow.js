@@ -177,7 +177,7 @@ const Dashboard = () => {
       console.error("Failed to submit the project", error);
       console.log(
         "Error details:",
-        error.response ? error.response.data : error.message
+        error.response ? error.response.data : error.message,
       );
     }
   };
@@ -259,9 +259,9 @@ const Dashboard = () => {
                               {entry.length > 0 &&
                                 entry.find(
                                   (
-                                    data //code to find particular data from different schema & match with present schema
+                                    data, //code to find particular data from different schema & match with present schema
                                   ) =>
-                                    data?.projectNumber === post?.projectNumber
+                                    data?.projectNumber === post?.projectNumber,
                                 )?.updatedAt}
                             </span>
                             {/* match each post with its corresponding entry based on an identifier like projectNumber or another unique field */}
