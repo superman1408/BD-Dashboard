@@ -154,12 +154,19 @@ const DetailedProjectPage = () => {
     }
 
     return rows.map((row) => {
-      const [description, opening, issued, received, closing, requirement] = row
-        .trim()
-        .split("::");
+      const [
+        description,
+        unit,
+        opening,
+        issued,
+        received,
+        closing,
+        requirement,
+      ] = row.trim().split("::");
 
       return {
         description,
+        unit,
         opening,
         issued,
         received,
@@ -985,6 +992,7 @@ const DetailedProjectPage = () => {
                             return materialInventoryListData.map((item, i) => {
                               const [
                                 material,
+                                unit,
                                 openingStock,
                                 issued,
                                 received,
@@ -1010,7 +1018,7 @@ const DetailedProjectPage = () => {
                                       padding: "4px",
                                     }}
                                   >
-                                    {material}
+                                    {material} ({unit})
                                   </td>
                                   <td
                                     style={{
@@ -1134,7 +1142,7 @@ const DetailedProjectPage = () => {
                                       textAlign: "center",
                                     }}
                                   >
-                                    {m.description}
+                                    {m.description} ({m.unit})
                                   </th>
                                 ))}
                             </tr>

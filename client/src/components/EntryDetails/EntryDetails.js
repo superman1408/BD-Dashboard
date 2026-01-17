@@ -66,7 +66,7 @@ const EntryDetails = () => {
           {
             method: "POST",
             body: data,
-          }
+          },
         )
           .then((res) => res.json())
           .then((data) => data.secure_url)
@@ -90,7 +90,7 @@ const EntryDetails = () => {
           formData.materialInventoryList
             ?.map(
               (m) =>
-                `${m.material}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}::${m.requirement}`
+                `${m.material}::${m.unit}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}::${m.requirement}`,
             )
             .join(", ") || "",
         materialRequiredList:

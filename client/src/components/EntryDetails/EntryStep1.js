@@ -45,7 +45,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
   const handleRemoveActivity = (index) => {
     const updatedActivities = formData.activityList.filter(
-      (_, i) => i !== index
+      (_, i) => i !== index,
     );
     setFormData({ ...formData, activityList: updatedActivities });
   };
@@ -95,6 +95,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           ...(formData.materialInventoryList || []),
           {
             material: 0,
+            unit: "",
             openingStock: 0,
             issued: 0,
             received: 0,
@@ -131,7 +132,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     switch (type) {
       case "materialInventory":
         updatedRows = formData.materialInventoryList.filter(
-          (_, i) => i !== index
+          (_, i) => i !== index,
         );
         setFormData((prev) => ({
           ...prev,
@@ -141,7 +142,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
       case "materialRequirement":
         updatedRows = formData.materialRequiredList.filter(
-          (_, i) => i !== index
+          (_, i) => i !== index,
         );
         setFormData((prev) => ({ ...prev, materialRequiredList: updatedRows }));
         break;
@@ -162,6 +163,18 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     { label: "Cover Block (Packets)" },
     { label: "Wood Cutting Blade (Nos.)" },
     { label: "Rod Cutting Blade (Nos.)" },
+    { label: "Others" },
+  ];
+
+  const unitOptions = [
+    { label: "Bag" },
+    { label: "CFT" },
+    { label: "Ton" },
+    { label: "Kg" },
+    { label: "Nos." },
+    { label: "Bundle" },
+    { label: "Packet" },
+    { label: "sq.ft" },
     { label: "Others" },
   ];
 
@@ -280,8 +293,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                       item.status === "In Progress"
                         ? "orange"
                         : item.status === "Completed"
-                        ? "green"
-                        : "transparent",
+                          ? "green"
+                          : "transparent",
                     color: item.status ? "white" : "black",
                     padding: "2px 8px",
                     borderRadius: "4px",
@@ -370,8 +383,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           <Table bordered hover className="align-middle">
             <thead>
               <tr>
-                <th style={{ width: "80px" }}>S.No</th>
                 <th>Material Description</th>
+                <th style={{ width: "120px" }}>Unit</th>
                 <th style={{ width: "120px" }}>Opening Stock</th>
                 <th style={{ width: "120px" }}>Issued</th>
                 <th style={{ width: "120px" }}>Received</th>
@@ -382,24 +395,24 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
             <tbody>
               {(formData.materialInventoryList || []).map((row, index) => (
                 <tr key={index}>
-                  <td>
+                  {/* <td>
                     <Form.Control type="text" value={index + 1} readOnly />
-                  </td>
+                  </td> */}
                   <td>
-                    {/* <Form.Control
-                    type="text"
-                    value={row.description}
-                    onChange={(e) =>
-                      handleRowChange(
-                        "materialInventory",
-                        index,
-                        "description",
-                        e.target.value
-                      )
-                    }
-                  /> */}
+                    <Form.Control
+                      type="text"
+                      value={row.materialInventory}
+                      onChange={(e) =>
+                        handleRowChange(
+                          "materialInventory",
+                          index,
+                          "material",
+                          e.target.value,
+                        )
+                      }
+                    />
 
-                    <Form.Select
+                    {/* <Form.Select
                       size="sm"
                       value={row.material}
                       onChange={(e) =>
@@ -417,8 +430,31 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                           {m.label}
                         </option>
                       ))}
+                    </Form.Select> */}
+                  </td>
+
+                  <td>
+                    <Form.Select
+                      size="sm"
+                      value={row.unit}
+                      onChange={(e) =>
+                        handleRowChange(
+                          "materialInventory",
+                          index,
+                          "unit",
+                          e.target.value,
+                        )
+                      }
+                    >
+                      <option value="">Select Unit</option>
+                      {unitOptions.map((m, i) => (
+                        <option key={i} value={m.label}>
+                          {m.label}
+                        </option>
+                      ))}
                     </Form.Select>
                   </td>
+
                   <td>
                     <Form.Control
                       type="number"
@@ -430,7 +466,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                           "materialInventory",
                           index,
                           "openingStock",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                     />
@@ -465,7 +501,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                             "materialInventory",
                             index,
                             "issued",
-                            e.target.value
+                            e.target.value,
                           )
                         }
                       />
@@ -480,7 +516,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                           "materialInventory",
                           index,
                           "received",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                     />
@@ -494,7 +530,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                           "materialInventory",
                           index,
                           "requirement",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                     />
@@ -524,21 +560,41 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                 <tbody>
                   <tr>
                     <th style={{ width: "40%" }}>Material</th>
+
                     <td>
-                      <Form.Select
-                        size="sm"
-                        value={row.material}
+                      <Form.Control
+                        type="text"
+                        value={row.materialInventory}
                         onChange={(e) =>
                           handleRowChange(
                             "materialInventory",
                             index,
                             "material",
-                            e.target.value
+                            e.target.value,
+                          )
+                        }
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>Unit</th>
+
+                    <td>
+                      <Form.Select
+                        size="sm"
+                        value={row.unit}
+                        onChange={(e) =>
+                          handleRowChange(
+                            "materialInventory",
+                            index,
+                            "unit",
+                            e.target.value,
                           )
                         }
                       >
-                        <option value="">Select Material</option>
-                        {materialOptions.map((m, i) => (
+                        <option value="">Select Unit</option>
+                        {unitOptions.map((m, i) => (
                           <option key={i} value={m.label}>
                             {m.label}
                           </option>
@@ -547,6 +603,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                     </td>
                   </tr>
 
+                  
                   <tr>
                     <th>Opening Stock</th>
                     <td>
@@ -559,7 +616,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                             "materialInventory",
                             index,
                             "openingStock",
-                            e.target.value
+                            e.target.value,
                           )
                         }
                       />
@@ -578,7 +635,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                             "materialInventory",
                             index,
                             "issued",
-                            e.target.value
+                            e.target.value,
                           )
                         }
                       />
@@ -597,7 +654,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                             "materialInventory",
                             index,
                             "received",
-                            e.target.value
+                            e.target.value,
                           )
                         }
                       />
@@ -616,7 +673,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                             "materialInventory",
                             index,
                             "requirement",
-                            e.target.value
+                            e.target.value,
                           )
                         }
                       />
