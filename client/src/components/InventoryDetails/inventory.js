@@ -47,16 +47,67 @@ export default function InventoryForm() {
   //   signature: "",
   // });
 
+  const materialUnitMap = {
+  Rod: ["Kg", "Ton", "Nos"],
+  Cement: ["Bag", "Kg"],
+  Bricks: ["Nos"],
+  Sand: ["CFT", "Ton"],
+  Aggregate: ["CFT", "Ton"],
+  "Binding wire": ["Kg"],
+  Nails: ["Kg", "Packets"],
+  "Cover block": ["Nos"],
+  "Wood cutting blade": ["Pieces"],
+  "Rod cuttting blade": ["Pieces"],
+  Other: ["Kg", "Nos", "Pieces"],
+};
+
+
+  // const handleAddActivity = () => {
+  //   if (inputValue.trim() === "") return;
+  //   const newActivity = { text: inputValue, image: imageFile, status: status };
+  //   const updatedActivities = [...(formData.activityList || []), newActivity];
+  //   setFormData({ ...formData, activityList: updatedActivities });
+  //   setInputValue("");
+  //   setImageFile(null);
+  //   setStatus("");
+  //   setShow(false);
+  // };
+
   const handleAddActivity = () => {
-    if (inputValue.trim() === "") return;
-    const newActivity = { text: inputValue, image: imageFile, status: status };
-    const updatedActivities = [...(formData.activityList || []), newActivity];
-    setFormData({ ...formData, activityList: updatedActivities });
-    setInputValue("");
-    setImageFile(null);
-    setStatus("");
-    setShow(false);
+  if (!material || !quantity || !unit) return;
+
+  // ✅ Timestamp captured EXACTLY on submit
+  const submittedAt = new Date().toISOString(); // backend-ready
+  const displayTime = new Date(submittedAt).toLocaleString("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  const newActivity = {
+    material,
+    quantity,
+    unit,
+    remarks,
+    status,
+    image: imageFile,
+
+    submittedAt,   // ISO format (for DB / backend)
+    displayTime,   // Readable format (for UI)
   };
+
+  const updatedActivities = [...(formData.activityList || []), newActivity];
+  setFormData({ ...formData, activityList: updatedActivities });
+
+  // reset form after submit
+  setMaterial("");
+  setQuantity("");
+  setUnit("");
+  setRemarks("");
+  setStatus("");
+  setImageFile(null);
+  setShow(false);
+};
+
 
 
   const handleRemoveActivity = (index) => {
@@ -143,32 +194,51 @@ export default function InventoryForm() {
         <Form>
           {/* Material ComboBox */}
             {/* Material + Unit */}
-    <Row>
-      <Col md={6}>
-        <Form.Group className="mb-3">
-          <Form.Label>Material Name</Form.Label>
-          <Form.Select
-            value={material}
-            onChange={(e) => setMaterial(e.target.value)}
-          >
-            <option value="">Select Material</option>
-            <option value="Rod">Rod</option>
-            <option value="Cement">Cement</option>
-            <option value="Bricks">Bricks</option>
-            <option value="Sand">Sand</option>
-            <option value="Aggregate">Aggregate</option>
-            <option value="Binding wire">Binding wire</option>
-            <option value="Nails">Nails</option>
-            <option value="Cover block">Cover block</option>
-            <option value="Wood cutting blade">Wood cutting blade</option>
-            <option value="Rod cuttting blade">Rod cuttting blade</option>
-            <option value="Other">Other</option>
-          </Form.Select>
-        </Form.Group>
-      </Col>
+        <Row>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Material Name</Form.Label>
+              <Form.Select
+                value={material}
+                onChange={(e) => {
+                  setMaterial(e.target.value);
+                  setUnit(""); // reset unit when material changes
+                }}
+              >
 
-      <Col md={6}>
-        <Form.Group className="mb-3">
+                <option value="">Select Material</option>
+                <option value="Rod">Rod</option>
+                <option value="Cement">Cement</option>
+                <option value="Bricks">Bricks</option>
+                <option value="Sand">Sand</option>
+                <option value="Aggregate">Aggregate</option>
+                <option value="Binding wire">Binding wire</option>
+                <option value="Nails">Nails</option>
+                <option value="Cover block">Cover block</option>
+                <option value="Wood cutting blade">Wood cutting blade</option>
+                <option value="Rod cuttting blade">Rod cuttting blade</option>
+                <option value="Other">Other</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+
+          <Col md={6}>
+            {/* Quantity Received */}
+              <Form.Group className="mb-3">
+                <Form.Label>Quantity Received</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Enter quantity"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+              </Form.Group>
+          </Col>
+        </Row>
+
+         
+      {/* Unit */}
+        {/* <Form.Group className="mb-3">
           <Form.Label>Unit</Form.Label>
           <Form.Select
             value={unit}
@@ -183,35 +253,39 @@ export default function InventoryForm() {
             <option value="Packets">Packets</option>
             <option value="Pieces">Pieces</option>
           </Form.Select>
-        </Form.Group>
-      </Col>
-    </Row>
+         </Form.Group> */}
 
-          {/* Quantity Received */}
-          <Form.Group className="mb-3">
-            <Form.Label>Quantity Received</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
-          </Form.Group>
+         <Form.Group className="mb-3">
+        <Form.Label>Unit</Form.Label>
+        <Form.Select
+          value={unit}
+          onChange={(e) => setUnit(e.target.value)}
+          disabled={!material}
+        >
+          <option value="">Select Unit</option>
+
+          {["Kg", "Ton", "Bag", "Nos", "CFT", "Packets", "Pieces"].map(
+            (u) => (
+              <option
+                key={u}
+                value={u}
+                disabled={
+                  material &&
+                  !materialUnitMap[material]?.includes(u)
+                }
+              >
+                {u}
+              </option>
+            )
+          )}
+        </Form.Select>
+      </Form.Group>
 
 
-      {/* Vendor / Invoice */}
-          <Form.Group className="mb-3">
-            <Form.Label>Vendor / Invoice No</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter vendor or invoice number"
-              value={vendor}
-              onChange={(e) => setVendor(e.target.value)}
-            />
-          </Form.Group>
+      
 
           {/* Image Upload */}
-          <Form.Group className="mb-3">
+          {/* <Form.Group className="mb-3">
             <Form.Label>Upload Challan / Material Image</Form.Label>
             <Form.Control
               type="file"
@@ -227,7 +301,7 @@ export default function InventoryForm() {
                 style={{ width: "120px", borderRadius: "6px" }}
               />
             )}
-          </Form.Group>
+          </Form.Group> */}
 
           {/* Status */}
           {/* <Form.Group className="mb-3">
@@ -241,20 +315,42 @@ export default function InventoryForm() {
               <option value="Completed">Completed</option>
             </Form.Select>
           </Form.Group> */}
+          
 
           {/* Remarks */}
-          <Form.Group>
-            <Form.Label>Remarks</Form.Label>
+            <Form.Group>
+              <Form.Label>Remarks</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                placeholder="Optional remarks"
+                value={remarks}
+                onChange={(e) => setRemarks(e.target.value)}
+              />
+            </Form.Group>
+
+            {/* Received by */}
+          <Form.Group className="mb-3">
+            <Form.Label>Received By</Form.Label>
             <Form.Control
-              as="textarea"
-              rows={2}
-              placeholder="Optional remarks"
-              value={remarks}
-              onChange={(e) => setRemarks(e.target.value)}
+              type="text"
+              placeholder="Received By"
+              value={vendor}
+              onChange={(e) => setVendor(e.target.value)}
             />
           </Form.Group>
-        </Form>
-      </Modal.Body>
+
+          <Form.Group className="mb-2">
+          <Form.Label>Time</Form.Label>
+          <Form.Control
+            type="text"
+            value={new Date().toLocaleString("en-IN")}
+            disabled
+          />
+        </Form.Group>
+
+          </Form>
+        </Modal.Body>
 
           <Modal.Footer className="d-flex justify-content-between">
             <Button variant="secondary" onClick={() => setShow(false)}>
