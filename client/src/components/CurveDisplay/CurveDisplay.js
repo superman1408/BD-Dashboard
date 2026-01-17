@@ -33,13 +33,7 @@ const CurveDisplay = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  // const [formData, setFormData] = useState({
-  // growthRate:"0.3",
-  // })
-
   const posts = useSelector((state) => state.posts);
-
-  console.log(posts);
 
   const handleOpen = (type, post) => {
     setModalType(type);
@@ -117,10 +111,6 @@ const CurveDisplay = () => {
       // FIXED HERE ✔
       const projectStart = new Date(existingPost.commencementDate);
 
-      console.log("RAW:", existingPost.commencementDate);
-      console.log("PARSED:", new Date(existingPost.commencementDate));
-      console.log("MONTH:", new Date(existingPost.commencementDate).getMonth());
-
       const startMonth = isNaN(projectStart.getTime())
         ? 0
         : projectStart.getMonth();
@@ -146,8 +136,6 @@ const CurveDisplay = () => {
     }
 
     if (modalType === "task") {
-      console.log("Task Data:", formData.totalTask);
-
       const updatedData = {
         ...existingPost,
         totalTask: Number(formData.totalTask),
@@ -168,7 +156,7 @@ const CurveDisplay = () => {
   return (
     <>
       <div className="mb-8">
-        {posts.map((post, index) => {
+        {posts.map((post) => {
           const isoDate = post?.updatedAt;
           const options = {
             year: "numeric",
@@ -183,7 +171,7 @@ const CurveDisplay = () => {
 
           const formattedDate = new Intl.DateTimeFormat(
             "en-US",
-            options
+            options,
           ).format(new Date(isoDate));
 
           if (post.projectNumber === id) {
@@ -267,7 +255,7 @@ const CurveDisplay = () => {
                       <span className="font-semibold">
                         {post.currentTaskDone?.reduce(
                           (a, c) => a + Number(c.value),
-                          0
+                          0,
                         )}
                       </span>
                       <span> of </span>
@@ -281,7 +269,7 @@ const CurveDisplay = () => {
                       {(
                         post.currentTaskDone?.reduce(
                           (a, c) => a + Number(c.value),
-                          0
+                          0,
                         ) / post.currentTaskDone?.length
                       ).toFixed(2)}
                     </span>

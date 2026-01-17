@@ -136,6 +136,51 @@ const DetailedProjectPage = () => {
     navigate(-1); // this means "go back one step in history"
   };
 
+  const parseMaterialInventory = (materialInventoryList) => {
+    if (!materialInventoryList) return [];
+
+    let rows = [];
+
+    // Case 1: string
+    if (typeof materialInventoryList === "string") {
+      rows = materialInventoryList.split(",");
+    }
+
+    // Case 2: array
+    else if (Array.isArray(materialInventoryList)) {
+      if (typeof materialInventoryList[0] === "string") {
+        rows = materialInventoryList[0].split(",");
+      }
+    }
+
+    return rows.map((row) => {
+      const [description, opening, issued, received, closing, requirement] = row
+        .trim()
+        .split("::");
+
+      return {
+        description,
+        opening,
+        issued,
+        received,
+        closing,
+        requirement,
+      };
+    });
+  };
+
+  const rowTitleStyle = {
+    border: "1px solid black",
+    padding: "4px",
+    fontWeight: "bold",
+  };
+
+  const cellStyle = {
+    border: "1px solid black",
+    padding: "4px",
+    textAlign: "center",
+  };
+
   return (
     <div>
       <div>
@@ -249,7 +294,7 @@ const DetailedProjectPage = () => {
                             fontSize: "12px", // smaller text
                           }}
                         >
-                          {filteredData.length > 0 ? (
+                          {/* {filteredData.length > 0 ? (
                             filteredData.map((entry, index) => (
                               <tr key={index}>
                                 <tbody>
@@ -263,16 +308,7 @@ const DetailedProjectPage = () => {
                                       Date: {entry?.date}
                                     </td>
                                   </tr>
-                                  {/* <tr>
-                                    <td
-                                      style={{
-                                        borderBottom: "1px solid black",
-                                        padding: "4px",
-                                      }}
-                                    >
-                                      Location: Ranchi
-                                    </td>
-                                  </tr> */}
+                                  
                                   <tr>
                                     <td
                                       style={{
@@ -288,7 +324,22 @@ const DetailedProjectPage = () => {
                             ))
                           ) : (
                             <p>No data</p>
-                          )}
+                          )} */}
+
+                          <tbody>
+                            {filteredData.map((entry) => (
+                              <React.Fragment
+                                key={`${entry.projectNumber}-${entry.date}`}
+                              >
+                                <tr>
+                                  <td>Date: {entry.date}</td>
+                                </tr>
+                                <tr>
+                                  <td>Project Number: {entry.projectNumber}</td>
+                                </tr>
+                              </React.Fragment>
+                            ))}
+                          </tbody>
                         </table>
                       </td>
                     </tr>
@@ -338,7 +389,7 @@ const DetailedProjectPage = () => {
                     )}
                     {filteredData.length > 0 ? (
                       filteredData.map((entry, index) => (
-                        <tr>
+                        <tr key={index}>
                           <td
                             style={{
                               border: "1px solid black",
@@ -576,14 +627,11 @@ const DetailedProjectPage = () => {
                       }}
                     >
                       <colgroup>
-                        <col style={{ width: "10px" }} /> {/* S.No */}
-                        <col
-                          style={{ width: "600px" }}
-                        /> {/* Activities */} <col style={{ width: "200px" }} />
-                        {/*  */}
+                        <col style={{ width: "10px" }} />
+                        <col style={{ width: "600px" }} />
+                        <col style={{ width: "200px" }} />
                         <col style={{ width: "450px" }} />
-                        {/* Related Images */}
-                        <col style={{ width: "250px" }} /> {/* Status */}
+                        <col style={{ width: "250px" }} />
                       </colgroup>
                       <thead>
                         <tr>
@@ -623,6 +671,7 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Quantity
@@ -632,6 +681,7 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Related Image
@@ -641,6 +691,7 @@ const DetailedProjectPage = () => {
                               border: "1px solid black",
                               padding: "4px",
                               backgroundColor: "#e9eef4",
+                              textAlign: "center",
                             }}
                           >
                             Status
@@ -668,14 +719,14 @@ const DetailedProjectPage = () => {
                                 .map((item) => item.trim());
                             } else if (Array.isArray(entry.activityList[0])) {
                               activityListData = entry.activityList[0].map(
-                                (item) => item.trim()
+                                (item) => item.trim(),
                               );
                             } else if (
                               typeof entry.activityList[0] === "object" &&
                               entry.activityList[0] !== null
                             ) {
                               activityListData = Object.entries(
-                                entry.activityList[0]
+                                entry.activityList[0],
                               ).map(([key, value]) => `${key}: ${value}`);
                             }
                           } else if (typeof entry.activityList === "string") {
@@ -768,8 +819,8 @@ const DetailedProjectPage = () => {
                                       status === "In Progress"
                                         ? "orange"
                                         : status === "Completed"
-                                        ? "#006400"
-                                        : "transparent",
+                                          ? "#006400"
+                                          : "transparent",
                                     // color: status ? "white" : "black",
                                   }}
                                 >
@@ -784,214 +835,390 @@ const DetailedProjectPage = () => {
 
                     <br />
 
-                    <table
-                      className="dpr-table"
-                      style={{
-                        padding: "4px",
-                        borderCollapse: "collapse",
-                        border: "1px solid black",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        width: "100%",
-                        maxWidth: "800px",
-                      }}
-                    >
-                      <colgroup>
-                        <col style={{ width: "60px" }} /> {/* S.No */}
-                        <col style={{ width: auto }} /> {/* Activities */}
-                        <col style={{ width: "100px" }} /> {/* Status */}
-                        <col style={{ width: "100px" }} /> {/* Activities */}
-                        <col style={{ width: "100px" }} /> {/* Status */}
-                        <col style={{ width: "100px" }} /> {/* Status */}
-                      </colgroup>
-                      <thead>
-                        <tr>
-                          <th
-                            colSpan="6"
-                            style={{
-                              textAlign: "left",
-                              padding: "4px",
-                              backgroundColor: "#0d325c",
-                              color: "white",
-                            }}
-                          >
-                            MATERIAL INVENTORY
-                          </th>
-                        </tr>
-                        <tr>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                            }}
-                          >
-                            S.No
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                            }}
-                          >
-                            Description
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Opening Stock
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Issued
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Received
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Closing Stock
-                          </th>
-                        </tr>
-                      </thead>
+                    <div className="hide-mobile">
+                      <table
+                        className="dpr-table"
+                        style={{
+                          padding: "4px",
+                          borderCollapse: "collapse",
+                          border: "1px solid black",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          width: "100%",
+                          maxWidth: "800px",
+                        }}
+                      >
+                        <colgroup>
+                          <col style={{ width: "60px" }} />
+                          <col style={{ width: auto }} />
+                          <col style={{ width: "100px" }} />
+                          <col style={{ width: "100px" }} />
+                          <col style={{ width: "100px" }} />
+                          <col style={{ width: "100px" }} />
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th
+                              colSpan="7"
+                              style={{
+                                textAlign: "left",
+                                padding: "4px",
+                                backgroundColor: "#0d325c",
+                                color: "white",
+                              }}
+                            >
+                              MATERIAL INVENTORY
+                            </th>
+                          </tr>
+                          <tr>
+                            <th
+                              className="hide-mobile"
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                              }}
+                            >
+                              S.No
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                              }}
+                            >
+                              Description
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Opening Stock
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Issued
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Received
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Closing Stock
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Requirement
+                            </th>
+                          </tr>
+                        </thead>
 
-                      <tbody>
-                        {filteredData?.map((entry, index) => {
-                          let materialInventoryListData = [];
+                        <tbody>
+                          {filteredData?.map((entry, index) => {
+                            let materialInventoryListData = [];
 
-                          // Normalize procurementList into an array of "Description: Quantity"
-                          if (Array.isArray(entry.materialInventoryList)) {
-                            if (
-                              typeof entry.materialInventoryList[0] === "string"
+                            // Normalize procurementList into an array of "Description: Quantity"
+                            if (Array.isArray(entry.materialInventoryList)) {
+                              if (
+                                typeof entry.materialInventoryList[0] ===
+                                "string"
+                              ) {
+                                materialInventoryListData =
+                                  entry.materialInventoryList[0]
+                                    .split(",")
+                                    .map((item) => item.trim());
+                              } else if (
+                                Array.isArray(entry.materialInventoryList[0])
+                              ) {
+                                materialInventoryListData =
+                                  entry.materialInventoryList[0].map((item) =>
+                                    item.trim(),
+                                  );
+                              } else if (
+                                typeof entry.materialInventoryList[0] ===
+                                  "object" &&
+                                entry.materialInventoryList[0] !== null
+                              ) {
+                                materialInventoryListData = Object.entries(
+                                  entry.materialInventoryList[0],
+                                ).map(([key, value]) => `${key}: ${value}`);
+                              }
+                            } else if (
+                              typeof entry.materialInventoryList === "string"
                             ) {
                               materialInventoryListData =
-                                entry.materialInventoryList[0]
+                                entry.materialInventoryList
                                   .split(",")
                                   .map((item) => item.trim());
-                            } else if (
-                              Array.isArray(entry.materialInventoryList[0])
-                            ) {
-                              materialInventoryListData =
-                                entry.materialInventoryList[0].map((item) =>
-                                  item.trim()
-                                );
-                            } else if (
-                              typeof entry.materialInventoryList[0] ===
-                                "object" &&
-                              entry.materialInventoryList[0] !== null
-                            ) {
-                              materialInventoryListData = Object.entries(
-                                entry.materialInventoryList[0]
-                              ).map(([key, value]) => `${key}: ${value}`);
                             }
-                          } else if (
-                            typeof entry.materialInventoryList === "string"
-                          ) {
-                            materialInventoryListData =
-                              entry.materialInventoryList
-                                .split(",")
-                                .map((item) => item.trim());
-                          }
 
-                          return materialInventoryListData.map((item, i) => {
-                            const [
-                              materialOptions,
-                              openingStock,
-                              issued,
-                              received,
-                              closingStock,
-                            ] = item.split("::");
+                            return materialInventoryListData.map((item, i) => {
+                              const [
+                                material,
+                                openingStock,
+                                issued,
+                                received,
+                                closingStock,
+                                requirement,
+                              ] = item.split("::");
 
-                            return (
-                              <tr key={`${index}-${i}`}>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {i + 1}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                  }}
-                                >
-                                  {materialOptions}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {openingStock}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {issued}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {received || ""}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {closingStock}
-                                </td>
-                              </tr>
-                            );
-                          });
-                        })}
-                      </tbody>
-                    </table>
-
+                              return (
+                                <tr key={`${index}-${i}`}>
+                                  <td
+                                    className="hide-mobile"
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {i + 1}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                    }}
+                                  >
+                                    {material}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {openingStock}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {issued}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {received || ""}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {closingStock}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {requirement}
+                                  </td>
+                                </tr>
+                              );
+                            });
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
                     <br />
 
-                    <table
+                    {/* Mobile Resolution*/}
+
+                    <div className="hide-desktop">
+                      <div
+                        style={{
+                          width: "100%",
+                          maxWidth: "800px",
+                          overflowX: "auto",
+                          margin: "0 auto",
+                        }}
+                      >
+                        <table
+                          className="dpr-table"
+                          style={{
+                            padding: "4px",
+                            borderCollapse: "collapse",
+                            border: "1px solid black",
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            width: "100%",
+                            maxWidth: "800px",
+                          }}
+                        >
+                          <thead>
+                            <tr>
+                              <th
+                                colSpan={
+                                  filteredData?.[0]
+                                    ? parseMaterialInventory(
+                                        filteredData[0].materialInventoryList,
+                                      ).length + 1
+                                    : 1
+                                }
+                                style={{
+                                  textAlign: "left",
+                                  padding: "4px",
+                                  backgroundColor: "#0d325c",
+                                  color: "white",
+                                }}
+                              >
+                                MATERIAL INVENTORY
+                              </th>
+                            </tr>
+
+                            <tr>
+                              <th
+                                style={{
+                                  border: "1px solid black",
+                                  backgroundColor: "#e9eef4",
+                                  padding: "4px",
+                                }}
+                              >
+                                Description
+                              </th>
+
+                              {filteredData?.[0] &&
+                                parseMaterialInventory(
+                                  filteredData[0].materialInventoryList,
+                                ).map((m, i) => (
+                                  <th
+                                    key={i}
+                                    style={{
+                                      border: "1px solid black",
+                                      backgroundColor: "#e9eef4",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {m.description}
+                                  </th>
+                                ))}
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            {filteredData?.map((entry, index) => {
+                              const materials = parseMaterialInventory(
+                                entry.materialInventoryList,
+                              );
+
+                              if (materials.length === 0) return null;
+
+                              return (
+                                <React.Fragment key={`entry-${index}`}>
+                                  <tr key={`opening-${index}`}>
+                                    <td style={rowTitleStyle}>Opening Stock</td>
+                                    {materials.map((m, i) => (
+                                      <td
+                                        key={`opening-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
+                                        {m.opening}
+                                      </td>
+                                    ))}
+                                  </tr>
+
+                                  <tr key={`issued-${index}`}>
+                                    <td style={rowTitleStyle}>Issued</td>
+                                    {materials.map((m, i) => (
+                                      <td
+                                        key={`issued-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
+                                        {m.issued}
+                                      </td>
+                                    ))}
+                                  </tr>
+
+                                  <tr key={`received-${index}`}>
+                                    <td style={rowTitleStyle}>Received</td>
+                                    {materials.map((m, i) => (
+                                      <td
+                                        key={`received-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
+                                        {m.received}
+                                      </td>
+                                    ))}
+                                  </tr>
+
+                                  <tr key={`closing-${index}`}>
+                                    <td style={rowTitleStyle}>Closing Stock</td>
+                                    {materials.map((m, i) => (
+                                      <td
+                                        key={`closing-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
+                                        {m.closing}
+                                      </td>
+                                    ))}
+                                  </tr>
+
+                                  <tr key={`requirement-${index}`}>
+                                    <td style={rowTitleStyle}>Requirement</td>
+                                    {materials.map((m, i) => (
+                                      <td
+                                        key={`requirement-${index}-${i}`}
+                                        style={cellStyle}
+                                      >
+                                        {m.requirement}
+                                      </td>
+                                    ))}
+                                  </tr>
+                                </React.Fragment>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                      <br />
+                    </div>
+
+                    {/* <table
                       className="dpr-table"
                       style={{
                         padding: "4px",
@@ -1002,13 +1229,13 @@ const DetailedProjectPage = () => {
                         width: "100%",
                         maxWidth: "800px",
                       }}
-                    >
-                      <colgroup>
-                        <col style={{ width: "60px" }} /> {/* S.No */}
-                        <col style={{ width: auto }} /> {/* Activities */}
-                        <col style={{ width: "250px" }} /> {/* Status */}
-                      </colgroup>
-                      <thead>
+                    > */}
+                    {/* <colgroup>
+                        <col style={{ width: "60px" }} />
+                        <col style={{ width: auto }} />
+                        <col style={{ width: "250px" }} />
+                      </colgroup> */}
+                    {/* <thead>
                         <tr>
                           <th
                             colSpan="4"
@@ -1049,8 +1276,8 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Quantity Required
-                          </th>
-                          {/* <th
+                          </th> */}
+                    {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "8px",
@@ -1058,14 +1285,13 @@ const DetailedProjectPage = () => {
                           >
                             Remark
                           </th> */}
-                        </tr>
-                      </thead>
+                    {/* </tr>
+                      </thead> */}
 
-                      <tbody>
+                    {/* <tbody>
                         {filteredData?.map((entry, index) => {
                           let materialRequiredListData = [];
 
-                          // Normalize procurementList into an array of "Description: Quantity"
                           if (Array.isArray(entry.materialRequiredList)) {
                             if (
                               typeof entry.materialRequiredList[0] === "string"
@@ -1133,12 +1359,10 @@ const DetailedProjectPage = () => {
                             );
                           });
                         })}
-                      </tbody>
-                    </table>
+                      </tbody> */}
+                    {/* </table> */}
 
-                    <br />
-
-                    <table
+                    {/* <table
                       className="dpr-table"
                       style={{
                         padding: "4px",
@@ -1149,16 +1373,16 @@ const DetailedProjectPage = () => {
                         width: "100%",
                         maxWidth: "800px",
                       }}
-                    >
-                      <colgroup>
-                        <col style={{ width: "60px" }} /> {/* S.No */}
-                        <col style={{ width: auto }} /> {/* Activities */}
-                        <col style={{ width: "200px" }} /> {/* Activities */}
-                        <col style={{ width: "150px" }} /> {/* Status */}
-                      </colgroup>
-                      <thead>
-                        <tr>
-                          <th
+                    > */}
+                    {/* <colgroup>
+                        <col style={{ width: "60px" }} />
+                        <col style={{ width: auto }} />
+                        <col style={{ width: "200px" }} />
+                        <col style={{ width: "150px" }} />
+                      </colgroup> */}
+                    {/* <thead> */}
+                    {/* <tr> */}
+                    {/* <th
                             colSpan="4"
                             style={{
                               textAlign: "left",
@@ -1168,10 +1392,10 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             PROCUREMENT LIST
-                          </th>
-                        </tr>
-                        <tr>
-                          <th
+                          </th> */}
+                    {/* </tr> */}
+                    {/* <tr> */}
+                    {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "4px",
@@ -1179,8 +1403,8 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             S.No
-                          </th>
-                          <th
+                          </th> */}
+                    {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "4px",
@@ -1188,8 +1412,8 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Description
-                          </th>
-                          <th
+                          </th> */}
+                    {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "4px",
@@ -1197,8 +1421,8 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Vendor / Petty Cash
-                          </th>
-                          <th
+                          </th> */}
+                    {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "4px",
@@ -1206,15 +1430,14 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Quantity Procured
-                          </th>
-                        </tr>
-                      </thead>
+                          </th> */}
+                    {/* </tr> */}
+                    {/* </thead> */}
 
-                      <tbody>
+                    {/* <tbody>
                         {filteredData?.map((entry, index) => {
                           let procurementListData = [];
 
-                          // Normalize procurementList into an array of "Description: Quantity"
                           if (Array.isArray(entry.procurementList)) {
                             if (typeof entry.procurementList[0] === "string") {
                               procurementListData = entry.procurementList[0]
@@ -1287,12 +1510,10 @@ const DetailedProjectPage = () => {
                             );
                           });
                         })}
-                      </tbody>
-                    </table>
+                      </tbody> */}
+                    {/* </table> */}
 
-                    <br />
-
-                    <table
+                    {/* <table
                       className="dpr-table"
                       style={{
                         padding: "4px",
@@ -1303,13 +1524,13 @@ const DetailedProjectPage = () => {
                         width: "100%",
                         maxWidth: "800px",
                       }}
-                    >
-                      <colgroup>
-                        <col style={{ width: "60px" }} /> {/* S.No */}
-                        <col style={{ width: auto }} /> {/* Activities */}
-                        <col style={{ width: "250px" }} /> {/* Status */}
-                      </colgroup>
-                      <thead>
+                    > */}
+                    {/* <colgroup>
+                        <col style={{ width: "60px" }} /> 
+                        <col style={{ width: auto }} /> 
+                        <col style={{ width: "250px" }} /> 
+                      </colgroup> */}
+                    {/* <thead>
                         <tr>
                           <th
                             colSpan="3"
@@ -1352,13 +1573,12 @@ const DetailedProjectPage = () => {
                             Completed Status
                           </th>
                         </tr>
-                      </thead>
+                      </thead> */}
 
-                      <tbody>
+                    {/* <tbody>
                         {filteredData?.map((entry, index) => {
                           let plannedWorkListData = [];
 
-                          // Normalize procurementList into an array of "Description: Quantity"
                           if (Array.isArray(entry.plannedWorkList)) {
                             if (typeof entry.plannedWorkList[0] === "string") {
                               plannedWorkListData = entry.plannedWorkList[0]
@@ -1388,7 +1608,8 @@ const DetailedProjectPage = () => {
                           }
 
                           return plannedWorkListData.map((item, i) => {
-                            const [description, quantity] = item.split(":");
+                            // const [description, quantity] = item.split(":");
+                            const description = item;
                             return (
                               <tr key={`${index}-${i}`}>
                                 <td
@@ -1407,8 +1628,8 @@ const DetailedProjectPage = () => {
                                   }}
                                 >
                                   {description}
-                                </td>
-                                <td
+                                </td> */}
+                    {/* <td
                                   style={{
                                     border: "1px solid black",
                                     padding: "4px",
@@ -1416,15 +1637,13 @@ const DetailedProjectPage = () => {
                                   }}
                                 >
                                   {quantity}
-                                </td>
-                              </tr>
+                                </td> */}
+                    {/* </tr>
                             );
                           });
                         })}
-                      </tbody>
-                    </table>
-
-                    <br />
+                      </tbody> */}
+                    {/* </table> */}
 
                     <table
                       style={{
@@ -1498,14 +1717,14 @@ const DetailedProjectPage = () => {
                                     .map((item) => item.trim());
                                 } else if (Array.isArray(entry.attendance[0])) {
                                   attendanceData = entry.attendance[0].map(
-                                    (item) => item.trim()
+                                    (item) => item.trim(),
                                   );
                                 } else if (
                                   typeof entry.attendance[0] === "object" &&
                                   entry.attendance[0] !== null
                                 ) {
                                   attendanceData = Object.entries(
-                                    entry.attendance[0]
+                                    entry.attendance[0],
                                   ).map(([key, value]) => `${key}: ${value}`);
                                 }
                               } else if (typeof entry.attendance === "string") {
@@ -1520,11 +1739,11 @@ const DetailedProjectPage = () => {
                                     .find((a) =>
                                       a
                                         .toLowerCase()
-                                        .startsWith(label.toLowerCase())
+                                        .startsWith(label.toLowerCase()),
                                     )
                                     ?.split(":")[1]
                                     ?.trim() || "0",
-                                  10
+                                  10,
                                 );
 
                               const rows = [
@@ -1551,7 +1770,7 @@ const DetailedProjectPage = () => {
                               // Add this entry's total to grand total
                               grandTotal += rows.reduce(
                                 (sum, row) => sum + row.value,
-                                0
+                                0,
                               );
 
                               // Return table rows for this entry
@@ -1576,7 +1795,7 @@ const DetailedProjectPage = () => {
                                   </td>
                                 </tr>
                               ));
-                            }
+                            },
                           );
 
                           return (
@@ -1686,12 +1905,12 @@ const DetailedProjectPage = () => {
                         )}
                       </tbody>
                     </table>
+                    <div className="print-footer">
+                      Printed on: {new Date().toLocaleString()}
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
-              <div style={{ padding: "10px" }} className="print-footer">
-                Printed on: {new Date().toLocaleString()}
-              </div>
             </div>
           </Card>
 

@@ -210,19 +210,17 @@ const LineGraph = ({
   const projectEnd = new Date(dateEnd);
   const today = new Date();
 
-  console.log("workCompleted", workCompleted);
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const durationDays = Math.floor(
-    (projectEnd - projectStart) / (1000 * 3600 * 24)
+    (projectEnd - projectStart) / (1000 * 3600 * 24),
   );
   const durationMonths =
     (projectEnd.getFullYear() - projectStart.getFullYear()) * 12 +
     (projectEnd.getMonth() - projectStart.getMonth());
 
   const currentMonthIndex = Math.floor(
-    (today - projectStart) / (1000 * 3600 * 24 * 30)
+    (today - projectStart) / (1000 * 3600 * 24 * 30),
   );
 
   const userInput = Array.isArray(workCompleted) ? workCompleted : [];
@@ -233,7 +231,7 @@ const LineGraph = ({
     const d = new Date(projectStart);
     d.setMonth(projectStart.getMonth() + i);
     monthLabels.push(
-      d.toLocaleString("default", { month: "short", year: "2-digit" })
+      d.toLocaleString("default", { month: "short", year: "2-digit" }),
     );
   }
 
@@ -262,7 +260,7 @@ const LineGraph = ({
   const case1Data = generateSigmoidData(
     case1_k,
     durationMonths / 2,
-    durationMonths
+    durationMonths,
   );
 
   // ------------------- Case 2: Actual Cumulative Progress -------------------

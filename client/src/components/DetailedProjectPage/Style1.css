@@ -1,6 +1,4 @@
 .time-sheet-container {
-  /* max-width: 800px; */
-
   margin: 0 auto;
 
   padding: 20px;
@@ -20,10 +18,8 @@ label {
   font-weight: bold;
 }
 
-/* input[type="text"], */
-
-/* input[type="date"], */
-
+input[type="text"],
+input[type="date"],
 input[type="number"] {
   width: 100%;
 
@@ -37,7 +33,7 @@ input[type="number"] {
 
   border-radius: 4px;
 
-  color: #e55d17;
+  /* color: #e55d17; */
 }
 
 button {
@@ -49,19 +45,11 @@ button {
 
   margin: 2px;
 
-  /* display: flex; */
-
-  /* display: inline-flex; */
-
   border: none;
 
   border-radius: 4px;
 
   cursor: pointer;
-
-  /* height: 40px;
-  
-    text-align: center; */
 }
 
 button:hover {
@@ -74,17 +62,19 @@ button:hover {
   border-collapse: collapse;
 }
 
-.time-sheet-table th,
+.time-sheet-table th {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+
+  padding: 8px;
+}
 .time-sheet-table td {
   border: 1px solid #ddd;
 
   padding: 8px;
 }
-
-.time-sheet-table th {
+*/ .time-sheet-table th {
   background-color: #f2f2f2;
-
-  /* text-align: center; */
 }
 
 .time-sheet-table tbody tr:nth-child(even) {
@@ -106,6 +96,15 @@ button:hover {
   }
   .screen-header {
     display: none;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
   }
 }
 
@@ -130,6 +129,10 @@ button:hover {
   .hide-on-print {
     display: none !important;
   }
+
+  .hide-desktop {
+    display: none !important;
+  }
 }
 
 @media print {
@@ -143,6 +146,58 @@ button:hover {
     display: table-header-group;
   }
 }
+
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+/* ===============================
+   FOOTER (THE FIX YOU NEEDED)
+================================ */
+/* @media print {
+  .print-footer-wrapper {
+    display: block;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-top: 20px;
+    clear: both;
+  }
+
+  .print-footer {
+    font-size: 11px;
+    text-align: right;
+    padding-top: 6px;
+    border-top: 1px solid #999;
+    white-space: nowrap;
+  }
+} */
+
+@page {
+  margin: 5mm;
+}
+
+@media print {
+  .print-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 11px;
+    color: grey;
+    padding-right: 5mm;
+    padding-bottom: 3mm;
+  }
+}
+
+/* .last-page {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: grey;
+  } */
 
 /* Style1.css */
 .table-container {
@@ -177,5 +232,16 @@ table {
 
   .dpr-table th {
     font-size: 13px; /* make headers a little more visible */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  .hide-desktop {
+    display: none !important;
   }
 }

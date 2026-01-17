@@ -95,7 +95,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
       <div style={{ marginTop: "20px" }}>
         {/* Procurement Status Table */}
 
-        <Form.Group controlId="formProcurementStatus" className="mb-3">
+        {/* <Form.Group controlId="formProcurementStatus" className="mb-3">
           <Form.Label>Procurement Status</Form.Label>
           <Table bordered hover>
             <thead>
@@ -170,7 +170,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
           <Button variant="primary" onClick={() => handleAddRow("procurement")}>
             + Add Row
           </Button>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group controlId="formPlannedWork" className="mb-3">
           <Form.Label>Planned Work For Tomorrow</Form.Label>
@@ -179,7 +179,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               <tr>
                 <th style={{ width: "80px" }}>S.No</th>
                 <th>Description Of Work</th>
-                <th>Present Completion Status</th>
+                {/* <th>Present Completion Status</th> */}
                 <th>Action</th>
               </tr>
             </thead>
@@ -203,7 +203,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
                       }
                     />
                   </td>
-                  <td>
+                  {/* <td>
                     <Form.Control
                       type="text"
                       value={row.presentCompletion}
@@ -216,7 +216,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
                         )
                       }
                     />
-                  </td>
+                  </td> */}
                   <td>
                     <Button
                       variant="danger"
