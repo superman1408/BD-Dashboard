@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Grid} from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Form,
   Button,
@@ -11,10 +12,14 @@ import {
 } from "react-bootstrap";
 
 import Procurement from "../Procurement/Procurement";
+import {inventoryList} from "../../action/inventory";
 
 export default function InventoryForm() {
-
-   const [show, setShow] = useState(false);
+   
+   const [entries, setEntries] = useState([]);
+   
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [show, setShow] = useState(false);
     const [formData, setFormData] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [status, setStatus] = useState("");
@@ -26,9 +31,10 @@ export default function InventoryForm() {
     const [imageFile, setImageFile] = useState(null);
 
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams();
 
-  const navigate = useNavigate();
-   const { id } = useParams();
   // const [formData, setFormData] = useState({
   //   sno: "",
   //   category: "",
@@ -73,42 +79,69 @@ export default function InventoryForm() {
   //   setShow(false);
   // };
 
-  const handleAddActivity = () => {
-  if (!material || !quantity || !unit) return;
+  const handleAddActivity = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-  // ✅ Timestamp captured EXACTLY on submit
-  const submittedAt = new Date().toISOString(); // backend-ready
+  if (
+  !material?.trim() ||
+  !quantity?.trim() ||
+  !unit?.trim()
+) {
+  alert("⚠️ Fill the form completely");
+  setIsSubmitting(false);
+  return;
+}
+
+
+  // ✅ Timestamp on submit
+  const submittedAt = new Date().toISOString();
   const displayTime = new Date(submittedAt).toLocaleString("en-IN", {
     dateStyle: "medium",
     timeStyle: "short",
   });
 
   const newActivity = {
-    material,
-    quantity,
-    unit,
-    remarks,
-    status,
-    image: imageFile,
-
-    submittedAt,   // ISO format (for DB / backend)
-    displayTime,   // Readable format (for UI)
-  };
-
-  const updatedActivities = [...(formData.activityList || []), newActivity];
-  setFormData({ ...formData, activityList: updatedActivities });
-
-  // reset form after submit
-  setMaterial("");
-  setQuantity("");
-  setUnit("");
-  setRemarks("");
-  setStatus("");
-  setImageFile(null);
-  setShow(false);
+  material: material.trim(),
+  quantity: Number(quantity),
+  unit: unit.trim(),
+  remarks: remarks?.trim(),
+  status: status?.trim(),
+  image: imageFile,
+  submittedAt,
+  displayTime,
 };
 
 
+  // ✅ Validation
+  // if (!validateEntry(newActivity)) {
+  //   setIsSubmitting(false);
+  //   return;
+  // }
+
+  try {
+    // 🔹 Update local state
+    setEntries((prev) => [...prev, newActivity]);
+
+    // 🔹 Send to backend
+    await dispatch(inventoryList(newActivity, id));
+
+    // 🔹 Update formData list
+    setFormData((prev) => ({
+      ...prev,
+      activityList: [...(prev.activityList || []), newActivity],
+    }));
+
+    alert("✅ Entry submitted successfully!");
+    // clearForm();
+    setShow(false);
+  } catch (error) {
+    console.error("Submission failed", error);
+    alert("❌ Submission failed");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleRemoveActivity = (index) => {
     const updatedActivities = formData.activityList.filter(
@@ -117,50 +150,17 @@ export default function InventoryForm() {
     setFormData({ ...formData, activityList: updatedActivities });
   };
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true); // Start loading
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Form Submitted", formData);
-  //   alert("Work in Progress!");
-  //   navigate(`/dashboard/${id}`);
-  // };
+    console.log("Form Submitted", formData);
+    alert("Work in Progress!");
+     window.location.reload();
+  };
 
-  // const Input = ({ label, name, type = "text" }) => (
-  //   <div className="mb-1"> {/* Reduced gap */}
-  //     <label className="block mb-1 font-medium text-sm">{label}</label>
-  //     <input
-  //       type={type}
-  //       name={name}
-  //       value={formData[name]}
-  //       onChange={handleChange}
-  //       className="w-full p-2 border rounded"
-  //     />
-  //   </div>
-  // );
-
-//   const Select = ({ label, name, options }) => (
-//   <div className="mb-1">
-//     <label className="block mb-1 font-medium text-sm">{label}</label>
-//     <select
-//       name={name}
-//       value={formData[name]}
-//       onChange={handleChange}
-//       className="w-full p-2 border rounded"
-//     >
-//       <option value="">Select {label}</option>
-//       {options.map((opt, idx) => (
-//         <option key={idx} value={opt}>
-//           {opt}
-//         </option>
-//       ))}
-//     </select>
-//   </div>
-// );
-
+ 
 
   return (
     <div> {/* Added padding */}
@@ -236,24 +236,6 @@ export default function InventoryForm() {
           </Col>
         </Row>
 
-         
-      {/* Unit */}
-        {/* <Form.Group className="mb-3">
-          <Form.Label>Unit</Form.Label>
-          <Form.Select
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)}
-          >
-            <option value="">Select Unit</option>
-            <option value="Kg">Kg</option>
-            <option value="Ton">Ton</option>
-            <option value="Bag">Bag</option>
-            <option value="Nos">Nos</option>
-            <option value="CFT">CFT</option>
-            <option value="Packets">Packets</option>
-            <option value="Pieces">Pieces</option>
-          </Form.Select>
-         </Form.Group> */}
 
          <Form.Group className="mb-3">
         <Form.Label>Unit</Form.Label>
@@ -282,7 +264,6 @@ export default function InventoryForm() {
       </Form.Group>
 
 
-      
 
           {/* Image Upload */}
           {/* <Form.Group className="mb-3">
