@@ -53,4 +53,4 @@ export const fetchContractDetails = () =>
 
 // ------------------------------inventory-------------------------------------
 export const inventoryList = (formData, id) =>
-  API.post(`/inventory`, formData);
+  API.post(`/inventory/${id}/inventoryDetails`, formData);
