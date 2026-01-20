@@ -14,7 +14,10 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import image from "../../assests/BD_login.png";
+// import image from "../../assests/civilbackground.jpg;
+
+// import image from "../../assests/civil background.jpg";
+import image from "../../assests/civil_background.jpg";
 
 import { ToastContainer } from "react-toastify";
 
@@ -83,6 +86,7 @@ const Auth = () => {
         backgroundSize: "cover",
         p: { xs: 2, sm: 4 },
         // backgroundColor: "#15345c",
+        backgroundImage: `url(${image})`,
       }}
     >
       <Grid
@@ -99,14 +103,32 @@ const Auth = () => {
       >
         <Grid item xs={12} md={6}>
           <Card
-            elevation={10}
+            elevation={0}
             sx={{
+              width: "100%",
+              borderRadius: "20px",
+              padding: { xs: 3, sm: 4 },
+
+              /* Glassmorphism vibe */
+              background: "rgba(255, 255, 255, 0.88)",
+              backdropFilter: "blur(12px)",
+
+              /* Soft modern shadow */
+              boxShadow:
+                "0 10px 25px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05)",
+
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              p: { xs: 2, sm: 4 },
-              width: "100%",
+
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow:
+                  "0 18px 40px rgba(0,0,0,0.12), 0 6px 12px rgba(0,0,0,0.08)",
+              },
             }}
           >
             <Grid sx={{ justifyContent: "center", alignItems: "center" }}>
@@ -123,11 +145,13 @@ const Auth = () => {
                   color={isSignUp ? "primary" : "secondary"}
                 />
               </div>
-
               <h3
                 style={{
                   color: "#16355d",
                   textAlign: "center",
+                  marginBottom: "20px",
+                  fontWeight: 600,
+                  letterSpacing: "0.5px",
                 }}
               >
                 {isSignUp ? "Sign Up" : "Sign In"}
