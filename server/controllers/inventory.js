@@ -5,6 +5,8 @@ import inventoryDetails from "../model/inventoryDetails.js";
 export const inventoryList = async (req, res) => {
   const { id } = req.params;
   const value = req.body;
+  // console.log("Inventory is listening");
+  
 
   try {
     const updatedPost = await inventoryDetails.findByIdAndUpdate(

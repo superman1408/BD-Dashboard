@@ -17,19 +17,39 @@ import {INVENTORY_LIST} from "../constants/actionTypes";
 //   }
 // };
 
+// export const inventoryList = (formData, id) => async (dispatch) => {
+//   try {
+//     console.log("Thunk called");
+
+//     const { data } = await API.inventoryList(formData, id);
+//     console.log(data);
+    
+
+//     dispatch({ type: INVENTORY_LIST, payload: data });
+//   } catch (error) {
+//     console.log(
+//       "Inventory API Error:",
+//       error.response?.data || error.message
+//     );
+//   }
+// };
+
 export const inventoryList = (formData, id) => async (dispatch) => {
   try {
     console.log("Thunk called");
 
     const { data } = await API.inventoryList(formData, id);
     console.log(data);
-    
 
     dispatch({ type: INVENTORY_LIST, payload: data });
+
+    return data; // ✅ THIS makes await work
   } catch (error) {
     console.log(
       "Inventory API Error:",
       error.response?.data || error.message
     );
+    throw error; // ✅ important
   }
 };
+

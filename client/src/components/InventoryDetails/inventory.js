@@ -35,6 +35,8 @@ export default function InventoryForm() {
     const navigate = useNavigate();
     const { id } = useParams();
 
+     const [currentId, setCurrentId] = useState(id);
+
   // const [formData, setFormData] = useState({
   //   sno: "",
   //   category: "",
@@ -117,21 +119,32 @@ export default function InventoryForm() {
   // }
 
   try {
-    // 🔹 Update local state
-    setEntries((prev) => [...prev, newActivity]);
+    // // 🔹 Update local state
+    // setEntries((prev) => [...prev, newActivity]);
 
-    // 🔹 Send to backend
-    await dispatch(inventoryList(newActivity, id));
+    // // 🔹 Send to backend
+    // await dispatch(inventoryList(newActivity, id));
+    // console.log("Backend done");
 
-    // 🔹 Update formData list
-    setFormData((prev) => ({
-      ...prev,
-      activityList: [...(prev.activityList || []), newActivity],
-    }));
+    // // 🔹 Update formData list
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   activityList: [...(prev.activityList || []), newActivity],
+    // }));
 
-    alert("✅ Entry submitted successfully!");
-    // clearForm();
-    setShow(false);
+    // alert("✅ Entry submitted successfully!");
+    // // clearForm();
+    // setShow(false);
+
+    setEntries([...entries, newActivity]);
+          await dispatch(inventoryList(newActivity, currentId)).then((res) => {
+            console.log("Data is recieved in the Data Base");
+            alert("✅ Entry submitted successfully!");
+            // dispatch(getTimesheetPosts()); // 🔄 refresh data
+            // window.location.reload();
+          });
+
+
   } catch (error) {
     console.error("Submission failed", error);
     alert("❌ Submission failed");

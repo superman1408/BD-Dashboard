@@ -6,6 +6,6 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/:id/inventoryDetails", auth, inventoryList);
+router.post("/:id/inventory", auth, inventoryList);
 
 export default router;
