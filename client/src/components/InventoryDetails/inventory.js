@@ -83,15 +83,12 @@ export default function InventoryForm() {
   e.preventDefault();
   setIsSubmitting(true);
 
-  if (
-  !material?.trim() ||
-  !quantity?.trim() ||
-  !unit?.trim()
-) {
+  if (!material?.trim() || !unit?.trim() || Number(quantity) <= 0) {
   alert("⚠️ Fill the form completely");
   setIsSubmitting(false);
   return;
 }
+
 
 
   // ✅ Timestamp on submit
