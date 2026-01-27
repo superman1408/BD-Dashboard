@@ -20,7 +20,9 @@ export default function InventoryForm() {
    
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [show, setShow] = useState(false);
-    const [formData, setFormData] = useState(false);
+    
+    // const [formData, setFormData] = useState({ activityList: [] });
+
     const [inputValue, setInputValue] = useState("");
     const [status, setStatus] = useState("");
     const [material, setMaterial] = useState("");
@@ -70,105 +72,52 @@ export default function InventoryForm() {
 };
 
 
-  // const handleAddActivity = () => {
-  //   if (inputValue.trim() === "") return;
-  //   const newActivity = { text: inputValue, image: imageFile, status: status };
-  //   const updatedActivities = [...(formData.activityList || []), newActivity];
-  //   setFormData({ ...formData, activityList: updatedActivities });
-  //   setInputValue("");
-  //   setImageFile(null);
-  //   setStatus("");
-  //   setShow(false);
-  // };
 
   const handleAddActivity = async (e) => {
   e.preventDefault();
   setIsSubmitting(true);
 
-  if (!material?.trim() || !unit?.trim() || Number(quantity) <= 0) {
-  alert("⚠️ Fill the form completely");
-  setIsSubmitting(false);
-  return;
-}
+  if (!material || !unit || Number(quantity) <= 0) {
+    alert("⚠️ Fill the form completely");
+    setIsSubmitting(false);
+    return;
+  }
 
-
-
-  // ✅ Timestamp on submit
   const submittedAt = new Date().toISOString();
   const displayTime = new Date(submittedAt).toLocaleString("en-IN", {
     dateStyle: "medium",
     timeStyle: "short",
   });
 
-  const newActivity = {
+ const newActivity = {
   material: material.trim(),
   quantity: Number(quantity),
   unit: unit.trim(),
+  vendor: vendor?.trim(),
   remarks: remarks?.trim(),
-  status: status?.trim(),
-  image: imageFile,
   submittedAt,
   displayTime,
 };
 
 
-  // ✅ Validation
-  // if (!validateEntry(newActivity)) {
-  //   setIsSubmitting(false);
-  //   return;
-  // }
+  console.log("Sending payload:", newActivity);
 
   try {
-    // // 🔹 Update local state
-    // setEntries((prev) => [...prev, newActivity]);
-
-    // // 🔹 Send to backend
-    // await dispatch(inventoryList(newActivity, id));
-    // console.log("Backend done");
-
-    // // 🔹 Update formData list
-    // setFormData((prev) => ({
-    //   ...prev,
-    //   activityList: [...(prev.activityList || []), newActivity],
-    // }));
-
-    // alert("✅ Entry submitted successfully!");
-    // // clearForm();
-    // setShow(false);
-
-    setEntries([...entries, newActivity]);
-          await dispatch(inventoryList(newActivity, currentId)).then((res) => {
-            console.log("Data is recieved in the Data Base");
-            alert("✅ Entry submitted successfully!");
-            // dispatch(getTimesheetPosts()); // 🔄 refresh data
-            // window.location.reload();
-          });
-
-
-  } catch (error) {
-    console.error("Submission failed", error);
+     await dispatch(inventoryList(newActivity, currentId)).then((res) => {
+      console.log("Data is recieved in the Data Base");
+      // clearForm();
+      alert("✅ Entry submitted successfully!");
+      // dispatch(getTimesheetPosts()); // 🔄 refresh data
+      // window.location.reload();
+    });
+  } catch (err) {
+    console.error(err);
     alert("❌ Submission failed");
   } finally {
     setIsSubmitting(false);
   }
 };
 
-  const handleRemoveActivity = (index) => {
-    const updatedActivities = formData.activityList.filter(
-      (_, i) => i !== index
-    );
-    setFormData({ ...formData, activityList: updatedActivities });
-  };
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true); // Start loading
-
-    console.log("Form Submitted", formData);
-    alert("Work in Progress!");
-     window.location.reload();
-  };
 
  
 
@@ -178,13 +127,13 @@ export default function InventoryForm() {
         <Grid sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
           <Grid>
             <Form.Group className="mb-2">
-               <Button
-                 onClick={() => setShow(true)}
-                 disabled={(formData.activityList?.length || 0) >= 5}
-                 className="ms-2"
-               >
-                 + Add Inventory
-               </Button>
+              <Button
+                onClick={() => setShow(true)}
+                  className="ms-2"
+                    >
+                      + Add Inventory
+              </Button>
+
 
               <Modal
               show={show}
@@ -347,9 +296,13 @@ export default function InventoryForm() {
             <Button variant="secondary" onClick={() => setShow(false)}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleAddActivity}>
-              Save Inventory
-            </Button>
+            <Button
+            variant="primary"
+              onClick={handleAddActivity}
+              disabled={isSubmitting}
+                      >
+                      {isSubmitting ? "Saving..." : "Save Inventory"}
+                </Button>
           </Modal.Footer>
         </Modal>
 

@@ -34,12 +34,12 @@ import {INVENTORY_LIST} from "../constants/actionTypes";
 //   }
 // };
 
-export const inventoryList = (formData, id) => async (dispatch) => {
+export const inventoryList = (newActivity, id) => async (dispatch) => {
   try {
-    console.log("Thunk called");
+    console.log(newActivity);
 
-    const { data } = await API.inventoryList(formData, id);
-    console.log(data);
+    const { data } = await API.inventoryList(newActivity, id);
+    
 
     dispatch({ type: INVENTORY_LIST, payload: data });
 
