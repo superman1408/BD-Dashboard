@@ -1,15 +1,11 @@
 import mongoose from "mongoose";
 import inventoryOverview from "../model/inventoryDetails.js";
 
-
 export const inventoryList = async (req, res) => {
-
-  const {id} = req.params;
+  const { id } = req.params;
   console.log(id);
-  
-  
+
   const {
-    
     material,
     quantity,
     unit,

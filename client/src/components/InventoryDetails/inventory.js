@@ -92,7 +92,7 @@ export default function InventoryForm() {
 
  const newActivity = {
   material: material.trim(),
-  quantity: Number(quantity),
+quantity: Number(quantity),
   unit: unit.trim(),
   vendor: vendor?.trim(),
   remarks: remarks?.trim(),
