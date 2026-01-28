@@ -77,11 +77,12 @@ export default function InventoryForm() {
   e.preventDefault();
   setIsSubmitting(true);
 
-  if (!material || !unit || Number(quantity) <= 0) {
-    alert("⚠️ Fill the form completely");
-    setIsSubmitting(false);
-    return;
-  }
+  if (!material || !unit || Number(quantity) <= 0 || !vendor) {
+  alert("⚠️ Fill the form completely");
+  setIsSubmitting(false);
+  return;
+}
+
 
   const submittedAt = new Date().toISOString();
   const displayTime = new Date(submittedAt).toLocaleString("en-IN", {
@@ -261,6 +262,7 @@ export default function InventoryForm() {
             <Form.Group>
               <Form.Label>Remarks</Form.Label>
               <Form.Control
+                required
                 as="textarea"
                 rows={2}
                 placeholder="Optional remarks"
@@ -273,6 +275,7 @@ export default function InventoryForm() {
           <Form.Group className="mb-3">
             <Form.Label>Received By</Form.Label>
             <Form.Control
+             required
               type="text"
               placeholder="Received By"
               value={vendor}

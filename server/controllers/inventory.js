@@ -3,7 +3,13 @@ import inventoryOverview from "../model/inventoryDetails.js";
 
 
 export const inventoryList = async (req, res) => {
+
+  const {id} = req.params;
+  console.log(id);
+  
+  
   const {
+    
     material,
     quantity,
     unit,
@@ -15,6 +21,7 @@ export const inventoryList = async (req, res) => {
 
   try {
     const newInventory = new inventoryOverview({
+      id,
       material,
       quantity,
       unit,
