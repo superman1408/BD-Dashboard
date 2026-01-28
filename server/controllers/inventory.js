@@ -11,8 +11,9 @@ export const inventoryList = async (req, res) => {
     unit,
     vendor,
     remarks,
-    submittedAt,
-    displayTime,
+    status,
+    // submittedAt,
+    // displayTime,
   } = req.body;
 
   try {
@@ -23,8 +24,9 @@ export const inventoryList = async (req, res) => {
       unit,
       vendor,
       remarks,
-      submittedAt,
-      displayTime,
+      status,
+      // submittedAt,
+      // displayTime,
     });
 
     await newInventory.save();
