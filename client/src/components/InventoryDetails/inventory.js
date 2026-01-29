@@ -80,6 +80,7 @@ export default function InventoryForm() {
         // clearForm();
         alert("✅ Entry submitted successfully!");
         // window.location.reload();
+        setShow(false);
       });
     } catch (err) {
       console.error(err);
