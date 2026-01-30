@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/posts.js";
 import contractRoutes from "./routes/contract.js";
+import inventoryRoutes from "./routes/inventory.js";
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors());
 app.use("/user", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/contract", contractRoutes);
+app.use("/inventory", inventoryRoutes);
 
 app.get("/", (req, res) => {
   res.send(`Server is running at PORT:  ${PORT}`);

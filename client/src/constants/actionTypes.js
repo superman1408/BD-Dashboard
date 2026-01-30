@@ -10,3 +10,5 @@ export const UPDATE_ENTRY = "UPDATE_ENTRY";
 export const CREATE_CONTRACT = "CREATE_CONTRACT";
 export const CONTRACT_PDF = "CONTRACT_PDF";
 export const GET_CONTRACT = "GET_CONTRACT";
+
+export const INVENTORY_LIST = "INVENTORY_LIST";

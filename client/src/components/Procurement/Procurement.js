@@ -51,7 +51,7 @@ const Procurement = () => {
           color:"#ffffff"
         }}
       >
-        Construction Inventory Material-wise
+        Construction Inventory Material
       </h1>
 
       <table

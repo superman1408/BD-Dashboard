@@ -2,12 +2,15 @@ import mongoose from "mongoose";
 import ProjectOverview from "../model/projectDetails.js";
 import EntryOverview from "../model/entryDetails.js";
 import ContractOverview from "../model/contractDetail.js";
+import inventoryOverview from "../model/inventoryDetails.js";
+
 
 export const createPost = async (req, res) => {
   const Post = req.body;
 
   const newPost = new ProjectOverview(Post);
   const createDetail = new EntryOverview(Post);
+  const createInventory = new inventoryOverview(Post);
   try {
     await newPost.save();
     await createDetail.save();
