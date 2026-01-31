@@ -111,10 +111,10 @@ const Procurement = () => {
 
   useEffect(() => {
     dispatch(getInventoryDetails());
-  });
+  }, [dispatch]);
 
   const inventoryDetails = useSelector(
-    (state) => state.inventory.inventoryDetails,
+    (state) => state.GET_INVENTORY.inventoryDetails,
   );
 
   return (
@@ -142,18 +142,53 @@ const Procurement = () => {
           <thead style={{ backgroundColor: "#fdfdfd" }}>
             <tr>
               <th>S.No</th>
-              <th>Date</th>
               <th>Material</th>
               <th>Unit</th>
-              <th>Reference</th>
               <th>Quantity Received</th>
               <th>Quantity Issued</th>
               <th>Stock</th>
+              <th>Vendor</th>
               <th>Remarks</th>
             </tr>
           </thead>
 
           <tbody>
+            <tbody>
+              {/* {inventoryDetails.map((item, index) => {
+                if (!balances[item.material]) {
+                  balances[item.material] = 0;
+                }
+
+                const qtyIn = item.status === "IN" ? item.quantity : 0;
+                const qtyOut = item.status === "OUT" ? item.quantity : 0;
+
+                balances[item.material] += qtyIn - qtyOut;
+
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.material}</td>
+                    <td>{item.unit}</td>
+
+                    <td style={{ color: "green", textAlign: "center" }}>
+                      {qtyIn || "-"}
+                    </td>
+
+                    <td style={{ color: "red", textAlign: "center" }}>
+                      {qtyOut || "-"}
+                    </td>
+
+                    <td style={{ fontWeight: "bold", textAlign: "center" }}>
+                      {balances[item.material]} {item.unit}
+                    </td>
+
+                    <td>{item.vendor || "-"}</td>
+                    <td>{item.remarks || "-"}</td>
+                  </tr>
+                );
+              })} */}
+            </tbody>
+
             {/* {transactions.map((tx, index) => {
               if (!balances[tx.material]) {
                 balances[tx.material] = 0;
