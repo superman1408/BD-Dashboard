@@ -36,3 +36,13 @@ export const inventoryList = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const getInventoryDetails = async (req, res) => {
+  try {
+    const inventory = await inventoryOverview.find({});
+
+    res.status(200).json(inventory);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

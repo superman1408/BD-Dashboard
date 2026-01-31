@@ -12,3 +12,4 @@ export const CONTRACT_PDF = "CONTRACT_PDF";
 export const GET_CONTRACT = "GET_CONTRACT";
 
 export const INVENTORY_LIST = "INVENTORY_LIST";
+export const GET_INVENTORY = "GET_INVENTORY";

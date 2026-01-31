@@ -49,7 +49,9 @@ export const createContract = (formData) =>
 export const fetchContractDetails = () =>
   API.get(`/contract/contractDetails/view`);
 
-
-// ------------------------------inventory-------------------------------------
+// -----------------------------------------------------inventory-----------------------------------------------------------
 export const inventoryList = (newActivity, id) =>
   API.post(`/inventory/${id}/inventory`, newActivity);
+
+export const fetchInventoryDetails = () =>
+  API.get(`/inventory/inventoryDetails/view`);

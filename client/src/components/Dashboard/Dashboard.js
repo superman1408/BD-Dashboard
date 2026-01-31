@@ -33,8 +33,8 @@ const Dashboard = () => {
   };
 
   const handleINVENTORYClick = () => {
-    // navigate(`/${id}/inventory`);
-    alert("This feature is currently under development.");
+    navigate(`/${id}/inventory`);
+    // alert("This feature is currently under development.");
   };
 
   return (

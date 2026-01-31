@@ -35,8 +35,8 @@ mongoose
   .then(() =>
     app.listen(PORT, () => {
       console.log(
-        "Listening at " + PORT + "\nMongoDB database is connected..!!"
+        "Listening at " + PORT + "\nMongoDB database is connected..!!",
       );
-    })
+    }),
   )
   .catch((error) => console.log(error));
