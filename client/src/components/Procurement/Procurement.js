@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getInventoryDetails } from "../../action/inventory";
 
-// const transactions = [
+// const data = [
 //   {
 //     date: "2026-01-01",
 //     material: "Rod",
@@ -14,95 +14,10 @@ import { getInventoryDetails } from "../../action/inventory";
 //     qtyOut: 0,
 //     remarks: "Rod received",
 //   },
-//   {
-//     date: "2026-01-03",
-//     material: "Rod",
-//     unit: "Kg",
-//     reference: "SITE-ISSUE",
-//     qtyIn: 0,
-//     qtyOut: 120,
-//     remarks: "Slab work",
-//   },
-
-//   {
-//     date: "2026-01-02",
-//     material: "Bricks",
-//     unit: "Nos",
-//     reference: "INV-301",
-//     qtyIn: 10000,
-//     qtyOut: 0,
-//     remarks: "Bricks received",
-//   },
-//   {
-//     date: "2026-01-04",
-//     material: "Bricks",
-//     unit: "Nos",
-//     reference: "SITE-ISSUE",
-//     qtyIn: 0,
-//     qtyOut: 2500,
-//     remarks: "Wall work",
-//   },
-
-//   {
-//     date: "2026-01-02",
-//     material: "Cement",
-//     unit: "Bags",
-//     reference: "INV-401",
-//     qtyIn: 200,
-//     qtyOut: 0,
-//     remarks: "Cement received",
-//   },
-//   {
-//     date: "2026-01-05",
-//     material: "Cement",
-//     unit: "Bags",
-//     reference: "SITE-ISSUE",
-//     qtyIn: 0,
-//     qtyOut: 60,
-//     remarks: "Column work",
-//   },
-
-//   {
-//     date: "2026-01-02",
-//     material: "Sand",
-//     unit: "CFT",
-//     reference: "INV-501",
-//     qtyIn: 500,
-//     qtyOut: 0,
-//     remarks: "Sand delivered",
-//   },
-//   {
-//     date: "2026-01-06",
-//     material: "Sand",
-//     unit: "CFT",
-//     reference: "SITE-ISSUE",
-//     qtyIn: 0,
-//     qtyOut: 180,
-//     remarks: "Plastering",
-//   },
-
-//   {
-//     date: "2026-01-03",
-//     material: "Aggregate",
-//     unit: "CFT",
-//     reference: "INV-601",
-//     qtyIn: 400,
-//     qtyOut: 0,
-//     remarks: "Aggregate received",
-//   },
-//   {
-//     date: "2026-01-06",
-//     material: "Aggregate",
-//     unit: "CFT",
-//     reference: "SITE-ISSUE",
-//     qtyIn: 0,
-//     qtyOut: 150,
-//     remarks: "Concrete work",
-//   },
 // ];
 
 const Procurement = () => {
-  // const [show, setShow] = useState(false);
+  const [entries, setEntries] = useState(false);
   // const [formData, setFormData] = useState(false);
 
   const dispatch = useDispatch();
@@ -110,12 +25,14 @@ const Procurement = () => {
   const balances = {};
 
   useEffect(() => {
-    dispatch(getInventoryDetails());
+    dispatch(getInventoryDetails())
+      .then(() => {
+        // Optionally, clear local entries if you want
+        setEntries([]);
+      })
+      .catch((err) => console.error("Error fetching posts:", err));
+    console.log(getInventoryDetails);
   }, [dispatch]);
-
-  const inventoryDetails = useSelector(
-    (state) => state.GET_INVENTORY.inventoryDetails,
-  );
 
   return (
     <div style={{ padding: "20px" }}>
@@ -189,7 +106,7 @@ const Procurement = () => {
               })} */}
             </tbody>
 
-            {/* {transactions.map((tx, index) => {
+            {/* {data.map((tx, index) => {
               if (!balances[tx.material]) {
                 balances[tx.material] = 0;
               }

@@ -53,5 +53,5 @@ export const fetchContractDetails = () =>
 export const inventoryList = (newActivity, id) =>
   API.post(`/inventory/${id}/inventory`, newActivity);
 
-export const fetchInventoryDetails = () =>
+export const getInventoryDetails = () =>
   API.get(`/inventory/inventoryDetails/view`);

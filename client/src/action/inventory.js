@@ -49,7 +49,8 @@ export const inventoryList = (newActivity, id) => async (dispatch) => {
 
 export const getInventoryDetails = () => async (dispatch) => {
   try {
-    const { data } = await API.fetchInventoryDetails();
+    const { data } = await API.getInventoryDetails();
+    console.log(data);
 
     dispatch({ type: GET_INVENTORY, payload: data });
   } catch (error) {
