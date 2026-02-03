@@ -1,41 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { getInventoryDetails } from "../../action/inventory";
 
-// const data = [
-//   {
-//     date: "2026-01-01",
-//     material: "Rod",
-//     unit: "Kg",
-//     reference: "INV-201",
-//     qtyIn: 500,
-//     qtyOut: 0,
-//     remarks: "Rod received",
-//   },
-// ];
-
 const Procurement = () => {
-  const [entries, setEntries] = useState(false);
-  // const [formData, setFormData] = useState(false);
+  const { id } = useParams();
+  const [currentId, setCurrentId] = useState(id);
 
   const dispatch = useDispatch();
 
-  const balances = {};
-
   useEffect(() => {
-    dispatch(getInventoryDetails())
-      .then(() => {
-        // Optionally, clear local entries if you want
-        setEntries([]);
-      })
-      .catch((err) => console.error("Error fetching posts:", err));
-    console.log(getInventoryDetails);
+    dispatch(getInventoryDetails());
   }, [dispatch]);
 
+  const inventoryData = useSelector((state) => state.inventory || []);
+  console.log("inventoryData", inventoryData);
+
+  // Running stock calculation
+  const balances = {};
+
+  const inventoryWithStock = inventoryData.map((item) => {
+    if (!balances[item.material]) {
+      balances[item.material] = 0;
+    }
+
+    if (item.status === "Received") {
+      balances[item.material] += Number(item.quantity || 0);
+    } else if (item.status === "Issued") {
+      balances[item.material] -= Number(item.quantity || 0);
+    }
+
+    return {
+      ...item,
+      runningStock: balances[item.material],
+    };
+  });
+
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", marginBottom: "50px" }}>
       <div style={{ padding: "20px" }}>
         <h1
           style={{
@@ -57,87 +61,83 @@ const Procurement = () => {
           style={{ borderCollapse: "collapse", marginTop: "20px" }}
         >
           <thead style={{ backgroundColor: "#fdfdfd" }}>
-            <tr>
+            <tr style={{ textAlign: "center" }}>
               <th>S.No</th>
-              <th>Material</th>
+              <th>Material Name</th>
               <th>Unit</th>
               <th>Quantity Received</th>
               <th>Quantity Issued</th>
-              <th>Stock</th>
-              <th>Vendor</th>
+              <th>Running Stock</th>
+              <th>Status</th>
               <th>Remarks</th>
+              <th>Received/Issued By</th>
             </tr>
           </thead>
 
           <tbody>
-            <tbody>
-              {/* {inventoryDetails.map((item, index) => {
-                if (!balances[item.material]) {
-                  balances[item.material] = 0;
-                }
-
-                const qtyIn = item.status === "IN" ? item.quantity : 0;
-                const qtyOut = item.status === "OUT" ? item.quantity : 0;
-
-                balances[item.material] += qtyIn - qtyOut;
-
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.material}</td>
-                    <td>{item.unit}</td>
-
-                    <td style={{ color: "green", textAlign: "center" }}>
-                      {qtyIn || "-"}
-                    </td>
-
-                    <td style={{ color: "red", textAlign: "center" }}>
-                      {qtyOut || "-"}
-                    </td>
-
-                    <td style={{ fontWeight: "bold", textAlign: "center" }}>
-                      {balances[item.material]} {item.unit}
-                    </td>
-
-                    <td>{item.vendor || "-"}</td>
-                    <td>{item.remarks || "-"}</td>
-                  </tr>
-                );
-              })} */}
-            </tbody>
-
-            {/* {data.map((tx, index) => {
-              if (!balances[tx.material]) {
-                balances[tx.material] = 0;
-              }
-
-              balances[tx.material] += tx.qtyIn - tx.qtyOut;
-
-              return (
+            {inventoryWithStock.length === 0 ? (
+              <tr>
+                <td colSpan="9" style={{ textAlign: "center" }}>
+                  No inventory data
+                </td>
+              </tr>
+            ) : (
+              inventoryWithStock.map((item, index) => (
                 <tr
-                  key={index}
+                  key={item._id || index}
                   style={{
+                    textAlign: "center",
+                    backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
+                  }}
+                >
+                  <td>{index + 1}</td>
+                  <td>{item.material}</td>
+                  <td>{item.unit}</td>
+                  <td style={{ color: "green" }}>
+                    {item.status === "Received" ? item.quantity : "-"}
+                  </td>
+                  <td style={{ color: "red" }}>
+                    {item.status === "Issued" ? item.quantity : "-"}
+                  </td>
+                  <td style={{ color: "blue" }}>{item.runningStock}</td>
+                  <td>{item.status}</td>
+                  <td>{item.remarks}</td>
+                  <td>{item.vendor}</td>
+                </tr>
+              ))
+            )}
+
+            {/* {inventoryData.length === 0 ? (
+              <tr>
+                <td colSpan="8" style={{ textAlign: "center" }}>
+                  No inventory data
+                </td>
+              </tr>
+            ) : (
+              inventoryData.map((data, index) => (
+                <tr
+                  key={data._id || index}
+                  style={{
+                    textAlign: "center",
                     backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
                   }}
                 >
                   <td style={{ textAlign: "center" }}>{index + 1}</td>
-                  <td>{tx.date}</td>
-                  <td>{tx.material}</td>
-                  <td>{tx.unit}</td>
-                  <td>{tx.reference}</td>
+                  <td>{data.material}</td>
+                  <td>{data.unit}</td>
                   <td style={{ color: "green", textAlign: "center" }}>
-                    {tx.qtyIn || "-"}
+                    {data.quantity || "-"}
                   </td>
                   <td style={{ color: "red", textAlign: "center" }}>
-                    {tx.qtyOut || "-"}
+                    {data.qtyOut || "-"}
                   </td>
-                  <td style={{ fontWeight: "bold", textAlign: "center" }}>
-                    {balances[tx.material]} {tx.unit}
-                  </td>
-                  <td>{tx.remarks}</td>
+                  <td>{}</td>
+                  <td>{data.remarks}</td>
+                  <td>{data.status}</td>
+                  <td>{data.vendor}</td>
                 </tr>
-              );
-            })} */}
+              ))
+            )} */}
           </tbody>
         </table>
       </div>

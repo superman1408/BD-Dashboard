@@ -8,4 +8,6 @@ import entry from "./entry";
 
 import contract from "./contract";
 
-export default combineReducers({ posts, auth, entry, contract });
+import inventory from "./inventory";
+
+export default combineReducers({ posts, auth, entry, contract, inventory });

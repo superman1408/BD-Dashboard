@@ -31,6 +31,16 @@ export default function InventoryForm() {
 
   const [currentId, setCurrentId] = useState(id);
 
+  const clearForm = () => {
+    setMaterial("");
+    setQuantity("");
+    setUnit("");
+    setVendor("");
+    setRemarks("");
+    setStatus("");
+    setImageFile(null);
+  };
+
   const materialUnitMap = {
     Rod: ["Kg", "Ton", "Nos"],
     Cement: ["Bag", "Kg"],
@@ -77,7 +87,7 @@ export default function InventoryForm() {
     try {
       await dispatch(inventoryList(newActivity, currentId)).then((res) => {
         console.log("Data is recieved in the Data Base");
-        // clearForm();
+        clearForm(); // <-- Clear form here
         alert("✅ Entry submitted successfully!");
         // window.location.reload();
         setShow(false);
