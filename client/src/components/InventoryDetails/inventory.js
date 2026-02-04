@@ -172,7 +172,7 @@ export default function InventoryForm() {
                       <Col xs={12} md={6}>
                         {/* Quantity Received */}
                         <Form.Group className="mb-3">
-                          <Form.Label>Quantity Received</Form.Label>
+                          <Form.Label>Quantity</Form.Label>
                           <Form.Control
                             type="number"
                             placeholder="Enter quantity"

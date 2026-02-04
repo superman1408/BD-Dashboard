@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
+
+import ArchiveIcon from "@mui/icons-material/Archive";
+
+import { Grid, Tooltip, IconButton } from "@mui/material";
 
 import { getInventoryDetails } from "../../action/inventory";
 
@@ -10,6 +14,7 @@ const Procurement = () => {
   const [currentId, setCurrentId] = useState(id);
 
   const dispatch = useDispatch();
+  const componentRef = useRef();
 
   useEffect(() => {
     dispatch(getInventoryDetails());
@@ -40,7 +45,26 @@ const Procurement = () => {
 
   return (
     <div style={{ padding: "20px", marginBottom: "50px" }}>
-      <div style={{ padding: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "32px",
+          fontWeight: "400",
+          color: "#02274d",
+          padding: "10px 20px",
+        }}
+      >
+        <ArchiveIcon
+          style={{
+            fontSize: "36px",
+            cursor: "pointer",
+            marginLeft: "auto",
+          }}
+        />
+      </div>
+
+      <div style={{ padding: "20px" }} ref={componentRef}>
         <h1
           style={{
             textAlign: "center",
@@ -62,7 +86,8 @@ const Procurement = () => {
         >
           <thead style={{ backgroundColor: "#fdfdfd" }}>
             <tr style={{ textAlign: "center" }}>
-              <th>S.No</th>
+              {/* <th>S.No</th> */}
+              <th>Time</th>
               <th>Material Name</th>
               <th>Unit</th>
               <th>Quantity Received</th>
@@ -90,7 +115,8 @@ const Procurement = () => {
                     backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
                   }}
                 >
-                  <td>{index + 1}</td>
+                  {/* <td>{index + 1}</td> */}
+                  <td>{item.timestamps}</td>
                   <td>{item.material}</td>
                   <td>{item.unit}</td>
                   <td style={{ color: "green" }}>
@@ -100,6 +126,7 @@ const Procurement = () => {
                     {item.status === "Issued" ? item.quantity : "-"}
                   </td>
                   <td style={{ color: "blue" }}>{item.runningStock}</td>
+
                   <td>{item.status}</td>
                   <td>{item.remarks}</td>
                   <td>{item.vendor}</td>
