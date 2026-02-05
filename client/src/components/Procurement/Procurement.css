@@ -1,0 +1,19 @@
+.inventory-table {
+  border-collapse: collapse;
+  width: 100%;
+  border-left: 2px solid #02274d;
+  border-right: 2px solid #02274d;
+}
+
+.inventory-table th,
+.inventory-table td {
+  border-left: 1px solid #02274d;
+  border-right: 1px solid #02274d;
+  border-top: none;
+  border-bottom: none;
+}
+
+.inventory-table thead th {
+  border-bottom: 2px solid #02274d;
+  background-color: #f5f5f5;
+}

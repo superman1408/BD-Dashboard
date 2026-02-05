@@ -9,6 +9,8 @@ import { Grid, Tooltip, IconButton } from "@mui/material";
 
 import { getInventoryDetails } from "../../action/inventory";
 
+import "./Procurement.css";
+
 const Procurement = () => {
   const { id } = useParams();
   const [currentId, setCurrentId] = useState(id);
@@ -49,7 +51,7 @@ const Procurement = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          fontSize: "32px",
+          // fontSize: "32px",
           fontWeight: "400",
           color: "#02274d",
           padding: "10px 20px",
@@ -57,7 +59,7 @@ const Procurement = () => {
       >
         <ArchiveIcon
           style={{
-            fontSize: "36px",
+            fontSize: "25px",
             cursor: "pointer",
             marginLeft: "auto",
           }}
@@ -82,11 +84,17 @@ const Procurement = () => {
           border="3"
           width="100%"
           cellPadding="8"
-          style={{ borderCollapse: "collapse", marginTop: "20px" }}
+          style={{
+            borderCollapse: "collapse",
+            marginTop: "20px",
+            border: "2px solid #02274d",
+          }}
         >
-          <thead style={{ backgroundColor: "#fdfdfd" }}>
+          <thead
+            style={{ backgroundColor: "#fdfdfd", border: "2px solid #02274d" }}
+          >
             <tr style={{ textAlign: "center" }}>
-              {/* <th>S.No</th> */}
+              <th>S.No</th>
               <th>Time</th>
               <th>Material Name</th>
               <th>Unit</th>
@@ -115,8 +123,19 @@ const Procurement = () => {
                     backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
                   }}
                 >
-                  {/* <td>{index + 1}</td> */}
-                  <td>{item.timestamps}</td>
+                  <td>{index + 1}</td>
+                  <td style={{ color: "darkblue" }}>
+                    {new Date(item.updatedAt).toLocaleString("en-IN", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      hour12: true,
+                    })}
+                  </td>
+
                   <td>{item.material}</td>
                   <td>{item.unit}</td>
                   <td style={{ color: "green" }}>
