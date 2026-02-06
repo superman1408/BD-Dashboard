@@ -5,7 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
 
+import rod from "../../assets/rod.jpg";
+import cement from "../../assets/cement.jpg";
+
 import CurveDisplay from "../CurveDisplay/CurveDisplay";
+import { Grid } from "@mui/material";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -55,68 +59,77 @@ const Dashboard = () => {
                 <div className="flex md:flex-row flex-col">
                   {/* mx-auto: Centers the container within the available space horizontally. */}
 
-                  <div className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100">
-                    <div className="bg-white flex mb-2">
-                      {/* Blue line stays fixed */}
-                      <div className="w-2 bg-blue-800"></div>
+                  <div
+                    style={{ display: "flex" }}
+                    className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100"
+                  >
+                    <Grid sx={{ display: "flex", flexDirection: "row" }}>
+                      <Grid>
+                        <div className="bg-white flex mb-2">
+                          {/* Blue line stays fixed */}
+                          <div className="w-2 bg-blue-800"></div>
 
-                      {/* Content adapts */}
-                      <div className="flex flex-col md:flex-row flex-1">
-                        <h4 className="p-3 font-bold">
-                          Scope of the Project :
-                        </h4>
-                        <h1 className="p-3">{post?.scope}</h1>
-                      </div>
-                    </div>
-
-                    <div className="bg-white flex mb-2">
-                      {/* Blue line stays fixed on the left */}
-                      <div className="w-2 bg-blue-800"></div>
-
-                      {/* Content handles responsiveness */}
-                      <div className="flex flex-col md:flex-row flex-1">
-                        <div className="flex">
-                          <h4 className="p-3 font-bold">
-                            Date of Commencement :
-                          </h4>
-                          <h4 className="p-3">{post?.commencementDate}</h4>
+                          {/* Content adapts */}
+                          <div className="flex flex-col md:flex-row flex-1">
+                            <h4 className="p-3 font-bold">
+                              Scope of the Project :
+                            </h4>
+                            <h1 className="p-3">{post?.scope}</h1>
+                          </div>
                         </div>
 
-                        <div className="flex">
-                          <h4 className="p-3 font-bold">
-                            Date of Completion :
-                          </h4>
-                          <h4 className="p-3">{post?.endDate}</h4>
+                        <div className="bg-white flex mb-2">
+                          {/* Blue line stays fixed on the left */}
+                          <div className="w-2 bg-blue-800"></div>
+
+                          {/* Content handles responsiveness */}
+                          <div className="flex flex-col md:flex-row flex-1">
+                            <div className="flex">
+                              <h4 className="p-3 font-bold">
+                                Date of Commencement :
+                              </h4>
+                              <h4 className="p-3">{post?.commencementDate}</h4>
+                            </div>
+
+                            <div className="flex">
+                              <h4 className="p-3 font-bold">
+                                Date of Completion :
+                              </h4>
+                              <h4 className="p-3">{post?.endDate}</h4>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
 
-                    <div className=" bg-white flex mb-2">
-                      <div className=" w-2 bg-blue-800"></div>
-                      <h4 className="p-3 font-bold">P.O :</h4>
-                      <h4 className="p-3 ml-10">{post?.poUnpriced}</h4>
-                    </div>
-                    <div className=" bg-white flex mb-2">
-                      <div className=" w-2 bg-blue-800"></div>
-                      <h4 className="p-3 font-bold">
-                        Project-Governing Terms & Conditions :
-                      </h4>
+                        <div className=" bg-white flex mb-2">
+                          <div className=" w-2 bg-blue-800"></div>
+                          <h4 className="p-3 font-bold">P.O :</h4>
+                          <h4 className="p-3 ml-10">{post?.poUnpriced}</h4>
+                        </div>
+                        <div className=" bg-white flex mb-2">
+                          <div className=" w-2 bg-blue-800"></div>
+                          <h4 className="p-3 font-bold">
+                            Project-Governing Terms & Conditions :
+                          </h4>
 
-                      {post?.termsConditions === "true" ? (
-                        <h4 className="p-3 ml-4 text-green-700">Accepted</h4>
-                      ) : (
-                        <h4 className="p-3 ml-4 text-red-600">Declined</h4>
-                      )}
-                    </div>
-                    <div className=" bg-white flex ">
-                      <div className=" w-2 bg-blue-800"></div>
-                      <h4 className="p-3 font-bold">Active Team Members : </h4>
-                      <h4 className="p-3 ml-10">{post?.teams}</h4>
-                    </div>
+                          {post?.termsConditions === "true" ? (
+                            <h4 className="p-3 ml-4 text-green-700">
+                              Accepted
+                            </h4>
+                          ) : (
+                            <h4 className="p-3 ml-4 text-red-600">Declined</h4>
+                          )}
+                        </div>
+                        <div className=" bg-white flex ">
+                          <div className=" w-2 bg-blue-800"></div>
+                          <h4 className="p-3 font-bold">
+                            Active Team Members :{" "}
+                          </h4>
+                          <h4 className="p-3 ml-10">{post?.teams}</h4>
+                        </div>
 
-                    <div className="growth-card">
-                      <style>
-                        {`
+                        <div className="growth-card">
+                          <style>
+                            {`
                             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
                             .growth-card {
@@ -175,32 +188,111 @@ const Dashboard = () => {
                               color: #0D325c;
                             }
                             `}
-                      </style>
+                          </style>
 
-                      <h3 className="growth-title">Recent Tasks Updated</h3>
+                          <h3 className="growth-title">Recent Tasks Updated</h3>
 
-                      <table className="growth-table">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Month</th>
-                            <th>Task Done</th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          {post?.currentTaskDone
-                            ?.slice(-4)
-                            ?.map((item, index) => (
-                              <tr key={item.index}>
-                                <td>{item.index + 1}</td>
-                                <td>{item.month}</td>
-                                <td>{item.value}</td>
+                          <table className="growth-table">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Month</th>
+                                <th>Task Done</th>
                               </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    </div>
+                            </thead>
+
+                            <tbody>
+                              {post?.currentTaskDone
+                                ?.slice(-4)
+                                ?.map((item, index) => (
+                                  <tr key={item.index}>
+                                    <td>{item.index + 1}</td>
+                                    <td>{item.month}</td>
+                                    <td>{item.value}</td>
+                                  </tr>
+                                ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </Grid>
+
+                      <Grid container spacing={3}>
+                        {[
+                          { src: post?.selectedFile, label: "Project" },
+                          { src: cement, label: "Cement" },
+                          { src: rod, label: "Rod" },
+                          { src: cement, label: "Material" },
+                        ].map((item, index) => (
+                          <Grid item key={index}>
+                            <Grid
+                              sx={{
+                                p: "20px", // ✅ 20px padding
+                                textAlign: "center",
+                              }}
+                            >
+                              <img
+                                src={item.src}
+                                alt={item.label}
+                                style={{
+                                  height: "56px",
+                                  width: "56px",
+                                  borderRadius: "8px",
+                                  border: "2px solid #fff",
+                                }}
+                              />
+
+                              {/* ✅ Text at bottom */}
+                              <div
+                                style={{ marginTop: "8px", fontSize: "14px" }}
+                              >
+                                {item.label}
+                              </div>
+                            </Grid>
+                          </Grid>
+                        ))}
+                      </Grid>
+
+                      {/* <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                        <tr>
+                          <Grid>
+                            <td className="p-2 h-15 w-15">
+                              <img
+                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
+                                src={post?.selectedFile}
+                                alt="project images"
+                              ></img>
+                            </td>
+                          </Grid>
+                          <Grid>
+                            <td className="p-2 h-15 w-15">
+                              <img
+                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
+                                src={cement}
+                                alt="project images"
+                              ></img>
+                            </td>
+                          </Grid>
+                          <Grid>
+                            <td className="p-2 h-15 w-15">
+                              <img
+                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
+                                src={rod}
+                                alt="project images"
+                              ></img>
+                            </td>
+                          </Grid>
+                          <Grid>
+                            <td className="p-2 h-15 w-15">
+                              <img
+                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
+                                src={cement}
+                                alt="project images"
+                              ></img>
+                            </td>
+                          </Grid>
+                        </tr>
+                      </Grid> */}
+                    </Grid>
                   </div>
 
                   <div>
