@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
 
+import { getInventoryDetails } from "../../action/inventory";
+
 import rod from "../../assets/rod.jpg";
-import cement from "../../assets/cement.jpg";
+import cement from "../../assets/cement.png";
 
 import CurveDisplay from "../CurveDisplay/CurveDisplay";
 import { Grid } from "@mui/material";
@@ -24,8 +26,15 @@ const Dashboard = () => {
 
   const posts = useSelector((state) => state.posts);
 
+  const inventoryData = useSelector((state) => state.inventory || []);
+  console.log(inventoryData);
+
   useEffect(() => {
     dispatch(getPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getInventoryDetails());
   }, [dispatch]);
 
   const handleDPRClick = () => {
@@ -40,6 +49,32 @@ const Dashboard = () => {
     navigate(`/${id}/inventory`);
     // alert("This feature is currently under development.");
   };
+
+  const materialStockMap = {};
+
+  inventoryData.forEach((item) => {
+    if (!materialStockMap[item.material]) {
+      materialStockMap[item.material] = 0;
+    }
+
+    if (item.status === "Received") {
+      materialStockMap[item.material] += Number(item.quantity || 0);
+    } else if (item.status === "Issued") {
+      materialStockMap[item.material] -= Number(item.quantity || 0);
+    }
+  });
+
+  const materialStockList = Object.entries(materialStockMap).map(
+    ([material, qty]) => ({
+      label: material,
+      quantity: qty,
+      src: material.toLowerCase().includes("cement")
+        ? cement
+        : material.toLowerCase().includes("rod")
+          ? rod
+          : cement, // fallback image
+    }),
+  );
 
   return (
     <div className="items-start my-2 mb-50">
@@ -65,7 +100,7 @@ const Dashboard = () => {
                   >
                     <Grid sx={{ display: "flex", flexDirection: "row" }}>
                       <Grid>
-                        <div className="bg-white flex mb-2">
+                        <div className="bg-white flex mb-2 w-[850px]">
                           {/* Blue line stays fixed */}
                           <div className="w-2 bg-blue-800"></div>
 
@@ -216,18 +251,111 @@ const Dashboard = () => {
                         </div>
                       </Grid>
 
-                      <Grid container spacing={3}>
-                        {[
-                          { src: post?.selectedFile, label: "Project" },
-                          { src: cement, label: "Cement" },
-                          { src: rod, label: "Rod" },
-                          { src: cement, label: "Material" },
-                        ].map((item, index) => (
-                          <Grid item key={index}>
+                      <Grid
+                        sx={{
+                          alignItems: "center",
+                          // p: "10px",
+                          textAlign: "center",
+                          marginTop: "10px",
+                          padding: "10px",
+                        }}
+                      >
+                        <h2 className=" font-bold">Running stock</h2>
+                        <Grid
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(2, 1fr)", // ✅ 2 columns
+                            gap: "10px",
+                            justifyContent: "end",
+                            width: "100%",
+                            maxWidth: "300px",
+                            marginTop: "20px",
+                          }}
+                        >
+                          {materialStockList.map((item, index) => (
                             <Grid
+                              key={index}
                               sx={{
-                                p: "20px", // ✅ 20px padding
+                                display: "flex",
+                                gridTemplateColumns: "repeat(2, 1fr)", // ✅ 2 columns
+                                flexDirection: "column",
+                                alignItems: "center",
+                                p: "5px",
+                                border: "1px solid #d1d5db",
+                                borderRadius: "10px",
+                                backgroundColor: "#fff",
+                                minWidth: "140px",
+                              }}
+                            >
+                              {/* IMAGE ON TOP */}
+                              <img
+                                src={item.src}
+                                alt={item.label}
+                                style={{
+                                  height: "56px",
+                                  width: "50px",
+                                  borderRadius: "8px",
+                                }}
+                              />
+
+                              {/* MATERIAL NAME */}
+                              <div
+                                style={{
+                                  marginTop: "8px",
+                                  fontSize: "14px",
+                                  fontWeight: 600,
+                                }}
+                              >
+                                {item.label}
+                              </div>
+
+                              {/* RUNNING STOCK */}
+                              <div
+                                style={{
+                                  fontSize: "13px",
+                                  marginTop: "4px",
+                                  color: item.quantity < 0 ? "red" : "#0D325c",
+                                  fontWeight: 500,
+                                }}
+                              >
+                                Stock: {item.quantity}
+                              </div>
+                            </Grid>
+                          ))}
+                        </Grid>
+                        {/* 
+                        <Grid
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(2, auto)", // ✅ 2 columns
+                            gap: "8px 8px", // row gap | column gap
+                            // border: "1px dashed #02274d", // ✅ outer box border
+                            // borderRadius: "8px",
+                            justifyContent: "end", // ✅ push to right
+                            overflow: "hidden",
+                            width: "100%",
+                            // marginTop: "10px",
+                          }}
+                        >
+                          {[
+                            { src: rod, label: "Project" },
+                            { src: cement, label: "Cement" },
+                            { src: rod, label: "Rod" },
+                            { src: cement, label: "Material" },
+                            { src: cement, label: "Material" },
+                            { src: cement, label: "Material" },
+                            { src: cement, label: "Material" },
+                            { src: cement, label: "Material" },
+                          ].map((item, index) => (
+                            <Grid
+                              key={index}
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                p: "20px",
                                 textAlign: "center",
+                                marginTop: "20px",
                               }}
                             >
                               <img
@@ -240,58 +368,15 @@ const Dashboard = () => {
                                   border: "2px solid #fff",
                                 }}
                               />
-
-                              {/* ✅ Text at bottom */}
                               <div
                                 style={{ marginTop: "8px", fontSize: "14px" }}
                               >
                                 {item.label}
                               </div>
                             </Grid>
-                          </Grid>
-                        ))}
+                          ))}
+                        </Grid> */}
                       </Grid>
-
-                      {/* <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                        <tr>
-                          <Grid>
-                            <td className="p-2 h-15 w-15">
-                              <img
-                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
-                                src={post?.selectedFile}
-                                alt="project images"
-                              ></img>
-                            </td>
-                          </Grid>
-                          <Grid>
-                            <td className="p-2 h-15 w-15">
-                              <img
-                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
-                                src={cement}
-                                alt="project images"
-                              ></img>
-                            </td>
-                          </Grid>
-                          <Grid>
-                            <td className="p-2 h-15 w-15">
-                              <img
-                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
-                                src={rod}
-                                alt="project images"
-                              ></img>
-                            </td>
-                          </Grid>
-                          <Grid>
-                            <td className="p-2 h-15 w-15">
-                              <img
-                                className="inline-block h-14 w-14  ring-2 ring-white rounded center"
-                                src={cement}
-                                alt="project images"
-                              ></img>
-                            </td>
-                          </Grid>
-                        </tr>
-                      </Grid> */}
                     </Grid>
                   </div>
 
