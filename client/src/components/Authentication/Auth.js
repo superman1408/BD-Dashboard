@@ -14,10 +14,10 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
-// import image from "../../assests/civilbackground.jpg;
+// import image from "../../assets/civilbackground.jpg;
 
-// import image from "../../assests/civil background.jpg";
-import image from "../../assests/civil_background.jpg";
+// import image from "../../assets/civil background.jpg";
+import image from "../../assets/civil_background.jpg";
 
 import { ToastContainer } from "react-toastify";
 

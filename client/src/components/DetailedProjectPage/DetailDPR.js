@@ -5,7 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import { Grid, Card, Container, Button, LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
-import LOGO from "../../assests/Ashkam_Logo.png";
+import LOGO from "../../assets/Ashkam_Logo.png";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 

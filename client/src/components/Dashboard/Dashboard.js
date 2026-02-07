@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
-import DPRimage from "../../assests/DPR.png";
+import DPRimage from "../../assets/DPR.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../action/posts";
