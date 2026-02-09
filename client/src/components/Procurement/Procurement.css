@@ -17,3 +17,54 @@
   border-bottom: 2px solid #02274d;
   background-color: #f5f5f5;
 }
+
+/* ===== PRINT STYLES ONLY ===== */
+@media print {
+  /* Landscape for wide table */
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+
+  /* Hide icons / buttons */
+  svg,
+  button {
+    display: none !important;
+  }
+
+  /* Page background reset */
+  body {
+    background: white !important;
+    margin: 0;
+  }
+
+  /* Title styling */
+  h1 {
+    text-align: center !important;
+    font-size: 22px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Table improvements */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 11px !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #000 !important;
+    padding: 6px !important;
+    color: #000 !important;
+  }
+
+  thead {
+    background: #eaeaea !important;
+  }
+
+  /* Remove alternating row colors */
+  tr {
+    background: white !important;
+  }
+}

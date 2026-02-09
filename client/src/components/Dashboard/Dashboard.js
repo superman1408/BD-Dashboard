@@ -9,6 +9,14 @@ import { getInventoryDetails } from "../../action/inventory";
 
 import rod from "../../assets/rod.jpg";
 import cement from "../../assets/cement.png";
+import sand from "../../assets/sand.jpg";
+import nails from "../../assets/nails.jpg";
+import wire from "../../assets/wire.jpg";
+import Bricks from "../../assets/brick.jpg";
+import Aggregate from "../../assets/aggregate.png";
+import WoodCuttingBlade from "../../assets/WoodCuttingBlade.png";
+import RodCutttingBlade from "../../assets/RodCuttingBlade.jpg";
+import CoverBlock from "../../assets/coverBlock.png";
 
 import CurveDisplay from "../CurveDisplay/CurveDisplay";
 import { Grid } from "@mui/material";
@@ -70,9 +78,25 @@ const Dashboard = () => {
       quantity: qty,
       src: material.toLowerCase().includes("cement")
         ? cement
-        : material.toLowerCase().includes("rod")
-          ? rod
-          : cement, // fallback image
+        : material.toLowerCase().includes("rod cutting")
+          ? RodCutttingBlade
+          : material.toLowerCase().includes("wood cutting")
+            ? WoodCuttingBlade
+            : material.toLowerCase().includes("rod")
+              ? rod
+              : material.toLowerCase().includes("nail")
+                ? nails
+                : material.toLowerCase().includes("wire")
+                  ? wire
+                  : material.toLowerCase().includes("sand")
+                    ? sand
+                    : material.toLowerCase().includes("brick")
+                      ? Bricks
+                      : material.toLowerCase().includes("aggregate")
+                        ? Aggregate
+                        : material.toLowerCase().includes("cover block")
+                          ? CoverBlock
+                          : cement, // final fallback
     }),
   );
 
@@ -98,9 +122,16 @@ const Dashboard = () => {
                     style={{ display: "flex" }}
                     className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100"
                   >
-                    <Grid sx={{ display: "flex", flexDirection: "row" }}>
+                    <Grid
+                      sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row" },
+                        gap: 2,
+                      }}
+                    >
                       <Grid>
-                        <div className="bg-white flex mb-2 w-[850px]">
+                        {/* <div className="bg-white flex mb-2 w-[820px]"> */}
+                        <div className="bg-white flex mb-2 w-full md:w-[800px]">
                           {/* Blue line stays fixed */}
                           <div className="w-2 bg-blue-800"></div>
 
@@ -257,6 +288,7 @@ const Dashboard = () => {
                           // p: "10px",
                           textAlign: "center",
                           marginTop: "10px",
+                          marginLeft: "20px",
                           padding: "10px",
                         }}
                       >
@@ -385,8 +417,9 @@ const Dashboard = () => {
                   </div>
                 </div>
 
+                {/* <div className="p-3 overflow-auto mt-3 bg-gray-100 rounded flex mb-5"> */}
                 <div className="p-3 overflow-auto mt-3 bg-gray-100 rounded flex mb-5">
-                  <div className="h-auto w-18 flex mb-5">
+                  <div className="h-auto w-18 flex flex-col md:flex-row mb-5">
                     <div className="flex items-center space-x-4 ml-10">
                       <OverlayTrigger
                         placement="top"

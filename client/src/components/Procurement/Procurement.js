@@ -45,6 +45,17 @@ const Procurement = () => {
     };
   });
 
+  const handlePrint = () => {
+    const printContents = componentRef.current.innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+
+    window.location.reload(); // restore React properly
+  };
+
   return (
     <div style={{ padding: "20px", marginBottom: "50px" }}>
       <div
@@ -58,6 +69,8 @@ const Procurement = () => {
         }}
       >
         <ArchiveIcon
+          // componentRef={componentRef}
+          onClick={handlePrint}
           style={{
             fontSize: "25px",
             cursor: "pointer",
