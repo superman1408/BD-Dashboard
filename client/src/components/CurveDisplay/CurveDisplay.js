@@ -154,7 +154,7 @@ const CurveDisplay = () => {
   });
 
   return (
-    <>
+    <div>
       <div className="mb-8">
         {posts.map((post) => {
           const isoDate = post?.updatedAt;
@@ -369,7 +369,7 @@ const CurveDisplay = () => {
           </Modal.Footer>
         </form>
       </Modal>
-    </>
+    </div>
   );
 };
 

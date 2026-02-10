@@ -82,7 +82,7 @@ export default function InventoryForm() {
       // displayTime,
     };
 
-    console.log("Sending payload:", newActivity);
+    // console.log("Sending payload:", newActivity);
 
     try {
       await dispatch(inventoryList(newActivity, currentId)).then((res) => {

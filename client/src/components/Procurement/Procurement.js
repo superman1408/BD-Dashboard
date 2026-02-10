@@ -23,7 +23,6 @@ const Procurement = () => {
   }, [dispatch]);
 
   const inventoryData = useSelector((state) => state.inventory || []);
-  console.log("inventoryData", inventoryData);
 
   // Running stock calculation
   const balances = {};

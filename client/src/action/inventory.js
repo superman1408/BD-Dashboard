@@ -34,7 +34,7 @@ import { INVENTORY_LIST, GET_INVENTORY } from "../constants/actionTypes";
 
 export const inventoryList = (newActivity, id) => async (dispatch) => {
   try {
-    console.log(newActivity);
+    // console.log(newActivity);
 
     const { data } = await API.inventoryList(newActivity, id);
 
@@ -50,7 +50,6 @@ export const inventoryList = (newActivity, id) => async (dispatch) => {
 export const getInventoryDetails = () => async (dispatch) => {
   try {
     const { data } = await API.getInventoryDetails();
-    console.log(data);
 
     dispatch({ type: GET_INVENTORY, payload: data });
   } catch (error) {

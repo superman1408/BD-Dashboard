@@ -35,7 +35,6 @@ const Dashboard = () => {
   const posts = useSelector((state) => state.posts);
 
   const inventoryData = useSelector((state) => state.inventory || []);
-  console.log(inventoryData);
 
   useEffect(() => {
     dispatch(getPosts());
