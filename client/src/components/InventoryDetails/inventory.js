@@ -51,7 +51,7 @@ export default function InventoryForm() {
     Nails: ["Kg", "Packets"],
     "Cover block": ["Nos"],
     "Wood cutting blade": ["Pieces"],
-    "Rod cuttting blade": ["Pieces"],
+    "Rod cutting blade": ["Pieces"],
     Other: ["Kg", "Nos", "Pieces"],
   };
 
@@ -161,8 +161,8 @@ export default function InventoryForm() {
                             <option value="Wood cutting blade">
                               Wood cutting blade
                             </option>
-                            <option value="Rod cuttting blade">
-                              Rod cuttting blade
+                            <option value="Rod cutting blade">
+                              Rod cutting blade
                             </option>
                             <option value="Other">Other</option>
                           </Form.Select>

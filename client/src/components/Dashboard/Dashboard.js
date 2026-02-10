@@ -15,7 +15,7 @@ import wire from "../../assets/wire.jpg";
 import Bricks from "../../assets/brick.jpg";
 import Aggregate from "../../assets/aggregate.png";
 import WoodCuttingBlade from "../../assets/WoodCuttingBlade.png";
-import RodCutttingBlade from "../../assets/RodCuttingBlade.jpg";
+import RodCuttingBlade from "../../assets/RodCuttingBlade.jpg";
 import CoverBlock from "../../assets/coverBlock.png";
 
 import CurveDisplay from "../CurveDisplay/CurveDisplay";
@@ -78,12 +78,12 @@ const Dashboard = () => {
       src: material.toLowerCase().includes("cement")
         ? cement
         : material.toLowerCase().includes("rod cutting")
-          ? RodCutttingBlade
+          ? RodCuttingBlade
           : material.toLowerCase().includes("wood cutting")
             ? WoodCuttingBlade
             : material.toLowerCase().includes("rod")
               ? rod
-              : material.toLowerCase().includes("nail")
+              : material.toLowerCase().includes("nails")
                 ? nails
                 : material.toLowerCase().includes("wire")
                   ? wire
@@ -286,9 +286,9 @@ const Dashboard = () => {
                           alignItems: "center",
                           // p: "10px",
                           textAlign: "center",
-                          marginTop: "10px",
+                          // marginTop: "10px",
                           marginLeft: "20px",
-                          padding: "10px",
+                          padding: "2px",
                         }}
                       >
                         <h2 className=" font-bold">Running stock</h2>
@@ -300,7 +300,7 @@ const Dashboard = () => {
                             justifyContent: "end",
                             width: "100%",
                             maxWidth: "300px",
-                            marginTop: "20px",
+                            marginTop: "2px",
                           }}
                         >
                           {materialStockList.map((item, index) => (
