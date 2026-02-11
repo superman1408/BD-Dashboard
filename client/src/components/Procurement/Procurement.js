@@ -144,9 +144,9 @@ const Procurement = () => {
                 <th>Quantity Received</th>
                 <th>Quantity Issued</th>
                 <th>Running Stock</th>
-                <th>Status</th>
-                <th>Remarks</th>
-                <th>Received/Issued By</th>
+                <th className="hide-mobile">Status</th>
+                <th className="hide-mobile">Remarks</th>
+                <th className="hide-mobile">Received/Issued By</th>
               </tr>
             </thead>
 
@@ -189,9 +189,9 @@ const Procurement = () => {
                     </td>
                     <td style={{ color: "blue" }}>{item.runningStock}</td>
 
-                    <td>{item.status}</td>
-                    <td>{item.remarks}</td>
-                    <td>{item.vendor}</td>
+                    <td className="hide-mobile">{item.status}</td>
+                    <td className="hide-mobile">{item.remarks}</td>
+                    <td className="hide-mobile">{item.vendor}</td>
                   </tr>
                 ))
               )}
