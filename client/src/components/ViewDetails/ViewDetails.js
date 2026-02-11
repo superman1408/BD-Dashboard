@@ -42,7 +42,8 @@ const ViewDetails = () => {
         });
       }
     });
-    tempArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+    tempArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     setFilteredArray(tempArray);
   };
 

@@ -24,10 +24,45 @@ const Procurement = () => {
 
   const inventoryData = useSelector((state) => state.inventory || []);
 
-  // Running stock calculation
+  // // Running stock calculation
+  // const balances = {};
+
+  // const inventoryWithStock = inventoryData.map((item) => {
+  //   if (!balances[item.material]) {
+  //     balances[item.material] = 0;
+  //   }
+
+  //   if (item.status === "Received") {
+  //     balances[item.material] += Number(item.quantity || 0);
+  //   } else if (item.status === "Issued") {
+  //     balances[item.material] -= Number(item.quantity || 0);
+  //   }
+
+  //   return {
+  //     ...item,
+  //     runningStock: balances[item.material],
+  //   };
+  // });
+
+  const handlePrint = () => {
+    const printContents = componentRef.current.innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+
+    window.location.reload(); // restore React properly
+  };
+
+  // Step 1: Sort oldest first for correct stock calculation
+  const sortedAsc = [...inventoryData].sort(
+    (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt),
+  );
+
   const balances = {};
 
-  const inventoryWithStock = inventoryData.map((item) => {
+  const calculatedStock = sortedAsc.map((item) => {
     if (!balances[item.material]) {
       balances[item.material] = 0;
     }
@@ -44,16 +79,8 @@ const Procurement = () => {
     };
   });
 
-  const handlePrint = () => {
-    const printContents = componentRef.current.innerHTML;
-    const originalContents = document.body.innerHTML;
-
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-
-    window.location.reload(); // restore React properly
-  };
+  // Step 2: Reverse for latest first display
+  const inventoryWithStock = calculatedStock.reverse();
 
   return (
     <div style={{ padding: "20px", marginBottom: "50px" }}>
@@ -79,93 +106,97 @@ const Procurement = () => {
       </div>
 
       <div style={{ padding: "20px" }} ref={componentRef}>
-        <h1
-          style={{
-            textAlign: "center",
-            fontSize: "32px", // bigger
-            fontWeight: "400", // bold
-            backgroundColor: "#02274d",
-            color: "#ffffff",
-          }}
-        >
-          Construction Inventory Material
-        </h1>
-
-        <table
-          className="inventory-table"
-          border="3"
-          width="100%"
-          cellPadding="8"
-          style={{
-            borderCollapse: "collapse",
-            marginTop: "20px",
-            border: "2px solid #02274d",
-          }}
-        >
-          <thead
-            style={{ backgroundColor: "#fdfdfd", border: "2px solid #02274d" }}
+        <div className="table-responsive">
+          <h1
+            style={{
+              textAlign: "center",
+              fontSize: "32px", // bigger
+              fontWeight: "400", // bold
+              backgroundColor: "#02274d",
+              color: "#ffffff",
+            }}
           >
-            <tr style={{ textAlign: "center" }}>
-              <th>S.No</th>
-              <th>Time</th>
-              <th>Material Name</th>
-              <th>Unit</th>
-              <th>Quantity Received</th>
-              <th>Quantity Issued</th>
-              <th>Running Stock</th>
-              <th>Status</th>
-              <th>Remarks</th>
-              <th>Received/Issued By</th>
-            </tr>
-          </thead>
+            Construction Inventory Material
+          </h1>
 
-          <tbody>
-            {inventoryWithStock.length === 0 ? (
-              <tr>
-                <td colSpan="9" style={{ textAlign: "center" }}>
-                  No inventory data
-                </td>
+          <table
+            className="inventory-table"
+            border="3"
+            width="100%"
+            cellPadding="8"
+            style={{
+              borderCollapse: "collapse",
+              marginTop: "20px",
+              border: "2px solid #02274d",
+            }}
+          >
+            <thead
+              style={{
+                backgroundColor: "#fdfdfd",
+                border: "2px solid #02274d",
+              }}
+            >
+              <tr style={{ textAlign: "center" }}>
+                {/* <th>S.No</th> */}
+                <th>Time</th>
+                <th>Material Name</th>
+                <th>Unit</th>
+                <th>Quantity Received</th>
+                <th>Quantity Issued</th>
+                <th>Running Stock</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Received/Issued By</th>
               </tr>
-            ) : (
-              inventoryWithStock.map((item, index) => (
-                <tr
-                  key={item._id || index}
-                  style={{
-                    textAlign: "center",
-                    backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
-                  }}
-                >
-                  <td>{index + 1}</td>
-                  <td style={{ color: "darkblue" }}>
-                    {new Date(item.updatedAt).toLocaleString("en-IN", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                      hour12: true,
-                    })}
-                  </td>
+            </thead>
 
-                  <td>{item.material}</td>
-                  <td>{item.unit}</td>
-                  <td style={{ color: "green" }}>
-                    {item.status === "Received" ? item.quantity : "-"}
+            <tbody>
+              {inventoryWithStock.length === 0 ? (
+                <tr>
+                  <td colSpan="9" style={{ textAlign: "center" }}>
+                    No inventory data
                   </td>
-                  <td style={{ color: "red" }}>
-                    {item.status === "Issued" ? item.quantity : "-"}
-                  </td>
-                  <td style={{ color: "blue" }}>{item.runningStock}</td>
-
-                  <td>{item.status}</td>
-                  <td>{item.remarks}</td>
-                  <td>{item.vendor}</td>
                 </tr>
-              ))
-            )}
+              ) : (
+                inventoryWithStock.map((item, index) => (
+                  <tr
+                    key={item._id || index}
+                    style={{
+                      textAlign: "center",
+                      backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
+                    }}
+                  >
+                    {/* <td>{index + 1}</td> */}
+                    <td style={{ color: "darkblue" }}>
+                      {new Date(item.updatedAt).toLocaleString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true,
+                      })}
+                    </td>
 
-            {/* {inventoryData.length === 0 ? (
+                    <td>{item.material}</td>
+                    <td>{item.unit}</td>
+                    <td style={{ color: "green" }}>
+                      {item.status === "Received" ? item.quantity : "-"}
+                    </td>
+                    <td style={{ color: "red" }}>
+                      {item.status === "Issued" ? item.quantity : "-"}
+                    </td>
+                    <td style={{ color: "blue" }}>{item.runningStock}</td>
+
+                    <td>{item.status}</td>
+                    <td>{item.remarks}</td>
+                    <td>{item.vendor}</td>
+                  </tr>
+                ))
+              )}
+
+              {/* {inventoryData.length === 0 ? (
               <tr>
                 <td colSpan="8" style={{ textAlign: "center" }}>
                   No inventory data
@@ -196,8 +227,9 @@ const Procurement = () => {
                 </tr>
               ))
             )} */}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

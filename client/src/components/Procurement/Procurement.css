@@ -68,3 +68,31 @@
     background: white !important;
   }
 }
+
+/* Table Responsive Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Default table styling */
+.inventory-table {
+  min-width: 1000px; /* prevents breaking */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .inventory-table {
+    font-size: 12px;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 6px;
+  }
+
+  h1 {
+    font-size: 20px !important;
+    padding: 8px !important;
+  }
+}
