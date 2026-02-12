@@ -17,9 +17,6 @@ export const fetchPosts = () => API.get("/posts");
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 
-export const getInventoryDetails = () =>
-  API.get(`/inventory/inventoryDetails/view`);
-
 export const signIn = (formData) => API.post("/user/signin", formData);
 
 export const signUp = (formdata, code) => API.post(`/user/signup`, formdata);
@@ -55,3 +52,6 @@ export const fetchContractDetails = () =>
 // -----------------------------------------------------inventory-----------------------------------------------------------
 export const inventoryList = (newActivity, id) =>
   API.post(`/inventory/${id}/inventory`, newActivity);
+
+export const getInventoryDetails = (id) =>
+  API.get(`/inventory/${id}/inventoryDetails/view`);

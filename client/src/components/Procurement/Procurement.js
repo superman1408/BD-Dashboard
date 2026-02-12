@@ -19,7 +19,7 @@ const Procurement = () => {
   const componentRef = useRef();
 
   useEffect(() => {
-    dispatch(getInventoryDetails());
+    dispatch(getInventoryDetails(id));
   }, [dispatch]);
 
   const inventoryData = useSelector((state) => state.inventory || []);

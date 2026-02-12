@@ -47,9 +47,9 @@ export const inventoryList = (newActivity, id) => async (dispatch) => {
   }
 };
 
-export const getInventoryDetails = () => async (dispatch) => {
+export const getInventoryDetails = (id) => async (dispatch) => {
   try {
-    const { data } = await API.getInventoryDetails();
+    const { data } = await API.getInventoryDetails(id);
 
     dispatch({ type: GET_INVENTORY, payload: data });
   } catch (error) {

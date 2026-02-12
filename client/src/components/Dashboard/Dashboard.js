@@ -41,7 +41,7 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getInventoryDetails());
+    dispatch(getInventoryDetails(id));
   }, [dispatch]);
 
   const handleDPRClick = () => {

@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.post("/:id/inventory", auth, inventoryList);
 
-router.get("/inventoryDetails/view", getInventoryDetails);
+router.get("/:id/inventoryDetails/view", getInventoryDetails);
 
 export default router;

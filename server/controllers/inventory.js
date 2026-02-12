@@ -39,7 +39,11 @@ export const inventoryList = async (req, res) => {
 
 export const getInventoryDetails = async (req, res) => {
   try {
-    const inventory = await inventoryOverview.find({});
+    const id = req.params;
+    console.log(id);
+
+    const inventory = await inventoryOverview.find(id);
+    console.log(inventory);
 
     res.status(200).json(inventory);
   } catch (error) {

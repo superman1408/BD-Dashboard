@@ -4,7 +4,6 @@ import EntryOverview from "../model/entryDetails.js";
 import ContractOverview from "../model/contractDetail.js";
 import inventoryOverview from "../model/inventoryDetails.js";
 
-
 export const createPost = async (req, res) => {
   const Post = req.body;
 
@@ -57,7 +56,7 @@ export const update = async (req, res) => {
       {
         new: true, // Return the modified document
         runValidators: true, // Validate the new data against the schema
-      }
+      },
     );
 
     // If no document is found, send a 404 response
@@ -132,6 +131,3 @@ export const getEntryDetails = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
-
-
