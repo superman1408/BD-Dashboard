@@ -118,8 +118,9 @@ const Dashboard = () => {
                   {/* mx-auto: Centers the container within the available space horizontally. */}
 
                   <div
-                    style={{ display: "flex" }}
-                    className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100"
+                    // style={{ display: "flex" }}
+                    // className="p-3  mx-auto overflow-auto  bg-gray-100 rounded  w-100"
+                    className="p-2 mx-auto bg-gray-100 rounded w-full"
                   >
                     <Grid
                       sx={{
@@ -128,9 +129,9 @@ const Dashboard = () => {
                         gap: 2,
                       }}
                     >
-                      <Grid>
+                      <Grid item xs={12} md={7}>
                         {/* <div className="bg-white flex mb-2 w-[820px]"> */}
-                        <div className="bg-white flex mb-2 w-full md:w-[800px]">
+                        <div className="bg-white flex mb-2 w-full md:w-auto">
                           {/* Blue line stays fixed */}
                           <div className="w-2 bg-blue-800"></div>
 
@@ -282,13 +283,19 @@ const Dashboard = () => {
                       </Grid>
 
                       <Grid
+                        // sx={{
+                        //   alignItems: "center",
+                        //   // p: "10px",
+                        //   textAlign: "center",
+                        //   // marginTop: "10px",
+                        //   marginLeft: "20px",
+                        //   padding: "2px",
+                        // }}
+                        item
+                        xs={12}
+                        md={5}
                         sx={{
-                          alignItems: "center",
-                          // p: "10px",
                           textAlign: "center",
-                          // marginTop: "10px",
-                          marginLeft: "20px",
-                          padding: "2px",
                         }}
                       >
                         <h2 className=" font-bold">Running stock</h2>
@@ -299,7 +306,7 @@ const Dashboard = () => {
                             gap: "10px",
                             justifyContent: "end",
                             width: "100%",
-                            maxWidth: "300px",
+                            // maxWidth: "300px",
                             marginTop: "2px",
                           }}
                         >
