@@ -129,7 +129,7 @@ const Dashboard = () => {
                         gap: 2,
                       }}
                     >
-                      <Grid item xs={12} md={7}>
+                      <Grid item xs={12} md={8} lg={9}>
                         {/* <div className="bg-white flex mb-2 w-[820px]"> */}
                         <div className="bg-white flex mb-2 w-full md:w-auto">
                           {/* Blue line stays fixed */}
@@ -293,7 +293,8 @@ const Dashboard = () => {
                         // }}
                         item
                         xs={12}
-                        md={5}
+                        md={4}
+                        lg={3}
                         sx={{
                           textAlign: "center",
                         }}
