@@ -8,6 +8,8 @@ import { Form, Button, Modal, Row, Col } from "react-bootstrap";
 import Procurement from "../Procurement/Procurement";
 import { inventoryList } from "../../action/inventory";
 
+import "./inventory.css";
+
 export default function InventoryForm() {
   const [entries, setEntries] = useState([]);
 
@@ -120,12 +122,18 @@ export default function InventoryForm() {
               </Button>
 
               <Modal
+                // show={show}
+                // onHide={() => setShow(false)}
+                // centered
+                // container={document.body}
+                // size="lg"
+                // style={{ marginTop: "60px" }}
                 show={show}
                 onHide={() => setShow(false)}
                 centered
                 container={document.body}
                 size="lg"
-                style={{ marginTop: "60px" }}
+                dialogClassName="responsive-modal"
               >
                 <Modal.Header closeButton className="justify-content-center">
                   <Modal.Title className="w-100 text-center fw-bold">

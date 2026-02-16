@@ -1,0 +1,15 @@
+/* Desktop */
+.responsive-modal {
+  margin-top: 60px;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .responsive-modal {
+    margin: 10px;
+  }
+
+  .modal-dialog {
+    max-width: 95% !important;
+  }
+}
