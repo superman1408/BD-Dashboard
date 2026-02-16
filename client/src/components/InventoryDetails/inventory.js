@@ -126,7 +126,7 @@ export default function InventoryForm() {
                 centered
                 container={document.body}
                 size="lg"
-                style={{ marginTop: "40px" }}
+                style={{ marginTop: "60px" }}
               >
                 <Modal.Header closeButton className="justify-content-center">
                   <Modal.Title className="w-100 text-center fw-bold">

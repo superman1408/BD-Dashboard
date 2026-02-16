@@ -40,7 +40,6 @@ export const inventoryList = async (req, res) => {
 export const getInventoryDetails = async (req, res) => {
   try {
     const id = req.params;
-    console.log(id);
 
     const inventory = await inventoryOverview.find(id);
     console.log(inventory);
