@@ -303,7 +303,12 @@ const Dashboard = () => {
                         <Grid
                           sx={{
                             display: "grid",
-                            gridTemplateColumns: "repeat(2, 1fr)", // ✅ 2 columns
+                            gridTemplateColumns: {
+                              xs: "repeat(2, 1fr)", // mobile
+                              // sm: "repeat(2, 1fr)",
+                              // md: "repeat(2, 1fr)",
+                              lg: "repeat(3, 1fr)", // large screens
+                            },
                             gap: "10px",
                             justifyContent: "end",
                             width: "100%",
