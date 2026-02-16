@@ -86,7 +86,6 @@ export default function InventoryForm() {
 
     try {
       await dispatch(inventoryList(newActivity, currentId)).then((res) => {
-        console.log("Data is recieved in the Data Base");
         clearForm(); // <-- Clear form here
         alert("✅ Entry submitted successfully!");
         // window.location.reload();
