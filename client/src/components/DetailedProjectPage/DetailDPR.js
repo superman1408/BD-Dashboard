@@ -1521,7 +1521,7 @@ const DetailedProjectPage = () => {
                       </tbody> */}
                     {/* </table> */}
 
-                    {/* <table
+                    <table
                       className="dpr-table"
                       style={{
                         padding: "4px",
@@ -1532,13 +1532,13 @@ const DetailedProjectPage = () => {
                         width: "100%",
                         maxWidth: "800px",
                       }}
-                    > */}
-                    {/* <colgroup>
-                        <col style={{ width: "60px" }} /> 
-                        <col style={{ width: auto }} /> 
-                        <col style={{ width: "250px" }} /> 
-                      </colgroup> */}
-                    {/* <thead>
+                    >
+                      <colgroup>
+                        <col style={{ width: "60px" }} />
+                        <col style={{ width: auto }} />
+                        <col style={{ width: "250px" }} />
+                      </colgroup>
+                      <thead>
                         <tr>
                           <th
                             colSpan="3"
@@ -1581,9 +1581,9 @@ const DetailedProjectPage = () => {
                             Completed Status
                           </th>
                         </tr>
-                      </thead> */}
+                      </thead>
 
-                    {/* <tbody>
+                      <tbody>
                         {filteredData?.map((entry, index) => {
                           let plannedWorkListData = [];
 
@@ -1597,14 +1597,14 @@ const DetailedProjectPage = () => {
                             ) {
                               plannedWorkListData =
                                 entry.plannedWorkList[0].map((item) =>
-                                  item.trim()
+                                  item.trim(),
                                 );
                             } else if (
                               typeof entry.plannedWorkList[0] === "object" &&
                               entry.plannedWorkList[0] !== null
                             ) {
                               plannedWorkListData = Object.entries(
-                                entry.plannedWorkList[0]
+                                entry.plannedWorkList[0],
                               ).map(([key, value]) => `${key}: ${value}`);
                             }
                           } else if (
@@ -1636,8 +1636,8 @@ const DetailedProjectPage = () => {
                                   }}
                                 >
                                   {description}
-                                </td> */}
-                    {/* <td
+                                </td>
+                                {/* <td
                                   style={{
                                     border: "1px solid black",
                                     padding: "4px",
@@ -1646,13 +1646,13 @@ const DetailedProjectPage = () => {
                                 >
                                   {quantity}
                                 </td> */}
-                    {/* </tr>
+                              </tr>
                             );
                           });
                         })}
-                      </tbody> */}
-                    {/* </table> */}
-
+                      </tbody>
+                    </table>
+                    <br />
                     <table
                       style={{
                         padding: "10px",
