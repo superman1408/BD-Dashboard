@@ -21,6 +21,7 @@ import CurveDisplay from "./components/CurveDisplay/CurveDisplay";
 import InventoryManagement from "./components/InventoryManagement/InventoryManagement";
 import ActualScurve from "./components/CurveDisplay/SCurve/ActualScurve";
 import Procurement from "./components/Procurement/Procurement";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -107,7 +108,7 @@ const App = () => {
       <div className="wave"></div>
       <div className="wave"></div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <footer
+        {/* <footer
           style={{
             position: "fixed",
             bottom: 0,
@@ -121,7 +122,8 @@ const App = () => {
           }}
         >
           ©️ 2024 ASHKAM ENERGY PRIVATE LIMITED. All rights reserved.
-        </footer>
+        </footer> */}
+        <Footer />
       </div>
     </BrowserRouter>
   );
