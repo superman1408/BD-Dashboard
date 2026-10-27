@@ -17,7 +17,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 // import image from "../../assets/civilbackground.jpg;
 
 // import image from "../../assets/civil background.jpg";
-import image from "../../assets/civil_background.jpg";
+import image from "../../assets/civil_background.png";
 
 import { ToastContainer } from "react-toastify";
 
