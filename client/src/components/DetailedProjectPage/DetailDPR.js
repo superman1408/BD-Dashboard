@@ -643,7 +643,7 @@ const DetailedProjectPage = () => {
                       <thead>
                         <tr>
                           <th
-                            colSpan="5"
+                            colSpan="7"
                             style={{
                               textAlign: "left",
                               padding: "4px",
@@ -692,6 +692,26 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Related Image
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "4px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
+                            }}
+                          >
+                            Description
+                          </th>
+                          <th
+                            style={{
+                              border: "1px solid black",
+                              padding: "4px",
+                              backgroundColor: "#e9eef4",
+                              textAlign: "center",
+                            }}
+                          >
+                            Target Date
                           </th>
                           <th
                             style={{
@@ -764,7 +784,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "8px",
+                                    padding: "4px",
                                     textAlign: "center",
                                     width: "130px",
                                   }}
@@ -820,7 +840,7 @@ const DetailedProjectPage = () => {
                                 <td
                                   style={{
                                     border: "1px solid black",
-                                    padding: "4px",
+                                    padding: "2px",
                                     textAlign: "center",
                                     color:
                                       status === "In Progress"
@@ -832,6 +852,37 @@ const DetailedProjectPage = () => {
                                   }}
                                 >
                                   {status}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "2px",
+                                    textAlign: "center",
+                                    color:
+                                      status === "In Progress"
+                                        ? "orange"
+                                        : status === "Completed"
+                                          ? "#006400"
+                                          : "transparent",
+                                    // color: status ? "white" : "black",
+                                  }}
+                                >
+                                  {}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "2px",
+                                    textAlign: "center",
+                                    color:
+                                      status === "In Progress"
+                                        ? "orange"
+                                        : status === "Completed"
+                                          ? "#006400"
+                                          : "transparent",
+                                  }}
+                                >
+                                  {}
                                 </td>
                               </tr>
                             );

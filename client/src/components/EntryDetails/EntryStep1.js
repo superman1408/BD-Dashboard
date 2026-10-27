@@ -39,6 +39,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     setInputValue("");
     setInputQuantity("");
     setImageFile(null);
+    // setDescription("");
+    // setTargetDate("");
     setStatus("");
     setShow(false);
   };
@@ -353,6 +355,33 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
             )}
 
             <Form.Control
+              as="textarea"
+              value={inputQuantity}
+              onChange={(e) => setInputQuantity(e.target.value)}
+              placeholder="Enter description"
+              className="mt-2"
+            />
+
+            {/* <Form.Control
+              as="textarea"
+              value={inputQuantity}
+              onChange={(e) => setInputQuantity(e.target.value)}
+              placeholder="Enter target date"
+              className="mt-2"
+            /> */}
+            <Form.Group controlId="formDate">
+              <Form.Label> Target Date</Form.Label>
+              <Form.Control
+                type="date"
+                value={formData.date || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, date: e.target.value })
+                }
+                required
+              />
+            </Form.Group>
+
+            <Form.Control
               as="select"
               value={status}
               onChange={(e) => {
@@ -603,7 +632,6 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                     </td>
                   </tr>
 
-                  
                   <tr>
                     <th>Opening Stock</th>
                     <td>
