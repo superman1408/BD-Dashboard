@@ -635,10 +635,12 @@ const DetailedProjectPage = () => {
                     >
                       <colgroup>
                         <col style={{ width: "10px" }} />
-                        <col style={{ width: "600px" }} />
-                        <col style={{ width: "200px" }} />
+                        <col style={{ width: "400px" }} />
+                        <col style={{ width: "50px" }} />
+                        <col style={{ width: "350px" }} />
                         <col style={{ width: "450px" }} />
-                        <col style={{ width: "250px" }} />
+                        <col style={{ width: "150px" }} />
+                        <col style={{ width: "100px" }} />
                       </colgroup>
                       <thead>
                         <tr>
@@ -778,9 +780,9 @@ const DetailedProjectPage = () => {
                             const [
                               text,
                               quantity,
-                              status,
-                              description,
+                              activityDescription,
                               targetDate,
+                              status,
                             ] = item.split("::").map((v) => v?.trim());
 
                             // const description =
@@ -823,7 +825,7 @@ const DetailedProjectPage = () => {
                                     padding: "2px",
                                     wordBreak: "break-word", // 🔑 this forces long strings to break
                                     whiteSpace: "pre-wrap", // keeps line breaks, wraps text
-                                    maxWidth: "100px", // adjust width so it stays in card
+                                    maxWidth: "50px", // adjust width so it stays in card
                                     overflowWrap: "anywhere",
                                     textAlign: "center",
                                   }}
@@ -860,11 +862,12 @@ const DetailedProjectPage = () => {
                                     whiteSpace: "pre-wrap", // keeps line breaks, wraps text
                                     maxWidth: "100px", // adjust width so it stays in card
                                     overflowWrap: "anywhere",
-                                    textAlign: "center",
+                                    // textAlign: "center",
                                   }}
                                 >
-                                  {description}
+                                  {activityDescription}
                                 </td>
+
                                 <td
                                   style={{
                                     border: "1px solid black",
@@ -878,6 +881,7 @@ const DetailedProjectPage = () => {
                                 >
                                   {targetDate}
                                 </td>
+
                                 <td
                                   style={{
                                     border: "1px solid black",

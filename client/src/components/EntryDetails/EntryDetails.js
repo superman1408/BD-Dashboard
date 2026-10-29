@@ -80,7 +80,10 @@ const EntryDetails = () => {
         ...formData,
         activityList:
           formData.activityList
-            ?.map((m) => `${m.text}::${m.quantity}::${m.status}`)
+            ?.map(
+              (m) =>
+                `${m.text}::${m.quantity}::${m.activityDescription}::${m.targetDate}::${m.status}`,
+            )
             .join("||") || "",
         plannedWorkList:
           formData.plannedWorkList

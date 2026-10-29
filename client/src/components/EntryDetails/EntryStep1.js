@@ -8,8 +8,9 @@ import {
   Col,
   Table,
 } from "react-bootstrap";
-import { Divider } from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import "./EntryDetails.css";
 
 const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [show, setShow] = useState(false);
@@ -33,9 +34,9 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     const newActivity = {
       text: inputValue,
       quantity: inputQuantity,
-      activityDescription: inputDescription,
-      targetdate: inputTargetDate,
       image: imageFile,
+      activityDescription: inputDescription,
+      targetDate: inputTargetDate,
       status: status,
     };
     const updatedActivities = [...(formData.activityList || []), newActivity];
@@ -313,10 +314,10 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
                 <input
                   type="date"
-                  value={item.targetdate || ""}
+                  value={item.targetDate || ""}
                   onChange={(e) => {
                     const newList = [...formData.activityList];
-                    newList[index].targetdate = e.target.value;
+                    newList[index].targetDate = e.target.value;
                     // newList[index] = {
                     //   ...newList[index],
                     //   targetdate: e.target.value,
@@ -375,14 +376,14 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           </Modal.Header>
           <Modal.Body>
             <Form.Control
-              as="textarea"
+              type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter details"
               required
             />
             <Form.Control
-              as="textarea"
+              type="text"
               value={inputQuantity}
               onChange={(e) => setInputQuantity(e.target.value)}
               placeholder="Enter quantity"
@@ -403,7 +404,6 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                 style={{ width: "100px", marginTop: "10px" }}
               />
             )}
-
             <Form.Control
               as="textarea"
               value={inputDescription}
@@ -413,39 +413,25 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               required
             />
 
-            {/* <Form.Control
-              type="date"
-              value={inputTargetDate}
-              onChange={(e) => setInputTargetDate(e.target.value)}
-              placeholder="Enter target date"
-              className="mt-2"
-            /> */}
-            {/* <Form.Group controlId="formDate">
-              <Form.Label> Target Date</Form.Label>
-              <Form.Control
-                type="date"
-                value={formData.date || ""}
-                onChange={(e) =>
-                  setInputTargetDate({ ...formData, date: e.target.value })
-                }
-                required
-              />
-            </Form.Group> */}
+            <Form.Group controlId="formTargetDate" className="mt-2">
+              <Row className="align-items-center gx-1">
+                <Col xs="auto">
+                  <Form.Label className="target-date-label mb-0">
+                    Target Date
+                  </Form.Label>
+                </Col>
 
-            {/* <Form.Group controlId="formDate">
-              <Form.Label>Target Date</Form.Label>
-              <Form.Control
-                type="date"
-                value={formData.date || ""}
-                onChange={(e) =>
-                  setInputTargetDate((prev) => ({
-                    ...prev,
-                    date: e.target.value,
-                  }))
-                }
-                required
-              />
-            </Form.Group> */}
+                <Col>
+                  <Form.Control
+                    type="date"
+                    className="target-date-input"
+                    value={inputTargetDate}
+                    onChange={(e) => setInputTargetDate(e.target.value)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
 
             <Form.Control
               as="select"
@@ -465,7 +451,21 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
             <Button onClick={() => setShow(false)} variant="secondary">
               Close
             </Button>
-            <Button onClick={handleAddActivity} variant="primary">
+            {/* <Button onClick={handleAddActivity} variant="primary">
+              Add
+            </Button> */}
+            <Button
+              onClick={handleAddActivity}
+              variant="primary"
+              disabled={
+                !inputValue.trim() ||
+                !inputQuantity.trim() ||
+                // !imageFile ||
+                !inputDescription.trim() ||
+                !inputTargetDate ||
+                !status
+              }
+            >
               Add
             </Button>
           </Modal.Footer>
