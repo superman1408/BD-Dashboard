@@ -328,18 +328,21 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           </Modal.Header>
           <Modal.Body>
             <Form.Control
-              as="textarea"
+              type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Enter details"
+              placeholder="Enter activity"
+              style={{ backgroundColor: "#fff", color: "#212529" }}
             />
             <Form.Control
-              as="textarea"
+              type="text"
               value={inputQuantity}
               onChange={(e) => setInputQuantity(e.target.value)}
               placeholder="Enter quantity"
+              style={{ backgroundColor: "#fff", color: "#212529" }}
               className="mt-2"
             />
+
             <Form.Control
               type="file"
               accept="image/*"
@@ -362,23 +365,21 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               className="mt-2"
             />
 
-            {/* <Form.Control
-              as="textarea"
-              value={inputQuantity}
-              onChange={(e) => setInputQuantity(e.target.value)}
-              placeholder="Enter target date"
-              className="mt-2"
-            /> */}
+           
             <Form.Group controlId="formDate">
-              <Form.Label> Target Date</Form.Label>
-              <Form.Control
-                type="date"
-                value={formData.date || ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, date: e.target.value })
-                }
-                required
-              />
+              
+              <Form.Group controlId="formDate">
+                <Form.Control
+                  type="date"
+                  name="targetDate"
+                  value={formData.targetDate || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, targetDate: e.target.value })
+                  }
+                  required
+                  aria-label="Target Date"
+                />
+              </Form.Group>
             </Form.Group>
 
             <Form.Control
