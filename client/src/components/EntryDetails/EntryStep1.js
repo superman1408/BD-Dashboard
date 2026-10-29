@@ -15,6 +15,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [show, setShow] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [inputQuantity, setInputQuantity] = useState("");
+  const [inputDescription, setInputDescription] = useState("");
+  const [inputTargetDate, setInputTargetDate] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [status, setStatus] = useState("");
 
@@ -31,6 +33,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     const newActivity = {
       text: inputValue,
       quantity: inputQuantity,
+      activityDescription: inputDescription,
+      targetdate: inputTargetDate,
       image: imageFile,
       status: status,
     };
@@ -39,8 +43,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     setInputValue("");
     setInputQuantity("");
     setImageFile(null);
-    // setDescription("");
-    // setTargetDate("");
+    setInputDescription("");
+    setInputTargetDate("");
     setStatus("");
     setShow(false);
   };
@@ -289,6 +293,49 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
                   }}
                 />
 
+                <input
+                  type="text"
+                  value={item.activityDescription}
+                  onChange={(e) => {
+                    const newList = [...formData.activityList];
+                    newList[index].activityDescription = e.target.value;
+                    setFormData({ ...formData, activityList: newList });
+                  }}
+                  style={{
+                    width: "100%",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    padding: "2px 6px",
+                    fontSize: "0.85rem",
+                  }}
+                />
+
+                <input
+                  type="date"
+                  value={item.targetdate || ""}
+                  onChange={(e) => {
+                    const newList = [...formData.activityList];
+                    newList[index].targetdate = e.target.value;
+                    // newList[index] = {
+                    //   ...newList[index],
+                    //   targetdate: e.target.value,
+                    // };
+
+                    setFormData({
+                      ...formData,
+                      activityList: newList,
+                    });
+                  }}
+                  style={{
+                    width: "100%",
+                    minWidth: 0,
+                    boxSizing: "border-box",
+                    padding: "2px 6px",
+                    fontSize: "0.85rem",
+                  }}
+                />
+
                 <label
                   style={{
                     backgroundColor:
@@ -320,7 +367,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
         <Modal
           show={show}
-          style={{ marginTop: "150px" }}
+          style={{ marginTop: "30px" }}
           onHide={() => setShow(false)}
         >
           <Modal.Header closeButton>
@@ -331,8 +378,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Enter activity"
-              style={{ backgroundColor: "#fff", color: "#212529" }}
+              placeholder="Enter details"
+              required
             />
             <Form.Control
               type="text"
@@ -341,6 +388,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               placeholder="Enter quantity"
               style={{ backgroundColor: "#fff", color: "#212529" }}
               className="mt-2"
+              required
             />
 
             <Form.Control
@@ -348,6 +396,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
               accept="image/*"
               onChange={(e) => setImageFile(e.target.files[0])}
               className="mt-2"
+              required
             />
             {imageFile && (
               <img
@@ -359,28 +408,46 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
             <Form.Control
               as="textarea"
-              value={inputQuantity}
-              onChange={(e) => setInputQuantity(e.target.value)}
+              value={inputDescription}
+              onChange={(e) => setInputDescription(e.target.value)}
               placeholder="Enter description"
               className="mt-2"
+              required
             />
 
-           
-            <Form.Group controlId="formDate">
-              
-              <Form.Group controlId="formDate">
-                <Form.Control
-                  type="date"
-                  name="targetDate"
-                  value={formData.targetDate || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, targetDate: e.target.value })
-                  }
-                  required
-                  aria-label="Target Date"
-                />
-              </Form.Group>
-            </Form.Group>
+            {/* <Form.Control
+              type="date"
+              value={inputTargetDate}
+              onChange={(e) => setInputTargetDate(e.target.value)}
+              placeholder="Enter target date"
+              className="mt-2"
+            /> */}
+            {/* <Form.Group controlId="formDate">
+              <Form.Label> Target Date</Form.Label>
+              <Form.Control
+                type="date"
+                value={formData.date || ""}
+                onChange={(e) =>
+                  setInputTargetDate({ ...formData, date: e.target.value })
+                }
+                required
+              />
+            </Form.Group> */}
+
+            {/* <Form.Group controlId="formDate">
+              <Form.Label>Target Date</Form.Label>
+              <Form.Control
+                type="date"
+                value={formData.date || ""}
+                onChange={(e) =>
+                  setInputTargetDate((prev) => ({
+                    ...prev,
+                    date: e.target.value,
+                  }))
+                }
+                required
+              />
+            </Form.Group> */}
 
             <Form.Control
               as="select"

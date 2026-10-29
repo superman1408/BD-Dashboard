@@ -775,9 +775,23 @@ const DetailedProjectPage = () => {
                             // const text = textRaw?.trim();
                             // const status = statusRaw?.trim();
 
-                            const [text, quantity, status] = item
-                              .split("::")
-                              .map((v) => v?.trim());
+                            const [
+                              text,
+                              quantity,
+                              status,
+                              description,
+                              targetDate,
+                            ] = item.split("::").map((v) => v?.trim());
+
+                            // const description =
+                            //   typeof item === "object" && item !== null
+                            //     ? item.description
+                            //     : item.split("::")[0]?.trim();
+
+                            // const targetDate =
+                            //   typeof item === "object" && item !== null
+                            //     ? item.targetdate
+                            //     : "";
 
                             return (
                               <tr key={`${index}-${i}`}>
@@ -837,6 +851,33 @@ const DetailedProjectPage = () => {
                                     "No image"
                                   )}
                                 </td>
+
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "2px",
+                                    wordBreak: "break-word", // 🔑 this forces long strings to break
+                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                    maxWidth: "100px", // adjust width so it stays in card
+                                    overflowWrap: "anywhere",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {description}
+                                </td>
+                                <td
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "2px",
+                                    wordBreak: "break-word", // 🔑 this forces long strings to break
+                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                    maxWidth: "100px", // adjust width so it stays in card
+                                    overflowWrap: "anywhere",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {targetDate}
+                                </td>
                                 <td
                                   style={{
                                     border: "1px solid black",
@@ -852,37 +893,6 @@ const DetailedProjectPage = () => {
                                   }}
                                 >
                                   {status}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "2px",
-                                    textAlign: "center",
-                                    color:
-                                      status === "In Progress"
-                                        ? "orange"
-                                        : status === "Completed"
-                                          ? "#006400"
-                                          : "transparent",
-                                    // color: status ? "white" : "black",
-                                  }}
-                                >
-                                  {}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "2px",
-                                    textAlign: "center",
-                                    color:
-                                      status === "In Progress"
-                                        ? "orange"
-                                        : status === "Completed"
-                                          ? "#006400"
-                                          : "transparent",
-                                  }}
-                                >
-                                  {}
                                 </td>
                               </tr>
                             );
