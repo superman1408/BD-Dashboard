@@ -775,19 +775,23 @@ const DetailedProjectPage = () => {
                             // const text = textRaw?.trim();
                             // const status = statusRaw?.trim();
 
-                            const [text, quantity, status] = item
-                              .split("::")
-                              .map((v) => v?.trim());
+                            const [
+                              text,
+                              quantity,
+                              status,
+                              description,
+                              targetDate,
+                            ] = item.split("::").map((v) => v?.trim());
 
-                            const description =
-                              typeof item === "object" && item !== null
-                                ? item.description
-                                : item.split("::")[0]?.trim();
+                            // const description =
+                            //   typeof item === "object" && item !== null
+                            //     ? item.description
+                            //     : item.split("::")[0]?.trim();
 
-                            const targetDate =
-                              typeof item === "object" && item !== null
-                                ? item.targetdate
-                                : "";
+                            // const targetDate =
+                            //   typeof item === "object" && item !== null
+                            //     ? item.targetdate
+                            //     : "";
 
                             return (
                               <tr key={`${index}-${i}`}>

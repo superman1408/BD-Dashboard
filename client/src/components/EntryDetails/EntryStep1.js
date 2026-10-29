@@ -33,7 +33,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     const newActivity = {
       text: inputValue,
       quantity: inputQuantity,
-      description: inputDescription,
+      activityDescription: inputDescription,
       targetdate: inputTargetDate,
       image: imageFile,
       status: status,
@@ -295,10 +295,10 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
                 <input
                   type="text"
-                  value={item.description}
+                  value={item.activityDescription}
                   onChange={(e) => {
                     const newList = [...formData.activityList];
-                    newList[index].description = e.target.value;
+                    newList[index].activityDescription = e.target.value;
                     setFormData({ ...formData, activityList: newList });
                   }}
                   style={{
