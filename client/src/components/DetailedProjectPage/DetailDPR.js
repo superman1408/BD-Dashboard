@@ -33,6 +33,20 @@ const DetailedProjectPage = () => {
 
   const navigate = useNavigate();
 
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 800);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 800);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     dispatch(getEntryDetails()).finally(() => setLoading(false));
 
@@ -619,113 +633,112 @@ const DetailedProjectPage = () => {
                     <br />
 
                     {/* table for activity List */}
-                    <table
-                      className="dpr-table"
-                      style={{
-                        padding: "4px",
-                        borderCollapse: "collapse",
-                        border: "1px solid black",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        width: "100%",
-                        wordWrap: "break-word",
-                        whiteSpace: "normal",
-                        maxWidth: "800px",
-                      }}
-                    >
-                      <colgroup>
-                        <col style={{ width: "10px" }} />
-                        <col style={{ width: "400px" }} />
-                        <col style={{ width: "50px" }} />
-                        <col style={{ width: "350px" }} />
-                        <col style={{ width: "450px" }} />
-                        <col style={{ width: "150px" }} />
-                        <col style={{ width: "100px" }} />
-                      </colgroup>
-                      <thead>
-                        <tr>
-                          <th
-                            colSpan="7"
-                            style={{
-                              textAlign: "left",
-                              padding: "4px",
-                              backgroundColor: "#0d325c",
-                              color: "white",
-                            }}
-                          >
-                            CIVIL AND STRUCTURE
-                          </th>
-                        </tr>
-                        <tr>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                            }}
-                          >
-                            S.No
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                            }}
-                          >
-                            Activities
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Quantity
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Related Image
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Description
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Target Date
-                          </th>
-                          <th
-                            style={{
-                              border: "1px solid black",
-                              padding: "4px",
-                              backgroundColor: "#e9eef4",
-                              textAlign: "center",
-                            }}
-                          >
-                            Status
-                          </th>
-                          {/* <th
+                    <div className={isMobile ? "hide-desktop" : "hide-mobile"}>
+                      <table
+                        className="dpr-table"
+                        style={{
+                          padding: "4px",
+                          borderCollapse: "collapse",
+                          border: "1px solid black",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          width: "100%",
+                          maxWidth: "800px",
+                        }}
+                      >
+                        <colgroup>
+                          <col style={{ width: "6%" }} />
+                          <col style={{ width: "19%" }} />
+                          <col style={{ width: "8%" }} />
+                          <col style={{ width: "18%" }} />
+                          <col style={{ width: "21%" }} />
+                          <col style={{ width: "14%" }} />
+                          <col style={{ width: "14%" }} />
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th
+                              colSpan="7"
+                              style={{
+                                textAlign: "left",
+                                padding: "4px",
+                                backgroundColor: "#0d325c",
+                                color: "white",
+                              }}
+                            >
+                              CIVIL AND STRUCTURE
+                            </th>
+                          </tr>
+                          <tr>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                              }}
+                            >
+                              S.No
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                              }}
+                            >
+                              Activities
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Quantity
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Related Image
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Description
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Target Date
+                            </th>
+                            <th
+                              style={{
+                                border: "1px solid black",
+                                padding: "4px",
+                                backgroundColor: "#e9eef4",
+                                textAlign: "center",
+                              }}
+                            >
+                              Status
+                            </th>
+                            {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "8px",
@@ -733,177 +746,178 @@ const DetailedProjectPage = () => {
                           >
                             Remark
                           </th> */}
-                        </tr>
-                      </thead>
+                          </tr>
+                        </thead>
 
-                      <tbody>
-                        {filteredData?.map((entry, index) => {
-                          let activityListData = [];
+                        <tbody>
+                          {filteredData?.map((entry, index) => {
+                            let activityListData = [];
 
-                          // Normalize procurementList into an array of "Description: Quantity"
-                          if (Array.isArray(entry.activityList)) {
-                            if (typeof entry.activityList[0] === "string") {
-                              activityListData = entry.activityList[0]
+                            // Normalize procurementList into an array of "Description: Quantity"
+                            if (Array.isArray(entry.activityList)) {
+                              if (typeof entry.activityList[0] === "string") {
+                                activityListData = entry.activityList[0]
+                                  .split("||")
+                                  .map((item) => item.trim());
+                              } else if (Array.isArray(entry.activityList[0])) {
+                                activityListData = entry.activityList[0].map(
+                                  (item) => item.trim(),
+                                );
+                              } else if (
+                                typeof entry.activityList[0] === "object" &&
+                                entry.activityList[0] !== null
+                              ) {
+                                activityListData = Object.entries(
+                                  entry.activityList[0],
+                                ).map(([key, value]) => `${key}: ${value}`);
+                              }
+                            } else if (typeof entry.activityList === "string") {
+                              activityListData = entry.activityList
                                 .split("||")
                                 .map((item) => item.trim());
-                            } else if (Array.isArray(entry.activityList[0])) {
-                              activityListData = entry.activityList[0].map(
-                                (item) => item.trim(),
-                              );
-                            } else if (
-                              typeof entry.activityList[0] === "object" &&
-                              entry.activityList[0] !== null
-                            ) {
-                              activityListData = Object.entries(
-                                entry.activityList[0],
-                              ).map(([key, value]) => `${key}: ${value}`);
                             }
-                          } else if (typeof entry.activityList === "string") {
-                            activityListData = entry.activityList
-                              .split("||")
-                              .map((item) => item.trim());
-                          }
 
-                          const images = [
-                            entry.uploadPictures1,
-                            entry.uploadPictures2,
-                            entry.uploadPictures3,
-                            entry.uploadPictures4,
-                            entry.uploadPictures5,
-                          ];
+                            const images = [
+                              entry.uploadPictures1,
+                              entry.uploadPictures2,
+                              entry.uploadPictures3,
+                              entry.uploadPictures4,
+                              entry.uploadPictures5,
+                            ];
 
-                          return activityListData.map((item, i) => {
-                            // const [textRaw, statusRaw] = item.split(":");
-                            // const text = textRaw?.trim();
-                            // const status = statusRaw?.trim();
+                            return activityListData.map((item, i) => {
+                              // const [textRaw, statusRaw] = item.split(":");
+                              // const text = textRaw?.trim();
+                              // const status = statusRaw?.trim();
 
-                            const [
-                              text,
-                              quantity,
-                              activityDescription,
-                              targetDate,
-                              status,
-                            ] = item.split("::").map((v) => v?.trim());
+                              const [
+                                text,
+                                quantity,
+                                activityDescription,
+                                targetDate,
+                                status,
+                              ] = item.split("::").map((v) => v?.trim());
 
-                            // const description =
-                            //   typeof item === "object" && item !== null
-                            //     ? item.description
-                            //     : item.split("::")[0]?.trim();
+                              // const description =
+                              //   typeof item === "object" && item !== null
+                              //     ? item.description
+                              //     : item.split("::")[0]?.trim();
 
-                            // const targetDate =
-                            //   typeof item === "object" && item !== null
-                            //     ? item.targetdate
-                            //     : "";
+                              // const targetDate =
+                              //   typeof item === "object" && item !== null
+                              //     ? item.targetdate
+                              //     : "";
 
-                            return (
-                              <tr key={`${index}-${i}`}>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    textAlign: "center",
-                                    width: "130px",
-                                  }}
-                                >
-                                  {i + 1}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "4px",
-                                    wordBreak: "break-word", // 🔑 this forces long strings to break
-                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
-                                    maxWidth: "200px", // adjust width so it stays in card
-                                    overflowWrap: "anywhere", //
-                                  }}
-                                >
-                                  {text}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "2px",
-                                    wordBreak: "break-word", // 🔑 this forces long strings to break
-                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
-                                    maxWidth: "50px", // adjust width so it stays in card
-                                    overflowWrap: "anywhere",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {quantity}
-                                </td>
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "5px",
-                                    margin: "5px",
-                                  }}
-                                >
-                                  {images[i] ? (
-                                    <img
-                                      src={images[i]}
-                                      alt={`Activity ${i + 1}`}
-                                      style={{
-                                        width: "180px",
-                                        height: "100px",
-                                        margin: "5px",
-                                      }}
-                                    />
-                                  ) : (
-                                    "No image"
-                                  )}
-                                </td>
+                              return (
+                                <tr key={`${index}-${i}`}>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      textAlign: "center",
+                                      width: "130px",
+                                    }}
+                                  >
+                                    {i + 1}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "4px",
+                                      wordBreak: "break-word", // 🔑 this forces long strings to break
+                                      whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                      maxWidth: "200px", // adjust width so it stays in card
+                                      overflowWrap: "anywhere", //
+                                    }}
+                                  >
+                                    {text}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "2px",
+                                      wordBreak: "break-word", // 🔑 this forces long strings to break
+                                      whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                      maxWidth: "50px", // adjust width so it stays in card
+                                      overflowWrap: "anywhere",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {quantity}
+                                  </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "5px",
+                                      margin: "5px",
+                                    }}
+                                  >
+                                    {images[i] ? (
+                                      <img
+                                        src={images[i]}
+                                        alt={`Activity ${i + 1}`}
+                                        style={{
+                                          width: "180px",
+                                          height: "100px",
+                                          margin: "5px",
+                                        }}
+                                      />
+                                    ) : (
+                                      "No image"
+                                    )}
+                                  </td>
 
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "2px",
-                                    wordBreak: "break-word", // 🔑 this forces long strings to break
-                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
-                                    maxWidth: "100px", // adjust width so it stays in card
-                                    overflowWrap: "anywhere",
-                                    // textAlign: "center",
-                                  }}
-                                >
-                                  {activityDescription}
-                                </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "2px",
+                                      wordBreak: "break-word", // 🔑 this forces long strings to break
+                                      whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                      maxWidth: "100px", // adjust width so it stays in card
+                                      overflowWrap: "anywhere",
+                                      // textAlign: "center",
+                                    }}
+                                  >
+                                    {activityDescription}
+                                  </td>
 
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "2px",
-                                    wordBreak: "break-word", // 🔑 this forces long strings to break
-                                    whiteSpace: "pre-wrap", // keeps line breaks, wraps text
-                                    maxWidth: "100px", // adjust width so it stays in card
-                                    overflowWrap: "anywhere",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {targetDate}
-                                </td>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "2px",
+                                      wordBreak: "break-word", // 🔑 this forces long strings to break
+                                      whiteSpace: "pre-wrap", // keeps line breaks, wraps text
+                                      maxWidth: "100px", // adjust width so it stays in card
+                                      overflowWrap: "anywhere",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {targetDate}
+                                  </td>
 
-                                <td
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "2px",
-                                    textAlign: "center",
-                                    color:
-                                      status === "In Progress"
-                                        ? "orange"
-                                        : status === "Completed"
-                                          ? "#006400"
-                                          : "transparent",
-                                    // color: status ? "white" : "black",
-                                  }}
-                                >
-                                  {status}
-                                </td>
-                              </tr>
-                            );
-                          });
-                        })}
-                      </tbody>
-                    </table>
+                                  <td
+                                    style={{
+                                      border: "1px solid black",
+                                      padding: "2px",
+                                      textAlign: "center",
+                                      color:
+                                        status === "In Progress"
+                                          ? "orange"
+                                          : status === "Completed"
+                                            ? "#006400"
+                                            : "transparent",
+                                      // color: status ? "white" : "black",
+                                    }}
+                                  >
+                                    {status}
+                                  </td>
+                                </tr>
+                              );
+                            });
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
 
                     <br />
 
@@ -1998,6 +2012,7 @@ const DetailedProjectPage = () => {
                   float: "right",
                   marginRight: "0px",
                   marginTop: "10px",
+                  marginBottom: "20px",
                 }}
                 onClick={handlePpd}
               >

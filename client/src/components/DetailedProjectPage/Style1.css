@@ -245,3 +245,21 @@ table {
     display: none !important;
   }
 }
+
+.hide-mobile {
+  display: block;
+}
+
+.hide-desktop {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .hide-desktop {
+    display: block !important;
+  }
+}
