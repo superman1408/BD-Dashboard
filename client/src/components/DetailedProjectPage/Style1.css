@@ -235,7 +235,7 @@ table {
   }
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .hide-mobile {
     display: none !important;
   }
@@ -244,16 +244,20 @@ table {
   .hide-desktop {
     display: none !important;
   }
-}
+} */
 
+
+/* ============================================
+/* Default: Desktop view */
 .hide-mobile {
-  display: block;
+  display: block !important;
 }
 
 .hide-desktop {
-  display: none;
+  display: none !important;
 }
 
+/* Mobile and tablet: 800px and below */
 @media screen and (max-width: 800px) {
   .hide-mobile {
     display: none !important;
@@ -261,5 +265,16 @@ table {
 
   .hide-desktop {
     display: block !important;
+  }
+}
+
+/* Print: Show desktop table only */
+@media print {
+  .hide-mobile {
+    display: block !important;
+  }
+
+  .hide-desktop {
+    display: none !important;
   }
 }
