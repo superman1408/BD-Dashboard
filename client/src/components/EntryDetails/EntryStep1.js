@@ -15,9 +15,9 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [show, setShow] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [inputQuantity, setInputQuantity] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [inputDescription, setInputDescription] = useState("");
   const [inputTargetDate, setInputTargetDate] = useState("");
-  const [imageFile, setImageFile] = useState(null);
   const [status, setStatus] = useState("");
 
   // const [materialInventoryRows, setMaterialInventoryRows] = useState([
@@ -33,9 +33,9 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     const newActivity = {
       text: inputValue,
       quantity: inputQuantity,
+      image: imageFile,
       activityDescription: inputDescription,
       targetdate: inputTargetDate,
-      image: imageFile,
       status: status,
     };
     const updatedActivities = [...(formData.activityList || []), newActivity];
