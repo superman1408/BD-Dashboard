@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Divider } from "@mui/material";
-import { Button, Container, Card } from "react-bootstrap";
+import { Button, Divider, IconButton, Tooltip, Box } from "@mui/material";
+import { Container, Card } from "react-bootstrap";
 import EntryStep1 from "./EntryStep1";
 import EntryStep2 from "./EntryStep2";
 import { entryDetails } from "../../action/posts";
 import { ToastContainer, toast } from "react-toastify";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // import EntryStep2 from "./EntryStep2";
 // import Step3 from "./Step3";
 
@@ -132,9 +134,38 @@ const EntryDetails = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+
   return (
     <Container className="d-flex justify-content-center mt-4 mb-5 background-color-gray">
       <ToastContainer />
+       <Box
+      sx={{
+        width: "100%",
+        maxWidth: "900px",
+        mb: 2,
+      }}
+    >
+        <Box sx={{ mb: 1 }}>
+        <Button
+          onClick={handleGoBack}
+          startIcon={<ArrowBackIcon />}
+          sx={{
+            padding: "8px 16px",
+            color: "#16355d",
+            textTransform: "none",
+            fontWeight: 600,
+            "&:hover": {
+              backgroundColor: "#e9eef5",
+            },
+          }}
+        >
+          Back
+        </Button>
+      </Box>
       <Card
         className="p-4 custom-card"
         style={{ width: "100%", maxWidth: "900px" }}
@@ -154,7 +185,7 @@ const EntryDetails = () => {
             fontWeight: "bold",
           }}
         />
-        <Button
+        <Button sx={{backgroundColor:"#16355d", color:"white"}}
           variant="success"
           type="submit"
           onClick={handleSubmit}
@@ -202,6 +233,7 @@ const EntryDetails = () => {
           )}
         </div> */}
       </Card>
+      </Box>
     </Container>
   );
 };

@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import { Grid, Card, Container, Button, LinearProgress } from "@mui/material";
+import { Box, Grid, Card, Container, Button, LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
 import LOGO from "../../assets/Ashkam_Logo.png";
@@ -205,18 +205,23 @@ const DetailedProjectPage = () => {
   return (
     <div>
       <div>
+        <Box sx={{ mb: 1 }}>
         <Button
           onClick={handleGoBack}
+          startIcon={<ArrowBackIcon />}
           sx={{
-            padding: "8px 14px",
+            padding: "8px 16px",
             color: "#16355d",
-            display: {
-              sm: "inline-block",
+            textTransform: "none",
+            fontWeight: 600,
+            "&:hover": {
+              backgroundColor: "#e9eef5",
             },
           }}
         >
-          <ArrowBackIcon />
+          Back
         </Button>
+      </Box>
       </div>
       {loading ? (
         <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>

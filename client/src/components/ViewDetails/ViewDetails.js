@@ -1,9 +1,12 @@
+
 /* eslint-disable jsx-a11y/alt-text */
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import {
-  Grid,
   Card,
+  Box,
   LinearProgress,
   Container,
   Typography,
@@ -17,6 +20,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 const ViewDetails = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -27,8 +31,10 @@ const ViewDetails = () => {
   // Local state for filtered data
   const [filteredArray, setFilteredArray] = useState([]);
 
+  // Filter project entries
   const filterArray = (entries) => {
     const tempArray = [];
+
     entries.forEach((post) => {
       if (id === post.projectNumber) {
         post?.preparedBy?.forEach((submittedBy, index) => {
@@ -42,14 +48,20 @@ const ViewDetails = () => {
         });
       }
     });
-    tempArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Sort latest date first
+    tempArray.sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
 
     setFilteredArray(tempArray);
   };
 
+  // Fetch entry details
   useEffect(() => {
     if (entry.length === 0) {
       setLoading(true);
+
       dispatch(getEntryDetails()).then(() => {
         setLoading(false);
       });
@@ -58,47 +70,57 @@ const ViewDetails = () => {
     }
   }, [entry, dispatch, id]);
 
+  // Handle window resize
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
+  // Go back
   const handleGoBack = () => {
-    navigate(-1); // this means "go back one step in history"
+    navigate(-1);
   };
 
   return (
-    <div style={{ margin: "5px" }}>
-      <div>
+    <Box
+      sx={{
+        margin: "5px",
+        minHeight: "100vh",
+        backgroundColor: "#f5f7fa",
+        paddingBottom: "30px",
+      }}
+    >
+      {/* BACK BUTTON */}
+
+      <Box sx={{ mb: 1 }}>
         <Button
           onClick={handleGoBack}
+          startIcon={<ArrowBackIcon />}
           sx={{
             padding: "8px 16px",
             color: "#16355d",
-            display: {
-              sm: "inline-block",
+            textTransform: "none",
+            fontWeight: 600,
+            "&:hover": {
+              backgroundColor: "#e9eef5",
             },
           }}
         >
-          <ArrowBackIcon />
+          Back
         </Button>
-      </div>
+      </Box>
 
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          maxWidth: "100%",
-          padding: "10px",
-          // border: "0.5px solid gray",
-          boxShadow: "2px 2px 2px 2px #888888",
-          "@media (max-width: 600px)": {
-            padding: "5px",
-          },
-        }}
-      >
-        {/* Project Name */}
+      {/* MAIN CONTAINER */}
+
+     
+
         {entry.map((post) => {
           if (post.projectNumber === id) {
             return (
@@ -107,15 +129,14 @@ const ViewDetails = () => {
                 variant="h6"
                 className="text-center"
                 sx={{
-                  margin: "5px",
-                  color: "#0D325C",
-                  fontWeight: "bold",
+                  margin: "12px 5px 20px",
+                  color: "#16355d",
+                  fontWeight: 700,
                   fontSize: {
-                    xs: "0.8rem", // mobile
-                    sm: "1rem", // small screens
-                    md: "1.25rem", // tablets
-                    lg: "1.5rem", // laptops
-                    xl: "1.5rem", // desktops}}
+                    xs: "16px",
+                    sm: "18px",
+                    md: "22px",
+                    lg: "24px",
                   },
                 }}
               >
@@ -123,158 +144,360 @@ const ViewDetails = () => {
               </Typography>
             );
           }
+
+          return null;
         })}
 
+        {/* LOADING */}
+
         {loading ? (
-          <div
-            style={{
-              marginTop: "20px",
+          <Box
+            sx={{
+              marginTop: "30px",
+              marginBottom: "30px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              gap: 2,
             }}
           >
-            <LinearProgress style={{ width: "100%", marginBottom: "10px" }} />
-            <Typography>Loading...</Typography>
-          </div>
+            <LinearProgress
+              sx={{
+                width: "100%",
+                maxWidth: "500px",
+                borderRadius: "5px",
+              }}
+            />
+
+            <Typography sx={{ color: "#64748b" }}>
+              Loading...
+            </Typography>
+          </Box>
         ) : (
           <Container
+            maxWidth={false}
             sx={{
               display: "flex",
               justifyContent: "center",
               flexWrap: "wrap",
-              padding: "12px",
+              padding: { xs: "5px", md: "12px" },
               width: "100%",
+              boxSizing: "border-box",
             }}
           >
-            {/* Add More Button */}
-            {/* <div className="hidden md:block ">
-              <Button
-                variant="contained"
-                color="success"
-                sx={{
-                  marginTop: "20px",
-                  float: "right",
-                  width: windowWidth <= 600 ? "100%" : "20%",
-                }}
-                onClick={() => navigate(`/entrydetails/${id}`)}
-              >
-                + Add More
-              </Button>
-            </div> */}
+            {/* ====================================== */}
+            {/* DESKTOP MODERN SUBMISSION LIST */}
+            {/* ====================================== */}
 
             <Card
-              className=" hidden md:block "
-              elevation={10}
+              className="hidden md:block"
+              elevation={0}
               sx={{
-                padding: "10px",
+                width: "100%",
+                maxWidth: "1100px",
+                padding: { sm: 2, md: 3 },
                 margin: "10px",
                 marginBottom: "50px",
-                width: windowWidth <= 600 ? "100%" : "80%",
+                borderRadius: "14px",
+                border: "1px solid #e2e8f0",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 4px 20px rgba(15,35,65,0.06)",
               }}
             >
-              <button
-                onClick={() => navigate(`/entrydetails/${id}`)}
-                className="bg-green-600 text-white rounded-lg hover:bg-green-700 mb-3 float-right p-2 "
-              >
-                + Add More
-              </button>
-              <div
-                style={{
-                  width: "100%",
-                  height: "500px",
-                  overflowX: "auto",
-                  overflowY: "auto",
+              {/* LIST HEADER */}
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 2,
+                  mb: 3,
                 }}
               >
-                <table
-                  className="time-sheet-table"
-                  style={{
-                    width: "100%",
-                    borderCollapse: "collapse",
-                    textAlign: "center",
-                    border: "1px solid black",
-                    minWidth: "600px",
+                <Box>
+                  <Typography
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: 700,
+                      color: "#16355d",
+                    }}
+                  >
+                    Submission History
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      fontSize: "13px",
+                      color: "#8491a3",
+                      mt: 0.5,
+                    }}
+                  >
+                    View and manage project progress reports
+                  </Typography>
+                </Box>
+
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    navigate(`/entrydetails/${id}`)
+                  }
+                  sx={{
+                    backgroundColor: "#16355d",
+                    color: "#fff",
+                    textTransform: "none",
+                    fontWeight: 600,
+                    borderRadius: "8px",
+                    padding: "9px 20px",
+                    boxShadow: "none",
+                    "&:hover": {
+                      backgroundColor: "#e55d17",
+                      boxShadow: "none",
+                    },
                   }}
                 >
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Overview</th>
-                      <th>Prepared By</th>
-                      <th>Reviewed By</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredArray.length > 0 ? (
-                      filteredArray.map((item, index) => (
-                        <tr key={index}>
-                          <td style={{ padding: "10px" }}>
-                            {item.date || "N/A"}
-                          </td>
-                          <td
-                            style={{
+                  + Add More
+                </Button>
+              </Box>
+
+              {/* LIST COLUMN HEADINGS */}
+
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns:
+                    "1.1fr 1.5fr 1fr 1fr 100px",
+                  gap: 2,
+                  padding: "12px 18px",
+                  backgroundColor: "#f5f7fa",
+                  borderRadius: "8px",
+                  mb: 1.5,
+                }}
+              >
+                {[
+                  "Date",
+                  "Overview",
+                  "Prepared By",
+                  "Reviewed By",
+                  "Action",
+                ].map((heading) => (
+                  <Typography
+                    key={heading}
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: "#64748b",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                    }}
+                  >
+                    {heading}
+                  </Typography>
+                ))}
+              </Box>
+
+              {/* SUBMISSION ROWS */}
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1.5,
+                  maxHeight: "500px",
+                  overflowY: "auto",
+                  pr: 0.5,
+                }}
+              >
+                {filteredArray.length > 0 ? (
+                  filteredArray.map((item, index) => (
+                    <Box
+                      key={`${item.date}-${index}`}
+                      sx={{
+                        display: "grid",
+                        gridTemplateColumns:
+                          "1.1fr 1.5fr 1fr 1fr 100px",
+                        alignItems: "center",
+                        gap: 2,
+                        padding: "14px 18px",
+                        border: "1px solid #e8edf3",
+                        borderRadius: "10px",
+                        backgroundColor: "#ffffff",
+                        transition: "all 0.2s ease",
+                        "&:hover": {
+                          backgroundColor: "#f8fafc",
+                          borderColor: "#cbd5e1",
+                          transform: "translateY(-1px)",
+                          boxShadow:
+                            "0 4px 12px rgba(15,35,65,0.05)",
+                        },
+                      }}
+                    >
+                      {/* DATE */}
+
+                      <Typography
+                        sx={{
+                          fontSize: "13px",
+                          fontWeight: 600,
+                          color: "#16355d",
+                        }}
+                      >
+                        {item.date || "N/A"}
+                      </Typography>
+
+                      {/* OVERVIEW */}
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1.5,
+                          minWidth: 0,
+                        }}
+                      >
+                        {item.uploadPictures1 &&
+                        item.uploadPictures1 !== "N/A" ? (
+                          <Box
+                            component="img"
+                            src={item.uploadPictures1}
+                            alt="Project overview"
+                            sx={{
+                              width: 65,
+                              height: 48,
+                              borderRadius: "7px",
+                              objectFit: "cover",
+                              border: "1px solid #e2e8f0",
+                              flexShrink: 0,
+                            }}
+                          />
+                        ) : (
+                          <Box
+                            sx={{
+                              width: 65,
+                              height: 48,
+                              borderRadius: "7px",
+                              backgroundColor: "#f1f5f9",
                               display: "flex",
-                              justifyContent: "center",
                               alignItems: "center",
+                              justifyContent: "center",
+                              color: "#94a3b8",
+                              fontSize: "11px",
+                              flexShrink: 0,
                             }}
                           >
-                            <img
-                              style={{
-                                width: "100px",
-                                height: "70px",
-                                objectFit: "cover",
-                              }}
-                              src={item.uploadPictures1 || "N/A"}
-                              alt="Overview"
-                            />
-                          </td>
-                          <td style={{ padding: "10px" }}>
-                            {item?.preparedBy || "N/A"}
-                          </td>
-                          <td style={{ padding: "10px" }}>
-                            {item?.reviewedBy || "N/A"}
-                          </td>
-                          <td>
-                            <Button
-                              variant="contained"
-                              size={windowWidth <= 600 ? "small" : "medium"}
-                              onClick={() =>
-                                navigate(`/${item.date}/detailedprojectpage`)
-                              }
-                            >
-                              View
-                            </Button>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="4">No data available</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                            No Image
+                          </Box>
+                        )}
+
+                        <Typography
+                          sx={{
+                            fontSize: "12px",
+                            color: "#8491a3",
+                          }}
+                        >
+                          Daily Report
+                        </Typography>
+                      </Box>
+
+                      {/* PREPARED BY */}
+
+                      <Typography
+                        sx={{
+                          fontSize: "13px",
+                          color: "#475569",
+                          fontWeight: 500,
+                          overflowWrap: "anywhere",
+                        }}
+                      >
+                        {item.preparedBy || "N/A"}
+                      </Typography>
+
+                      {/* REVIEWED BY */}
+
+                      <Typography
+                        sx={{
+                          fontSize: "13px",
+                          color: "#475569",
+                          fontWeight: 500,
+                          overflowWrap: "anywhere",
+                        }}
+                      >
+                        {item.reviewedBy || "N/A"}
+                      </Typography>
+
+                      {/* VIEW BUTTON */}
+
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() =>
+                          navigate(
+                            `/${item.date}/detailedprojectpage`
+                          )
+                        }
+                        sx={{
+                          borderColor: "#16355d",
+                          color: "#16355d",
+                          textTransform: "none",
+                          fontWeight: 600,
+                          borderRadius: "7px",
+                          minWidth: "75px",
+                          "&:hover": {
+                            backgroundColor: "#16355d",
+                            color: "#ffffff",
+                            borderColor: "#16355d",
+                          },
+                        }}
+                      >
+                        View →
+                      </Button>
+                    </Box>
+                  ))
+                ) : (
+                  <Box
+                    sx={{
+                      padding: "40px 20px",
+                      textAlign: "center",
+                      backgroundColor: "#f8fafc",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "#64748b",
+                        fontSize: "14px",
+                      }}
+                    >
+                      No submissions available for this project.
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
             </Card>
+
+            {/* ====================================== */}
+            {/* MOBILE LAYOUT - KEPT UNCHANGED */}
+            {/* ====================================== */}
 
             <div className="grid grid-cols-1 gap-6 md:hidden mb-3b shadow-lg p-2 m-2">
               <div className="p-6 space-y-4 bg-gray-100 ">
                 <div className="flex justify-end mb-3">
                   <button
-                    onClick={() => navigate(`/entrydetails/${id}`)}
+                    onClick={() =>
+                      navigate(`/entrydetails/${id}`)
+                    }
                     className="bg-green-600 text-white rounded-lg hover:bg-green-700 p-2"
                   >
                     + Add More
                   </button>
-                </div>{" "}
+                </div>
+
                 <div className="space-y-4 h-[500px] overflow-y-auto">
                   {filteredArray.length > 0 ? (
                     filteredArray.map((item, index) => (
                       <div
                         key={index}
-                        className="bg-white rounded-lg shadow-md p-6 flex items-center justify-between min-h-[120px] "
+                        className="bg-white rounded-lg shadow-md p-6 flex items-center justify-between min-h-[120px]"
                       >
                         <div className="flex items-center space-x-3">
                           <img
@@ -282,19 +505,24 @@ const ViewDetails = () => {
                             src={item.uploadPictures1 || "N/A"}
                             alt="profile"
                           />
+
                           <div>
                             <h6 className="font-semibold text-gray-900">
                               Date : {item.date}
                             </h6>
+
                             <h6 className="text-gray-900">
                               Prepared By : {item.preparedBy}
                             </h6>
                           </div>
                         </div>
+
                         <button
                           className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full"
                           onClick={() =>
-                            navigate(`/${item.date}/detailedprojectpage`)
+                            navigate(
+                              `/${item.date}/detailedprojectpage`
+                            )
                           }
                         >
                           <svg
@@ -321,8 +549,7 @@ const ViewDetails = () => {
             </div>
           </Container>
         )}
-      </Container>
-    </div>
+    </Box>
   );
 };
 

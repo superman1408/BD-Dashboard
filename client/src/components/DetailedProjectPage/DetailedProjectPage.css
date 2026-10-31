@@ -1,0 +1,345 @@
+/* Modern DPR presentation layer.
+   Keeps the original report data, tables, reducers and print component intact. */
+
+.dpr-page {
+  --dpr-navy: #0d325c;
+  --dpr-navy-deep: #102b4e;
+  --dpr-orange: #e55d17;
+  --dpr-ink: #1f2937;
+  --dpr-muted: #64748b;
+  --dpr-line: #dbe3ed;
+  --dpr-soft: #f3f6fa;
+  min-height: 100vh;
+  padding: 12px 18px 36px;
+  color: var(--dpr-ink);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(13, 50, 92, .08), transparent 28rem),
+    #f4f7fb;
+  box-sizing: border-box;
+  font-family: Inter, Roboto, Arial, sans-serif;
+}
+
+.dpr-page *,
+.dpr-page *::before,
+.dpr-page *::after {
+  box-sizing: border-box;
+}
+
+.dpr-toolbar {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.dpr-toolbar .MuiButton-root {
+  min-width: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(15, 35, 60, .08);
+}
+
+.dpr-page .MuiContainer-root {
+  width: 100%;
+  max-width: 1120px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.dpr-report-card.MuiCard-root {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e5ebf2;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 16px 48px rgba(20, 42, 70, .09) !important;
+}
+
+.dpr-report-sheet {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+}
+
+.dpr-screen-heading {
+  max-width: 100%;
+  margin: 0 auto 20px;
+}
+
+.dpr-screen-heading h3 {
+  margin: 0 0 16px !important;
+  padding: 0 0 16px !important;
+  text-align: left !important;
+  color: var(--dpr-navy) !important;
+  font-size: clamp(22px, 3vw, 30px) !important;
+  letter-spacing: -.5px;
+  border-bottom: 1px solid var(--dpr-line);
+}
+
+.dpr-page .dpr-table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 14px;
+  border: 1px solid var(--dpr-line) !important;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--dpr-ink);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.dpr-page .dpr-table th,
+.dpr-page .dpr-table td {
+  border: 1px solid var(--dpr-line) !important;
+  padding: 10px 12px !important;
+  vertical-align: middle;
+}
+
+.dpr-page .dpr-table thead th,
+.dpr-page .dpr-table th {
+  font-weight: 700;
+}
+
+.dpr-page .dpr-table thead th[style*="background-color: rgb(13, 50, 92)"],
+.dpr-page .dpr-table th[style*="#0d325c"],
+.dpr-page .dpr-table th[style*="background-color: rgb(13, 50, 92)"] {
+  background: var(--dpr-navy) !important;
+  color: #fff !important;
+}
+
+.dpr-page .dpr-table th[style*="#e9eef4"],
+.dpr-page .dpr-table th[style*="rgb(233, 238, 244)"] {
+  background: #edf2f8 !important;
+  color: #24364b !important;
+}
+
+.dpr-page .dpr-table tbody tr:nth-child(even) {
+  background: #fbfcfe;
+}
+
+.dpr-page .dpr-table tbody tr:hover {
+  background: #f4f8fc;
+}
+
+.dpr-page .dpr-table img {
+  max-width: 180px;
+  height: auto !important;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.dpr-page .dpr-table p {
+  margin: 8px;
+}
+
+.dpr-page .dpr-table td {
+  overflow-wrap: anywhere;
+}
+
+.dpr-page .print-header {
+  display: none;
+}
+
+.dpr-page .print-footer {
+  margin-top: 18px;
+  padding-top: 8px;
+  border-top: 1px solid #cbd5e1;
+  color: #64748b;
+  font-size: 10px;
+  text-align: right;
+}
+
+.dpr-page .dpr-download-button.MuiButton-root {
+  float: right;
+  margin: 16px 0 24px;
+  padding: 11px 20px;
+  border-radius: 12px;
+  background: var(--dpr-orange);
+  color: #fff;
+  font-weight: 700;
+  text-transform: none;
+  box-shadow: 0 7px 18px rgba(229, 93, 23, .22);
+}
+
+.dpr-page .dpr-download-button.MuiButton-root:hover {
+  background: #c94c10;
+  box-shadow: 0 9px 22px rgba(229, 93, 23, .28);
+}
+
+/* Existing desktop/mobile inventory variants are retained. */
+.dpr-page .hide-desktop {
+  display: none;
+}
+.dpr-page .hide-mobile {
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .dpr-page {
+    padding: 8px 10px 28px;
+  }
+
+  .dpr-page .MuiContainer-root {
+    margin-top: 8px !important;
+  }
+
+  .dpr-report-card.MuiCard-root {
+    border-radius: 14px;
+  }
+
+  .dpr-report-sheet {
+    padding: 16px 12px;
+  }
+
+  .dpr-page .dpr-table {
+    font-size: 12px;
+  }
+
+  .dpr-page .dpr-table th,
+  .dpr-page .dpr-table td {
+    padding: 8px !important;
+  }
+
+  .dpr-page .hide-mobile {
+    display: none !important;
+  }
+
+  .dpr-page .hide-desktop {
+    display: block !important;
+  }
+
+  .dpr-page .dpr-screen-heading h3 {
+    font-size: 22px !important;
+  }
+
+  .dpr-page .dpr-table img {
+    max-width: 130px;
+  }
+}
+
+/* Formal, print-friendly DPR. Screen-only elements are removed from the PDF. */
+@page {
+  size: A4 landscape;
+  margin: 12mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .dpr-page {
+    min-height: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .dpr-toolbar,
+  .dpr-page .dpr-download-button,
+  .dpr-page .hide-on-print {
+    display: none !important;
+  }
+
+  .dpr-page .MuiContainer-root {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .dpr-report-card.MuiCard-root {
+    display: block !important;
+    width: 100% !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  .dpr-report-sheet {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .dpr-page .print-header {
+    display: block !important;
+    margin-bottom: 8px;
+    color: #102b4e !important;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .dpr-page .print-header .dpr-table {
+    margin-bottom: 7px !important;
+  }
+
+  .dpr-page .dpr-table {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 0 8px !important;
+    border: 1px solid #64748b !important;
+    border-collapse: collapse !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 9pt !important;
+    break-inside: auto;
+  }
+
+  .dpr-page .dpr-table th,
+  .dpr-page .dpr-table td {
+    padding: 5px 6px !important;
+    border: 1px solid #94a3b8 !important;
+    color: #172033 !important;
+    background: #fff !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .dpr-page .dpr-table th[style*="#0d325c"],
+  .dpr-page .dpr-table th[style*="rgb(13, 50, 92)"] {
+    background: #0d325c !important;
+    color: #fff !important;
+  }
+
+  .dpr-page .dpr-table th[style*="#e9eef4"],
+  .dpr-page .dpr-table th[style*="rgb(233, 238, 244)"] {
+    background: #e9eef4 !important;
+    color: #172033 !important;
+  }
+
+  .dpr-page .dpr-table tr {
+    break-inside: avoid;
+  }
+
+  .dpr-page .dpr-table img {
+    max-width: 105px !important;
+    max-height: 75px !important;
+    object-fit: contain !important;
+  }
+
+  .dpr-page .hide-desktop {
+    display: none !important;
+  }
+
+  .dpr-page .hide-mobile {
+    display: block !important;
+  }
+
+  .dpr-page .print-footer {
+    margin-top: 10px;
+    font-size: 8pt;
+  }
+}

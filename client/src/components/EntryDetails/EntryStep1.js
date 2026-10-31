@@ -6,10 +6,13 @@ import {
   Modal,
   Row,
   Col,
-  Table,
+  Table
 } from "react-bootstrap";
-import { Divider, Grid } from "@mui/material";
+import { Divider, Grid, IconButton } from "@mui/material";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+import { useNavigate } from "react-router-dom";
 import "./EntryDetails.css";
 
 const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
@@ -20,6 +23,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   const [inputDescription, setInputDescription] = useState("");
   const [inputTargetDate, setInputTargetDate] = useState("");
   const [status, setStatus] = useState("");
+
+  const navigate = useNavigate();
 
   // const [materialInventoryRows, setMaterialInventoryRows] = useState([
   //   { description: "", openingStock: "", issued: "", closingStock: "" },
@@ -159,6 +164,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
     }
   };
 
+ 
   const materialOptions = [
     { label: "Cement (Bags)" },
     { label: "Sand (CFT)" },
@@ -193,9 +199,11 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-blue-700 py-2 border-b-2 border-blue-500 mb-10">
-        Detail Input Form
-      </h1>
+          
+          <h1 className="text-2xl font-bold text-center py-2 border-b-2 border-darkblue-500 mb-10"
+              style={{ color: "#16355d", fontWeight: 700, fontSize: { xs: "18px", sm: "22px" }, }}>
+              Detail Input Form
+          </h1>
 
       <Form.Group controlId="formProjectName" className="mb-3">
         <Form.Label>
@@ -224,7 +232,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
         style={{ height: "2px", backgroundColor: "#000" }}
       />
 
-      <h4 className="text-primary fw-bold my-3">Activities</h4>
+      <h4 className="fw-bold my-3" style={{color:"#16355d"}}>Activities</h4>
 
       <Form.Group className="mb-3">
         <Form.Label>Civil & Structure (Max 5)</Form.Label>
@@ -232,6 +240,8 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           onClick={() => setShow(true)}
           disabled={(formData.activityList?.length || 0) >= 5}
           className="ms-2"
+          style={{backgroundColor:"#16355d"}}
+
         >
           + Add Activity
         </Button>
@@ -799,6 +809,7 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
           variant="primary"
           onClick={() => handleAddRow("materialInventory")}
           disabled={!isMaterialInventoryValid()}
+          style={{backgroundColor:"#16355d"}}
         >
           + Add Row
         </Button>

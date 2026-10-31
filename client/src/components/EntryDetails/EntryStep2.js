@@ -229,7 +229,7 @@ const EntryStep2 = ({ formData, setFormData }) => {
               ))}
             </tbody>
           </Table>
-          <Button variant="primary" onClick={() => handleAddRow("plannedWork")}>
+          <Button variant="primary" style={{backgroundColor:"#16355d"}}onClick={() => handleAddRow("plannedWork")}>
             + Add Row
           </Button>
         </Form.Group>
