@@ -633,7 +633,13 @@ const DetailedProjectPage = () => {
                     <br />
 
                     {/* table for activity List */}
-                    <div className={isMobile ? "hide-desktop" : "hide-mobile"}>
+                    <div style={{
+                          width: "100%",
+                          maxWidth: "800px",
+                          overflowX: "auto",
+                          margin: "0 auto",
+                        }}
+                      >
                       <table
                         className="dpr-table"
                         style={{
@@ -935,12 +941,15 @@ const DetailedProjectPage = () => {
                         }}
                       >
                         <colgroup>
-                          <col style={{ width: "60px" }} />
-                          <col style={{ width: auto }} />
-                          <col style={{ width: "100px" }} />
-                          <col style={{ width: "100px" }} />
-                          <col style={{ width: "100px" }} />
-                          <col style={{ width: "100px" }} />
+                          <colgroup>
+                            <col style={{ width: "60px" }} />
+                            <col style={{ width: "auto" }} />
+                            <col style={{ width: "100px" }} />
+                            <col style={{ width: "100px" }} />
+                            <col style={{ width: "100px" }} />
+                            <col style={{ width: "100px" }} />
+                            <col style={{ width: "100px" }} />
+                          </colgroup>
                         </colgroup>
                         <thead>
                           <tr>
@@ -1615,7 +1624,6 @@ const DetailedProjectPage = () => {
                       <colgroup>
                         <col style={{ width: "60px" }} />
                         <col style={{ width: auto }} />
-                        <col style={{ width: "250px" }} />
                       </colgroup>
                       <thead>
                         <tr>
@@ -1650,7 +1658,7 @@ const DetailedProjectPage = () => {
                           >
                             Description
                           </th>
-                          <th
+                          {/* <th
                             style={{
                               border: "1px solid black",
                               padding: "4px",
@@ -1658,7 +1666,7 @@ const DetailedProjectPage = () => {
                             }}
                           >
                             Completed Status
-                          </th>
+                          </th> */}
                         </tr>
                       </thead>
 
