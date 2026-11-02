@@ -23,6 +23,10 @@ import ActualScurve from "./components/CurveDisplay/SCurve/ActualScurve";
 import Procurement from "./components/Procurement/Procurement";
 import Footer from "./components/Footer/Footer";
 
+import DiwaliGif from "./assets/favicon1.gif";
+import faviconGif from "./assets/favicon.gif";
+import Fab from "@mui/material/Fab";
+
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -40,6 +44,36 @@ const App = () => {
           }}
         >
           <img src={LOGO} alt="logo" style={{ width: "185px" }} />
+          <Fab
+            // onClick={fireCrackers}
+            sx={{
+              position: "absolute",
+              top: 20,
+              left: 180,
+              backgroundColor: "transparent",
+              boxShadow: "none",
+              width: 100,
+              height: 150,
+              cursor: "default",
+              pointerEvents: "none",
+
+              "&:hover": {
+                backgroundColor: "transparent",
+                boxShadow: "none",
+              },
+            }}
+          >
+            <img
+              src={DiwaliGif} // or {DiwaliGif} if imported
+              alt="Fireworks"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          </Fab>
         </div>
         {/* )} */}
       </header>
@@ -99,6 +133,33 @@ const App = () => {
 
           <Route path="/procurement" exact element={<Procurement />} />
         </Routes>
+
+        <Fab
+          // onClick={fireCrackers}
+          sx={{
+            position: "fixed",
+            bottom: 50,
+            right: 20,
+            backgroundColor: "transparent",
+            boxShadow: "none",
+            width: 150,
+            height: 150,
+            "&:hover": {
+              // backgroundColor: "transparent",
+            },
+          }}
+        >
+          <img
+            src={faviconGif} // or {DiwaliGif} if imported
+            alt="Fireworks"
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
+        </Fab>
       </div>
 
       <div className="wave"></div>

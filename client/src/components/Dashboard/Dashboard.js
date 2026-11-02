@@ -7,6 +7,8 @@ import { getPosts } from "../../action/posts";
 
 import { getInventoryDetails } from "../../action/inventory";
 
+// import Fab from "@mui/material/Fab";
+
 import rod from "../../assets/rod.jpg";
 import cement from "../../assets/cement.png";
 import sand from "../../assets/sand.jpg";
@@ -17,6 +19,7 @@ import Aggregate from "../../assets/aggregate.png";
 import WoodCuttingBlade from "../../assets/WoodCuttingBlade.png";
 import RodCuttingBlade from "../../assets/RodCuttingBlade.jpg";
 import CoverBlock from "../../assets/coverBlock.png";
+// import DiwaliGif from "../../assets/favicon.gif";
 
 import CurveDisplay from "../CurveDisplay/CurveDisplay";
 import { Grid } from "@mui/material";
@@ -101,6 +104,32 @@ const Dashboard = () => {
 
   return (
     <div className="items-start my-2 mb-50">
+      {/* <Fab
+        // onClick={fireCrackers}
+        sx={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          width: 180,
+          height: 180,
+          "&:hover": {
+            // backgroundColor: "transparent",
+          },
+        }}
+      >
+        <img
+          src={DiwaliGif} // or {DiwaliGif} if imported
+          alt="Fireworks"
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+      </Fab> */}
       {posts.map((post, index) => {
         // console.log(post?.projectNumber);
         if (post.projectNumber === id) {

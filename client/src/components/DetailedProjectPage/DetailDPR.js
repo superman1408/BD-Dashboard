@@ -2,7 +2,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import { Box, Grid, Card, Container, Button, LinearProgress } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Card,
+  Container,
+  Button,
+  LinearProgress,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getEntryDetails } from "../../action/posts";
 import LOGO from "../../assets/Ashkam_Logo.png";
@@ -206,22 +213,22 @@ const DetailedProjectPage = () => {
     <div>
       <div>
         <Box sx={{ mb: 1 }}>
-        <Button
-          onClick={handleGoBack}
-          startIcon={<ArrowBackIcon />}
-          sx={{
-            padding: "8px 16px",
-            color: "#16355d",
-            textTransform: "none",
-            fontWeight: 600,
-            "&:hover": {
-              backgroundColor: "#e9eef5",
-            },
-          }}
-        >
-          Back
-        </Button>
-      </Box>
+          <Button
+            onClick={handleGoBack}
+            startIcon={<ArrowBackIcon />}
+            sx={{
+              padding: "8px 16px",
+              color: "#16355d",
+              textTransform: "none",
+              fontWeight: 600,
+              "&:hover": {
+                backgroundColor: "#e9eef5",
+              },
+            }}
+          >
+            Back
+          </Button>
+        </Box>
       </div>
       {loading ? (
         <div style={{ marginTop: "20px", paddingBottom: "200vh" }}>
@@ -638,13 +645,14 @@ const DetailedProjectPage = () => {
                     <br />
 
                     {/* table for activity List */}
-                    <div style={{
-                          width: "100%",
-                          maxWidth: "800px",
-                          overflowX: "auto",
-                          margin: "0 auto",
-                        }}
-                      >
+                    <div
+                      style={{
+                        width: "100%",
+                        maxWidth: "800px",
+                        overflowX: "auto",
+                        margin: "0 auto",
+                      }}
+                    >
                       <table
                         className="dpr-table"
                         style={{
@@ -2020,12 +2028,10 @@ const DetailedProjectPage = () => {
                 required
                 variant="outlined"
                 sx={{
+                  display: "flex",
+                  margin: "10px auto 100px",
                   bgcolor: "skyblue",
                   color: "black",
-                  float: "right",
-                  marginRight: "0px",
-                  marginTop: "10px",
-                  marginBottom: "20px",
                 }}
                 onClick={handlePpd}
               >
