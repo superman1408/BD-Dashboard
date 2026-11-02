@@ -183,6 +183,7 @@ const ViewDetails = () => {
               padding: { xs: "5px", md: "12px" },
               width: "100%",
               boxSizing: "border-box",
+              marginBottom: "80px",
             }}
           >
             {/* ====================================== */}
@@ -197,7 +198,7 @@ const ViewDetails = () => {
                 maxWidth: "1100px",
                 padding: { sm: 2, md: 3 },
                 margin: "10px",
-                marginBottom: "50px",
+                marginBottom: "100px",
                 borderRadius: "14px",
                 border: "1px solid #e2e8f0",
                 backgroundColor: "#ffffff",
