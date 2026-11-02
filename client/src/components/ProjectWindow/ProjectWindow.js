@@ -32,7 +32,7 @@ const Dashboard = () => {
     endDate: "",
     projectManager: "",
     selectedFile: "",
-    scope: "",
+    scope: "",  
     poUnpriced: "",
     termsConditions: "",
     teams: "",
@@ -191,21 +191,39 @@ const Dashboard = () => {
       ) : (
         <div>
           <div className="items-start my-2">
-            <div className="p-2 h-screen bg-gray-200">
-              <div className="flex flex-wrap justify-between items-center">
-                <h1 className="text-xl mb-2 font-bold">Project Window</h1>
+              <div className="min-h-screen bg-slate-50 p-4 md:p-6 rounded-xl">
 
-                <button
-                  className="pl-5 pr-5 pt-2 pb-2 bg-purple-800 hover:bg-purple-300 text-sm font-semibold text-white  text-right   rounded-lg bg-opacity-80"
-                  onClick={handleAddProject}
-                >
-                  + Project
-                </button>
-              </div>
-              <div className="overflow-auto   mt-3">
-                <div className="overflow-auto rounded-lg shadow hidden md:block ">
-                  <table className="w-full ">
-                    <thead className="bg-gray-100 border-b-2 border-gray-200">
+                {/* Header Section */}
+                <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
+
+                  <div>
+                    <h1 className="text-2xl font-bold text-slate-800">
+                      Project Window
+                    </h1>
+
+                    <p className="text-sm text-slate-500 mt-1">
+                      Manage and view all project details
+                    </p>
+                  </div>
+
+                  <button
+                    className="px-5 py-2.5 bg-purple-800 hover:bg-purple-900
+                    text-sm font-semibold text-white rounded-lg shadow-sm
+                    transition duration-200"
+                    onClick={handleAddProject}
+                  >
+                    + Project
+                  </button>
+
+                </div>
+
+                {/* Table Section */}
+                <div className="overflow-auto mt-3">
+                  <div className="overflow-auto rounded-xl shadow-sm border border-slate-200 hidden md:block bg-white">
+
+                    <table className="w-full">
+
+                      <thead className="bg-slate-100 border-b border-slate-200">
                       <tr>
                         <th className="p-3 text-sm font-semibold tracking-wide text-center"></th>
                         <th className="p-3 text-sm font-semibold tracking-wide text-center">

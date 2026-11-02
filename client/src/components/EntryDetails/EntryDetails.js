@@ -1,26 +1,19 @@
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Divider, IconButton, Tooltip, Box } from "@mui/material";
+import { Button, Divider, Box } from "@mui/material";
 import { Container, Card } from "react-bootstrap";
 import EntryStep1 from "./EntryStep1";
 import EntryStep2 from "./EntryStep2";
 import { entryDetails } from "../../action/posts";
 import { ToastContainer, toast } from "react-toastify";
-
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-// import EntryStep2 from "./EntryStep2";
-// import Step3 from "./Step3";
 
 const EntryDetails = () => {
   const { id: projectNumber } = useParams();
-  const [step, setStep] = useState(1);
-
-  const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => prev - 1);
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -52,65 +45,78 @@ const EntryDetails = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // start loading
+
+    if (loading) return;
+
+    setLoading(true);
 
     try {
-      // Upload images
-      const imageUploadPromises = (formData.activityList || []).map((item) => {
-        if (!item.image) return Promise.resolve("");
-        const data = new FormData();
-        data.append("file", item.image);
-        data.append("upload_preset", "chat-app");
-        data.append("cloud_name", "realtimeapp");
+      // Upload activity images
+      const imageUploadPromises = (formData.activityList || []).map(
+        (item) => {
+          if (!item.image) return Promise.resolve("");
 
-        return fetch(
-          "https://api.cloudinary.com/v1_1/realtimeapp/image/upload",
-          {
-            method: "POST",
-            body: data,
-          },
-        )
-          .then((res) => res.json())
-          .then((data) => data.secure_url)
-          .catch(() => "");
-      });
+          const data = new FormData();
+          data.append("file", item.image);
+          data.append("upload_preset", "chat-app");
+          data.append("cloud_name", "realtimeapp");
+
+          return fetch(
+            "https://api.cloudinary.com/v1_1/realtimeapp/image/upload",
+            {
+              method: "POST",
+              body: data,
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => data.secure_url)
+            .catch(() => "");
+        }
+      );
 
       const uploadedImages = await Promise.all(imageUploadPromises);
 
       // Prepare final form data
       const updatedFormData = {
         ...formData,
+
         activityList:
           formData.activityList
             ?.map(
               (m) =>
-                `${m.text}::${m.quantity}::${m.activityDescription}::${m.targetDate}::${m.status}`,
+                `${m.text}::${m.quantity}::${m.activityDescription}::${m.targetDate}::${m.status}`
             )
             .join("||") || "",
+
         plannedWorkList:
           formData.plannedWorkList
             ?.map((m) => `${m.description}: ${m.presentCompletion}`)
             .join(", ") || "",
+
         materialInventoryList:
           formData.materialInventoryList
             ?.map(
               (m) =>
-                `${m.material}::${m.unit}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}::${m.requirement}`,
+                `${m.material}::${m.unit}::${m.openingStock}::${m.issued}::${m.received}::${m.closingStock}::${m.requirement}`
             )
             .join(", ") || "",
+
         materialRequiredList:
           formData.materialRequiredList
             ?.map((m) => `${m.description}: ${m.quantity}`)
             .join(", ") || "",
+
         procurementList:
           formData.procurementList
             ?.map((m) => `${m.description}:${m.vendor}: ${m.status}`)
             .join(", ") || "",
+
         attendance: formData.attendance
           ? Object.entries(formData.attendance)
               .map(([type, count]) => `${type}: ${count}`)
               .join(", ")
           : "",
+
         uploadPictures1: uploadedImages[0] || "",
         uploadPictures2: uploadedImages[1] || "",
         uploadPictures3: uploadedImages[2] || "",
@@ -122,15 +128,17 @@ const EntryDetails = () => {
       await dispatch(entryDetails(updatedFormData));
 
       toast.success("Form Submitted Successfully!");
+
       setTimeout(() => {
         navigate(`/${projectNumber}/viewdetails`);
         window.location.reload();
       }, 5000);
+
     } catch (err) {
       console.error("Dispatch error:", err);
       toast.error("Submission failed. Please try again.");
     } finally {
-      setLoading(false); // stop loading after everything is done
+      setLoading(false);
     }
   };
 
@@ -138,101 +146,83 @@ const EntryDetails = () => {
     navigate(-1);
   };
 
-
   return (
     <Container className="d-flex justify-content-center mt-4 mb-5 background-color-gray">
       <ToastContainer />
-       <Box
-      sx={{
-        width: "100%",
-        maxWidth: "900px",
-        mb: 2,
-      }}
-    >
-        <Box sx={{ mb: 1 }}>
-        <Button
-          onClick={handleGoBack}
-          startIcon={<ArrowBackIcon />}
-          sx={{
-            padding: "8px 16px",
-            color: "#16355d",
-            textTransform: "none",
-            fontWeight: 600,
-            "&:hover": {
-              backgroundColor: "#e9eef5",
-            },
-          }}
-        >
-          Back
-        </Button>
-      </Box>
-      <Card
-        className="p-4 custom-card"
-        style={{ width: "100%", maxWidth: "900px" }}
+
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "900px",
+          mb: 2,
+        }}
       >
-        <EntryStep1
-          formData={formData}
-          setFormData={setFormData}
-          projectNumber={projectNumber}
-        />
-        <EntryStep2 formData={formData} setFormData={setFormData} />
+        <Box sx={{ mb: 1 }}>
+          <Button
+            onClick={handleGoBack}
+            startIcon={<ArrowBackIcon />}
+            sx={{
+              padding: "8px 16px",
+              color: "#16355d",
+              textTransform: "none",
+              fontWeight: 600,
+              "&:hover": {
+                backgroundColor: "#e9eef5",
+              },
+            }}
+          >
+            Back
+          </Button>
+        </Box>
 
-        <Divider
-          className="mt-3 mb-3"
-          style={{
-            height: "2px",
-            backgroundColor: "#000",
-            fontWeight: "bold",
-          }}
-        />
-        <Button sx={{backgroundColor:"#16355d", color:"white"}}
-          variant="success"
-          type="submit"
-          onClick={handleSubmit}
-          disabled={loading}
+        <Card
+          className="p-4 custom-card"
+          style={{ width: "100%", maxWidth: "900px" }}
         >
-          {loading ? "Submitting..." : "Submit"}
-        </Button>
+          {/* Actual form starts here */}
+          <form onSubmit={handleSubmit}>
 
-        {/* Commented for future use  */}
+            <EntryStep1
+              formData={formData}
+              setFormData={setFormData}
+              projectNumber={projectNumber}
+            />
 
-        {/* {step === 1 && (
-          <EntryStep1
-            formData={formData}
-            setFormData={setFormData}
-            projectNumber={projectNumber}
-          />
-        )}
-        {step === 2 && (
-          <EntryStep2 formData={formData} setFormData={setFormData} />
-        )}
+            <EntryStep2
+              formData={formData}
+              setFormData={setFormData}
+            />
 
-        <div className="d-flex justify-content-between mt-3">
-          {step > 1 && <Button onClick={prevStep}>← Previous</Button>}
-          {step < 2 ? (
-            <Button onClick={nextStep}>Next →</Button>
-          ) : (
-            <>
-              <Divider
-                className="mt-3 mb-3"
-                style={{
-                  height: "2px",
-                  backgroundColor: "#000",
-                  fontWeight: "bold",
-                }}
-              />
+            <Divider
+              className="mt-3 mb-3"
+              style={{
+                height: "2px",
+                backgroundColor: "#000",
+                fontWeight: "bold",
+              }}
+            />
+
+            <Box sx={{ textAlign: "center", mt: 2 }}>
               <Button
-                variant="success"
+                sx={{
+                  backgroundColor: "#16355d",
+                  color: "white",
+                  padding: "8px 30px",
+                  "&:hover": {
+                    backgroundColor: "#0d2748",
+                  },
+                }}
+                variant="contained"
                 type="submit"
-                onClick={handleSubmit}
                 disabled={loading}
               >
                 {loading ? "Submitting..." : "Submit"}
               </Button>
-            </>
-          )}
-        </div> */}
-      </Card>
+            </Box>
+
+          </form>
+          {/* Actual form ends here */}
+        </Card>
       </Box>
     </Container>
   );

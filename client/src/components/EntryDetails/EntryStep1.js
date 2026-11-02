@@ -35,7 +35,15 @@ const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
   // ]);
 
   const handleAddActivity = () => {
-    if (inputValue.trim() === "") return;
+    if (
+    !inputValue.trim() ||
+    !inputQuantity.trim() ||
+    !inputDescription.trim() ||
+    !inputTargetDate ||
+    !status
+  ) {
+    return;
+  };
     const newActivity = {
       text: inputValue,
       quantity: inputQuantity,
