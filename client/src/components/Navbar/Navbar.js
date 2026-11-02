@@ -220,7 +220,8 @@ export default function MenuAppBar() {
                           user?.result?.lastName.charAt(0).toUpperCase()}
                       </Avatar>
                     </IconButton>
-                    {/* <Menu
+                    <Menu
+                      style={{ marginTop: "50px" }}
                       id="menu-appbar"
                       anchorEl={anchorEl}
                       anchorOrigin={{
@@ -235,10 +236,10 @@ export default function MenuAppBar() {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My Account</MenuItem>
+                      {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={handleClose}>My Account</MenuItem> */}
                       <MenuItem onClick={switchMode}>Logout</MenuItem>
-                    </Menu> */}
+                    </Menu>
                   </div>
                 )}
               </Toolbar>
