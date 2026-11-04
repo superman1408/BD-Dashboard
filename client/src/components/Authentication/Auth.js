@@ -157,11 +157,13 @@ const Auth = () => {
           display: "flex",
           alignItems: { xs: "flex-start", md: "center" },
           justifyContent: "center",
+          margin: { xs: "0 auto", md: "0 auto" },
           backgroundColor: "#edf1f6",
           p: { xs: 1, sm: 2, md: 4 },
           pb: { xs: 12, md: 4 },
           boxSizing: "border-box",
           fontFamily: "Roboto, sans-serif",
+          marginBottom: { xs: "5px", md: "50px" },
         }}
       >
     
