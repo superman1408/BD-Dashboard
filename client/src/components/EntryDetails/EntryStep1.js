@@ -1,897 +1,1007 @@
-import React, { useState } from "react";
-import {
-  Form,
-  Button,
-  ListGroup,
-  Modal,
-  Row,
-  Col,
-  Table
-} from "react-bootstrap";
-import { Divider, Grid, IconButton } from "@mui/material";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+    Form,
+    Button,
+    ListGroup,
+    Modal,
+    Row,
+    Col,
+    Table,
+    OverlayTrigger,
+    Tooltip,
+} from "react-bootstrap";
+import { Divider } from "@mui/material";
 import "./EntryDetails.css";
 
-const EntryStep1 = ({ formData, setFormData, projectNumber }) => {
-  const [show, setShow] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [inputQuantity, setInputQuantity] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [inputDescription, setInputDescription] = useState("");
-  const [inputTargetDate, setInputTargetDate] = useState("");
-  const [status, setStatus] = useState("");
+// Reusable image preview component.
+// Creates and cleans up object URLs safely.
+const ActivityImage = ({ file, alt, style }) => {
+    const [previewUrl, setPreviewUrl] = useState("");
 
-  const navigate = useNavigate();
+    useEffect(() => {
+        if (!file) {
+            setPreviewUrl("");
+            return;
+        }
 
-  // const [materialInventoryRows, setMaterialInventoryRows] = useState([
-  //   { description: "", openingStock: "", issued: "", closingStock: "" },
-  // ]);
+        // Existing image URL
+        if (typeof file === "string") {
+            setPreviewUrl(file);
+            return;
+        }
 
-  // const [materialRequirementRows, setMaterialRequirementRows] = useState([
-  //   { description: "", quantity: "" },
-  // ]);
+        // Uploaded File object
+        const url = URL.createObjectURL(file);
+        setPreviewUrl(url);
 
-  const handleAddActivity = () => {
-    if (
-    !inputValue.trim() ||
-    !inputQuantity.trim() ||
-    !inputDescription.trim() ||
-    !inputTargetDate ||
-    !status
-  ) {
-    return;
-  };
-    const newActivity = {
-      text: inputValue,
-      quantity: inputQuantity,
-      image: imageFile,
-      activityDescription: inputDescription,
-      targetDate: inputTargetDate,
-      status: status,
-    };
-    const updatedActivities = [...(formData.activityList || []), newActivity];
-    setFormData({ ...formData, activityList: updatedActivities });
-    setInputValue("");
-    setInputQuantity("");
-    setImageFile(null);
-    setInputDescription("");
-    setInputTargetDate("");
-    setStatus("");
-    setShow(false);
-  };
+        return () => {
+            URL.revokeObjectURL(url);
+        };
+    }, [file]);
 
-  const handleRemoveActivity = (index) => {
-    const updatedActivities = formData.activityList.filter(
-      (_, i) => i !== index,
+    if (!previewUrl) return null;
+
+    return (
+        <img
+            src={previewUrl}
+            alt={alt}
+            style={style}
+        />
     );
-    setFormData({ ...formData, activityList: updatedActivities });
-  };
+};
 
-  const handleRowChange = (type, index, field, value) => {
-    let updatedRows;
-    switch (type) {
-      case "materialInventory":
-        updatedRows = [...formData.materialInventoryList];
-        updatedRows[index][field] = value;
+const EntryStep1 = ({
+    formData,
+    setFormData,
+    projectNumber,
+}) => {
+    const [show, setShow] = useState(false);
 
-        const opening = Number(updatedRows[index].openingStock) || 0;
-        const issued = Number(updatedRows[index].issued) || 0;
-        const received = Number(updatedRows[index].received) || 0;
+    // Activity form states
+    const [inputValue, setInputValue] = useState("");
+    const [inputQuantity, setInputQuantity] = useState("");
+    const [imageFile, setImageFile] = useState(null);
+    const [inputDescription, setInputDescription] = useState("");
+    const [inputTargetDate, setInputTargetDate] = useState("");
+    const [status, setStatus] = useState("");
 
-        const closingStock = opening - issued + received;
+    // Safe default arrays
+    const activityList = formData.activityList || [];
+    const materialInventoryList =
+        formData.materialInventoryList || [];
 
-        updatedRows[index].closingStock = Math.max(closingStock, 0);
+    // ----------------------------------------
+    // 1. ACTIVITY VALIDATION
+    // ----------------------------------------
 
-        setFormData({ ...formData, materialInventoryList: updatedRows });
-        break;
-
-      case "materialRequirement":
-        updatedRows = [...formData.materialRequiredList];
-        updatedRows[index][field] = value;
-        setFormData({ ...formData, materialRequiredList: updatedRows });
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const isMaterialInventoryValid = () => {
-    return (formData.materialInventoryList || []).every((row) => {
-      const opening = Number(row.openingStock) || 0;
-      const issued = Number(row.issued) || 0;
-
-      return row.openingStock !== "" && row.issued !== "" && issued <= opening;
-    });
-  };
-
-  const handleAddRow = (type) => {
-    switch (type) {
-      case "materialInventory": {
-        const updatedRows = [
-          ...(formData.materialInventoryList || []),
-          {
-            material: 0,
-            unit: "",
-            openingStock: 0,
-            issued: 0,
-            received: 0,
-            closingStock: 0,
-            requirement: 0,
-          },
-        ];
-        setFormData({
-          ...formData,
-          materialInventoryList: updatedRows,
-        });
-        break;
-      }
-
-      case "materialRequirement": {
-        const updatedRows = [
-          ...(formData.materialRequiredList || []),
-          { description: "", quantity: "" },
-        ];
-        setFormData({
-          ...formData,
-          materialRequiredList: updatedRows,
-        });
-        break;
-      }
-
-      default:
-        break;
-    }
-  };
-
-  const handleRemoveRow = (type, index) => {
-    let updatedRows;
-    switch (type) {
-      case "materialInventory":
-        updatedRows = formData.materialInventoryList.filter(
-          (_, i) => i !== index,
+    const isActivityValid = () => {
+        return (
+            inputValue.trim() !== "" &&
+            inputQuantity.trim() !== "" &&
+            inputDescription.trim() !== "" &&
+            inputTargetDate !== "" &&
+            status !== ""
         );
+    };
+
+    // ----------------------------------------
+    // 2. ADD ACTIVITY
+    // ----------------------------------------
+
+    const handleAddActivity = () => {
+        if (!isActivityValid()) {
+            return;
+        }
+
+        const newActivity = {
+            text: inputValue.trim(),
+            quantity: inputQuantity.trim(),
+            image: imageFile,
+            activityDescription: inputDescription.trim(),
+            targetDate: inputTargetDate,
+            status: status,
+        };
+
         setFormData((prev) => ({
-          ...prev,
-          materialInventoryList: updatedRows,
+            ...prev,
+            activityList: [
+                ...(prev.activityList || []),
+                newActivity,
+            ],
         }));
-        break;
 
-      case "materialRequirement":
-        updatedRows = formData.materialRequiredList.filter(
-          (_, i) => i !== index,
+        // Reset activity inputs
+        setInputValue("");
+        setInputQuantity("");
+        setImageFile(null);
+        setInputDescription("");
+        setInputTargetDate("");
+        setStatus("");
+
+        setShow(false);
+    };
+
+    // ----------------------------------------
+    // 3. REMOVE ACTIVITY
+    // ----------------------------------------
+
+    const handleRemoveActivity = (index) => {
+        setFormData((prev) => ({
+            ...prev,
+            activityList: (prev.activityList || []).filter(
+                (_, i) => i !== index
+            ),
+        }));
+    };
+
+    // ----------------------------------------
+    // 4. UPDATE ACTIVITY FIELDS
+    // ----------------------------------------
+
+    const handleActivityChange = (index, field, value) => {
+        setFormData((prev) => {
+            const updatedActivities = [
+                ...(prev.activityList || []),
+            ];
+
+            updatedActivities[index] = {
+                ...updatedActivities[index],
+                [field]: value,
+            };
+
+            return {
+                ...prev,
+                activityList: updatedActivities,
+            };
+        });
+    };
+
+    // ----------------------------------------
+    // 5. MATERIAL INVENTORY VALIDATION
+    // ----------------------------------------
+
+    const isNonNegativeNumber = (value) => {
+        return (
+            value !== "" &&
+            value !== null &&
+            value !== undefined &&
+            Number.isFinite(Number(value)) &&
+            Number(value) >= 0
         );
-        setFormData((prev) => ({ ...prev, materialRequiredList: updatedRows }));
-        break;
+    };
 
-      default:
-        break;
-    }
-  };
+    const isMaterialInventoryValid = () => {
+        return materialInventoryList.every((row) => {
+            const opening = row.openingStock;
+            const issued = row.issued;
 
- 
-  const materialOptions = [
-    { label: "Cement (Bags)" },
-    { label: "Sand (CFT)" },
-    { label: "Aggregate (CFT)" },
-    { label: "Rod (Kg)" },
-    { label: "Bricks (Nos.)" },
-    { label: "Binding Wire (Kg)" },
-    { label: "Nails (Kg)" },
-    { label: "Cover Block (Packets)" },
-    { label: "Wood Cutting Blade (Nos.)" },
-    { label: "Rod Cutting Blade (Nos.)" },
-    { label: "Others" },
-  ];
+            // Both fields must contain valid values
+            if (
+                !isNonNegativeNumber(opening) ||
+                !isNonNegativeNumber(issued)
+            ) {
+                return false;
+            }
 
-  const unitOptions = [
-    { label: "Bag" },
-    { label: "CFT" },
-    { label: "Ton" },
-    { label: "Kg" },
-    { label: "Nos." },
-    { label: "Bundle" },
-    { label: "Packet" },
-    { label: "sq.ft" },
-    { label: "Others" },
-  ];
+            // Issued quantity cannot exceed opening stock
+            return Number(issued) <= Number(opening);
+        });
+    };
 
-  const isIssuedMoreThanOpening = (row) => {
-    const opening = Number(row.openingStock) || 0;
-    const issued = Number(row.issued) || 0;
-    return issued > opening;
-  };
+    // ----------------------------------------
+    // 6. CHECK ISSUED STOCK
+    // ----------------------------------------
 
-  return (
-    <>
-          
-          <h1 className="text-2xl font-bold text-center py-2 border-b-2 border-darkblue-500 mb-10"
-              style={{ color: "#16355d", fontWeight: 700, fontSize: { xs: "18px", sm: "22px" }, }}>
-              Detail Input Form
-          </h1>
+    const isIssuedMoreThanOpening = (row) => {
+        if (
+            !isNonNegativeNumber(row.openingStock) ||
+            !isNonNegativeNumber(row.issued)
+        ) {
+            return false;
+        }
 
-      <Form.Group controlId="formProjectName" className="mb-3">
-        <Form.Label>
-          <strong>Project Number :</strong> {projectNumber}
-        </Form.Label>
-      </Form.Group>
+        return Number(row.issued) > Number(row.openingStock);
+    };
 
-      <Row>
-        <Col md={6} className="mb-3">
-          <Form.Group controlId="formDate">
-            <Form.Label>Date</Form.Label>
-            <Form.Control
-              type="date"
-              value={formData.date || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, date: e.target.value })
-              }
-              required
-            />
-          </Form.Group>
-        </Col>
-      </Row>
+    // ----------------------------------------
+    // 7. UPDATE INVENTORY ROW
+    // ----------------------------------------
 
-      <Divider
-        className="my-3"
-        style={{ height: "2px", backgroundColor: "#000" }}
-      />
+    const handleRowChange = (
+        type,
+        index,
+        field,
+        value
+    ) => {
+        setFormData((prev) => {
+            const updatedRows = [
+                ...(prev.materialInventoryList || []),
+            ];
 
-      <h4 className="fw-bold my-3" style={{color:"#16355d"}}>Activities</h4>
+            if (!updatedRows[index]) {
+                return prev;
+            }
 
-      <Form.Group className="mb-3">
-        <Form.Label>Civil & Structure (Max 5)</Form.Label>
-        <Button
-          onClick={() => setShow(true)}
-          disabled={(formData.activityList?.length || 0) >= 5}
-          className="ms-2"
-          style={{backgroundColor:"#16355d"}}
+            // Update only the selected row
+            updatedRows[index] = {
+                ...updatedRows[index],
+                [field]: value,
+            };
 
-        >
-          + Add Activity
-        </Button>
+            const row = updatedRows[index];
 
-        <ListGroup className="mt-2">
-          {(formData.activityList || []).map((item, index) => (
-            <ListGroup.Item
-              key={index}
-              className="d-flex align-items-center justify-content-between"
+            // Calculate closing stock
+            const opening = Number(row.openingStock) || 0;
+            const issued = Number(row.issued) || 0;
+            const received = Number(row.received) || 0;
+
+            row.closingStock = Math.max(
+                opening - issued + received,
+                0
+            );
+
+            return {
+                ...prev,
+                materialInventoryList: updatedRows,
+            };
+        });
+    };
+
+    // ----------------------------------------
+    // 8. ADD INVENTORY ROW
+    // ----------------------------------------
+
+    const handleAddRow = () => {
+        // Do not add another row if existing rows
+        // contain invalid opening or issued quantities.
+        if (!isMaterialInventoryValid()) {
+            return;
+        }
+
+        setFormData((prev) => ({
+            ...prev,
+            materialInventoryList: [
+                ...(prev.materialInventoryList || []),
+                {
+                    material: "",
+                    unit: "",
+                    openingStock: "",
+                    issued: "",
+                    received: "",
+                    closingStock: 0,
+                    requirement: "",
+                },
+            ],
+        }));
+    };
+
+    // ----------------------------------------
+    // 9. REMOVE INVENTORY ROW
+    // ----------------------------------------
+
+    const handleRemoveRow = (index) => {
+        setFormData((prev) => ({
+            ...prev,
+            materialInventoryList: (
+                prev.materialInventoryList || []
+            ).filter((_, i) => i !== index),
+        }));
+    };
+
+    // ----------------------------------------
+    // 10. UNIT OPTIONS
+    // ----------------------------------------
+
+    const unitOptions = [
+        "Bag",
+        "CFT",
+        "Ton",
+        "Kg",
+        "Nos.",
+        "Bundle",
+        "Packet",
+        "sq.ft",
+        "Others",
+    ];
+
+    // ----------------------------------------
+    // 11. RENDER COMPONENT
+    // ----------------------------------------
+
+    return (
+        <>
+            <h1
+                className="text-2xl font-bold text-center py-2 border-b-2 border-darkblue-500 mb-10"
+                style={{
+                    color: "#16355d",
+                    fontWeight: 700,
+                    fontSize: "22px",
+                }}
             >
-              <div className="d-flex align-items-center gap-3 justify-space-evenly">
-                <strong>{index + 1}.</strong>
-                {item.image && (
-                  <img
-                    src={URL.createObjectURL(item.image)}
-                    alt={`Uploaded ${index}`}
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                      objectFit: "cover",
-                      borderRadius: "4px",
-                    }}
-                  />
-                )}
-                {/* <label>{item.text}</label> */}
+                Detail Input Form
+            </h1>
 
-                <input
-                  type="text"
-                  value={item.text}
-                  onChange={(e) => {
-                    const newList = [...formData.activityList];
-                    newList[index].text = e.target.value;
-                    setFormData({ ...formData, activityList: newList });
-                  }}
-                  style={{
-                    width: "100%",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    padding: "2px 6px",
-                    fontSize: "0.85rem",
-                  }}
-                />
+            {/* PROJECT NUMBER */}
 
-                <input
-                  type="text"
-                  value={item.quantity}
-                  onChange={(e) => {
-                    const newList = [...formData.activityList];
-                    newList[index].quantity = e.target.value;
-                    setFormData({ ...formData, activityList: newList });
-                  }}
-                  style={{
-                    width: "100%",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    padding: "2px 6px",
-                    fontSize: "0.85rem",
-                  }}
-                />
-
-                <input
-                  type="text"
-                  value={item.activityDescription}
-                  onChange={(e) => {
-                    const newList = [...formData.activityList];
-                    newList[index].activityDescription = e.target.value;
-                    setFormData({ ...formData, activityList: newList });
-                  }}
-                  style={{
-                    width: "100%",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    padding: "2px 6px",
-                    fontSize: "0.85rem",
-                  }}
-                />
-
-                <input
-                  type="date"
-                  value={item.targetDate || ""}
-                  onChange={(e) => {
-                    const newList = [...formData.activityList];
-                    newList[index].targetDate = e.target.value;
-                    // newList[index] = {
-                    //   ...newList[index],
-                    //   targetdate: e.target.value,
-                    // };
-
-                    setFormData({
-                      ...formData,
-                      activityList: newList,
-                    });
-                  }}
-                  style={{
-                    width: "100%",
-                    minWidth: 0,
-                    boxSizing: "border-box",
-                    padding: "2px 6px",
-                    fontSize: "0.85rem",
-                  }}
-                />
-
-                <label
-                  style={{
-                    backgroundColor:
-                      item.status === "In Progress"
-                        ? "orange"
-                        : item.status === "Completed"
-                          ? "green"
-                          : "transparent",
-                    color: item.status ? "white" : "black",
-                    padding: "2px 8px",
-                    borderRadius: "4px",
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  {item.status}
-                </label>
-              </div>
-
-              <Button
-                variant="danger"
-                onClick={() => handleRemoveActivity(index)}
-                size="sm"
-              >
-                ✖
-              </Button>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-
-        <Modal
-          show={show}
-          style={{ marginTop: "30px" }}
-          onHide={() => setShow(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Activity</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Control
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Enter details"
-              required
-            />
-            <Form.Control
-              type="text"
-              value={inputQuantity}
-              onChange={(e) => setInputQuantity(e.target.value)}
-              placeholder="Enter quantity"
-              style={{ backgroundColor: "#fff", color: "#212529" }}
-              className="mt-2"
-              required
-            />
-
-            <Form.Control
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
-              className="mt-2"
-              required
-            />
-            {imageFile && (
-              <img
-                src={URL.createObjectURL(imageFile)}
-                alt="Preview"
-                style={{ width: "100px", marginTop: "10px" }}
-              />
-            )}
-            <Form.Control
-              as="textarea"
-              value={inputDescription}
-              onChange={(e) => setInputDescription(e.target.value)}
-              placeholder="Enter description"
-              className="mt-2"
-              required
-            />
-
-            <Form.Group controlId="formTargetDate" className="mt-2">
-              <Row className="align-items-center gx-1">
-                <Col xs="auto">
-                  <Form.Label className="target-date-label mb-0">
-                    Target Date
-                  </Form.Label>
-                </Col>
-
-                <Col>
-                  <Form.Control
-                    type="date"
-                    className="target-date-input"
-                    value={inputTargetDate}
-                    onChange={(e) => setInputTargetDate(e.target.value)}
-                    required
-                  />
-                </Col>
-              </Row>
+            <Form.Group controlId="formProjectName" className="mb-3">
+                <Form.Label>
+                    <strong>Project Number :</strong> {projectNumber}
+                </Form.Label>
             </Form.Group>
 
-            <Form.Control
-              as="select"
-              value={status}
-              onChange={(e) => {
-                setStatus(e.target.value);
-              }}
-              className="mt-2"
-            >
-              <option value="">Select Status</option>
-              {/* <option value="Pending">Pending</option> */}
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </Form.Control>
-          </Modal.Body>
-          <Modal.Footer className="w-100 d-flex justify-content-between">
-            <Button onClick={() => setShow(false)} variant="secondary">
-              Close
-            </Button>
-            {/* <Button onClick={handleAddActivity} variant="primary">
-              Add
-            </Button> */}
-            <Button
-              onClick={handleAddActivity}
-              variant="primary"
-              disabled={
-                !inputValue.trim() ||
-                !inputQuantity.trim() ||
-                // !imageFile ||
-                !inputDescription.trim() ||
-                !inputTargetDate ||
-                !status
-              }
-            >
-              Add
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Form.Group>
+            {/* DATE */}
 
-      <Form.Group controlId="formMaterialInventory" className="mb-3">
-        <Form.Label>Material Inventory</Form.Label>
-        <div className="d-none d-md-block">
-          <Table bordered hover className="align-middle">
-            <thead>
-              <tr>
-                <th>Material Description</th>
-                <th style={{ width: "120px" }}>Unit</th>
-                <th style={{ width: "120px" }}>Opening Stock</th>
-                <th style={{ width: "120px" }}>Issued</th>
-                <th style={{ width: "120px" }}>Received</th>
-                <th style={{ width: "120px" }}>Requirement</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(formData.materialInventoryList || []).map((row, index) => (
-                <tr key={index}>
-                  {/* <td>
-                    <Form.Control type="text" value={index + 1} readOnly />
-                  </td> */}
-                  <td>
-                    <Form.Control
-                      type="text"
-                      value={row.materialInventory}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "materialInventory",
-                          index,
-                          "material",
-                          e.target.value,
-                        )
-                      }
-                    />
+            <Row>
+                <Col md={6} className="mb-3">
+                    <Form.Group controlId="formDate">
+                        <Form.Label>Date</Form.Label>
 
-                    {/* <Form.Select
-                      size="sm"
-                      value={row.material}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "materialInventory",
-                          index,
-                          "material",
-                          e.target.value
-                        )
-                      }
-                    >
-                      <option value="">Select Material</option>
-                      {materialOptions.map((m, i) => (
-                        <option key={i} value={m.label}>
-                          {m.label}
-                        </option>
-                      ))}
-                    </Form.Select> */}
-                  </td>
+                        <Form.Control
+                            type="date"
+                            value={formData.date || ""}
+                            onChange={(e) =>
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    date: e.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
 
-                  <td>
-                    <Form.Select
-                      size="sm"
-                      value={row.unit}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "materialInventory",
-                          index,
-                          "unit",
-                          e.target.value,
-                        )
-                      }
-                    >
-                      <option value="">Select Unit</option>
-                      {unitOptions.map((m, i) => (
-                        <option key={i} value={m.label}>
-                          {m.label}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </td>
+            <Divider
+                className="my-3"
+                style={{
+                    height: "2px",
+                    backgroundColor: "#000",
+                }}
+            />
 
-                  <td>
-                    <Form.Control
-                      type="number"
-                      value={row.openingStock}
-                      required
-                      min="0"
-                      onChange={(e) =>
-                        handleRowChange(
-                          "materialInventory",
-                          index,
-                          "openingStock",
-                          e.target.value,
-                        )
-                      }
-                    />
-                  </td>
-                  <td>
-                    <OverlayTrigger
-                      placement="top"
-                      overlay={
-                        isIssuedMoreThanOpening(row) ? (
-                          <Tooltip id={`tooltip-issued-${index}`}>
-                            Material Issued cannot be more than Opening Stock
-                          </Tooltip>
-                        ) : (
-                          <></>
-                        )
-                      }
-                    >
-                      <Form.Control
-                        type="number"
-                        value={row.issued}
-                        min="0"
-                        style={{
-                          borderColor: isIssuedMoreThanOpening(row)
-                            ? "#dc3545"
-                            : "",
-                          backgroundColor: isIssuedMoreThanOpening(row)
-                            ? "#fdecea"
-                            : "",
-                        }}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "issued",
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </OverlayTrigger>
-                  </td>
-                  <td>
-                    <Form.Control
-                      type="number"
-                      value={row.received}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "materialInventory",
-                          index,
-                          "received",
-                          e.target.value,
-                        )
-                      }
-                    />
-                  </td>
-                  <td>
-                    <Form.Control
-                      type="number"
-                      value={row.requirement}
-                      onChange={(e) =>
-                        handleRowChange(
-                          "materialInventory",
-                          index,
-                          "requirement",
-                          e.target.value,
-                        )
-                      }
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      onClick={() =>
-                        handleRemoveRow("materialInventory", index)
-                      }
-                      size="sm"
-                    >
-                      ✖
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
+            {/* =====================================
+          ACTIVITIES
+      ===================================== */}
 
-        <div className="d-block d-md-none">
-          {(formData.materialInventoryList || []).map((row, index) => (
-            <div key={index} className="mb-3 border rounded p-2">
-              {/* TABLE 1: Material + Opening */}
-              <Table bordered size="sm" className="mb-2">
-                <tbody>
-                  <tr>
-                    <th style={{ width: "40%" }}>Material</th>
+            <h4 className="fw-bold my-3" style={{ color: "#16355d" }}>
+                Activities
+            </h4>
 
-                    <td>
-                      <Form.Control
-                        type="text"
-                        value={row.materialInventory}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "material",
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
+            <Form.Group className="mb-3">
+                <Form.Label>Civil & Structure (Max 5)</Form.Label>
 
-                  <tr>
-                    <th>Unit</th>
+                <Button
+                    type="button"
+                    onClick={() => setShow(true)}
+                    disabled={activityList.length >= 5}
+                    className="ms-2"
+                    style={{ backgroundColor: "#16355d" }}
+                >
+                    + Add Activity
+                </Button>
 
-                    <td>
-                      <Form.Select
-                        size="sm"
-                        value={row.unit}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "unit",
-                            e.target.value,
-                          )
-                        }
-                      >
-                        <option value="">Select Unit</option>
-                        {unitOptions.map((m, i) => (
-                          <option key={i} value={m.label}>
-                            {m.label}
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </td>
-                  </tr>
+                {/* ACTIVITY LIST */}
 
-                  <tr>
-                    <th>Opening Stock</th>
-                    <td>
-                      <Form.Control
-                        size="sm"
-                        type="number"
-                        value={row.openingStock}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "openingStock",
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
+                <ListGroup className="mt-2">
+                    {activityList.map((item, index) => (
+                        <ListGroup.Item
+                            key={index}
+                            className="d-flex align-items-center justify-content-between"
+                        >
+                            <div className="d-flex align-items-center gap-3 justify-content-evenly flex-wrap w-100">
 
-                  <tr>
-                    <th style={{ width: "40%" }}>Issued</th>
-                    <td>
-                      <Form.Control
-                        size="sm"
-                        type="number"
-                        value={row.issued}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "issued",
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
+                                <strong>{index + 1}.</strong>
 
-                  <tr>
-                    <th>Received</th>
-                    <td>
-                      <Form.Control
-                        size="sm"
-                        type="number"
-                        value={row.received}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "received",
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
+                                {item.image && (
+                                    <ActivityImage
+                                        file={item.image}
+                                        alt={`Uploaded ${index}`}
+                                        style={{
+                                            width: "60px",
+                                            height: "60px",
+                                            objectFit: "cover",
+                                            borderRadius: "4px",
+                                        }}
+                                    />
+                                )}
 
-                  <tr>
-                    <th>Requirement</th>
-                    <td>
-                      <Form.Control
-                        size="sm"
-                        type="number"
-                        value={row.requirement}
-                        onChange={(e) =>
-                          handleRowChange(
-                            "materialInventory",
-                            index,
-                            "requirement",
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
+                                <input
+                                    type="text"
+                                    value={item.text || ""}
+                                    onChange={(e) =>
+                                        handleActivityChange(
+                                            index,
+                                            "text",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Activity"
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "150px",
+                                        padding: "2px 6px",
+                                        fontSize: "0.85rem",
+                                    }}
+                                />
 
-                  <tr>
-                    <td colSpan={2} className="text-end">
-                      <Button
-                        size="sm"
-                        variant="danger"
-                        onClick={() =>
-                          handleRemoveRow("materialInventory", index)
-                        }
-                      >
-                        Remove
-                      </Button>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            </div>
-          ))}
-        </div>
+                                <input
+                                    type="text"
+                                    value={item.quantity || ""}
+                                    onChange={(e) =>
+                                        handleActivityChange(
+                                            index,
+                                            "quantity",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Quantity"
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "100px",
+                                        padding: "2px 6px",
+                                        fontSize: "0.85rem",
+                                    }}
+                                />
 
-        <Button
-          variant="primary"
-          onClick={() => handleAddRow("materialInventory")}
-          disabled={!isMaterialInventoryValid()}
-          style={{backgroundColor:"#16355d"}}
-        >
-          + Add Row
-        </Button>
-      </Form.Group>
+                                <input
+                                    type="text"
+                                    value={item.activityDescription || ""}
+                                    onChange={(e) =>
+                                        handleActivityChange(
+                                            index,
+                                            "activityDescription",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Description"
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "150px",
+                                        padding: "2px 6px",
+                                        fontSize: "0.85rem",
+                                    }}
+                                />
 
-      {/* <Form.Group controlId="formMaterialRequirement" className="mb-3">
-        <Form.Label>Material Requirement</Form.Label>
-        <Table bordered hover>
-          <thead>
-            <tr>
-              <th style={{ width: "80px" }}>S.No</th>
-              <th>Material Description</th>
-              <th>Quantity</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(formData.materialRequiredList || []).map((row, index) => (
-              <tr key={index}>
-                <td>
-                  <Form.Control type="text" value={index + 1} readOnly />
-                </td>
-                <td>
-                  <Form.Control
-                    type="text"
-                    value={row.description}
-                    onChange={(e) =>
-                      handleRowChange(
-                        "materialRequirement",
-                        index,
-                        "description",
-                        e.target.value
-                      )
-                    }
-                  />
-                </td>
-                <td>
-                  <Form.Control
-                    type="text"
-                    value={row.quantity}
-                    onChange={(e) =>
-                      handleRowChange(
-                        "materialRequirement",
-                        index,
-                        "quantity",
-                        e.target.value
-                      )
-                    }
-                  />
-                </td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={() =>
-                      handleRemoveRow("materialRequirement", index)
-                    }
-                    size="sm"
-                  >
-                    ✖
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Button
-          variant="primary"
-          onClick={() => handleAddRow("materialRequirement")}
-        >
-          + Add Row
-        </Button>
-      </Form.Group> */}
-    </>
-  );
+                                <input
+                                    type="date"
+                                    value={item.targetDate || ""}
+                                    onChange={(e) =>
+                                        handleActivityChange(
+                                            index,
+                                            "targetDate",
+                                            e.target.value
+                                        )
+                                    }
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "150px",
+                                        padding: "2px 6px",
+                                        fontSize: "0.85rem",
+                                    }}
+                                />
+
+                                <label
+                                    style={{
+                                        backgroundColor:
+                                            item.status === "In Progress"
+                                                ? "orange"
+                                                : item.status === "Completed"
+                                                    ? "green"
+                                                    : "transparent",
+                                        color: item.status ? "white" : "black",
+                                        padding: "2px 8px",
+                                        borderRadius: "4px",
+                                        fontSize: "0.85rem",
+                                    }}
+                                >
+                                    {item.status}
+                                </label>
+                            </div>
+
+                            <Button
+                                type="button"
+                                variant="danger"
+                                onClick={() => handleRemoveActivity(index)}
+                                size="sm"
+                            >
+                                ✖
+                            </Button>
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+
+                {/* ADD ACTIVITY MODAL */}
+
+                <Modal
+                    show={show}
+                    style={{ marginTop: "30px" }}
+                    onHide={() => setShow(false)}
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add Activity</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <Form.Control
+                            type="text"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            placeholder="Enter details"
+                        />
+
+                        <Form.Control
+                            type="text"
+                            value={inputQuantity}
+                            onChange={(e) =>
+                                setInputQuantity(e.target.value)
+                            }
+                            placeholder="Enter quantity"
+                            style={{
+                                backgroundColor: "#fff",
+                                color: "#212529",
+                            }}
+                            className="mt-2"
+                        />
+
+                        {/* Image is optional */}
+
+                        <Form.Control
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                                setImageFile(e.target.files?.[0] || null)
+                            }
+                            className="mt-2"
+                        />
+
+                        {imageFile && (
+                            <ActivityImage
+                                file={imageFile}
+                                alt="Activity preview"
+                                style={{
+                                    width: "100px",
+                                    marginTop: "10px",
+                                }}
+                            />
+                        )}
+
+                        <Form.Control
+                            as="textarea"
+                            value={inputDescription}
+                            onChange={(e) =>
+                                setInputDescription(e.target.value)
+                            }
+                            placeholder="Enter description"
+                            className="mt-2"
+                        />
+
+                        <Form.Group controlId="formTargetDate" className="mt-2">
+                            <Row className="align-items-center gx-1">
+                                <Col xs="auto">
+                                    <Form.Label className="target-date-label mb-0">
+                                        Target Date
+                                    </Form.Label>
+                                </Col>
+
+                                <Col>
+                                    <Form.Control
+                                        type="date"
+                                        className="target-date-input"
+                                        value={inputTargetDate}
+                                        onChange={(e) =>
+                                            setInputTargetDate(e.target.value)
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                        </Form.Group>
+
+                        <Form.Control
+                            as="select"
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                            className="mt-2"
+                        >
+                            <option value="">Select Status</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </Form.Control>
+                    </Modal.Body>
+
+                    <Modal.Footer className="w-100 d-flex justify-content-between">
+                        <Button
+                            type="button"
+                            onClick={() => setShow(false)}
+                            variant="secondary"
+                        >
+                            Close
+                        </Button>
+
+                        <Button
+                            type="button"
+                            onClick={handleAddActivity}
+                            variant="primary"
+                            disabled={!isActivityValid()}
+                        >
+                            Add
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </Form.Group>
+
+            {/* =====================================
+          MATERIAL INVENTORY
+      ===================================== */}
+
+            <Form.Group controlId="formMaterialInventory" className="mb-3">
+
+                <Form.Label>Material Inventory</Form.Label>
+
+                {/* DESKTOP VIEW */}
+
+                <div className="d-none d-md-block">
+                    <Table bordered hover className="align-middle">
+                        <thead>
+                            <tr>
+                                <th>Material Description</th>
+                                <th style={{ width: "120px" }}>Unit</th>
+                                <th style={{ width: "120px" }}>Opening Stock</th>
+                                <th style={{ width: "120px" }}>Issued</th>
+                                <th style={{ width: "120px" }}>Received</th>
+                                <th style={{ width: "120px" }}>Requirement</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {materialInventoryList.map((row, index) => (
+                                <tr key={index}>
+                                    {/* MATERIAL */}
+
+                                    <td>
+                                        <Form.Control
+                                            type="text"
+                                            value={row.material ?? ""}
+                                            onChange={(e) =>
+                                                handleRowChange(
+                                                    "materialInventory",
+                                                    index,
+                                                    "material",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </td>
+
+                                    {/* UNIT */}
+
+                                    <td>
+                                        <Form.Select
+                                            size="sm"
+                                            value={row.unit ?? ""}
+                                            onChange={(e) =>
+                                                handleRowChange(
+                                                    "materialInventory",
+                                                    index,
+                                                    "unit",
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="">Select Unit</option>
+
+                                            {unitOptions.map((unit, i) => (
+                                                <option key={i} value={unit}>
+                                                    {unit}
+                                                </option>
+                                            ))}
+                                        </Form.Select>
+                                    </td>
+
+                                    {/* OPENING STOCK */}
+
+                                    <td>
+                                        <Form.Control
+                                            type="number"
+                                            value={row.openingStock ?? ""}
+                                            min="0"
+                                            onChange={(e) =>
+                                                handleRowChange(
+                                                    "materialInventory",
+                                                    index,
+                                                    "openingStock",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </td>
+
+                                    {/* ISSUED */}
+
+                                    <td>
+                                        <OverlayTrigger
+                                            placement="top"
+                                            overlay={
+                                                isIssuedMoreThanOpening(row) ? (
+                                                    <Tooltip id={`tooltip-issued-${index}`}>
+                                                        Material Issued cannot be more than Opening Stock
+                                                    </Tooltip>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                        >
+                                            <Form.Control
+                                                type="number"
+                                                value={row.issued ?? ""}
+                                                min="0"
+                                                isInvalid={isIssuedMoreThanOpening(row)}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "issued",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </OverlayTrigger>
+                                    </td>
+
+                                    {/* RECEIVED */}
+
+                                    <td>
+                                        <Form.Control
+                                            type="number"
+                                            value={row.received ?? ""}
+                                            min="0"
+                                            onChange={(e) =>
+                                                handleRowChange(
+                                                    "materialInventory",
+                                                    index,
+                                                    "received",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </td>
+
+                                    {/* REQUIREMENT */}
+
+                                    <td>
+                                        <Form.Control
+                                            type="number"
+                                            value={row.requirement ?? ""}
+                                            min="0"
+                                            onChange={(e) =>
+                                                handleRowChange(
+                                                    "materialInventory",
+                                                    index,
+                                                    "requirement",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </td>
+
+                                    {/* REMOVE */}
+
+                                    <td>
+                                        <Button
+                                            type="button"
+                                            variant="danger"
+                                            onClick={() => handleRemoveRow(index)}
+                                            size="sm"
+                                        >
+                                            ✖
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
+
+                {/* MOBILE VIEW */}
+
+                <div className="d-block d-md-none">
+                    {materialInventoryList.map((row, index) => (
+                        <div
+                            key={index}
+                            className="mb-3 border rounded p-2"
+                        >
+                            <Table bordered size="sm" className="mb-2">
+                                <tbody>
+
+                                    {/* MATERIAL */}
+
+                                    <tr>
+                                        <th style={{ width: "40%" }}>Material</th>
+                                        <td>
+                                            <Form.Control
+                                                type="text"
+                                                value={row.material ?? ""}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "material",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+
+                                    {/* UNIT */}
+
+                                    <tr>
+                                        <th>Unit</th>
+                                        <td>
+                                            <Form.Select
+                                                size="sm"
+                                                value={row.unit ?? ""}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "unit",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option value="">Select Unit</option>
+
+                                                {unitOptions.map((unit, i) => (
+                                                    <option key={i} value={unit}>
+                                                        {unit}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                        </td>
+                                    </tr>
+
+                                    {/* OPENING STOCK */}
+
+                                    <tr>
+                                        <th>Opening Stock</th>
+                                        <td>
+                                            <Form.Control
+                                                size="sm"
+                                                type="number"
+                                                min="0"
+                                                value={row.openingStock ?? ""}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "openingStock",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+
+                                    {/* ISSUED */}
+
+                                    <tr>
+                                        <th>Issued</th>
+                                        <td>
+                                            <Form.Control
+                                                size="sm"
+                                                type="number"
+                                                min="0"
+                                                value={row.issued ?? ""}
+                                                isInvalid={isIssuedMoreThanOpening(row)}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "issued",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                            {isIssuedMoreThanOpening(row) && (
+                                                <Form.Text className="text-danger">
+                                                    Issued cannot exceed Opening Stock.
+                                                </Form.Text>
+                                            )}
+                                        </td>
+                                    </tr>
+
+                                    {/* RECEIVED */}
+
+                                    <tr>
+                                        <th>Received</th>
+                                        <td>
+                                            <Form.Control
+                                                size="sm"
+                                                type="number"
+                                                min="0"
+                                                value={row.received ?? ""}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "received",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+
+                                    {/* REQUIREMENT */}
+
+                                    <tr>
+                                        <th>Requirement</th>
+                                        <td>
+                                            <Form.Control
+                                                size="sm"
+                                                type="number"
+                                                min="0"
+                                                value={row.requirement ?? ""}
+                                                onChange={(e) =>
+                                                    handleRowChange(
+                                                        "materialInventory",
+                                                        index,
+                                                        "requirement",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+
+                                    {/* REMOVE */}
+
+                                    <tr>
+                                        <td colSpan={2} className="text-end">
+                                            <Button
+                                                type="button"
+                                                size="sm"
+                                                variant="danger"
+                                                onClick={() => handleRemoveRow(index)}
+                                            >
+                                                Remove
+                                            </Button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </Table>
+                        </div>
+                    ))}
+                </div>
+
+                {/* ADD INVENTORY ROW */}
+
+                <Button
+                    type="button"
+                    variant="primary"
+                    onClick={handleAddRow}
+                    disabled={!isMaterialInventoryValid()}
+                    style={{ backgroundColor: "#16355d" }}
+                >
+                    + Add Row
+                </Button>
+
+                {!isMaterialInventoryValid() &&
+                    materialInventoryList.length > 0 && (
+                        <div className="text-danger mt-2">
+                            Please enter valid Opening Stock and Issued
+                            quantities. Issued cannot exceed Opening Stock.
+                        </div>
+                    )}
+
+            </Form.Group>
+        </>
+    );
 };
 
 export default EntryStep1;
