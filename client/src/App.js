@@ -134,7 +134,7 @@ const App = () => {
           <Route path="/procurement" exact element={<Procurement />} />
         </Routes>
 
-        <Fab
+        {/* <Fab
           // onClick={fireCrackers}
           sx={{
             position: "fixed",
@@ -159,7 +159,7 @@ const App = () => {
               objectFit: "cover",
             }}
           />
-        </Fab>
+        </Fab> */}
       </div>
 
       <div className="wave"></div>
